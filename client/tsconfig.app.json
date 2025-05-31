@@ -21,7 +21,20 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@pages": ["src/pages"],
+      "@components": ["src/components"],
+      "@modules": ["src/modules"],
+      "@ui": ["src/ui"],
+      "@images/*": ["src/assets/images/*"],
+      "@api": ["src/shared/api/api.ts"],
+      "@hooks/*": ["src/shared/hooks/*"],
+      "@types/*": ["src/shared/types/*"],
+      "@shared": ["src/shared"]
+    }
   },
   "include": ["src"]
 }
