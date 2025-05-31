@@ -1,0 +1,12 @@
+{
+  "language-switcher": {
+    "ru": "Russian",
+    "en": "English"
+  },
+  "theme-switcher": {
+    "label-group": "Theme",
+    "dark": "Dark",
+    "light": "Light",
+    "system": "System"
+  }
+}
