@@ -5,7 +5,6 @@ export const CatalogPage: FC = () => {
   return (
     <>
       <Header />
-      
     </>
   );
 };

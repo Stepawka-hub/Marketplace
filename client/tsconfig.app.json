@@ -30,10 +30,11 @@
       "@modules": ["src/modules"],
       "@ui/*": ["src/ui/*"],
       "@images/*": ["src/assets/images/*"],
+      "@providers/*": ["src/app/providers/*"],
       "@api": ["src/shared/api/api.ts"],
       "@hooks/*": ["src/shared/hooks/*"],
       "@types/*": ["src/shared/types/*"],
-      "@shared": ["src/shared"]
+      "@shared/*": ["src/shared/*"]
     }
   },
   "include": ["src"]
