@@ -1,4 +1,5 @@
 import { alpha, InputBase, styled } from "@mui/material";
+import { SearchIconWrapperProps } from "./types";
 
 export const Search = styled("div")(({ theme }) => ({
   width: "100%",
@@ -23,7 +24,9 @@ export const Search = styled("div")(({ theme }) => ({
   },
 }));
 
-export const SearchIconWrapper = styled("div")(({ theme }) => ({
+export const SearchIconWrapper = styled("div", {
+  shouldForwardProp: (prop) => prop !== "active",
+})<SearchIconWrapperProps>(({ theme, active }) => ({
   padding: theme.spacing(0, 2),
   height: "100%",
   position: "absolute",
@@ -31,19 +34,21 @@ export const SearchIconWrapper = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  color: active ? theme.palette.text.primary : theme.palette.text.disabled,
+  transition: theme.transitions.create("color", {
+    duration: theme.transitions.duration.shorter,
+  }),
 }));
 
 export const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   width: "100%",
   "& .MuiInputBase-input": {
-    padding: theme.spacing(1.5, 1, 1.5, 0),
+    padding: theme.spacing(1.5, 3, 1.5, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "100ch",
-    },
+    cursor: "pointer",
   },
 }));

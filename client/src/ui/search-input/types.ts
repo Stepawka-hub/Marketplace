@@ -5,3 +5,7 @@ export type SearchInputProps = {
   placeholder?: string;
   onChange: ChangeEventHandler;
 }
+
+export type SearchIconWrapperProps = {
+  active: boolean;
+}
