@@ -2,7 +2,7 @@ import { IconButton, ListItemText, Menu, MenuItem } from "@mui/material";
 import { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
-import { useMenu } from '@hooks/useMenu';
+import { useMenu } from "@hooks/useMenu";
 import LanguageIcon from "@mui/icons-material/Language";
 
 export const LanguageSwitcher: FC = () => {
