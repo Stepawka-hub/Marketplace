@@ -8,5 +8,8 @@
     "dark": "Dark",
     "light": "Light",
     "system": "System"
+  },
+  "catalog-search": {
+    "placeholder": "Enter product name..."
   }
 }

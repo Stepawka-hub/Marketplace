@@ -1,0 +1,19 @@
+export type TProductOwner = {
+  id: string;
+  name: string;
+}
+
+export type TProduct = {
+  id: string;
+  name: string;
+  description: string;
+  shortDescription?: string;
+  category: TCategory;
+  image: string;
+  price: number;
+  owner: TProductOwner;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+export type TCategory = 'category 1' | 'category 2';

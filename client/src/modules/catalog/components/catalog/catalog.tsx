@@ -5,7 +5,7 @@ import { ProductList } from "../product-list";
 
 export const Catalog: FC = () => {
   return (
-    <Grid container spacing={2} p={2}>
+    <Grid container spacing={2} p={3}>
       <CatalogSearch />
       <ProductList />
     </Grid>

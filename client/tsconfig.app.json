@@ -33,7 +33,7 @@
       "@providers/*": ["src/app/providers/*"],
       "@api": ["src/shared/api/api.ts"],
       "@hooks/*": ["src/shared/hooks/*"],
-      "@types/*": ["src/shared/types/*"],
+      "@types": ["src/shared/types"],
       "@shared/*": ["src/shared/*"]
     }
   },
