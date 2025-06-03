@@ -9,7 +9,7 @@ import { FC } from "react";
 import { ProductCardProps } from "./type";
 
 export const ProductCard: FC<ProductCardProps> = ({ name, description }) => (
-  <Card sx={{ p: 2, height: '100%' }}>
+  <Card sx={{ p: 2, height: '100%' }} variant='outlined'>
     <CardContent>
       <Typography variant="h5">{name}</Typography>
       <Typography>{description}</Typography>

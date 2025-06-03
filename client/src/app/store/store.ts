@@ -4,8 +4,11 @@ import {
   useSelector as selectorHook,
   TypedUseSelectorHook,
 } from "react-redux";
+import { catalogReducer } from "@modules/catalog";
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+  catalog: catalogReducer,
+});
 
 export const store = configureStore({
   reducer: rootReducer,

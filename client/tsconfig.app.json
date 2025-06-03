@@ -30,6 +30,7 @@
       "@modules/*": ["src/modules/*"],
       "@ui/*": ["src/ui/*"],
       "@images/*": ["src/assets/images/*"],
+      "@store": ["src/app/store/store.ts"],
       "@providers/*": ["src/app/providers/*"],
       "@api": ["src/shared/api/api.ts"],
       "@hooks/*": ["src/shared/hooks/*"],
