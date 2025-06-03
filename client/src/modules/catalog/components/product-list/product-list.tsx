@@ -1,11 +1,11 @@
 import { getProducts } from "@modules/catalog/services/slices/catalog";
 import { Grid } from "@mui/material";
-import { useSelector } from '@store';
-import { FC } from "react";
+import { useSelector } from "@store";
+import { FC, memo } from "react";
 import { ProductCard } from "../product-card";
 
-export const ProductList: FC = () => {
-  const products = useSelector(getProducts); 
+export const ProductList: FC = memo(() => {
+  const products = useSelector(getProducts);
 
   return (
     <Grid container spacing={2}>
@@ -16,4 +16,4 @@ export const ProductList: FC = () => {
       ))}
     </Grid>
   );
-};
+});
