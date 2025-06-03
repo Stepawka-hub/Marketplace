@@ -47,7 +47,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product }) => {
           {name}
         </Typography>
 
-        <Typography sx={{ mt: 1 }} color="textSecondary">
+        <Typography sx={{ my: 1 }} color="textSecondary">
           {shortDescription}
         </Typography>
 

@@ -1,13 +1,27 @@
+import { useDebounce } from "@hooks/useDebounce";
+import {
+  getSearchQuery,
+  setSearchQuery,
+} from "@modules/catalog/services/slices/catalog";
+import { useDispatch, useSelector } from "@store";
 import { SearchInput } from "@ui/search-input";
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC, memo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-export const CatalogSearch: FC = () => {
-  const [value, setValue] = useState("");
+export const CatalogSearch: FC = memo(() => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const handleSearchChange = (value: string) => {
+    dispatch(setSearchQuery(value));
+  };
+  const debouncedCallback = useDebounce(handleSearchChange, 1000);
+
+  const searchQuery = useSelector(getSearchQuery);
+  const [value, setValue] = useState(searchQuery);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
+    debouncedCallback(e.target.value);
   };
 
   return (
@@ -17,4 +31,4 @@ export const CatalogSearch: FC = () => {
       onChange={handleChange}
     />
   );
-};
+});
