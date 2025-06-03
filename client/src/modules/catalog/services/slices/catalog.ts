@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TFilter } from "../types/types";
+import { TCatalogState, TFilter } from "../types/types";
 
-const initialState = {
+const initialState: TCatalogState = {
   products: [
     {
       id: "1",

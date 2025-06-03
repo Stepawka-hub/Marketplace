@@ -11,5 +11,8 @@
   },
   "catalog-search": {
     "placeholder": "Введите название товара..."
+  },
+  "product": {
+    "owner-label": "Продавец"
   }
 }

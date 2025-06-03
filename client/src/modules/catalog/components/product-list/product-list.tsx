@@ -8,10 +8,10 @@ export const ProductList: FC = memo(() => {
   const products = useSelector(getProducts);
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} columns={10}>
       {products.map((p) => (
-        <Grid key={p.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
-          <ProductCard name={p.name} description={p.description} />
+        <Grid key={p.id} size={{ xs: 12, sm: 6, md: 3, lg: 2 }}>
+          <ProductCard product={p} />
         </Grid>
       ))}
     </Grid>

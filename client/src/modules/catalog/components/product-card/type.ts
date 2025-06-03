@@ -1,4 +1,5 @@
+import { TProduct } from '@types';
+
 export type ProductCardProps = {
-  name: string;
-  description?: string;
+  product: TProduct;
 };

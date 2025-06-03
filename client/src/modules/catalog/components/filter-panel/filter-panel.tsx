@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Divider,
   Drawer,
   List,
@@ -8,7 +7,7 @@ import {
   ListItemButton,
   ListItemText,
 } from "@mui/material";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { FilterPanelProps } from "./type";
 
 export const FilterPanel: FC<FilterPanelProps> = ({ isOpen, onClose }) => {
@@ -43,9 +42,13 @@ export const FilterPanel: FC<FilterPanelProps> = ({ isOpen, onClose }) => {
       variant="persistent"
       sx={{
         width: isOpen ? 250 : 0,
+        height: "100%",
         transition: "width 0.3s",
         "& .MuiDrawer-paper": {
           position: "relative",
+          border: "1px solid",
+          borderColor: "divider",
+          borderRadius: "1rem",
         },
       }}
     >

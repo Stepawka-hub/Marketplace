@@ -11,5 +11,8 @@
   },
   "catalog-search": {
     "placeholder": "Enter product name..."
+  },
+  "product": {
+    "owner-label": "Seller"
   }
 }
