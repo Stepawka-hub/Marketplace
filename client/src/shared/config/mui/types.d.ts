@@ -14,4 +14,12 @@ declare module "@mui/material/styles" {
       iconHover: string;
     };
   }
+
+  interface Palette {
+    custom: {
+      productCard: {
+        bg: string;
+      };
+    };
+  }
 }

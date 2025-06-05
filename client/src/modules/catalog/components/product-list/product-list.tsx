@@ -17,9 +17,9 @@ export const ProductList: FC = memo(() => {
   );
 
   return (
-    <Grid container spacing={2} columns={12}>
+    <Grid container columnSpacing={2} rowSpacing={4}>
       {filteredProducts.map((p) => (
-        <Grid key={p.id} size={{ xs: 12, sm: 6, md: 4, lg: 2 }}>
+        <Grid key={p.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
           <ProductCard product={p} />
         </Grid>
       ))}

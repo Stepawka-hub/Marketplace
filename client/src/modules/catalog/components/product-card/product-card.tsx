@@ -2,7 +2,6 @@ import testImg from "@images/testImg.jpg";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import {
   Button,
-  Card,
   CardActions,
   CardContent,
   CardMedia,
@@ -12,6 +11,7 @@ import { FC } from "react";
 import { ProductCardProps } from "./type";
 import { formattedWithSpace } from "@shared/helpers/numbers";
 import { useTranslation } from "react-i18next";
+import { Card } from "@ui/card";
 
 export const ProductCard: FC<ProductCardProps> = ({ product }) => {
   const { i18n, t } = useTranslation();
@@ -21,11 +21,8 @@ export const ProductCard: FC<ProductCardProps> = ({ product }) => {
   return (
     <Card
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100%",
-        p: 2,
-        borderRadius: "1.5rem",
+        borderColor: "custom.productCard.border",
+        backgroundColor: "custom.productCard.bg",
       }}
       variant="outlined"
     >
