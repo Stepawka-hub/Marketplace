@@ -1,36 +1,22 @@
-import {
-  Box,
-  Divider,
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-} from "@mui/material";
+import { Box, Divider, Drawer, List, ListItem } from "@mui/material";
 import { FC } from "react";
 import { FilterPanelProps } from "./type";
+import { PriceSlider } from "../price-slider";
+import { CategoryMenu } from "../category-menu";
 
 export const FilterPanel: FC<FilterPanelProps> = ({ isOpen, onClose }) => {
   const DrawerList = (
-    <Box sx={{ width: 200 }} role="presentation" onClick={onClose}>
+    <Box role="presentation">
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <ListItem>
+          <CategoryMenu />
+        </ListItem>
       </List>
       <Divider />
       <List>
-        {["All mail", "Trash", "Spam"].map((text) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <ListItem>
+          <PriceSlider />
+        </ListItem>
       </List>
     </Box>
   );
@@ -41,9 +27,9 @@ export const FilterPanel: FC<FilterPanelProps> = ({ isOpen, onClose }) => {
       onClose={onClose}
       variant="persistent"
       sx={{
-        width: isOpen ? 250 : 0,
+        width: isOpen ? 300 : 0,
         height: "100%",
-        transition: "width 0.3s",
+        transition: "width .3s",
         "& .MuiDrawer-paper": {
           position: "relative",
           border: "1px solid",
