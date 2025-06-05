@@ -8,12 +8,10 @@ export type TProduct = {
   name: string;
   description: string;
   shortDescription?: string;
-  category: TCategory;
+  category: string;
   image: string;
   price: number;
   owner: TProductOwner;
   createdAt: string;
   updatedAt?: string;
 }
-
-export type TCategory = 'category 1' | 'category 2';

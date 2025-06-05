@@ -1,37 +1,38 @@
+import { FC } from "react";
 import {
   FormControl,
   InputLabel,
   ListItemText,
   MenuItem,
-  Select
+  Select,
+  SelectChangeEvent,
 } from "@mui/material";
-import { SelectChangeEvent } from "node_modules/@mui/material";
-import { FC, useState } from "react";
 import { CategoryMenuProps } from "./type";
 
-export const CategoryMenu: FC<CategoryMenuProps> = () => {
-  const [age, setAge] = useState("");
-
+export const CategoryMenu: FC<CategoryMenuProps> = ({
+  categories,
+  selectedCategory,
+  onChange,
+}) => {
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
+    onChange(event.target.value as string);
   };
 
   return (
-    <FormControl fullWidth size='small'>
+    <FormControl fullWidth size="small">
       <InputLabel id="category-select-label">Категория</InputLabel>
       <Select
         id="category-select"
         labelId="category-select-label"
         label="Категория"
-        value={age}
+        value={selectedCategory}
         onChange={handleChange}
       >
-        <MenuItem value={"category1"}>
-          <ListItemText>category 1</ListItemText>
-        </MenuItem>
-        <MenuItem value={"category2"}>
-          <ListItemText>category 2</ListItemText>
-        </MenuItem>
+        {categories.map((c) => (
+          <MenuItem value={c}>
+            <ListItemText>{c}</ListItemText>
+          </MenuItem>
+        ))}
       </Select>
     </FormControl>
   );

@@ -1,21 +1,64 @@
-import { Box, Divider, Drawer, List, ListItem } from "@mui/material";
-import { FC } from "react";
-import { FilterPanelProps } from "./type";
-import { PriceSlider } from "../price-slider";
+import {
+  getCategories,
+  getFilters,
+  setFilters,
+} from "@modules/catalog/services/slices/catalog";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import {
+  Box,
+  Button,
+  Divider,
+  IconButton,
+  List,
+  ListItem,
+} from "@mui/material";
+import { useDispatch, useSelector } from "@store";
+import { Drawer } from "@ui/drawer";
+import { DrawerHeader } from "@ui/drawer-header";
+import { FC, useState } from "react";
 import { CategoryMenu } from "../category-menu";
+import { PriceSlider } from "../price-slider";
+import { FilterPanelProps } from "./type";
 
 export const FilterPanel: FC<FilterPanelProps> = ({ isOpen, onClose }) => {
+  const dispatch = useDispatch();
+  const categories = useSelector(getCategories);
+  const filters = useSelector(getFilters);
+
+  const [category, setCategory] = useState(filters.category);
+  const [priceRange, setPriceRange] = useState([0, 100]);
+
+  const handleApplyFilters = () => {
+    dispatch(setFilters({ category, price: { min: 0, max: 100 } }));
+    onClose();
+  };
+
   const DrawerList = (
-    <Box role="presentation">
+    <Box>
       <List>
-        <ListItem>
-          <CategoryMenu />
+        <ListItem sx={{ mb: 1 }}>
+          <CategoryMenu
+            categories={categories}
+            selectedCategory={category}
+            onChange={setCategory}
+          />
+        </ListItem>
+        <ListItem sx={{ px: 4 }}>
+          <PriceSlider />
         </ListItem>
       </List>
-      <Divider />
+
+      <Divider sx={{ my: 1 }} />
+
       <List>
-        <ListItem>
-          <PriceSlider />
+        <ListItem sx={{ justifyContent: "center" }}>
+          <Button
+            sx={{ whiteSpace: "nowrap", overflow: "hidden" }}
+            variant="contained"
+            onClick={handleApplyFilters}
+          >
+            Применить изменения
+          </Button>
         </ListItem>
       </List>
     </Box>
@@ -26,19 +69,19 @@ export const FilterPanel: FC<FilterPanelProps> = ({ isOpen, onClose }) => {
       open={isOpen}
       onClose={onClose}
       variant="persistent"
-      sx={{
-        width: isOpen ? 300 : 0,
-        height: "100%",
-        transition: "width .3s",
-        "& .MuiDrawer-paper": {
-          position: "relative",
-          border: "1px solid",
-          borderColor: "divider",
-          borderRadius: "1rem",
-        },
-      }}
+      sx={{ width: isOpen ? 320 : 0 }}
     >
-      {DrawerList}
+      {isOpen && (
+        <>
+          <DrawerHeader>
+            <IconButton onClick={onClose}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </DrawerHeader>
+          <Divider sx={{ mb: 1 }} />
+          {DrawerList}
+        </>
+      )}
     </Drawer>
   );
 };

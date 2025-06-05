@@ -1,7 +1,7 @@
 import { Box, Slider, Typography } from '@mui/material';
 import { FC, useState } from "react";
 
-const MAX = 100;
+const MAX = 100000;
 const MIN = 0;
 const marks = [
   {
@@ -21,7 +21,7 @@ export const PriceSlider: FC = () => {
   };
 
   return (
-    <Box sx={{ width: '95%' }}>
+    <Box sx={{ width: '100%' }}>
       <Slider
         marks={marks}
         step={10}
@@ -37,14 +37,14 @@ export const PriceSlider: FC = () => {
           onClick={() => setVal(MIN)}
           sx={{ cursor: "pointer" }}
         >
-          {MIN} min
+          {MIN}
         </Typography>
         <Typography
           variant="body2"
           onClick={() => setVal(MAX)}
           sx={{ cursor: "pointer" }}
         >
-          {MAX} max
+          {MAX}
         </Typography>
       </Box>
     </Box>

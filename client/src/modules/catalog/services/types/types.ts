@@ -1,14 +1,15 @@
-import { TCategory, TProduct } from "@types";
+import { TProduct } from "@types";
 
 export type TCatalogState = {
   products: TProduct[];
+  categories: string[];
   searchQuery: string;
   filters: TFilter;
 };
 
 export type TFilter = {
   price: TPrice;
-  category: TCategory;
+  category: string;
 };
 
 export type TPrice = {
