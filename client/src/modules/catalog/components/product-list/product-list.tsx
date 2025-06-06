@@ -17,13 +17,13 @@ export const ProductList: FC = memo(() => {
   const searchQuery = useSelector(getSearchQuery);
   const { category, price } = useSelector(getFilters);
 
-  if (!isLoadingProducts) {
+  if (isLoadingProducts) {
     return (
       <Grid container spacing={2}>
-        {[...Array(8)].map((_, index) => (
+        {[...Array(12)].map((_, index) => (
           <Grid
             key={index}
-            size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
+            size={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 }}
             sx={{ height: "40vh" }}
           >
             <SkeletonCard variant="rounded" />
@@ -43,7 +43,7 @@ export const ProductList: FC = memo(() => {
   return (
     <Grid container columnSpacing={2} rowSpacing={4}>
       {filteredProducts.map((p) => (
-        <Grid key={p.id} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+        <Grid key={p.id} size={{ xs: 12, sm: 6, md: 6, lg: 4, xl: 2.4 }}>
           <ProductCard product={p} />
         </Grid>
       ))}

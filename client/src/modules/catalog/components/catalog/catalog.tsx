@@ -14,7 +14,7 @@ export const Catalog: FC = () => {
   return (
     <Grid container spacing={4} p={3} direction="column">
       <Grid container spacing={1} alignItems="center">
-        <Grid size='grow'>
+        <Grid size="grow">
           <CatalogSearch />
         </Grid>
         <Grid>
@@ -24,7 +24,7 @@ export const Catalog: FC = () => {
         </Grid>
       </Grid>
 
-      <Grid container spacing={isSidebarOpen ? 3 : 0}>
+      <Grid container spacing={0}>
         <Grid>
           <FilterPanel
             isOpen={isSidebarOpen}

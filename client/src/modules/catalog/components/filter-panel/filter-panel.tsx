@@ -12,6 +12,8 @@ import {
   IconButton,
   List,
   ListItem,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { useDispatch, useSelector } from "@store";
 import { Drawer } from "@ui/drawer";
@@ -25,7 +27,10 @@ import { useTranslation } from "react-i18next";
 export const FilterPanel: FC<FilterPanelProps> = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  
+
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("md"));
+
   const categories = useSelector(getCategories);
   const priceRange = useSelector(getPriceRange);
   const filters = useSelector(getFilters);
@@ -44,8 +49,8 @@ export const FilterPanel: FC<FilterPanelProps> = ({ isOpen, onClose }) => {
     <Drawer
       open={isOpen}
       onClose={onClose}
-      variant="persistent"
-      sx={{ width: isOpen ? 320 : 0 }}
+      variant={matches ? "temporary" : "persistent"}
+      sx={{ width: isOpen ? 320 : 0, mr: isOpen ? 3 : 0 }}
     >
       {isOpen && (
         <>
