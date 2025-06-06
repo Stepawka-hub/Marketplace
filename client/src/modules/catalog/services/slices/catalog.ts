@@ -167,6 +167,8 @@ const initialState: TCatalogState = {
       createdAt: "2023-07-18",
     },
   ],
+  isLoadingProducts: false,
+
   categories: ["category 1", "category 2"],
   priceRange: {
     min: 0,
@@ -196,6 +198,7 @@ const catalogSlice = createSlice({
   },
   selectors: {
     getProducts: (state) => state.products,
+    getIsLoadingProducts: (state) => state.isLoadingProducts,
     getSearchQuery: (state) => state.searchQuery,
     getFilters: (state) => state.filters,
     getCategories: (state) => state.categories,
@@ -207,6 +210,7 @@ export default catalogSlice.reducer;
 export const { setSearchQuery, setFilters } = catalogSlice.actions;
 export const {
   getProducts,
+  getIsLoadingProducts,
   getSearchQuery,
   getFilters,
   getCategories,
