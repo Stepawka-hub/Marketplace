@@ -10,6 +10,7 @@ import { FC, memo } from "react";
 import { ProductCard } from "../product-card";
 import { checkInRange, includesRow } from "@shared/helpers/filter";
 import { SkeletonCard } from "@ui/skeleton-card";
+import { NotFound } from "@components/not-found";
 
 export const ProductList: FC = memo(() => {
   const products = useSelector(getProducts);
@@ -39,6 +40,10 @@ export const ProductList: FC = memo(() => {
       checkInRange(p.price, price.max, price.min) &&
       includesRow(searchQuery, [p.name])
   );
+
+  if (!filteredProducts.length) {
+    return <NotFound hideBtn />;
+  }
 
   return (
     <Grid container columnSpacing={2} rowSpacing={4}>

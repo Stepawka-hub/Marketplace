@@ -22,5 +22,9 @@
   "product": {
     "owner-label": "Seller",
     "add-to-cart": "Add to cart"
+  },
+  "not-found": {
+    "label": "Nothing found!",
+    "btn-label": "Return to home"
   }
 }
