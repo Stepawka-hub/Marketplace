@@ -1,6 +1,7 @@
 import {
   getCategories,
   getFilters,
+  getPriceRange,
   setFilters,
 } from "@modules/catalog/services/slices/catalog";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -23,46 +24,18 @@ import { FilterPanelProps } from "./type";
 export const FilterPanel: FC<FilterPanelProps> = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
   const categories = useSelector(getCategories);
+  const priceRange = useSelector(getPriceRange);
   const filters = useSelector(getFilters);
+  const { max, min } = filters.price;
 
   const [category, setCategory] = useState(filters.category);
-  const [priceRange, setPriceRange] = useState([0, 100]);
+  const [priceValue, setPriceValue] = useState([min, max]);
 
   const handleApplyFilters = () => {
-    dispatch(setFilters({ category, price: { min: 0, max: 100 } }));
+    const [min, max] = priceValue;
+    dispatch(setFilters({ category, price: { min, max } }));
     onClose();
   };
-
-  const DrawerList = (
-    <Box>
-      <List>
-        <ListItem sx={{ mb: 1 }}>
-          <CategoryMenu
-            categories={categories}
-            selectedCategory={category}
-            onChange={setCategory}
-          />
-        </ListItem>
-        <ListItem sx={{ px: 4 }}>
-          <PriceSlider />
-        </ListItem>
-      </List>
-
-      <Divider sx={{ my: 1 }} />
-
-      <List>
-        <ListItem sx={{ justifyContent: "center" }}>
-          <Button
-            sx={{ whiteSpace: "nowrap", overflow: "hidden" }}
-            variant="contained"
-            onClick={handleApplyFilters}
-          >
-            Применить изменения
-          </Button>
-        </ListItem>
-      </List>
-    </Box>
-  );
 
   return (
     <Drawer
@@ -79,7 +52,36 @@ export const FilterPanel: FC<FilterPanelProps> = ({ isOpen, onClose }) => {
             </IconButton>
           </DrawerHeader>
           <Divider sx={{ mb: 1 }} />
-          {DrawerList}
+          <Box>
+            <List>
+              <ListItem sx={{ mb: 1 }}>
+                <CategoryMenu
+                  categories={categories}
+                  selectedCategory={category}
+                  onChange={setCategory}
+                />
+              </ListItem>
+              <ListItem sx={{ px: 4 }}>
+                <PriceSlider
+                  priceValue={priceValue}
+                  priceRange={priceRange}
+                  setPriceValue={setPriceValue}
+                />
+              </ListItem>
+            </List>
+            <Divider sx={{ my: 1 }} />
+            <List>
+              <ListItem sx={{ justifyContent: "center" }}>
+                <Button
+                  sx={{ whiteSpace: "nowrap", overflow: "hidden" }}
+                  variant="contained"
+                  onClick={handleApplyFilters}
+                >
+                  Применить изменения
+                </Button>
+              </ListItem>
+            </List>
+          </Box>
         </>
       )}
     </Drawer>

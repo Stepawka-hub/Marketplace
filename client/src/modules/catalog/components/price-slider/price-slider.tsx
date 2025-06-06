@@ -1,51 +1,33 @@
-import { Box, Slider, Typography } from '@mui/material';
-import { FC, useState } from "react";
+import { Box, Slider, Typography } from "@mui/material";
+import { FC, useMemo } from "react";
+import { PriceSliderProps } from "./type";
 
-const MAX = 100000;
-const MIN = 0;
-const marks = [
-  {
-    value: MIN,
-    label: "",
-  },
-  {
-    value: MAX,
-    label: "",
-  },
-];
+export const PriceSlider: FC<PriceSliderProps> = ({
+  priceRange,
+  priceValue,
+  setPriceValue,
+}) => {
+  const { min, max } = priceRange;
+  const marks = useMemo(() => [{ value: min }, { value: max }], [min, max]);
 
-export const PriceSlider: FC = () => {
-  const [val, setVal] = useState<number>(MIN);
-  const handleChange = (_: Event, newValue: number) => {
-    setVal(newValue);
+  const handleChange = (_: Event, newValue: number[]) => {
+    setPriceValue(newValue);
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: "100%" }}>
       <Slider
         marks={marks}
         step={10}
-        value={val}
+        value={priceValue}
+        min={min}
+        max={max}
         valueLabelDisplay="auto"
-        min={MIN}
-        max={MAX}
         onChange={handleChange}
       />
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Typography
-          variant="body2"
-          onClick={() => setVal(MIN)}
-          sx={{ cursor: "pointer" }}
-        >
-          {MIN}
-        </Typography>
-        <Typography
-          variant="body2"
-          onClick={() => setVal(MAX)}
-          sx={{ cursor: "pointer" }}
-        >
-          {MAX}
-        </Typography>
+        <Typography variant="body2">{min}</Typography>
+        <Typography variant="body2">{max}</Typography>
       </Box>
     </Box>
   );

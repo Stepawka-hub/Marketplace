@@ -168,6 +168,11 @@ const initialState: TCatalogState = {
     },
   ],
   categories: ["category 1", "category 2"],
+  priceRange: {
+    min: 0,
+    max: 1000000,
+  },
+
   searchQuery: "",
   filters: {
     price: {
@@ -194,10 +199,16 @@ const catalogSlice = createSlice({
     getSearchQuery: (state) => state.searchQuery,
     getFilters: (state) => state.filters,
     getCategories: (state) => state.categories,
+    getPriceRange: (state) => state.priceRange,
   },
 });
 
 export default catalogSlice.reducer;
 export const { setSearchQuery, setFilters } = catalogSlice.actions;
-export const { getProducts, getSearchQuery, getFilters, getCategories } =
-  catalogSlice.selectors;
+export const {
+  getProducts,
+  getSearchQuery,
+  getFilters,
+  getCategories,
+  getPriceRange,
+} = catalogSlice.selectors;
