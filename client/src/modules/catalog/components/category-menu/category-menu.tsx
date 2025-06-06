@@ -23,15 +23,18 @@ export const CategoryMenu: FC<CategoryMenuProps> = ({
   return (
     <FormControl fullWidth size="small">
       <InputLabel id="category-select-label">
-        {t("category-select-label")}
+        {t("category-select.label")}
       </InputLabel>
       <Select
         id="category-select"
-        labelId={t("category-select-label")}
+        labelId={t("category-select.label")}
         label="Категория"
         value={selectedCategory}
         onChange={handleChange}
       >
+        <MenuItem value="all">
+          <ListItemText>{t("category-select.all")}</ListItemText>
+        </MenuItem>
         {categories.map((c) => (
           <MenuItem value={c}>
             <ListItemText>{c}</ListItemText>

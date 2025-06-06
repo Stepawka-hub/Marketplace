@@ -11,7 +11,7 @@ export const LanguageSwitcher: FC = () => {
   const { isOpen, anchorRef, handleOpen, handleClose } = useMenu();
 
   useEffect(() => {
-    const savedLanguage = localStorage.getItem("language") || "en";
+    const savedLanguage = localStorage.getItem("language") || "ru";
     i18n.changeLanguage(savedLanguage);
   }, [i18n]);
 

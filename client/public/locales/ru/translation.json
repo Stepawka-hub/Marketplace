@@ -9,7 +9,10 @@
     "light": "Светлая",
     "system": "Системная"
   },
-  "category-select-label": "Категория",
+  "category-select": {
+    "label": "Категория",
+    "all": "Все"
+  },
   "filter": {
     "submit-btn-label": "Применить изменения"
   },

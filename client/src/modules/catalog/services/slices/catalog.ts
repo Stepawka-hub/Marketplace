@@ -179,7 +179,7 @@ const initialState: TCatalogState = {
       min: 0,
       max: 100000,
     },
-    category: "category 1",
+    category: "all",
   },
 };
 

@@ -18,7 +18,7 @@ export const ProductList: FC = memo(() => {
     (p) =>
       includesRow(searchQuery, [p.name]) &&
       checkInRange(p.price, price.max, price.min) &&
-      p.category === category
+      (category === "all" || p.category === category)
   );
 
   return (

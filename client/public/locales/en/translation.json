@@ -9,7 +9,10 @@
     "light": "Light",
     "system": "System"
   },
-  "category-select-label": "Category",
+  "category-select": {
+    "label": "Category",
+    "all": "All"
+  },
   "filter": {
     "submit-btn-label": "Apply changes"
   },
