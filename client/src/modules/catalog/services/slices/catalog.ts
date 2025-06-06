@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TCatalogState, TFilter } from "../types/types";
+import { TCatalogState, TFilter } from "../types";
 
 const initialState: TCatalogState = {
   products: [
@@ -170,14 +170,14 @@ const initialState: TCatalogState = {
   categories: ["category 1", "category 2"],
   priceRange: {
     min: 0,
-    max: 1000000,
+    max: 100000,
   },
 
   searchQuery: "",
   filters: {
     price: {
       min: 0,
-      max: 10000,
+      max: 100000,
     },
     category: "category 1",
   },
