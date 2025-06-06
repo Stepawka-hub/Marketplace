@@ -20,9 +20,12 @@ import { FC, useState } from "react";
 import { CategoryMenu } from "../category-menu";
 import { PriceSlider } from "../price-slider";
 import { FilterPanelProps } from "./type";
+import { useTranslation } from "react-i18next";
 
 export const FilterPanel: FC<FilterPanelProps> = ({ isOpen, onClose }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
+  
   const categories = useSelector(getCategories);
   const priceRange = useSelector(getPriceRange);
   const filters = useSelector(getFilters);
@@ -77,7 +80,7 @@ export const FilterPanel: FC<FilterPanelProps> = ({ isOpen, onClose }) => {
                   variant="contained"
                   onClick={handleApplyFilters}
                 >
-                  Применить изменения
+                  {t("filter.submit-btn-label")}
                 </Button>
               </ListItem>
             </List>

@@ -17,6 +17,7 @@ export const LanguageSwitcher: FC = () => {
 
   const handleMenuItemClick = (value: string) => {
     i18n.changeLanguage(value);
+    localStorage.setItem("language", value);
     handleClose();
   };
 

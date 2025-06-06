@@ -9,10 +9,15 @@
     "light": "Light",
     "system": "System"
   },
+  "category-select-label": "Category",
+  "filter": {
+    "submit-btn-label": "Apply changes"
+  },
   "catalog-search": {
     "placeholder": "Enter product name..."
   },
   "product": {
-    "owner-label": "Seller"
+    "owner-label": "Seller",
+    "add-to-cart": "Add to cart"
   }
 }

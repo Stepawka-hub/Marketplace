@@ -57,7 +57,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product }) => {
           fullWidth
           startIcon={<ShoppingBasketIcon />}
         >
-          В корзину
+          {t("product.add-to-cart")}
         </Button>
       </CardActions>
     </Card>

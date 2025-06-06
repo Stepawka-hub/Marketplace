@@ -9,10 +9,15 @@
     "light": "Светлая",
     "system": "Системная"
   },
+  "category-select-label": "Категория",
+  "filter": {
+    "submit-btn-label": "Применить изменения"
+  },
   "catalog-search": {
     "placeholder": "Введите название товара..."
   },
   "product": {
-    "owner-label": "Продавец"
+    "owner-label": "Продавец",
+    "add-to-cart": "В корзину"
   }
 }
