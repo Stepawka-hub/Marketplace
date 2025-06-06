@@ -5,11 +5,14 @@ export const basePalette = {
 };
 
 export const lightPalette = {
-  appBar: {
-    iconColor: "#fff",
-    iconHover: "rgba(255, 255, 255, 0.1)",
-  },
   custom: {
+    appBar: {
+      iconColor: "#fff",
+      iconHover: "rgba(255, 255, 255, 0.1)",
+    },
+    drawer: {
+      bg: "#fff",
+    },
     productCard: {
       bg: "#fff",
     },
@@ -17,11 +20,14 @@ export const lightPalette = {
 };
 
 export const darkPalette = {
-  appBar: {
-    iconColor: "#fff",
-    iconHover: "rgba(255, 255, 255, 0.1)",
-  },
   custom: {
+    appBar: {
+      iconColor: "#fff",
+      iconHover: "rgba(255, 255, 255, 0.1)",
+    },
+    drawer: {
+      bg: "#262626",
+    },
     productCard: {
       border: "#262626",
       bg: "#262626",
