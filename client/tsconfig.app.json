@@ -10,7 +10,7 @@
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false,
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
@@ -21,7 +21,22 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@pages": ["src/pages"],
+      "@components/*": ["src/components/*"],
+      "@modules/*": ["src/modules/*"],
+      "@ui/*": ["src/ui/*"],
+      "@images/*": ["src/assets/images/*"],
+      "@store": ["src/app/store/store.ts"],
+      "@providers/*": ["src/app/providers/*"],
+      "@api": ["src/shared/api/api.ts"],
+      "@hooks/*": ["src/shared/hooks/*"],
+      "@types": ["src/shared/types"],
+      "@shared/*": ["src/shared/*"]
+    }
   },
   "include": ["src"]
 }

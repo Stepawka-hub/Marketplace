@@ -1,0 +1,30 @@
+{
+  "language-switcher": {
+    "ru": "Русский",
+    "en": "Английский"
+  },
+  "theme-switcher": {
+    "label-group": "Тема",
+    "dark": "Тёмная",
+    "light": "Светлая",
+    "system": "Системная"
+  },
+  "category-select": {
+    "label": "Категория",
+    "all": "Все"
+  },
+  "filter": {
+    "submit-btn-label": "Применить изменения"
+  },
+  "catalog-search": {
+    "placeholder": "Введите название товара..."
+  },
+  "product": {
+    "owner-label": "Продавец",
+    "add-to-cart": "В корзину"
+  },
+  "not-found": {
+    "label": "Ничего не найдено!",
+    "btn-label": "Вернуться на главную"
+  }
+}

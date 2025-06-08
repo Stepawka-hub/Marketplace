@@ -1,0 +1,30 @@
+{
+  "language-switcher": {
+    "ru": "Russian",
+    "en": "English"
+  },
+  "theme-switcher": {
+    "label-group": "Theme",
+    "dark": "Dark",
+    "light": "Light",
+    "system": "System"
+  },
+  "category-select": {
+    "label": "Category",
+    "all": "All"
+  },
+  "filter": {
+    "submit-btn-label": "Apply changes"
+  },
+  "catalog-search": {
+    "placeholder": "Enter product name..."
+  },
+  "product": {
+    "owner-label": "Seller",
+    "add-to-cart": "Add to cart"
+  },
+  "not-found": {
+    "label": "Nothing found!",
+    "btn-label": "Return to home"
+  }
+}
