@@ -5,9 +5,11 @@ import {
   TypedUseSelectorHook,
 } from "react-redux";
 import { catalogReducer } from "@modules/catalog";
+import { cartReducer } from '@modules/cart';
 
 const rootReducer = combineReducers({
   catalog: catalogReducer,
+  cart: cartReducer
 });
 
 export const store = configureStore({

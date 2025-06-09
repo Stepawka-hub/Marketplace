@@ -1,4 +1,4 @@
-import { CatalogPage, NotFoundPage } from "@pages";
+import { CartPage, CatalogPage, NotFoundPage } from "@pages";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
 export const router = createBrowserRouter([
@@ -9,6 +9,10 @@ export const router = createBrowserRouter([
   {
     path: "/catalog",
     element: <CatalogPage />,
+  },
+  {
+    path: "cart",
+    element: <CartPage />
   },
   {
     path: "*",

@@ -1,4 +1,4 @@
-import { TRange } from "@modules/catalog/services/types";
+import { TRange } from "@modules/catalog/services/slices/types";
 import { TSetState } from "@types";
 
 export type PriceSliderProps = {
