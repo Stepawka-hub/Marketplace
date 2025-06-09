@@ -1,3 +1,6 @@
-import { PropsWithChildren } from 'react';
+import { ReactNode } from 'react';
 
-export type HeaderProps = PropsWithChildren;
+export type HeaderProps = {
+  leftPart?: ReactNode;
+  rightPart?: ReactNode;
+};

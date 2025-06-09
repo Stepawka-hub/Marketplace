@@ -9,11 +9,15 @@ import { Outlet } from "react-router-dom";
 export const AppLayout: FC = () => {
   return (
     <Paper sx={{ minHeight: "100vh", height: "100%" }}>
-      <Header>
-        <LanguageSwitcher />
-        <ThemeSwitcher />
-        <CartBadge />
-      </Header>
+      <Header
+        leftPart={
+          <>
+            <LanguageSwitcher />
+            <ThemeSwitcher />
+          </>
+        }
+        rightPart={<CartBadge />}
+      />
       <Outlet />
     </Paper>
   );
