@@ -26,5 +26,16 @@
   "not-found": {
     "label": "Ничего не найдено!",
     "btn-label": "Вернуться на главную"
+  },
+  "cart": {
+    "title": "Корзина",
+    "summary": {
+      "information": "Информация о покупке",
+      "checkout": "Перейти к оформлению",
+      "products_zero": "{{count}} товаров",
+      "products_one": "{{count}} товар",
+      "products_few": "{{count}} товара",
+      "products_many": "{{count}} товаров"
+    }
   }
 }

@@ -26,5 +26,14 @@
   "not-found": {
     "label": "Nothing found!",
     "btn-label": "Return to home"
+  },
+  "cart": {
+    "title": "Cart",
+    "summary": {
+      "information": "Purchase Information",
+      "checkout": "Proceed to checkout",
+      "products_one": "{{count}} product",
+      "products_other": "{{count}} products"
+    }
   }
 }

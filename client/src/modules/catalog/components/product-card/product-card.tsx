@@ -21,8 +21,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product }) => {
   return (
     <Card
       sx={{
-        borderColor: "custom.productCard.border",
-        backgroundColor: "custom.productCard.bg",
+        backgroundColor: "custom.primary",
       }}
       variant="outlined"
     >
