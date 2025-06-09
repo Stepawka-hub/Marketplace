@@ -29,6 +29,7 @@
   },
   "cart": {
     "title": "Cart",
+    "back-btn": "Return to catalog",
     "summary": {
       "information": "Purchase Information",
       "checkout": "Proceed to checkout",

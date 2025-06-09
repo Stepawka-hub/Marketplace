@@ -15,7 +15,7 @@ export const CartBadge: FC = () => {
 
   return (
     <IconButton aria-label="cart" onClick={handleClick}>
-      <Badge badgeContent={count + 1} color="secondary">
+      <Badge badgeContent={count + 1} color="warning">
         <ShoppingCartIcon />
       </Badge>
     </IconButton>
