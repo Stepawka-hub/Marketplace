@@ -1,9 +1,11 @@
 {
   "language-switcher": {
+    "tool-tip": "Change language",
     "ru": "Russian",
     "en": "English"
   },
   "theme-switcher": {
+    "tool-tip": "Change theme",
     "label-group": "Theme",
     "dark": "Dark",
     "light": "Light",
@@ -35,6 +37,9 @@
       "checkout": "Proceed to checkout",
       "products_one": "{{count}} product",
       "products_other": "{{count}} products"
+    },
+    "badge": {
+      "tool-tip": "Go to cart"
     }
   }
 }

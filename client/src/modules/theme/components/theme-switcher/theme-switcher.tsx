@@ -5,6 +5,7 @@ import {
   ListItemText,
   Menu,
   MenuItem,
+  Tooltip,
 } from "@mui/material";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
@@ -12,7 +13,7 @@ import { useTranslation } from "react-i18next";
 import { useMenu } from "@hooks/useMenu";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness';
+import SettingsBrightnessIcon from "@mui/icons-material/SettingsBrightness";
 import { Theme } from "@providers/theme/types";
 
 export const ThemeSwitcher: FC = () => {
@@ -27,11 +28,13 @@ export const ThemeSwitcher: FC = () => {
 
   return (
     <>
-      <IconButton ref={anchorRef} onClick={handleOpen}>
-        {theme === "dark" && <DarkModeIcon />}
-        {theme === "light" && <LightModeIcon />}
-        {theme === "system" && <SettingsBrightnessIcon />}
-      </IconButton>
+      <Tooltip title={t("theme-switcher.tool-tip")}>
+        <IconButton ref={anchorRef} onClick={handleOpen}>
+          {theme === "dark" && <DarkModeIcon />}
+          {theme === "light" && <LightModeIcon />}
+          {theme === "system" && <SettingsBrightnessIcon />}
+        </IconButton>
+      </Tooltip>
 
       <Menu
         id="theme-menu"
@@ -48,7 +51,7 @@ export const ThemeSwitcher: FC = () => {
           </ListItemIcon>
           <ListItemText>{t("theme-switcher.light")}</ListItemText>
         </MenuItem>
-        
+
         <MenuItem
           onClick={() => handleMenuItemClick("dark")}
           selected={theme === "dark"}

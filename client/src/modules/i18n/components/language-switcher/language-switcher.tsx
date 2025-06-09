@@ -1,4 +1,10 @@
-import { IconButton, ListItemText, Menu, MenuItem } from "@mui/material";
+import {
+  IconButton,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Tooltip,
+} from "@mui/material";
 import { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -23,9 +29,11 @@ export const LanguageSwitcher: FC = () => {
 
   return (
     <>
-      <IconButton ref={anchorRef} onClick={handleOpen}>
-        <LanguageIcon />
-      </IconButton>
+      <Tooltip title={t('language-switcher.tool-tip')}>
+        <IconButton ref={anchorRef} onClick={handleOpen}>
+          <LanguageIcon />
+        </IconButton>
+      </Tooltip>
 
       <Menu
         id="language-menu"

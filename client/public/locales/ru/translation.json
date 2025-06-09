@@ -1,9 +1,11 @@
 {
   "language-switcher": {
+    "tool-tip": "Сменить язык",
     "ru": "Русский",
     "en": "Английский"
   },
   "theme-switcher": {
+    "tool-tip": "Сменить тему",
     "label-group": "Тема",
     "dark": "Тёмная",
     "light": "Светлая",
@@ -37,6 +39,9 @@
       "products_one": "{{count}} товар",
       "products_few": "{{count}} товара",
       "products_many": "{{count}} товаров"
+    },
+    "badge": {
+      "tool-tip": "В корзину"
     }
   }
 }
