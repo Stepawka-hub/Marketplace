@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 export const CartList: FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const selected = useSelector(getSelectedIds);
+  const selectedIds = useSelector(getSelectedIds);
   const products = useSelector(getProducts);
 
   const handleDelete = (id: string) => {
@@ -27,6 +27,8 @@ export const CartList: FC = () => {
 
   const handleCardClick = (id: string) => navigate(`/catalog/${id}`);
 
+  console.log(selectedIds);
+
   return (
     <Grid container spacing={2} flexDirection="column">
       {products.map((p, i) => (
@@ -36,7 +38,7 @@ export const CartList: FC = () => {
           image={p.image}
           name={p.name}
           price={p.price}
-          isSelected={isInArray<string>(selected, p.id)}
+          isSelected={isInArray(selectedIds, p.id)}
           handleCardClick={handleCardClick}
           handleDelete={handleDelete}
           handleSelect={handleSelect}

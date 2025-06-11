@@ -19,6 +19,7 @@ export const CartItem: FC<CartItemProps> = ({
   image,
   name,
   price,
+  isSelected,
   handleCardClick,
   handleDelete,
   handleSelect,
@@ -70,7 +71,7 @@ export const CartItem: FC<CartItemProps> = ({
             {name}
           </Typography>
           <CardActions>
-            <Checkbox onClick={onSelect} />
+            <Checkbox checked={isSelected} onClick={onSelect} />
             <IconButton onClick={onDelete}>
               <DeleteIcon />
             </IconButton>

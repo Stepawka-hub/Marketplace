@@ -7,7 +7,7 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import { FC } from "react";
+import { FC, MouseEvent } from "react";
 import { ProductCardProps } from "./type";
 import { formattedWithSpace } from "@shared/helpers/numbers";
 import { useTranslation } from "react-i18next";
@@ -25,7 +25,8 @@ export const ProductCard: FC<ProductCardProps> = ({
   const { id, name, shortDescription, owner, price } = product;
   const formattedPrice = formattedWithSpace(price, i18n.language);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e: MouseEvent) => {
+    e.stopPropagation();
     addToCart(product);
   };
 
@@ -33,7 +34,8 @@ export const ProductCard: FC<ProductCardProps> = ({
     navigate(`/catalog/${id}`);
   };
 
-  const handleNavigateToCart = () => {
+  const handleNavigateToCart = (e: MouseEvent) => {
+    e.stopPropagation();
     navigate("/cart");
   };
 
@@ -73,7 +75,7 @@ export const ProductCard: FC<ProductCardProps> = ({
       <CardActions>
         {isInCart ? (
           <Button
-            variant="contained"
+            variant="outlined"
             fullWidth
             startIcon={<CheckCircleIcon />}
             onClick={handleNavigateToCart}
