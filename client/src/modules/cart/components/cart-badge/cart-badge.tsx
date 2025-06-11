@@ -18,7 +18,7 @@ export const CartBadge: FC = () => {
   return (
     <Tooltip title={t('cart.badge.tool-tip')}>
       <IconButton aria-label="cart" onClick={handleClick}>
-        <Badge badgeContent={count + 1} color="warning">
+        <Badge badgeContent={count} color="warning">
           <ShoppingCartIcon />
         </Badge>
       </IconButton>
