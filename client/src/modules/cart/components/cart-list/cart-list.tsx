@@ -1,15 +1,15 @@
-import { FC } from "react";
-import { CartItem } from "../cart-item";
-import { Grid } from "@mui/material";
-import { useDispatch, useSelector } from "@store/types";
 import {
   getProducts,
   getSelectedIds,
   removeProduct,
   toggleSelectedProduct,
 } from "@modules/cart/services/slices/cart";
+import { Grid } from "@mui/material";
 import { isInArray } from "@shared/helpers/array-helper";
+import { useDispatch, useSelector } from "@store/types";
+import { FC } from "react";
 import { useNavigate } from "react-router-dom";
+import { CartItem } from "../cart-item";
 
 export const CartList: FC = () => {
   const navigate = useNavigate();
@@ -26,8 +26,6 @@ export const CartList: FC = () => {
   };
 
   const handleCardClick = (id: string) => navigate(`/catalog/${id}`);
-
-  console.log(selectedIds);
 
   return (
     <Grid container spacing={2} flexDirection="column">

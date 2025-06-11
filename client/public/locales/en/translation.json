@@ -33,6 +33,11 @@
   "cart": {
     "title": "Cart",
     "back-btn": "Return to catalog",
+    "empty": {
+      "title": "Cart is empty",
+      "text": "You can find the products you need in the",
+      "link": "catalog"
+    },
     "summary": {
       "information": "Purchase Information",
       "checkout": "Proceed to checkout",

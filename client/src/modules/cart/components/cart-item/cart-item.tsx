@@ -13,6 +13,7 @@ import { formattedWithSpace } from "@shared/helpers/numbers";
 import { Card } from "@ui/card";
 import { FC, MouseEvent } from "react";
 import { CartItemProps } from "./type";
+import { useTranslation } from 'react-i18next';
 
 export const CartItem: FC<CartItemProps> = ({
   id,
@@ -24,7 +25,8 @@ export const CartItem: FC<CartItemProps> = ({
   handleDelete,
   handleSelect,
 }) => {
-  const formattedPrice = formattedWithSpace(price);
+  const { i18n } = useTranslation();
+  const formattedPrice = formattedWithSpace(price, i18n.language);
 
   const onDelete = (e: MouseEvent) => {
     e.stopPropagation();

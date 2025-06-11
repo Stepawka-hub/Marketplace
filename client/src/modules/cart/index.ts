@@ -1,5 +1,4 @@
-export { Cart } from "./components/cart";
-export { CartBadge } from "./components/cart-badge";
+export { Cart, CartBadge } from "./components";
 export {
   default as cartReducer,
   addProduct,

@@ -7,10 +7,10 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 
 export const CartSummary: FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const totalCount = useSelector(getSelectedItemsCount);
   const totalPrice = useSelector(getTotalPrice);
-  const formattedPrice = formattedWithSpace(totalPrice);
+  const formattedPrice = formattedWithSpace(totalPrice, i18n.language);
 
   return (
     <Box
