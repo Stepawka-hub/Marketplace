@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { CartItem } from "../cart-item";
 import { Grid } from "@mui/material";
-import { useDispatch, useSelector } from "@store";
+import { useDispatch, useSelector } from "@store/types";
 import {
   getProducts,
   getSelectedIds,

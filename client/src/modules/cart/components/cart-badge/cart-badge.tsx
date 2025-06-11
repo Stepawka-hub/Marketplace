@@ -1,7 +1,7 @@
 import { getCartTotalItems } from "@modules/cart/services/slices/cart";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Badge, IconButton, Tooltip } from "@mui/material";
-import { useSelector } from "@store";
+import { useSelector } from "@store/types";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";

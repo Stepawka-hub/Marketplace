@@ -2,7 +2,7 @@ import { addProduct, getProducts } from "@modules/cart";
 import { CatalogSearch, FilterPanel, ProductList } from "@modules/catalog";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { Grid, IconButton } from "@mui/material";
-import { useDispatch, useSelector } from "@store";
+import { useDispatch, useSelector } from "@store/types";
 import { TProduct } from "@types";
 import { FC, useCallback, useMemo, useState } from "react";
 

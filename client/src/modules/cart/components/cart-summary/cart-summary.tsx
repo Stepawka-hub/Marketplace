@@ -2,7 +2,7 @@ import { getTotalPrice } from "@modules/cart/services/selectors/cart";
 import { getSelectedItemsCount } from "@modules/cart/services/slices/cart";
 import { Box, Button, Typography } from "@mui/material";
 import { formattedWithSpace } from "@shared/helpers/numbers";
-import { useSelector } from "@store";
+import { useSelector } from "@store/types";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 

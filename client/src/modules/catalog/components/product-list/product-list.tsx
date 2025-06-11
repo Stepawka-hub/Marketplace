@@ -5,7 +5,7 @@ import {
   getSearchQuery,
 } from "@modules/catalog/services/slices/catalog";
 import { Grid } from "@mui/material";
-import { useSelector } from "@store";
+import { useSelector } from "@store/types";
 import { FC, memo } from "react";
 import { ProductCard } from "../product-card";
 import { checkInRange, includesRow } from "@shared/helpers/filter";

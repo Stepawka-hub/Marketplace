@@ -15,7 +15,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { useDispatch, useSelector } from "@store";
+import { useDispatch, useSelector } from "@store/types";
 import { Drawer } from "@ui/drawer";
 import { DrawerHeader } from "@ui/drawer-header";
 import { FC, useState } from "react";

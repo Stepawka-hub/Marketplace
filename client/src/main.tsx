@@ -4,7 +4,7 @@ import "./index.css";
 import { App } from "./app/app";
 import "@shared/config/i18n/i18next";
 import { Provider } from "react-redux";
-import { store } from "@store";
+import { store } from "@store/store";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
