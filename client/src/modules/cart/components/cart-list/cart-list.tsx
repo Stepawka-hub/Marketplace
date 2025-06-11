@@ -1,11 +1,31 @@
 import { FC } from "react";
 import { CartItem } from "../cart-item";
 import { Grid } from "@mui/material";
-import { useSelector } from "@store";
-import { getProducts } from "@modules/cart/services/slices/cart";
+import { useDispatch, useSelector } from "@store";
+import {
+  getProducts,
+  getSelectedIds,
+  removeProduct,
+  toggleSelectedProduct,
+} from "@modules/cart/services/slices/cart";
+import { isInArray } from "@shared/helpers/array-helper";
+import { useNavigate } from "react-router-dom";
 
 export const CartList: FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const selected = useSelector(getSelectedIds);
   const products = useSelector(getProducts);
+
+  const handleDelete = (id: string) => {
+    dispatch(removeProduct(id));
+  };
+
+  const handleSelect = (id: string) => {
+    dispatch(toggleSelectedProduct(id));
+  };
+
+  const handleCardClick = (id: string) => navigate(`/catalog/${id}`);
 
   return (
     <Grid container spacing={2} flexDirection="column">
@@ -16,6 +36,10 @@ export const CartList: FC = () => {
           image={p.image}
           name={p.name}
           price={p.price}
+          isSelected={isInArray<string>(selected, p.id)}
+          handleCardClick={handleCardClick}
+          handleDelete={handleDelete}
+          handleSelect={handleSelect}
         />
       ))}
     </Grid>

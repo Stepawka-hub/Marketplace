@@ -27,7 +27,7 @@ export const Cart: FC = () => {
         {t("cart.title")}
       </Typography>
       <Grid container spacing={4} sx={{ mt: 2 }}>
-        <Grid size={9}>
+        <Grid size={{ xs: 12, sm: 12, md: 12, lg: 8 }}>
           <CartList />
         </Grid>
         <Grid flexGrow={1}>

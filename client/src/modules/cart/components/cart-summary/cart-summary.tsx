@@ -1,7 +1,5 @@
-import {
-  getTotalCount,
-  getTotalPrice,
-} from "@modules/cart/services/slices/cart";
+import { getTotalPrice } from "@modules/cart/services/selectors/cart";
+import { getSelectedItemsCount } from "@modules/cart/services/slices/cart";
 import { Box, Button, Typography } from "@mui/material";
 import { formattedWithSpace } from "@shared/helpers/numbers";
 import { useSelector } from "@store";
@@ -10,7 +8,7 @@ import { useTranslation } from "react-i18next";
 
 export const CartSummary: FC = () => {
   const { t } = useTranslation();
-  const totalCount = useSelector(getTotalCount);
+  const totalCount = useSelector(getSelectedItemsCount);
   const totalPrice = useSelector(getTotalPrice);
   const formattedPrice = formattedWithSpace(totalPrice);
 
@@ -22,12 +20,17 @@ export const CartSummary: FC = () => {
         gap: 2,
         p: 2,
         borderRadius: 3,
-        border: '1px solid',
-        borderColor: 'divider',
+        border: "1px solid",
+        borderColor: "divider",
         backgroundColor: "custom.primary",
       }}
     >
-      <Typography variant="h3" fontSize="1.5rem" fontWeight="600">
+      <Typography
+        variant="h3"
+        fontSize="1.5rem"
+        fontWeight="600"
+        textAlign="center"
+      >
         {t("cart.summary.information")}
       </Typography>
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>

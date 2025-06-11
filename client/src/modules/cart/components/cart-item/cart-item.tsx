@@ -11,14 +11,32 @@ import {
 } from "@mui/material";
 import { formattedWithSpace } from "@shared/helpers/numbers";
 import { Card } from "@ui/card";
-import { FC } from "react";
+import { FC, MouseEvent } from "react";
 import { CartItemProps } from "./type";
 
-export const CartItem: FC<CartItemProps> = ({ id, image, name, price }) => {
+export const CartItem: FC<CartItemProps> = ({
+  id,
+  image,
+  name,
+  price,
+  handleCardClick,
+  handleDelete,
+  handleSelect,
+}) => {
   const formattedPrice = formattedWithSpace(price);
 
-  const handleDeleteClick = () => {
-    console.log("123");
+  const onDelete = (e: MouseEvent) => {
+    e.stopPropagation();
+    handleDelete(id);
+  };
+
+  const onSelect = (e: MouseEvent) => {
+    e.stopPropagation();
+    handleSelect(id);
+  };
+
+  const onCardClick = () => {
+    handleCardClick(id);
   };
 
   return (
@@ -33,6 +51,7 @@ export const CartItem: FC<CartItemProps> = ({ id, image, name, price }) => {
         },
       }}
       variant="outlined"
+      onClick={onCardClick}
     >
       <CardMedia
         sx={{ width: "10rem", borderRadius: "1rem" }}
@@ -51,8 +70,8 @@ export const CartItem: FC<CartItemProps> = ({ id, image, name, price }) => {
             {name}
           </Typography>
           <CardActions>
-            <Checkbox />
-            <IconButton onClick={handleDeleteClick}>
+            <Checkbox onClick={onSelect} />
+            <IconButton onClick={onDelete}>
               <DeleteIcon />
             </IconButton>
           </CardActions>
