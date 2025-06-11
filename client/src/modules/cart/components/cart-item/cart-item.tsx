@@ -13,7 +13,8 @@ import { formattedWithSpace } from "@shared/helpers/numbers";
 import { Card } from "@ui/card";
 import { FC, MouseEvent } from "react";
 import { CartItemProps } from "./type";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
+import { cardMediaStyles, cardStyles } from "./styles";
 
 export const CartItem: FC<CartItemProps> = ({
   id,
@@ -43,24 +44,8 @@ export const CartItem: FC<CartItemProps> = ({
   };
 
   return (
-    <Card
-      sx={{
-        flexDirection: "row",
-        height: "auto",
-        borderRadius: "0.75rem",
-        backgroundColor: "custom.primary",
-        "&:hover": {
-          transform: "none",
-        },
-      }}
-      variant="outlined"
-      onClick={onCardClick}
-    >
-      <CardMedia
-        sx={{ width: "10rem", borderRadius: "1rem" }}
-        image={testImg}
-        title={name}
-      />
+    <Card sx={cardStyles} variant="outlined" onClick={onCardClick}>
+      <CardMedia sx={cardMediaStyles} image={testImg} title={name} />
       <CardContent sx={{ flexGrow: 1, px: 0, ml: 2 }}>
         <Grid
           sx={{
@@ -69,11 +54,23 @@ export const CartItem: FC<CartItemProps> = ({
             justifyContent: "space-between",
           }}
         >
-          <Typography variant="h4" fontSize="1.15rem">
+          <Typography
+            variant="h4"
+            sx={{ fontSize: { xs: "1rem", sm: "1.15rem" } }}
+          >
             {name}
           </Typography>
-          <CardActions>
-            <Checkbox checked={isSelected} onClick={onSelect} />
+          <CardActions
+            sx={{
+              flexDirection: { xs: "column-reverse", sm: "row" },
+            }}
+            disableSpacing
+          >
+            <Checkbox
+              sx={{ mr: { sm: 1 } }}
+              checked={isSelected}
+              onClick={onSelect}
+            />
             <IconButton onClick={onDelete}>
               <DeleteIcon />
             </IconButton>

@@ -17,7 +17,7 @@ export const Cart: FC = () => {
   const handleClick = () => navigate("/catalog");
 
   return (
-    <Box sx={{ py: 3, px: 5 }}>
+    <Box sx={{ py: 3, px: { xs: 2, sm: 3, lg: 5 } }}>
       <Tooltip title={t("cart.back-btn")}>
         <IconButton
           aria-label="Вернуться в каталог"
