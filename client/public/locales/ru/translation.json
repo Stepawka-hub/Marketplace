@@ -23,7 +23,8 @@
   },
   "product": {
     "owner-label": "Продавец",
-    "add-to-cart": "В корзину"
+    "add-to-cart": "В корзину",
+    "in-cart": "В корзине"
   },
   "not-found": {
     "label": "Ничего не найдено!",

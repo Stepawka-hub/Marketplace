@@ -1,1 +1,1 @@
-export { CategoryMenu } from "./category-menu.tsx";
+export { CategoryMenu } from "./category-menu";

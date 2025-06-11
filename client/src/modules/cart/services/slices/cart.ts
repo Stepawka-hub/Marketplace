@@ -79,7 +79,7 @@ const cartSlice = createSlice({
 });
 
 export default cartSlice.reducer;
-export const { removeProduct, toggleSelectedProduct } = cartSlice.actions;
+export const { addProduct, removeProduct, toggleSelectedProduct } = cartSlice.actions;
 export const {
   getProducts,
   getSelectedIds,

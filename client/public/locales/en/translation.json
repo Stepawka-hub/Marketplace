@@ -23,7 +23,8 @@
   },
   "product": {
     "owner-label": "Seller",
-    "add-to-cart": "Add to cart"
+    "add-to-cart": "Add to cart",
+    "in-cart": "In cart"
   },
   "not-found": {
     "label": "Nothing found!",
