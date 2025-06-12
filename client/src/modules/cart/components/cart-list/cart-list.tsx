@@ -62,7 +62,7 @@ export const CartList: FC = () => {
           }
         />
         <Button variant="outlined" onClick={handleDeleteAll}>
-          Удалить выбранные
+          {t("cart.remove-all")}
         </Button>
       </Paper>
 

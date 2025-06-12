@@ -7,6 +7,7 @@ import {
   Checkbox,
   Grid,
   IconButton,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import { formattedWithSpace } from "@shared/helpers/numbers";
@@ -15,6 +16,7 @@ import { FC, MouseEvent } from "react";
 import { CartItemProps } from "./type";
 import { useTranslation } from "react-i18next";
 import { cardMediaStyles, cardStyles } from "./styles";
+import { t } from "i18next";
 
 export const CartItem: FC<CartItemProps> = ({
   id,
@@ -66,14 +68,18 @@ export const CartItem: FC<CartItemProps> = ({
             }}
             disableSpacing
           >
-            <Checkbox
-              sx={{ mr: { sm: 1 } }}
-              checked={isSelected}
-              onClick={onSelect}
-            />
-            <IconButton onClick={onDelete}>
-              <DeleteIcon />
-            </IconButton>
+            <Tooltip title={t("cart.item.choose")}>
+              <Checkbox
+                sx={{ mr: { sm: 1 } }}
+                checked={isSelected}
+                onClick={onSelect}
+              />
+            </Tooltip>
+            <Tooltip title={t("cart.item.remove-btn")}>
+              <IconButton onClick={onDelete}>
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
           </CardActions>
         </Grid>
         <Grid>
