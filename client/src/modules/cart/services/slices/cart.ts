@@ -23,6 +23,19 @@ const cartSlice = createSlice({
       state.products = state.products.filter((p) => p.id !== payload);
       state.selectedIds = state.selectedIds.filter((id) => id !== payload);
     },
+    selectAllProducts: (state, { payload }: PayloadAction<boolean>) => {
+      if (payload) {
+        state.selectedIds = state.products.map((p) => p.id);
+      } else {
+        state.selectedIds = [];
+      }
+    },
+    clearSelected: (state) => {
+      state.products = state.products.filter(
+        (p) => !state.selectedIds.includes(p.id)
+      );
+      state.selectedIds = [];
+    },
   },
   selectors: {
     getProducts: (state) => state.products,
@@ -34,8 +47,13 @@ const cartSlice = createSlice({
 });
 
 export default cartSlice.reducer;
-export const { addProduct, removeProduct, toggleSelectedProduct } =
-  cartSlice.actions;
+export const {
+  selectAllProducts,
+  addProduct,
+  removeProduct,
+  toggleSelectedProduct,
+  clearSelected
+} = cartSlice.actions;
 export const {
   getProducts,
   getSelectedIds,

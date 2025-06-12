@@ -33,6 +33,12 @@
   "cart": {
     "title": "Cart",
     "back-btn": "Return to catalog",
+    "select-all": "Select all",
+    "remove-all": "Delete selected",
+    "item": {
+      "remove-btn": "Remove from cart",
+      "choose": "Choose"
+    },
     "empty": {
       "title": "Cart is empty",
       "text": "You can find the products you need in the",

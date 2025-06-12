@@ -1,4 +1,4 @@
-export const styledCard = {
+export const cardStyles = {
   flexDirection: "row",
   height: "auto",
   borderRadius: "0.75rem",
