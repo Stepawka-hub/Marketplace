@@ -6,31 +6,20 @@ export const basePalette = {
 
 export const lightPalette = {
   custom: {
+    primary: '#fff',
     appBar: {
       iconColor: "#fff",
       iconHover: "rgba(255, 255, 255, 0.1)",
-    },
-    drawer: {
-      bg: "#fff",
-    },
-    productCard: {
-      bg: "#fff",
     },
   },
 };
 
 export const darkPalette = {
   custom: {
+    primary: "#262626",
     appBar: {
       iconColor: "#fff",
       iconHover: "rgba(255, 255, 255, 0.1)",
-    },
-    drawer: {
-      bg: "#262626",
-    },
-    productCard: {
-      border: "#262626",
-      bg: "#262626",
     },
   },
 };

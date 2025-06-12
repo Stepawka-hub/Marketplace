@@ -9,7 +9,7 @@ export const Drawer = styled(MuiDrawer)(({ theme }) => ({
     border: "1px solid",
     borderColor: theme.palette.divider,
     borderRadius: "1rem",
-    backgroundColor: theme.palette.custom.drawer.bg,
+    backgroundColor: theme.palette.custom.primary,
     overflowX: "hidden"
   },
 }));

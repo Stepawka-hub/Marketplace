@@ -3,7 +3,7 @@ import {
   getSearchQuery,
   setSearchQuery,
 } from "@modules/catalog/services/slices/catalog";
-import { useDispatch, useSelector } from "@store";
+import { useDispatch, useSelector } from "@store/types";
 import { SearchInput } from "@ui/search-input";
 import { ChangeEvent, FC, memo, useState } from "react";
 import { useTranslation } from "react-i18next";

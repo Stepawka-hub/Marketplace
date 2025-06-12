@@ -1,17 +1,14 @@
-import { Card as CardMui, styled } from '@mui/material';
+import { Card as CardMui, styled } from "@mui/material";
 
 export const Card = styled(CardMui)(() => ({
-  display: 'flex',
-  flexDirection: 'column',
-  height: '100%',
-  padding: '1rem',
+  display: "flex",
+  flexDirection: "column",
+  height: "100%",
+  padding: "1rem",
   borderRadius: "1.5rem",
-  cursor: 'pointer',
+  cursor: "pointer",
   transition: "transform .3s ease, opacity .2s ease",
   "&:hover": {
-    transform: "translateY(-0.5rem)"
+    transform: "translateY(-0.5rem)",
   },
-  "&:active": {
-    opacity: 0.8
-  }
 }));

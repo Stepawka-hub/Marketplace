@@ -1,3 +1,4 @@
+import { TFilter, TRange } from '@modules/catalog/types';
 import { TProduct } from "@types";
 
 export type TCatalogState = {
@@ -7,19 +8,4 @@ export type TCatalogState = {
   priceRange: TRange;
   searchQuery: string;
   filters: TFilter;
-};
-
-export type TFilter = {
-  price: TPrice;
-  category: string;
-};
-
-export type TPrice = {
-  min: number;
-  max: number;
-};
-
-export type TRange = {
-  min: number,
-  max: number;
 };

@@ -1,1 +1,1 @@
-export * from './components/catalog-page';
+export { CatalogPage } from './catalog-page';

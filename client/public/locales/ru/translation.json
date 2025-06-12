@@ -1,9 +1,11 @@
 {
   "language-switcher": {
+    "tool-tip": "Сменить язык",
     "ru": "Русский",
     "en": "Английский"
   },
   "theme-switcher": {
+    "tool-tip": "Сменить тему",
     "label-group": "Тема",
     "dark": "Тёмная",
     "light": "Светлая",
@@ -21,10 +23,37 @@
   },
   "product": {
     "owner-label": "Продавец",
-    "add-to-cart": "В корзину"
+    "add-to-cart": "В корзину",
+    "in-cart": "В корзине"
   },
   "not-found": {
     "label": "Ничего не найдено!",
     "btn-label": "Вернуться на главную"
+  },
+  "cart": {
+    "title": "Корзина",
+    "back-btn": "Вернуться в каталог",
+    "select-all": "Выбрать все",
+    "remove-all": "Удалить выбранное",
+    "item": {
+      "remove-btn": "Удалить из корзины",
+      "choose": "Выбрать"
+    },
+    "empty": {
+      "title": "Корзина пуста",
+      "text": "Найти нужные вам товары вы можете в",
+      "link": "каталоге"
+    },
+    "summary": {
+      "information": "Информация о покупке",
+      "checkout": "Перейти к оформлению",
+      "products_zero": "{{count}} товаров",
+      "products_one": "{{count}} товар",
+      "products_few": "{{count}} товара",
+      "products_many": "{{count}} товаров"
+    },
+    "badge": {
+      "tool-tip": "В корзину"
+    }
   }
 }

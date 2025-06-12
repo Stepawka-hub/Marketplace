@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TCatalogState, TFilter } from "../types";
+import { TCatalogState } from "./types";
+import { TFilter } from '@modules/catalog/types';
 
 const initialState: TCatalogState = {
   products: [

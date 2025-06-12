@@ -7,24 +7,45 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import { FC } from "react";
+import { FC, MouseEvent } from "react";
 import { ProductCardProps } from "./type";
 import { formattedWithSpace } from "@shared/helpers/numbers";
 import { useTranslation } from "react-i18next";
 import { Card } from "@ui/card";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { useNavigate } from "react-router-dom";
 
-export const ProductCard: FC<ProductCardProps> = ({ product }) => {
+export const ProductCard: FC<ProductCardProps> = ({
+  product,
+  isInCart,
+  addToCart,
+}) => {
+  const navigate = useNavigate();
   const { i18n, t } = useTranslation();
-  const { name, shortDescription, owner, price } = product;
+  const { id, name, shortDescription, owner, price } = product;
   const formattedPrice = formattedWithSpace(price, i18n.language);
+
+  const handleAddToCart = (e: MouseEvent) => {
+    e.stopPropagation();
+    addToCart(product);
+  };
+
+  const handleNavigateToProduct = () => {
+    navigate(`/catalog/${id}`);
+  };
+
+  const handleNavigateToCart = (e: MouseEvent) => {
+    e.stopPropagation();
+    navigate("/cart");
+  };
 
   return (
     <Card
       sx={{
-        borderColor: "custom.productCard.border",
-        backgroundColor: "custom.productCard.bg",
+        backgroundColor: "custom.primary",
       }}
       variant="outlined"
+      onClick={handleNavigateToProduct}
     >
       <CardMedia
         sx={{ height: "25vh", borderRadius: "1.25rem" }}
@@ -52,13 +73,25 @@ export const ProductCard: FC<ProductCardProps> = ({ product }) => {
       </CardContent>
 
       <CardActions>
-        <Button
-          variant="contained"
-          fullWidth
-          startIcon={<ShoppingBasketIcon />}
-        >
-          {t("product.add-to-cart")}
-        </Button>
+        {isInCart ? (
+          <Button
+            variant="outlined"
+            fullWidth
+            startIcon={<CheckCircleIcon />}
+            onClick={handleNavigateToCart}
+          >
+            {t("product.in-cart")}
+          </Button>
+        ) : (
+          <Button
+            variant="contained"
+            fullWidth
+            startIcon={<ShoppingBasketIcon />}
+            onClick={handleAddToCart}
+          >
+            {t("product.add-to-cart")}
+          </Button>
+        )}
       </CardActions>
     </Card>
   );
