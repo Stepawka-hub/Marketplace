@@ -6,16 +6,14 @@ import {
   ProductReviews,
   ProductSpecs,
 } from "@modules/product/components";
-import { getProduct } from "@modules/product/services/slices/product";
 import { Box, Grid, Typography } from "@mui/material";
-import { useSelector } from "@store/types";
 import { TAttribute } from "@types";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { ProductProps } from "./type";
 
 export const Product: FC<ProductProps> = ({ id }) => {
-  const product = useSelector(getProduct);
-  console.log(product);
+  const [isInCart, setIsInCart] = useState(false);
+  const [isInFavorites, setIsInFavories] = useState(false);
 
   const attributes: TAttribute[] = [
     { name: "Тип", value: "Шампунь" },
@@ -26,25 +24,38 @@ export const Product: FC<ProductProps> = ({ id }) => {
     { name: "Атрибут 4", value: "Значение 4" },
   ];
 
+  const addToCart = () => {
+    setIsInCart((p) => !p);
+  };
+  const addToFavorites = () => {
+    setIsInFavories((p) => !p);
+  };
+
   return (
     <Box>
       <Typography variant="h2" fontSize="2rem" fontWeight="600">
         {`Product: ${id}`}
       </Typography>
       <Grid container justifyContent="space-between" spacing={4}>
-        <Grid size={4}>
+        <Grid size={6}>
           <ProductImages />
         </Grid>
-        <Grid size={4}>
-          <ProductMeta
-            rating={4.4}
-            numberReviews={5346}
-            seller="Stepawka"
-            attributes={attributes}
-          />
-        </Grid>
-        <Grid size={4}>
-          <ProductPurchase />
+        <Grid size={6}>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <ProductPurchase
+              isInCart={isInCart}
+              isInFavorites={isInFavorites}
+              price={3000}
+              addToCart={addToCart}
+              addToFavorites={addToFavorites}
+            />
+            <ProductMeta
+              rating={4.4}
+              numberReviews={5346}
+              seller="Stepawka"
+              attributes={attributes}
+            />
+          </Box>
         </Grid>
       </Grid>
       <Grid container flexDirection="column">

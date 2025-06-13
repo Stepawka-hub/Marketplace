@@ -1,42 +1,29 @@
+import { AddToCartButton } from "@components/add-to-cart-button";
 import testImg from "@images/testImg.jpg";
-import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import {
-  Button,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
-import { FC, MouseEvent } from "react";
-import { ProductCardProps } from "./type";
+import { CardActions, CardContent, CardMedia, Typography } from "@mui/material";
 import { formattedWithSpace } from "@shared/helpers/numbers";
-import { useTranslation } from "react-i18next";
 import { Card } from "@ui/card";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { FC } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { ProductCardProps } from "./type";
 
 export const ProductCard: FC<ProductCardProps> = ({
   product,
   isInCart,
   addToCart,
 }) => {
-  const navigate = useNavigate();
   const { i18n, t } = useTranslation();
+  const navigate = useNavigate();
   const { id, name, shortDescription, owner, price } = product;
   const formattedPrice = formattedWithSpace(price, i18n.language);
 
-  const handleAddToCart = (e: MouseEvent) => {
-    e.stopPropagation();
+  const handleAddToCart = () => {
     addToCart(product);
   };
 
   const handleNavigateToProduct = () => {
     navigate(`/catalog/${id}`);
-  };
-
-  const handleNavigateToCart = (e: MouseEvent) => {
-    e.stopPropagation();
-    navigate("/cart");
   };
 
   return (
@@ -73,25 +60,7 @@ export const ProductCard: FC<ProductCardProps> = ({
       </CardContent>
 
       <CardActions>
-        {isInCart ? (
-          <Button
-            variant="outlined"
-            fullWidth
-            startIcon={<CheckCircleIcon />}
-            onClick={handleNavigateToCart}
-          >
-            {t("product.in-cart")}
-          </Button>
-        ) : (
-          <Button
-            variant="contained"
-            fullWidth
-            startIcon={<ShoppingBasketIcon />}
-            onClick={handleAddToCart}
-          >
-            {t("product.add-to-cart")}
-          </Button>
-        )}
+        <AddToCartButton isInCart={isInCart} addToCart={handleAddToCart} />
       </CardActions>
     </Card>
   );

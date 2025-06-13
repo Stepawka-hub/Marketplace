@@ -1,0 +1,45 @@
+import { FC, MouseEvent } from "react";
+import { AddToCartButtonProps } from "./type";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { Button } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+
+export const AddToCartButton: FC<AddToCartButtonProps> = ({
+  isInCart,
+  addToCart,
+}) => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const handleAddToCart = (e: MouseEvent) => {
+    e.stopPropagation();
+    addToCart();
+  };
+
+  const handleNavigateToCart = (e: MouseEvent) => {
+    e.stopPropagation();
+    navigate("/cart");
+  };
+
+  return isInCart ? (
+    <Button
+      variant="outlined"
+      fullWidth
+      startIcon={<CheckCircleIcon />}
+      onClick={handleNavigateToCart}
+    >
+      {t("product.in-cart")}
+    </Button>
+  ) : (
+    <Button
+      variant="contained"
+      fullWidth
+      startIcon={<ShoppingBasketIcon />}
+      onClick={handleAddToCart}
+    >
+      {t("product.add-to-cart")}
+    </Button>
+  );
+};
