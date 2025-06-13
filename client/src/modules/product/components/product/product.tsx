@@ -1,38 +1,47 @@
-import { FC } from "react";
-import { Grid, Typography } from "@mui/material";
-import { useSelector } from "@store/types";
-import { getProduct } from "@modules/product/services/slices/product";
 import {
   ProductDescription,
   ProductImages,
-  ProductPurchase,
-  ProductSpecs,
-  ProductReviews,
   ProductMeta,
+  ProductPurchase,
+  ProductReviews,
+  ProductSpecs,
 } from "@modules/product/components";
+import { getProduct } from "@modules/product/services/slices/product";
+import { Box, Grid, Typography } from "@mui/material";
+import { useSelector } from "@store/types";
+import { TAttribute } from "@types";
+import { FC } from "react";
 import { ProductProps } from "./type";
 
 export const Product: FC<ProductProps> = ({ id }) => {
   const product = useSelector(getProduct);
   console.log(product);
 
+  const attributes: TAttribute[] = [
+    { name: "Тип", value: "Шампунь" },
+    { name: "Объем", value: "500 мл" },
+  ];
+
   return (
-    <Grid>
-      <Grid>
-        <Typography variant="h2" fontSize="2rem" fontWeight="600">
-          {`Product: ${id}`}
-        </Typography>
-      </Grid>
-      <Grid>
+    <Box>
+      <Typography variant="h2" fontSize="2rem" fontWeight="600">
+        {`Product: ${id}`}
+      </Typography>
+      <Grid container justifyContent="space-between">
         <ProductImages />
-        <ProductMeta />
+        <ProductMeta
+          rating={4.4}
+          numberReviews={5346}
+          seller="Stepawka"
+          attributes={attributes}
+        />
         <ProductPurchase />
       </Grid>
-      <Grid>
+      <Grid container flexDirection="column">
         <ProductDescription />
         <ProductSpecs />
         <ProductReviews />
       </Grid>
-    </Grid>
+    </Box>
   );
 };

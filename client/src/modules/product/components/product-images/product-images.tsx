@@ -1,3 +1,3 @@
 import { FC } from 'react';
 
-export const ProductImages: FC = () => <img></img>
+export const ProductImages: FC = () => <div>images</div>;

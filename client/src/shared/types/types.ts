@@ -1,7 +1,7 @@
 export type TProductOwner = {
   id: string;
   name: string;
-}
+};
 
 export type TProduct = {
   id: string;
@@ -14,4 +14,9 @@ export type TProduct = {
   owner: TProductOwner;
   createdAt: string;
   updatedAt?: string;
-}
+};
+
+export type TAttribute = {
+  name: string;
+  value: string;
+};
