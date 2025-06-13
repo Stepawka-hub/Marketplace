@@ -30,7 +30,7 @@ export const AddToCartButton: FC<AddToCartButtonProps> = ({
       startIcon={<CheckCircleIcon />}
       onClick={handleNavigateToCart}
     >
-      {t("product.in-cart")}
+      {t("product.buttons.in-cart")}
     </Button>
   ) : (
     <Button
@@ -39,7 +39,7 @@ export const AddToCartButton: FC<AddToCartButtonProps> = ({
       startIcon={<ShoppingBasketIcon />}
       onClick={handleAddToCart}
     >
-      {t("product.add-to-cart")}
+      {t("product.buttons.add-to-cart")}
     </Button>
   );
 };

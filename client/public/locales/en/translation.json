@@ -21,11 +21,6 @@
   "catalog-search": {
     "placeholder": "Enter product name..."
   },
-  "product": {
-    "owner-label": "Seller",
-    "add-to-cart": "Add to cart",
-    "in-cart": "In cart"
-  },
   "not-found": {
     "label": "Nothing found!",
     "btn-label": "Return to home"
@@ -52,6 +47,28 @@
     },
     "badge": {
       "tool-tip": "Go to cart"
+    }
+  },
+  "product": {
+    "rating": {
+      "label": "Rating",
+      "reviews_one": "{{count}} review",
+      "reviews_other": "{{count}} reviews"
+    },
+    "details": {
+      "label": "About product",
+      "specs": "Specifications",
+      "description": "Description",
+      "reviews": "Reviews"
+    },
+    "seller": {
+      "label": "Seller"
+    },
+    "buttons": {
+      "add-to-cart": "Add to cart",
+      "in-cart": "In cart",
+      "add-to-favorites": "Add to favorites",
+      "remove-from-favorites": "Remove from favorites"
     }
   }
 }

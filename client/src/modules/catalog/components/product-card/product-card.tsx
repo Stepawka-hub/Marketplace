@@ -56,7 +56,7 @@ export const ProductCard: FC<ProductCardProps> = ({
           {shortDescription}
         </Typography>
 
-        <Typography>{`${t("product.owner-label")}: ${owner.name}`}</Typography>
+        <Typography>{`${t("product.seller.label")}: ${owner.name}`}</Typography>
       </CardContent>
 
       <CardActions>

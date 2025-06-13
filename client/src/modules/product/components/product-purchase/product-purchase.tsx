@@ -17,7 +17,7 @@ export const ProductPurchase: FC<ProductPurchaseProps> = ({
   const formattedPrice = formattedWithSpace(price, i18n.language);
 
   return (
-    <Paper variant="outlined" sx={{ p: 2 }}>
+    <Paper variant="outlined" sx={{ p: 2, backgroundColor: "custom.primary" }}>
       <Box
         sx={{
           display: "flex",
@@ -31,7 +31,11 @@ export const ProductPurchase: FC<ProductPurchaseProps> = ({
         </Typography>
         <LikeButton
           isActive={isInFavorites}
-          title={t("test")}
+          title={
+            isInFavorites
+              ? t("product.buttons.remove-from-favorites")
+              : t("product.buttons.add-to-favorites")
+          }
           callback={addToFavorites}
         />
       </Box>

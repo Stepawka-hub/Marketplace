@@ -1,3 +1,4 @@
-import { FC } from 'react';
+import { Box } from "@mui/material";
+import { FC } from "react";
 
-export const ProductImages: FC = () => <div>images</div>;
+export const ProductImages: FC = () => <Box></Box>;

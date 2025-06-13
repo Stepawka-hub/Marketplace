@@ -1,7 +1,7 @@
 export const mainContainerStyles = {
   display: "flex",
   flexDirection: "column",
-  gap: "1rem",
+  gap: "2rem",
 };
 
 export const titleStyles = {
