@@ -1,0 +1,1 @@
+export { ProductMeta } from './product-meta';

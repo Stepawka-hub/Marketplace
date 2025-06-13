@@ -1,4 +1,4 @@
-import { CartPage, CatalogPage, NotFoundPage } from "@pages";
+import { CartPage, CatalogPage, NotFoundPage, ProductPage } from "@pages";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { AppLayout } from "../app-layout";
 
@@ -13,6 +13,10 @@ export const router = createBrowserRouter([
       {
         path: "/catalog",
         element: <CatalogPage />,
+      },
+      {
+        path: "/catalog/:productId",
+        element: <ProductPage />,
       },
       {
         path: "cart",
