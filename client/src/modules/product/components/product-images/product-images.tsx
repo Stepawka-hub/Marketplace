@@ -1,41 +1,35 @@
 import { Box, ImageList } from "@mui/material";
-import { FC, useState } from "react";
-import s from "./product-images.module.css";
 import { ImageListItem } from "@ui/image-list-item";
+import { ImageSlider } from "@ui/image-slider";
+import { FC, useCallback, useState } from "react";
+import { ProductImagesProps } from "./type";
 
-export const ProductImages: FC = () => {
-  const images = [
-    "https://newcdn.igromania.ru/mnt/articles/6/5/0/8/b/3/32271/html/more/19_ecaeb2e71901a61cbd5a6_original.jpg",
-    "https://80.img.avito.st/image/1/1.QqFbbra49EhtxyxNU2tD6ETP7E7lz2xALcrsSuvH5kLt.rRxsMl2KcM9hy9A8W9VczgvERqzMaf-hozkw3b7eiOs",
-    "https://50.img.avito.st/image/1/1.a9hexra4xzFobwU0BJ925XFnxTfgZ0U5KGLFM-5vzzvo.RsHlr7pvOdUxAVzY0cNi53kd4BR49GmkrhkGkTmgjl4",
-    "https://80.img.avito.st/image/1/1.QqFbbra49EhtxyxNU2tD6ETP7E7lz2xALcrsSuvH5kLt.rRxsMl2KcM9hy9A8W9VczgvERqzMaf-hozkw3b7eiOs",
-    "https://00.img.avito.st/image/1/1.Gj2alraxttTMMzzTosoWLOg3tNQoI7LW.f8a5CgXdQIwlsdOirgVkGtqdioANcCujBNt3tomeEEI?cqp=2.d_Zf6Bm1shCMrOHY-Vj18hvV6BjwI358IHMSOoasWlTdJXwRxVlJDedyKiY=",
-    "https://newcdn.igromania.ru/mnt/articles/6/5/0/8/b/3/32271/html/more/19_ecaeb2e71901a61cbd5a6_original.jpg",
-    "https://80.img.avito.st/image/1/1.QqFbbra49EhtxyxNU2tD6ETP7E7lz2xALcrsSuvH5kLt.rRxsMl2KcM9hy9A8W9VczgvERqzMaf-hozkw3b7eiOs",
-    "https://50.img.avito.st/image/1/1.a9hexra4xzFobwU0BJ925XFnxTfgZ0U5KGLFM-5vzzvo.RsHlr7pvOdUxAVzY0cNi53kd4BR49GmkrhkGkTmgjl4",
-    "https://80.img.avito.st/image/1/1.QqFbbra49EhtxyxNU2tD6ETP7E7lz2xALcrsSuvH5kLt.rRxsMl2KcM9hy9A8W9VczgvERqzMaf-hozkw3b7eiOs",
-    "https://00.img.avito.st/image/1/1.Gj2alraxttTMMzzTosoWLOg3tNQoI7LW.f8a5CgXdQIwlsdOirgVkGtqdioANcCujBNt3tomeEEI?cqp=2.d_Zf6Bm1shCMrOHY-Vj18hvV6BjwI358IHMSOoasWlTdJXwRxVlJDedyKiY=",
-  ];
+export const ProductImages: FC<ProductImagesProps> = ({ images }) => {
+  const [position, setPosition] = useState(0);
 
-  const imagesWithPosition = images.map((image, index) => ({
-    image,
-    position: index + 1,
-  }));
-  const [currentImage, setCurrentImage] = useState(imagesWithPosition[0]);
+  const onImageChange = useCallback((position: number) => {
+    setPosition(position);
+  }, []);
+
+  const onImageClick = useCallback(() => null, []);
 
   return (
     <Box component="section">
-      <Box sx={{ overflow: "hidden" }}>
-        <img className={s.currentImage} src={currentImage.image} />
-      </Box>
+      <ImageSlider
+        images={images}
+        currentPosition={position}
+        onImageChange={onImageChange}
+        onImageClick={onImageClick}
+      />
+
       <ImageList cols={6} gap={10}>
-        {imagesWithPosition.map((el, index) => (
+        {images.map((image, index) => (
           <ImageListItem
             key={index}
-            isSelected={currentImage.position === el.position}
-            onClick={() => setCurrentImage(el)}
+            isSelected={position === index}
+            onClick={() => setPosition(index)}
           >
-            <img className={s.image} src={el.image} />
+            <img src={image} alt={`Product thumbnail ${index}`} />
           </ImageListItem>
         ))}
       </ImageList>

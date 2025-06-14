@@ -24,6 +24,19 @@ export const Product: FC<ProductProps> = ({ id }) => {
     { name: "Атрибут 4", value: "Значение 4" },
   ];
 
+  const images = [
+    "https://newcdn.igromania.ru/mnt/articles/6/5/0/8/b/3/32271/html/more/19_ecaeb2e71901a61cbd5a6_original.jpg",
+    "https://80.img.avito.st/image/1/1.QqFbbra49EhtxyxNU2tD6ETP7E7lz2xALcrsSuvH5kLt.rRxsMl2KcM9hy9A8W9VczgvERqzMaf-hozkw3b7eiOs",
+    "https://50.img.avito.st/image/1/1.a9hexra4xzFobwU0BJ925XFnxTfgZ0U5KGLFM-5vzzvo.RsHlr7pvOdUxAVzY0cNi53kd4BR49GmkrhkGkTmgjl4",
+    "https://80.img.avito.st/image/1/1.QqFbbra49EhtxyxNU2tD6ETP7E7lz2xALcrsSuvH5kLt.rRxsMl2KcM9hy9A8W9VczgvERqzMaf-hozkw3b7eiOs",
+    "https://00.img.avito.st/image/1/1.Gj2alraxttTMMzzTosoWLOg3tNQoI7LW.f8a5CgXdQIwlsdOirgVkGtqdioANcCujBNt3tomeEEI?cqp=2.d_Zf6Bm1shCMrOHY-Vj18hvV6BjwI358IHMSOoasWlTdJXwRxVlJDedyKiY=",
+    "https://newcdn.igromania.ru/mnt/articles/6/5/0/8/b/3/32271/html/more/19_ecaeb2e71901a61cbd5a6_original.jpg",
+    "https://80.img.avito.st/image/1/1.QqFbbra49EhtxyxNU2tD6ETP7E7lz2xALcrsSuvH5kLt.rRxsMl2KcM9hy9A8W9VczgvERqzMaf-hozkw3b7eiOs",
+    "https://50.img.avito.st/image/1/1.a9hexra4xzFobwU0BJ925XFnxTfgZ0U5KGLFM-5vzzvo.RsHlr7pvOdUxAVzY0cNi53kd4BR49GmkrhkGkTmgjl4",
+    "https://80.img.avito.st/image/1/1.QqFbbra49EhtxyxNU2tD6ETP7E7lz2xALcrsSuvH5kLt.rRxsMl2KcM9hy9A8W9VczgvERqzMaf-hozkw3b7eiOs",
+    "https://00.img.avito.st/image/1/1.Gj2alraxttTMMzzTosoWLOg3tNQoI7LW.f8a5CgXdQIwlsdOirgVkGtqdioANcCujBNt3tomeEEI?cqp=2.d_Zf6Bm1shCMrOHY-Vj18hvV6BjwI358IHMSOoasWlTdJXwRxVlJDedyKiY=",
+  ];
+
   const addToCart = () => {
     setIsInCart((p) => !p);
   };
@@ -41,7 +54,7 @@ export const Product: FC<ProductProps> = ({ id }) => {
       </Typography>
       <Grid container justifyContent="space-between" spacing={4}>
         <Grid size={6}>
-          <ProductImages />
+          <ProductImages images={images} />
         </Grid>
         <Grid size={6}>
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
