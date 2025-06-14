@@ -6,7 +6,7 @@ import {
   ProductReviews,
   ProductSpecs,
 } from "@modules/product/components";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Divider, Grid, Typography } from "@mui/material";
 import { TAttribute } from "@types";
 import { FC, useState } from "react";
 import { ProductProps } from "./type";
@@ -52,6 +52,7 @@ export const Product: FC<ProductProps> = ({ id }) => {
       >
         {`Product: ${id}`}
       </Typography>
+
       <Grid container justifyContent="space-between" spacing={4}>
         <Grid size={6}>
           <ProductImages images={images} />
@@ -74,9 +75,12 @@ export const Product: FC<ProductProps> = ({ id }) => {
           </Box>
         </Grid>
       </Grid>
+      <Divider sx={{ my: 2 }} />
       <Grid container flexDirection="column">
         <ProductDescription />
+        <Divider sx={{ my: 2 }} />
         <ProductSpecs />
+        <Divider sx={{ my: 2 }} />
         <ProductReviews />
       </Grid>
     </Box>

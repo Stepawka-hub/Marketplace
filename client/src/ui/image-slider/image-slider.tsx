@@ -1,9 +1,8 @@
-import { FC, useState } from "react";
-import { ImageSliderProps } from "./type";
-import { Box, IconButton } from "@mui/material";
 import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
-import { btnStyles, sliderStyles } from "./styles";
+import { FC } from "react";
+import { SliderBox, SliderButton, SliderImage } from "./styles";
+import { ImageSliderProps } from "./type";
 
 export const ImageSlider: FC<ImageSliderProps> = ({
   images,
@@ -11,30 +10,32 @@ export const ImageSlider: FC<ImageSliderProps> = ({
   onImageChange,
   onImageClick,
 }) => {
+  const isFirst = currentPosition === 0;
+  const isLast = currentPosition === images.length - 1;
+
   const handlePrev = () => {
-    if (currentPosition === 0) return;
+    if (isFirst) return;
     onImageChange(currentPosition - 1);
   };
 
   const handleNext = () => {
-    if (currentPosition === images.length - 1) return;
+    if (isLast) return;
     onImageChange(currentPosition + 1);
   };
 
   return (
-    <Box sx={sliderStyles}>
-      <IconButton sx={{ ...btnStyles, left: 15 }} onClick={handlePrev}>
+    <SliderBox>
+      <SliderButton sx={{ left: 15 }} disabled={isFirst} onClick={handlePrev}>
         <ChevronLeftRoundedIcon fontSize="large" />
-      </IconButton>
-      <img
-        style={{ width: "100%", height: "100%", borderRadius: "1.25rem" }}
+      </SliderButton>
+      <SliderImage
         src={images[currentPosition]}
         alt={`Product thumbnail ${currentPosition}`}
         onClick={onImageClick}
       />
-      <IconButton sx={{ ...btnStyles, right: 15 }} onClick={handleNext}>
+      <SliderButton sx={{ right: 15 }} disabled={isLast} onClick={handleNext}>
         <ChevronRightRoundedIcon fontSize="large" />
-      </IconButton>
-    </Box>
+      </SliderButton>
+    </SliderBox>
   );
 };
