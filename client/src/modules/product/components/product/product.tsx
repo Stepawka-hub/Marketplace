@@ -33,7 +33,10 @@ export const Product: FC<ProductProps> = ({ id }) => {
 
   return (
     <Box>
-      <Typography variant="h2" fontSize="2rem" fontWeight="600">
+      <Typography
+        variant="h2"
+        sx={{ mb: 2, fontSize: "2rem", fontWeight: 600 }}
+      >
         {`Product: ${id}`}
       </Typography>
       <Grid container justifyContent="space-between" spacing={4}>
