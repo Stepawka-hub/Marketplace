@@ -1,16 +1,20 @@
-import { Backdrop, Box, ImageList } from "@mui/material";
+import { Box, ImageList, useMediaQuery, useTheme } from "@mui/material";
 import { ImageListItem } from "@ui/image-list-item";
+import { ImagePreview } from "@ui/image-preview";
 import { ImageSlider } from "@ui/image-slider";
 import { FC, useState } from "react";
 import { ProductImagesProps } from "./type";
 
 export const ProductImages: FC<ProductImagesProps> = ({ images }) => {
+  const theme = useTheme();
+  const isMedium = useMediaQuery(theme.breakpoints.down("md"));
+
   const [position, setPosition] = useState(0);
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const onImageChange = (position: number) => setPosition(position);
-  const onImageClick = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const onImageClick = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
 
   return (
     <Box component="section">
@@ -21,7 +25,7 @@ export const ProductImages: FC<ProductImagesProps> = ({ images }) => {
         onImageClick={onImageClick}
       />
 
-      <ImageList cols={7} gap={10}>
+      <ImageList cols={isMedium ? 4 : 7} gap={7}>
         {images.map((image, index) => (
           <ImageListItem
             key={index}
@@ -33,13 +37,11 @@ export const ProductImages: FC<ProductImagesProps> = ({ images }) => {
         ))}
       </ImageList>
 
-      <Backdrop
-        sx={(theme) => ({ zIndex: theme.zIndex.drawer + 1 })}
-        open={open}
-        onClick={handleClose}
-      >
-        <img src={images[position]} alt="Preview image" />
-      </Backdrop>
+      <ImagePreview
+        image={images[position]}
+        isOpen={isOpen}
+        onClose={handleClose}
+      />
     </Box>
   );
 };

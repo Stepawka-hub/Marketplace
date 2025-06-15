@@ -6,7 +6,12 @@ export const ProductReviews: FC = () => {
   const { t } = useTranslation();
   return (
     <Box>
-      <Typography>{t("product.details.reviews")}</Typography>
+      <Typography
+        variant="h3"
+        sx={{ mb: 1, fontSize: "1.75rem", fontWeight: 600 }}
+      >
+        {t("product.details.reviews")}
+      </Typography>
     </Box>
   );
 };

@@ -1,11 +1,10 @@
-import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
 import { Avatar, Box, Grid, List, Paper, Typography } from "@mui/material";
-import { yellow } from "@mui/material/colors";
 import { AttributeItem } from "@ui/attribute-item";
+import { RatingScore } from "@ui/rating-score";
 import { FC } from "react";
+import { useTranslation } from "react-i18next";
 import { mainContainerStyles, titleStyles } from "./styles";
 import { ProductMetaProps } from "./type";
-import { useTranslation } from "react-i18next";
 
 export const ProductMeta: FC<ProductMetaProps> = ({
   rating,
@@ -22,14 +21,7 @@ export const ProductMeta: FC<ProductMetaProps> = ({
           <Typography variant="h3" sx={titleStyles}>
             {t("product.rating.label")}
           </Typography>
-          <Grid container alignItems="center" spacing={0.5}>
-            <StarRateRoundedIcon
-              sx={{ marginBottom: "0.145rem", color: yellow[800] }}
-            />
-            <Typography>
-              {rating} • {t("product.rating.reviews", { count: numberReviews })}
-            </Typography>
-          </Grid>
+          <RatingScore ratingScore={rating} numberReviews={numberReviews} />
         </Box>
 
         <Box>

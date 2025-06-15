@@ -61,8 +61,8 @@
     },
     "details": {
       "label": "О товаре",
-      "specs": "Характеристики",
       "description": "Описание",
+      "no-description": "Описания нет",
       "reviews": "Отзывы"
     },
     "seller": {

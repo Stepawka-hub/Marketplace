@@ -1,0 +1,1 @@
+export { RatingScore } from './rating-score';

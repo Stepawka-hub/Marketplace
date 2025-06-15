@@ -4,7 +4,6 @@ import {
   ProductMeta,
   ProductPurchase,
   ProductReviews,
-  ProductSpecs,
 } from "@modules/product/components";
 import { Box, Divider, Grid, Typography } from "@mui/material";
 import { TAttribute } from "@types";
@@ -37,6 +36,10 @@ export const Product: FC<ProductProps> = ({ id }) => {
     "https://00.img.avito.st/image/1/1.Gj2alraxttTMMzzTosoWLOg3tNQoI7LW.f8a5CgXdQIwlsdOirgVkGtqdioANcCujBNt3tomeEEI?cqp=2.d_Zf6Bm1shCMrOHY-Vj18hvV6BjwI358IHMSOoasWlTdJXwRxVlJDedyKiY=",
   ];
 
+  const description = `Этот мок-ап демонстрирует дизайн нового смартфона Future X с безрамочным экраном, 
+  ультратонким корпусом и революционной камерой. Используется для визуализации продукта перед запуском производства. 
+  Идеально подходит для маркетинговых материалов, фотосессий и презентаций.`;
+
   const addToCart = () => {
     setIsInCart((p) => !p);
   };
@@ -54,10 +57,11 @@ export const Product: FC<ProductProps> = ({ id }) => {
       </Typography>
 
       <Grid container justifyContent="space-between" spacing={4}>
-        <Grid size={6}>
+        <Grid size={{ xs: 12, lg: 7, xl: 6 }}>
           <ProductImages images={images} />
         </Grid>
-        <Grid size={6}>
+
+        <Grid flexGrow={1}>
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
             <ProductPurchase
               isInCart={isInCart}
@@ -75,12 +79,12 @@ export const Product: FC<ProductProps> = ({ id }) => {
           </Box>
         </Grid>
       </Grid>
-      <Divider sx={{ my: 2 }} />
+      
+      <Divider sx={{ my: 3 }} />
+
       <Grid container flexDirection="column">
-        <ProductDescription />
-        <Divider sx={{ my: 2 }} />
-        <ProductSpecs />
-        <Divider sx={{ my: 2 }} />
+        <ProductDescription description={description} />
+        <Divider sx={{ my: 3 }} />
         <ProductReviews />
       </Grid>
     </Box>
