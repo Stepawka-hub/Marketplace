@@ -1,3 +1,4 @@
+import { NotFound } from "@components/not-found";
 import {
   getFilters,
   getIsLoadingProducts,
@@ -5,36 +6,22 @@ import {
   getSearchQuery,
 } from "@modules/catalog/services/slices/catalog";
 import { Grid } from "@mui/material";
+import { checkInRange, includesRow } from "@shared/helpers/filter";
 import { useSelector } from "@store/types";
 import { FC, memo } from "react";
 import { ProductCard } from "../product-card";
-import { checkInRange, includesRow } from "@shared/helpers/filter";
-import { SkeletonCard } from "@ui/skeleton-card";
-import { NotFound } from "@components/not-found";
+import { SkeletonList } from "../skeleton-list";
 import { ProductListProps } from "./type";
-import { isInArray } from "@shared/helpers/array-helper";
 
 export const ProductList: FC<ProductListProps> = memo(
-  ({ cartItemsIds, addToCart }) => {
+  ({ isInCart, addToCart }) => {
     const products = useSelector(getProducts);
     const isLoadingProducts = useSelector(getIsLoadingProducts);
     const searchQuery = useSelector(getSearchQuery);
     const { category, price } = useSelector(getFilters);
 
     if (isLoadingProducts) {
-      return (
-        <Grid container spacing={2}>
-          {[...Array(12)].map((_, index) => (
-            <Grid
-              key={index}
-              size={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 }}
-              sx={{ height: "40vh" }}
-            >
-              <SkeletonCard variant="rounded" />
-            </Grid>
-          ))}
-        </Grid>
-      );
+      return <SkeletonList />;
     }
 
     const filteredProducts = products.filter(
@@ -51,10 +38,10 @@ export const ProductList: FC<ProductListProps> = memo(
     return (
       <Grid container columnSpacing={2} rowSpacing={4}>
         {filteredProducts.map((p) => (
-          <Grid key={p.id} size={{ xs: 12, sm: 6, md: 6, lg: 4, xl: 2.4 }}>
+          <Grid key={p.id} size={{ xs: 12, sm: 6, lg: 4, xl: 2.4 }}>
             <ProductCard
               product={p}
-              isInCart={isInArray(cartItemsIds, p.id)}
+              isInCart={isInCart(p.id)}
               addToCart={addToCart}
             />
           </Grid>

@@ -1,6 +1,6 @@
 import { TProduct } from '@types'
 
 export type ProductListProps = {
-  cartItemsIds: string[];
+  isInCart: (pId: string) => boolean;
   addToCart: (p: TProduct) => void;
 }

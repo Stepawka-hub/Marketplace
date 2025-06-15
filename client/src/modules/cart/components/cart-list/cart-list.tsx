@@ -1,5 +1,5 @@
 import {
-  getProducts,
+  getCartItems,
   getSelectedIds,
   removeProduct,
   toggleSelectedProduct,
@@ -16,7 +16,7 @@ export const CartList: FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const selectedIds = useSelector(getSelectedIds);
-  const products = useSelector(getProducts);
+  const cartItems = useSelector(getCartItems);
 
   const handleDelete = (id: string) => {
     dispatch(removeProduct(id));
@@ -33,15 +33,15 @@ export const CartList: FC = () => {
   return (
     <Grid container spacing={2} flexDirection="column">
       <CartListHeader
-        totalProducts={products.length}
+        totalProducts={cartItems.length}
         totalSelected={selectedIds.length}
       />
       <Grid container spacing={2} flexDirection="column">
-        {products.map((p, i) => (
+        {cartItems.map((i) => (
           <CartItem
-            key={i}
-            product={p}
-            isSelected={isInArray(selectedIds, p.id)}
+            key={i.id}
+            product={i}
+            isSelected={isInArray(selectedIds, i.id)}
             handleCardClick={handleCardClick}
             handleDelete={handleDelete}
             handleSelect={handleSelect}

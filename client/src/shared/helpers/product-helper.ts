@@ -1,8 +1,12 @@
-import { TCartProduct, TProduct } from "@types";
+import { TCartProduct, TProductData } from "@types";
 
-export const productToCartItem = (product: TProduct): TCartProduct => ({
-  id: product.id,
-  name: product.name,
-  image: product.image,
-  price: product.price,
-});
+export const productToCartItem = (product: TProductData): TCartProduct => {
+  const image = "image" in product ? product.image : product.images[0];
+
+  return {
+    id: product.id,
+    name: product.name,
+    image: image,
+    price: product.price,
+  };
+};

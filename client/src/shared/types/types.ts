@@ -20,6 +20,8 @@ export type TProductDetails = Omit<TProduct, 'image'> & {
   updatedAt?: string;
 };
 
+export type TProductData = TProduct | TProductDetails;
+
 export type TProductSeller = {
   id: string;
   name: string;

@@ -8,13 +8,16 @@ import {
 } from "@modules/product/components";
 import { Box, Divider, Grid, Typography } from "@mui/material";
 import mockProducts from "@shared/mock/products.json";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { ProductProps } from "./type";
 
-export const Product: FC<ProductProps> = ({ id }) => {
-  const [isInCart, setIsInCart] = useState(false);
-  const [isInFavorites, setIsInFavories] = useState(false);
-
+export const Product: FC<ProductProps> = ({
+  id,
+  isInCart,
+  isInFavorites,
+  addToCart,
+  addToFavorites,
+}) => {
   const product = mockProducts.find((p) => p.id === id);
   if (!product) return <NotFound />;
   const {
@@ -28,12 +31,7 @@ export const Product: FC<ProductProps> = ({ id }) => {
     seller,
   } = product;
 
-  const addToCart = () => {
-    setIsInCart((p) => !p);
-  };
-  const addToFavorites = () => {
-    setIsInFavories((p) => !p);
-  };
+  const addProductToCart = () => addToCart(product);
 
   return (
     <Box>
@@ -55,7 +53,7 @@ export const Product: FC<ProductProps> = ({ id }) => {
               isInCart={isInCart}
               isInFavorites={isInFavorites}
               price={price}
-              addToCart={addToCart}
+              addToCart={addProductToCart}
               addToFavorites={addToFavorites}
             />
             <ProductMeta

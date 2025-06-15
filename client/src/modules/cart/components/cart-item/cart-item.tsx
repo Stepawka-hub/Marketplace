@@ -1,4 +1,3 @@
-import testImg from "@images/testImg.jpg";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {
   CardActions,
@@ -12,11 +11,11 @@ import {
 } from "@mui/material";
 import { formattedWithSpace } from "@shared/helpers/numbers";
 import { Card } from "@ui/card";
+import { t } from "i18next";
 import { FC, MouseEvent } from "react";
-import { CartItemProps } from "./type";
 import { useTranslation } from "react-i18next";
 import { cardMediaStyles, cardStyles } from "./styles";
-import { t } from "i18next";
+import { CartItemProps } from "./type";
 
 export const CartItem: FC<CartItemProps> = ({
   product,
