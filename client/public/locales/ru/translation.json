@@ -51,6 +51,12 @@
       "tool-tip": "В корзину"
     }
   },
+  "favorites": {
+    "title": "Избранное",
+    "badge": {
+      "tool-tip": "Перейти в избранное"
+    }
+  },
   "product": {
     "rating": {
       "label": "Рейтинг",

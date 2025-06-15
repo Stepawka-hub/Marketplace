@@ -49,6 +49,12 @@
       "tool-tip": "Go to cart"
     }
   },
+  "favorites": {
+    "title": "Favorites",
+    "badge": {
+      "tool-tip": "Go to favorites"
+    }
+  },
   "product": {
     "rating": {
       "label": "Rating",
