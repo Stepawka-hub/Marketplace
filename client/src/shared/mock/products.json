@@ -1,0 +1,216 @@
+[
+  {
+    "id": "product-1",
+    "name": "Экологичная бутылка для воды",
+    "shortDescription": "Многоразовая бутылка для воды из экологически чистых материалов.",
+    "category": "Дом и Кухня",
+    "price": 1499,
+    "description": "Оставайтесь увлажненными в течение дня с этой экологичной бутылкой для воды. Сделанная из прочных материалов, не содержащих BPA, она идеально подходит для повседневного использования. Её стильный дизайн и герметичная крышка делают её незаменимой для всех, кто заботится об окружающей среде.",
+    "images": [
+      "https://giftdev.ru/upload/iblock/547/54722dbdeec414b06064516495d60ada.png",
+      "https://www.posuda-tupperware.ru/Files/butylka/eko-butylka-malinovaya-klapan-500.jpg",
+      "https://www.posuda-tupperware.ru/Files/butylka/eko-butylka-1l-new-blue.jpg",
+      "https://img.joomcdn.net/cd732d342fc225018203c870a486d4de2de5f5bd_1024_1024.jpeg",
+      "https://img.joomcdn.net/21b34bc0da30ba21c6de13c275d5b2e6aac0c0d0_1024_1024.jpeg",
+      "https://www.dillerbottle.com/wp-content/uploads/2024/09/eco-friendly-plastic-water-flask0305ba1b-0a3c-46da-b1dd-e40afed8ef81-600x600.jpg",
+      "https://img.joomcdn.net/50e1038f90366768ecae0a3cfa59e22a0a6b843f_1024_1024.jpeg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6f5sYRf-F_BYrdelc0BRHapJ151n7A2VwQA&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtmm6i_5CUu51qIDhiFfxC4gFeyxlhiU2npA&s"
+    ],
+    "attributes": [
+      { "name": "Материал", "value": "Нержавеющая сталь" },
+      { "name": "Объем", "value": "750 мл" },
+      { "name": "Цвет", "value": "Серебристый" }
+    ],
+    "rating": 4.8,
+    "numberReviews": 325,
+    "createdAt": "2023-11-15T10:00:00.000Z",
+    "updatedAt": "2023-11-20T14:30:00.000Z",
+    "seller": {
+      "id": "seller-1",
+      "name": "Green Living Co"
+    }
+  },
+  {
+    "id": "product-2",
+    "name": "Уютный вязаный плед",
+    "shortDescription": "Мягкий и теплый вязаный плед для уютных вечеров.",
+    "category": "Домашний декор",
+    "price": 3499,
+    "description": "Окунитесь в комфорт с этим уютным вязаным пледом. Сделанный из плюшевой смеси хлопка и акрила, он идеально подходит для прохладных вечеров. Его текстурный вязаный дизайн добавит нотку стиля в любую комнату.",
+    "images": [
+      "https://cs1.livemaster.ru/storage/06/e7/1f65c56da13f8ef879f414a1761j--dlya-doma-i-interera-teplyj-pled-uyutnyj-vecher-vyazanyj-sher.jpg",
+      "https://cs1.livemaster.ru/storage/19/f2/0f197e7b6b1e2154401f00c2683j--dlya-doma-i-interera-pledy-pled-vyazanyj-spitsami-bolshoj-uyu.jpg",
+      "https://стелла-арт.рф/pics/600/400/199291.jpg"
+    ],
+    "attributes": [
+      { "name": "Материал", "value": "Смесь хлопка и акрила" },
+      { "name": "Размер", "value": "127x152 см" },
+      { "name": "Цвет", "value": "Угольно-серый" }
+    ],
+    "rating": 4.6,
+    "numberReviews": 180,
+    "createdAt": "2023-11-10T15:00:00.000Z",
+    "updatedAt": "2023-11-18T09:00:00.000Z",
+    "seller": {
+      "id": "seller-2",
+      "name": "Home Comforts"
+    }
+  },
+  {
+    "id": "product-3",
+    "name": "Беспроводные Bluetooth-наушники",
+    "shortDescription": "Высококачественные беспроводные наушники с шумоподавлением.",
+    "category": "Электроника",
+    "price": 9999,
+    "description": "Погрузитесь в любимую музыку с этими беспроводными Bluetooth-наушниками. Благодаря активному шумоподавлению, кристально чистому звуку и удобной конструкции, они идеально подходят для путешествий, работы или отдыха.",
+    "images": [
+      "https://fonarimarket.ru/_imag_uploads/115/52401i-naushniki-sodo-sd-1006-4.jpg",
+      "https://fonarimarket.ru/_imag_images/115/52396-naushniki-sodo-sd-1001-1.jpg",
+      "https://ir.ozone.ru/s3/multimedia-j/c1000/6250379155.jpg"
+    ],
+    "attributes": [
+      { "name": "Подключение", "value": "Bluetooth 5.0" },
+      { "name": "Время работы от аккумулятора", "value": "30 часов" },
+      { "name": "Цвет", "value": "Черный" }
+    ],
+    "rating": 4.9,
+    "numberReviews": 510,
+    "createdAt": "2023-11-05T08:00:00.000Z",
+    "updatedAt": "2023-11-12T17:00:00.000Z",
+    "seller": {
+      "id": "seller-3",
+      "name": "Tech Gadgets"
+    }
+  },
+  {
+    "id": "product-4",
+    "name": "Органические кофейные зерна",
+    "shortDescription": "Свежеобжаренные органические кофейные зерна с насыщенным вкусом.",
+    "category": "Еда и Напитки",
+    "price": 999,
+    "description": "Начните свой день с чашки восхитительного органического кофе. Сделанные из экологически чистых зерен, эти кофейные зерна обжарены до совершенства, обеспечивая насыщенный и ароматный вкус. Идеально подходит для приготовления кофе дома.",
+    "images": [
+      "https://germmarket.ru/image/cache/catalog/Kofe%20Blog/1200_437_7-1200x437.jpg",
+      "https://lookbio.ru/wp-content/uploads/2014/05/shutterstock_171293684.jpg",
+      "https://kofe-expert.ru/wp-content/uploads/2023/06/kofeinye-zerna.jpeg"
+    ],
+    "attributes": [
+      { "name": "Происхождение", "value": "Эфиопия" },
+      { "name": "Обжарка", "value": "Средняя" },
+      { "name": "Вес", "value": "450 г" }
+    ],
+    "rating": 4.7,
+    "numberReviews": 220,
+    "createdAt": "2023-11-01T12:00:00.000Z",
+    "updatedAt": "2023-11-08T11:00:00.000Z",
+    "seller": {
+      "id": "seller-4",
+      "name": "Coffee Lovers"
+    }
+  },
+  {
+    "id": "product-5",
+    "name": "Кожаный кошелек",
+    "shortDescription": "Стильный и прочный кожаный кошелек для мужчин.",
+    "category": "Модные аксессуары",
+    "price": 2999,
+    "description": "Сохраняйте свои вещи в порядке с этим стильным и прочным кожаным кошельком. Сделанный из натуральной кожи, он имеет несколько слотов для карт, отделение для купюр и тонкий профиль, который удобно помещается в вашем кармане.",
+    "images": [
+      "https://cdn.lmbd.ru/a14b9ef1-db24-4593-b9d0-369cafaabfae/",
+      "https://kojinka.ru/image/cache/catalog/NEW/2022/12_07_2022/baden_korichnevij/2n6b1902-600x600_0.jpg",
+      "https://katunoff.ru/wp-content/uploads/2019/01/Leather-ammunition-belt-handmade-by-Katunoff-34.jpg"
+    ],
+    "attributes": [
+      { "name": "Материал", "value": "Натуральная кожа" },
+      { "name": "Цвет", "value": "Коричневый" },
+      { "name": "Размеры", "value": "11.5 x 9 см" }
+    ],
+    "rating": 4.4,
+    "numberReviews": 150,
+    "createdAt": "2023-10-28T09:00:00.000Z",
+    "updatedAt": "2023-11-05T15:30:00.000Z",
+    "seller": {
+      "id": "seller-5",
+      "name": "Fashion Forward"
+    }
+  },
+  {
+    "id": "product-6",
+    "name": "Классический роман - Гордость и Предубеждение",
+    "shortDescription": "Вечная история любви и общества от Джейн Остин.",
+    "category": "Книги",
+    "price": 799,
+    "description": "Погрузитесь в мир Элизабет Беннет и мистера Дарси с этим классическим романом. Остроумное и проницательное исследование любви, класса и общества в Англии XIX века. «Гордость и Предубеждение» остается любимой историей для поколений.",
+    "images": [
+      "https://imo10.labirint.ru/books/636870/cover.jpg/242-0",
+      "https://cdn.azbooka.ru/cv/w1100/4c9ab64a-8d05-455b-b73f-7340b60f335e.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhBcOoVXb1C5Kjv5-J3auWSCaFsV7aB3Oy0w&s"
+    ],
+    "attributes": [
+      { "name": "Автор", "value": "Джейн Остин" },
+      { "name": "Издатель", "value": "Penguin Classics" },
+      { "name": "Страниц", "value": "432" }
+    ],
+    "rating": 4.9,
+    "numberReviews": 750,
+    "createdAt": "2023-10-20T14:00:00.000Z",
+    "updatedAt": "2023-10-27T10:00:00.000Z",
+    "seller": {
+      "id": "seller-6",
+      "name": "Bookworm Haven"
+    }
+  },
+  {
+    "id": "product-7",
+    "name": "Коврик для йоги",
+    "shortDescription": "Высококачественный коврик для йоги для комфортных тренировок.",
+    "category": "Спорт и Отдых",
+    "price": 1999,
+    "description": "Улучшите свою практику йоги с этим высококачественным ковриком для йоги. Сделанный из прочного и нескользящего материала, он обеспечивает комфортную и стабильную поверхность для ваших тренировок. Идеально подходит для всех уровней подготовки.",
+    "images": [
+      "https://basket-02.wbbasket.ru/vol152/part15295/15295147/images/big/1.webp",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCJjdgZf9hg5a4aVztvtHMT62brpjdfggJbA&s",
+      "https://wildsportprof.ru/sites/default/files/42027.jpg"
+    ],
+    "attributes": [
+      { "name": "Материал", "value": "ПВХ" },
+      { "name": "Толщина", "value": "6 мм" },
+      { "name": "Цвет", "value": "Фиолетовый" }
+    ],
+    "rating": 4.6,
+    "numberReviews": 310,
+    "createdAt": "2023-10-15T11:00:00.000Z",
+    "updatedAt": "2023-10-22T16:00:00.000Z",
+    "seller": {
+      "id": "seller-7",
+      "name": "Active Life"
+    }
+  },
+  {
+    "id": "product-8",
+    "name": "Набор керамических кружек для кофе",
+    "shortDescription": "Стильный набор керамических кружек для кофе для повседневного использования.",
+    "category": "Дом и Кухня",
+    "price": 2499,
+    "description": "Наслаждайтесь утренним кофе стильно с этим элегантным набором керамических кружек. Сделанные из высококачественной керамики, эти кружки прочны и подходят для мытья в посудомоечной машине. Идеально подходят для дома или офиса.",
+    "images": [
+      "https://cdn1.ozone.ru/s3/multimedia-1-5/7020780089.jpg",
+      "https://ir.ozone.ru/s3/multimedia-1-k/c1000/7287136148.jpg",
+      "https://ir.ozone.ru/s3/multimedia-1-w/c1000/7035714212.jpg"
+    ],
+    "attributes": [
+      { "name": "Материал", "value": "Керамика" },
+      { "name": "Объем", "value": "350 мл" },
+      { "name": "Цвет", "value": "Ассорти" }
+    ],
+    "rating": 4.7,
+    "numberReviews": 280,
+    "createdAt": "2023-10-10T16:00:00.000Z",
+    "updatedAt": "2023-10-17T12:00:00.000Z",
+    "seller": {
+      "id": "seller-8",
+      "name": "Cozy Home"
+    }
+  }
+]

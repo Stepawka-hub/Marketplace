@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toggleArrayItem } from "@shared/helpers/array-helper";
-import { TProduct } from "@types";
+import { TCartProduct } from "@types";
 import { TCartState } from "./types";
 
 const initialState: TCartState = {
@@ -16,7 +16,7 @@ const cartSlice = createSlice({
     toggleSelectedProduct: (state, { payload }: PayloadAction<string>) => {
       state.selectedIds = toggleArrayItem(state.selectedIds, payload);
     },
-    addProduct: (state, { payload }: PayloadAction<TProduct>) => {
+    addProduct: (state, { payload }: PayloadAction<TCartProduct>) => {
       state.products = [...state.products, payload];
     },
     removeProduct: (state, { payload }: PayloadAction<string>) => {
@@ -52,7 +52,7 @@ export const {
   addProduct,
   removeProduct,
   toggleSelectedProduct,
-  clearSelected
+  clearSelected,
 } = cartSlice.actions;
 export const {
   getProducts,

@@ -1,5 +1,4 @@
 import { AddToCartButton } from "@components/add-to-cart-button";
-import testImg from "@images/testImg.jpg";
 import { CardActions, CardContent, CardMedia, Typography } from "@mui/material";
 import { formattedWithSpace } from "@shared/helpers/numbers";
 import { Card } from "@ui/card";
@@ -15,7 +14,7 @@ export const ProductCard: FC<ProductCardProps> = ({
 }) => {
   const { i18n, t } = useTranslation();
   const navigate = useNavigate();
-  const { id, name, shortDescription, owner, price } = product;
+  const { id, name, shortDescription, image, seller, price } = product;
   const formattedPrice = formattedWithSpace(price, i18n.language);
 
   const handleAddToCart = () => {
@@ -28,15 +27,13 @@ export const ProductCard: FC<ProductCardProps> = ({
 
   return (
     <Card
-      sx={{
-        backgroundColor: "custom.primary",
-      }}
+      sx={{ backgroundColor: "custom.primary" }}
       variant="outlined"
       onClick={handleNavigateToProduct}
     >
       <CardMedia
         sx={{ height: "25vh", borderRadius: "1.25rem" }}
-        image={testImg}
+        image={image}
         title={name}
       />
 
@@ -56,7 +53,9 @@ export const ProductCard: FC<ProductCardProps> = ({
           {shortDescription}
         </Typography>
 
-        <Typography>{`${t("product.seller.label")}: ${owner.name}`}</Typography>
+        <Typography>{`${t("product.seller.label")}: ${
+          seller.name
+        }`}</Typography>
       </CardContent>
 
       <CardActions>

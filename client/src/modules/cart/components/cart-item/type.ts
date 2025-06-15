@@ -1,8 +1,7 @@
+import { TCartProduct } from '@types';
+
 export type CartItemProps = {
-  id: string,
-  image: string;
-  name: string;
-  price: number;
+  product: TCartProduct;
   isSelected: boolean;
   handleCardClick: (id: string) => void;
   handleDelete: (id: string) => void;

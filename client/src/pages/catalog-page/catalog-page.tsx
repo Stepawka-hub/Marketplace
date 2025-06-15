@@ -2,6 +2,7 @@ import { addProduct, getProducts } from "@modules/cart";
 import { CatalogSearch, FilterPanel, ProductList } from "@modules/catalog";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { Grid, IconButton } from "@mui/material";
+import { productToCartItem } from "@shared/helpers/product-helper";
 import { useDispatch, useSelector } from "@store/types";
 import { TProduct } from "@types";
 import { FC, useCallback, useMemo, useState } from "react";
@@ -14,7 +15,7 @@ export const CatalogPage: FC = () => {
 
   const handleAddToCart = useCallback(
     (product: TProduct) => {
-      dispatch(addProduct(product));
+      dispatch(addProduct(productToCartItem(product)));
     },
     [dispatch]
   );

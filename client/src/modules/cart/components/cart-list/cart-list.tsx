@@ -40,10 +40,7 @@ export const CartList: FC = () => {
         {products.map((p, i) => (
           <CartItem
             key={i}
-            id={p.id}
-            image={p.image}
-            name={p.name}
-            price={p.price}
+            product={p}
             isSelected={isInArray(selectedIds, p.id)}
             handleCardClick={handleCardClick}
             handleDelete={handleDelete}

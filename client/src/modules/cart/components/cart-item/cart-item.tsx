@@ -19,16 +19,14 @@ import { cardMediaStyles, cardStyles } from "./styles";
 import { t } from "i18next";
 
 export const CartItem: FC<CartItemProps> = ({
-  id,
-  image,
-  name,
-  price,
+  product,
   isSelected,
   handleCardClick,
   handleDelete,
   handleSelect,
 }) => {
   const { i18n } = useTranslation();
+  const { id, name, price, image } = product;
   const formattedPrice = formattedWithSpace(price, i18n.language);
 
   const onDelete = (e: MouseEvent) => {
@@ -47,7 +45,7 @@ export const CartItem: FC<CartItemProps> = ({
 
   return (
     <Card sx={cardStyles} variant="outlined" onClick={onCardClick}>
-      <CardMedia sx={cardMediaStyles} image={testImg} title={name} />
+      <CardMedia sx={cardMediaStyles} image={image} title={name} />
       <CardContent sx={{ flexGrow: 1, px: 0, ml: 2 }}>
         <Grid
           sx={{
