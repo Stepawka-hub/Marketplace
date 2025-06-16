@@ -27,7 +27,6 @@
   },
   "cart": {
     "title": "Cart",
-    "back-btn": "Return to catalog",
     "select-all": "Select all",
     "remove-all": "Delete selected",
     "item": {
@@ -76,5 +75,8 @@
       "add-to-favorites": "Add to favorites",
       "remove-from-favorites": "Remove from favorites"
     }
+  },
+  "common": {
+    "back-btn": "Return to catalog"
   }
 }

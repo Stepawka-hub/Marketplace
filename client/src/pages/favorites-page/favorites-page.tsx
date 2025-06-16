@@ -14,7 +14,10 @@ export const FavoritesPage: FC = () => {
   return (
     <Box sx={{ py: 3, px: { xs: 2, sm: 3, lg: 5 } }}>
       <BackButton />
-      <Typography variant="h2" fontSize="2rem" fontWeight="600">
+      <Typography
+        variant="h2"
+        sx={{ mb: 3, fontSize: "2rem", fontWeight: 600 }}
+      >
         {t("favorites.title")}
       </Typography>
       <FavoritesList
