@@ -1,4 +1,4 @@
-export { FavoritesBadge } from "./components";
+export { FavoritesBadge, FavoritesList } from "./components";
 export {
   default as favoritesReducer,
   getFavoriteItems,

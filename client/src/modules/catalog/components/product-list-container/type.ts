@@ -1,8 +1,3 @@
-import { TProduct } from "@types";
+import { TProductActions } from "@types";
 
-export type ProductListContainerProps = {
-  isInCart: (pId: string) => boolean;
-  isInFavorites: (pId: string) => boolean;
-  addToCart: (p: TProduct) => void;
-  toggleFavorite: (p: TProduct) => void;
-};
+export type ProductListContainerProps = TProductActions;

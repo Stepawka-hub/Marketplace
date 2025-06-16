@@ -1,9 +1,10 @@
-import { TProduct } from "@types";
+import { TProduct, TProductActions } from "@types";
 
-export type ProductCardProps = {
+export type ProductCardProps = Pick<
+  TProductActions,
+  "addToCart" | "toggleFavorite"
+> & {
   product: TProduct;
   isInCart: boolean;
   isInFavorites: boolean;
-  addToCart: (p: TProduct) => void;
-  toggleFavorite: (p: TProduct) => void;
 };
