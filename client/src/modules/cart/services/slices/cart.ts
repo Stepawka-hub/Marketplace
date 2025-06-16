@@ -16,10 +16,10 @@ const cartSlice = createSlice({
     toggleSelectedProduct: (state, { payload }: PayloadAction<string>) => {
       state.selectedIds = toggleArrayItem(state.selectedIds, payload);
     },
-    addProduct: (state, { payload }: PayloadAction<TCartProduct>) => {
+    addToCart: (state, { payload }: PayloadAction<TCartProduct>) => {
       state.cartItems = [...state.cartItems, payload];
     },
-    removeProduct: (state, { payload }: PayloadAction<string>) => {
+    removeFromCart: (state, { payload }: PayloadAction<string>) => {
       state.cartItems = state.cartItems.filter((i) => i.id !== payload);
       state.selectedIds = state.selectedIds.filter((id) => id !== payload);
     },
@@ -49,8 +49,8 @@ const cartSlice = createSlice({
 export default cartSlice.reducer;
 export const {
   selectAllCartItems,
-  addProduct,
-  removeProduct,
+  addToCart,
+  removeFromCart,
   toggleSelectedProduct,
   clearSelected,
 } = cartSlice.actions;

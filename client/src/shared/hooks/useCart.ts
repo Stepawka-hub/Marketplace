@@ -1,4 +1,4 @@
-import { addProduct, getCartItems } from "@modules/cart";
+import { addToCart, getCartItems } from "@modules/cart";
 import { isInArray } from "@shared/helpers/array-helper";
 import { productToCartItem } from "@shared/helpers/product-helper";
 import { TProductData } from "@types";
@@ -10,15 +10,15 @@ export const useCart = () => {
   const cartItems = useSelector(getCartItems);
   const cartItemsIds = useMemo(() => cartItems.map((p) => p.id), [cartItems]);
 
-  const addToCart = (product: TProductData) => {
+  const addProductToCart = (product: TProductData) => {
     const cartItem = productToCartItem(product);
-    dispatch(addProduct(cartItem));
+    dispatch(addToCart(cartItem));
   };
 
   const isInCart = (productId: string) => isInArray(cartItemsIds, productId);
 
   return {
-    addToCart,
+    addToCart: addProductToCart,
     isInCart,
   };
 };

@@ -6,11 +6,14 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { ProductCardProps } from "./type";
+import { LikeButton } from "@components/like-button";
 
 export const ProductCard: FC<ProductCardProps> = ({
   product,
   isInCart,
+  isInFavorites,
   addToCart,
+  toggleFavorite,
 }) => {
   const { i18n, t } = useTranslation();
   const navigate = useNavigate();
@@ -19,6 +22,10 @@ export const ProductCard: FC<ProductCardProps> = ({
 
   const handleAddToCart = () => {
     addToCart(product);
+  };
+
+  const handleToggleFavorite = () => {
+    toggleFavorite(product);
   };
 
   const handleNavigateToProduct = () => {
@@ -35,7 +42,17 @@ export const ProductCard: FC<ProductCardProps> = ({
         sx={{ height: "25vh", borderRadius: "1.25rem" }}
         image={image}
         title={name}
-      />
+      >
+        <LikeButton
+          isActive={isInFavorites}
+          title={
+            isInFavorites
+              ? t("product.buttons.remove-from-favorites")
+              : t("product.buttons.add-to-favorites")
+          }
+          callback={handleToggleFavorite}
+        />
+      </CardMedia>
 
       <CardContent sx={{ flexGrow: 1 }}>
         <Typography

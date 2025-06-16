@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 export const ProductPage: FC = () => {
   const { productId } = useParams<"productId">();
   const { isInCart, addToCart } = useCart();
-  const { isInFavorites, addToFavorites } = useFavorites();
+  const { isInFavorites, toggleFavorite } = useFavorites();
 
   if (!productId) return <NotFound />;
 
@@ -21,8 +21,8 @@ export const ProductPage: FC = () => {
         id={productId}
         isInCart={isInCart(productId)}
         addToCart={addToCart}
-        isInFavorites={isInFavorites}
-        addToFavorites={addToFavorites}
+        isInFavorites={isInFavorites(productId)}
+        toggleFavorite={toggleFavorite}
       />
     </Box>
   );

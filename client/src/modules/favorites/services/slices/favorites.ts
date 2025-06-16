@@ -11,11 +11,17 @@ const favoriteSlice = createSlice({
   name: "favorites",
   initialState,
   reducers: {
-    addToFavorites: (state, { payload }: PayloadAction<TProduct>) => {
-      state.favoriteItems = [...state.favoriteItems, payload];
-    },
-    removeFromFavorites: (state, { payload }: PayloadAction<string>) => {
-      state.favoriteItems = state.favoriteItems.filter((i) => i.id !== payload);
+    toggleFavorite: (state, { payload }: PayloadAction<TProduct>) => {
+      const product = payload;
+      const existingProductIndex = state.favoriteItems.findIndex(
+        (item) => item.id === product.id
+      );
+
+      if (existingProductIndex !== -1) {
+        state.favoriteItems.splice(existingProductIndex, 1);
+      } else {
+        state.favoriteItems.push(product);
+      }
     },
   },
   selectors: {
@@ -26,6 +32,6 @@ const favoriteSlice = createSlice({
 });
 
 export default favoriteSlice.reducer;
-export const { addToFavorites, removeFromFavorites } = favoriteSlice.actions;
+export const { toggleFavorite } = favoriteSlice.actions;
 export const { getFavoriteItems, getIsLoading, getFavoriteTotalItems } =
   favoriteSlice.selectors;

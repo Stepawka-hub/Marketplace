@@ -1,7 +1,7 @@
 import {
   getCartItems,
   getSelectedIds,
-  removeProduct,
+  removeFromCart,
   toggleSelectedProduct,
 } from "@modules/cart/services/slices/cart";
 import { Grid } from "@mui/material";
@@ -19,7 +19,7 @@ export const CartList: FC = () => {
   const cartItems = useSelector(getCartItems);
 
   const handleDelete = (id: string) => {
-    dispatch(removeProduct(id));
+    dispatch(removeFromCart(id));
   };
 
   const handleSelect = (id: string) => {

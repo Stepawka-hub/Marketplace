@@ -1,4 +1,3 @@
-import { BackButton } from "@components/back-button";
 import { getCartTotalItems } from "@modules/cart/services/slices/cart";
 import { Box, Grid, Typography } from "@mui/material";
 import { useSelector } from "@store/types";
@@ -13,8 +12,7 @@ export const Cart: FC = () => {
   const totalCount = useSelector(getCartTotalItems);
 
   return (
-    <Box sx={{ py: 3, px: { xs: 2, sm: 3, lg: 5 } }}>
-      <BackButton />
+    <Box>
       <Typography variant="h2" fontSize="2rem" fontWeight="600">
         {t("cart.title")}
       </Typography>

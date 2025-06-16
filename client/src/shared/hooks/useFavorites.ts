@@ -1,13 +1,38 @@
-import { useState } from "react";
+import { toggleFavorite, getFavoriteItems } from "@modules/favorites";
+import { isInArray } from "@shared/helpers/array-helper";
+import { useDispatch, useSelector } from "@store/types";
+import { TProductData } from "@types";
+import { useMemo } from "react";
 
 export const useFavorites = () => {
-  const [isInFavorites, setIsInFavories] = useState(false);
-  const addToFavorites = () => {
-    setIsInFavories((p) => !p);
+  const dispatch = useDispatch();
+  const favoriteItems = useSelector(getFavoriteItems);
+  const favoriteItemsIds = useMemo(
+    () => favoriteItems.map((p) => p.id),
+    [favoriteItems]
+  );
+
+  const toggleProductInFavorites = (product: TProductData) => {
+    const { id, name, price, category, seller } = product;
+    const image = "image" in product ? product.image : product.images[0];
+
+    dispatch(
+      toggleFavorite({
+        id,
+        name,
+        price,
+        image,
+        category,
+        seller,
+      })
+    );
   };
 
+  const isInFavorites = (productId: string) =>
+    isInArray(favoriteItemsIds, productId);
+
   return {
+    toggleFavorite: toggleProductInFavorites,
     isInFavorites,
-    addToFavorites,
   };
 };

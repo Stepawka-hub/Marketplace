@@ -11,7 +11,7 @@ export const ProductPurchase: FC<ProductPurchaseProps> = ({
   isInFavorites,
   price,
   addToCart,
-  addToFavorites,
+  toggleFavorite,
 }) => {
   const { t, i18n } = useTranslation();
   const formattedPrice = formattedWithSpace(price, i18n.language);
@@ -36,7 +36,7 @@ export const ProductPurchase: FC<ProductPurchaseProps> = ({
               ? t("product.buttons.remove-from-favorites")
               : t("product.buttons.add-to-favorites")
           }
-          callback={addToFavorites}
+          callback={toggleFavorite}
         />
       </Box>
       <AddToCartButton isInCart={isInCart} addToCart={addToCart} />

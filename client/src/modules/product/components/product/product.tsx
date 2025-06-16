@@ -16,7 +16,7 @@ export const Product: FC<ProductProps> = ({
   isInCart,
   isInFavorites,
   addToCart,
-  addToFavorites,
+  toggleFavorite,
 }) => {
   const product = mockProducts.find((p) => p.id === id);
   if (!product) return <NotFound />;
@@ -32,6 +32,7 @@ export const Product: FC<ProductProps> = ({
   } = product;
 
   const addProductToCart = () => addToCart(product);
+  const toggleProductInFavorites = () => toggleFavorite(product);
 
   return (
     <Box>
@@ -54,7 +55,7 @@ export const Product: FC<ProductProps> = ({
               isInFavorites={isInFavorites}
               price={price}
               addToCart={addProductToCart}
-              addToFavorites={addToFavorites}
+              toggleFavorite={toggleProductInFavorites}
             />
             <ProductMeta
               rating={rating}

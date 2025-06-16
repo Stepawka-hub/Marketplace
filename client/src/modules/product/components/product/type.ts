@@ -5,5 +5,5 @@ export type ProductProps = {
   isInCart: boolean;
   isInFavorites: boolean;
   addToCart: (p: TProductData) => void;
-  addToFavorites: () => void;
+  toggleFavorite: (p: TProductData) => void;
 };
