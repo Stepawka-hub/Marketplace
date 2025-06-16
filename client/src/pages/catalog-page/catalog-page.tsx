@@ -1,23 +1,15 @@
-import { addProduct, getProducts } from "@modules/cart";
-import { CatalogSearch, FilterPanel, ProductList } from "@modules/catalog";
+import { useCart } from "@hooks/useCart";
+import { useFavorites } from "@hooks/useFavorites";
+import { CatalogSearch, FilterPanel } from "@modules/catalog";
+import { ProductListContainer } from "@modules/catalog";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { Grid, IconButton } from "@mui/material";
-import { useDispatch, useSelector } from "@store/types";
-import { TProduct } from "@types";
-import { FC, useCallback, useMemo, useState } from "react";
+import { FC, useCallback, useState } from "react";
 
 export const CatalogPage: FC = () => {
-  const dispatch = useDispatch();
-  const cartItems = useSelector(getProducts);
-  const cartItemsIds = useMemo(() => cartItems.map((c) => c.id), [cartItems]);
+  const { isInCart, addToCart } = useCart();
+  const { isInFavorites, toggleFavorite } = useFavorites();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const handleAddToCart = useCallback(
-    (product: TProduct) => {
-      dispatch(addProduct(product));
-    },
-    [dispatch]
-  );
 
   const onFilterClick = useCallback(() => {
     setIsSidebarOpen((p) => !p);
@@ -44,9 +36,11 @@ export const CatalogPage: FC = () => {
           />
         </Grid>
         <Grid size="grow">
-          <ProductList
-            cartItemsIds={cartItemsIds}
-            addToCart={handleAddToCart}
+          <ProductListContainer
+            isInCart={isInCart}
+            isInFavorites={isInFavorites}
+            addToCart={addToCart}
+            toggleFavorite={toggleFavorite}
           />
         </Grid>
       </Grid>

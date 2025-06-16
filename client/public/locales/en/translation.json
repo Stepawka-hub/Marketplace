@@ -21,18 +21,12 @@
   "catalog-search": {
     "placeholder": "Enter product name..."
   },
-  "product": {
-    "owner-label": "Seller",
-    "add-to-cart": "Add to cart",
-    "in-cart": "In cart"
-  },
   "not-found": {
     "label": "Nothing found!",
     "btn-label": "Return to home"
   },
   "cart": {
     "title": "Cart",
-    "back-btn": "Return to catalog",
     "select-all": "Select all",
     "remove-all": "Delete selected",
     "item": {
@@ -53,5 +47,36 @@
     "badge": {
       "tool-tip": "Go to cart"
     }
+  },
+  "favorites": {
+    "title": "Favorites",
+    "badge": {
+      "tool-tip": "Go to favorites"
+    }
+  },
+  "product": {
+    "rating": {
+      "label": "Rating",
+      "reviews_one": "{{count}} review",
+      "reviews_other": "{{count}} reviews"
+    },
+    "details": {
+      "label": "About product",
+      "description": "Description",
+      "no-description": "No description",
+      "reviews": "Reviews"
+    },
+    "seller": {
+      "label": "Seller"
+    },
+    "buttons": {
+      "add-to-cart": "Add to cart",
+      "in-cart": "In cart",
+      "add-to-favorites": "Add to favorites",
+      "remove-from-favorites": "Remove from favorites"
+    }
+  },
+  "common": {
+    "back-btn": "Return to catalog"
   }
 }

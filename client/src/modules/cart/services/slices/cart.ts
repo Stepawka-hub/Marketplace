@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toggleArrayItem } from "@shared/helpers/array-helper";
-import { TProduct } from "@types";
+import { TCartProduct } from "@types";
 import { TCartState } from "./types";
 
 const initialState: TCartState = {
-  products: [],
+  cartItems: [],
   selectedIds: [],
-  isLoadingProducts: false,
+  isLoading: false,
 };
 
 const cartSlice = createSlice({
@@ -16,31 +16,31 @@ const cartSlice = createSlice({
     toggleSelectedProduct: (state, { payload }: PayloadAction<string>) => {
       state.selectedIds = toggleArrayItem(state.selectedIds, payload);
     },
-    addProduct: (state, { payload }: PayloadAction<TProduct>) => {
-      state.products = [...state.products, payload];
+    addToCart: (state, { payload }: PayloadAction<TCartProduct>) => {
+      state.cartItems = [...state.cartItems, payload];
     },
-    removeProduct: (state, { payload }: PayloadAction<string>) => {
-      state.products = state.products.filter((p) => p.id !== payload);
+    removeFromCart: (state, { payload }: PayloadAction<string>) => {
+      state.cartItems = state.cartItems.filter((i) => i.id !== payload);
       state.selectedIds = state.selectedIds.filter((id) => id !== payload);
     },
-    selectAllProducts: (state, { payload }: PayloadAction<boolean>) => {
+    selectAllCartItems: (state, { payload }: PayloadAction<boolean>) => {
       if (payload) {
-        state.selectedIds = state.products.map((p) => p.id);
+        state.selectedIds = state.cartItems.map((i) => i.id);
       } else {
         state.selectedIds = [];
       }
     },
     clearSelected: (state) => {
-      state.products = state.products.filter(
-        (p) => !state.selectedIds.includes(p.id)
+      state.cartItems = state.cartItems.filter(
+        (i) => !state.selectedIds.includes(i.id)
       );
       state.selectedIds = [];
     },
   },
   selectors: {
-    getProducts: (state) => state.products,
-    getCartTotalItems: (state) => state.products.length,
-    getIsLoadingProducts: (state) => state.isLoadingProducts,
+    getCartItems: (state) => state.cartItems,
+    getCartTotalItems: (state) => state.cartItems.length,
+    getIsLoading: (state) => state.isLoading,
     getSelectedIds: (state) => state.selectedIds,
     getSelectedItemsCount: (state) => state.selectedIds.length,
   },
@@ -48,16 +48,16 @@ const cartSlice = createSlice({
 
 export default cartSlice.reducer;
 export const {
-  selectAllProducts,
-  addProduct,
-  removeProduct,
+  selectAllCartItems,
+  addToCart,
+  removeFromCart,
   toggleSelectedProduct,
-  clearSelected
+  clearSelected,
 } = cartSlice.actions;
 export const {
-  getProducts,
+  getCartItems,
   getSelectedIds,
-  getIsLoadingProducts,
+  getIsLoading,
   getCartTotalItems,
   getSelectedItemsCount,
 } = cartSlice.selectors;

@@ -1,14 +1,14 @@
-import { ChangeEvent, FC } from "react";
-import { CartListHeaderProps } from "./type";
-import { Button, Checkbox, FormControlLabel, Grid, Paper } from "@mui/material";
-import { removeBtnStyles, selectAllContainerStyles } from "./styles";
-import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
 import {
   clearSelected,
-  selectAllProducts,
+  selectAllCartItems,
 } from "@modules/cart/services/slices/cart";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Button, Checkbox, FormControlLabel, Grid, Paper } from "@mui/material";
+import { ChangeEvent, FC } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { removeBtnStyles, selectAllContainerStyles } from "./styles";
+import { CartListHeaderProps } from "./type";
 
 export const CartListHeader: FC<CartListHeaderProps> = ({
   totalProducts,
@@ -19,7 +19,7 @@ export const CartListHeader: FC<CartListHeaderProps> = ({
   const isAllSelected = totalProducts === totalSelected;
 
   const handleSelectAll = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch(selectAllProducts(event.target.checked));
+    dispatch(selectAllCartItems(event.target.checked));
   };
 
   const handleDeleteAll = () => {

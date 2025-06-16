@@ -1,0 +1,74 @@
+[
+  {
+    "id": "product-1",
+    "name": "Экологичная бутылка для воды",
+    "shortDescription": "Многоразовая бутылка для воды из экологически чистых материалов.",
+    "category": "Дом и Кухня",
+    "image": "https://giftdev.ru/upload/iblock/547/54722dbdeec414b06064516495d60ada.png",
+    "price": 1499,
+    "seller": { "id": "seller-1", "name": "Green Living Co" }
+  },
+  {
+    "id": "product-2",
+    "name": "Уютный вязаный плед",
+    "shortDescription": "Мягкий и теплый вязаный плед для уютных вечеров.",
+    "category": "Домашний декор",
+    "image": "https://cs1.livemaster.ru/storage/06/e7/1f65c56da13f8ef879f414a1761j--dlya-doma-i-interera-teplyj-pled-uyutnyj-vecher-vyazanyj-sher.jpg",
+    "price": 3499,
+    "seller": { "id": "seller-2", "name": "Home Comforts" }
+  },
+  {
+    "id": "product-3",
+    "name": "Беспроводные Bluetooth-наушники",
+    "shortDescription": "Высококачественные беспроводные наушники с шумоподавлением.",
+    "category": "Электроника",
+    "image": "https://ir.ozone.ru/s3/multimedia-j/c1000/6250379155.jpg",
+    "price": 9999,
+    "seller": { "id": "seller-3", "name": "Tech Gadgets" }
+  },
+  {
+    "id": "product-4",
+    "name": "Органические кофейные зерна",
+    "shortDescription": "Свежеобжаренные органические кофейные зерна с насыщенным вкусом.",
+    "category": "Еда и Напитки",
+    "image": "https://germmarket.ru/image/cache/catalog/Kofe%20Blog/1200_437_7-1200x437.jpg",
+    "price": 999,
+    "seller": { "id": "seller-4", "name": "Coffee Lovers" }
+  },
+  {
+    "id": "product-5",
+    "name": "Кожаный кошелек",
+    "shortDescription": "Стильный и прочный кожаный кошелек для мужчин.",
+    "category": "Модные аксессуары",
+    "image": "https://cdn.lmbd.ru/a14b9ef1-db24-4593-b9d0-369cafaabfae/",
+    "price": 2999,
+    "seller": { "id": "seller-5", "name": "Fashion Forward" }
+  },
+  {
+    "id": "product-6",
+    "name": "Классический роман - Гордость и Предубеждение",
+    "shortDescription": "Вечная история любви и общества от Джейн Остин.",
+    "category": "Книги",
+    "image": "https://imo10.labirint.ru/books/636870/cover.jpg/242-0",
+    "price": 799,
+    "seller": { "id": "seller-6", "name": "Bookworm Haven" }
+  },
+  {
+    "id": "product-7",
+    "name": "Коврик для йоги",
+    "shortDescription": "Высококачественный коврик для йоги для комфортных тренировок.",
+    "category": "Спорт и Отдых",
+    "image": "https://basket-02.wbbasket.ru/vol152/part15295/15295147/images/big/1.webp",
+    "price": 1999,
+    "seller": { "id": "seller-7", "name": "Active Life" }
+  },
+  {
+    "id": "product-8",
+    "name": "Набор керамических кружек для кофе",
+    "shortDescription": "Стильный набор керамических кружек для кофе для повседневного использования.",
+    "category": "Дом и Кухня",
+    "image": "https://cdn1.ozone.ru/s3/multimedia-1-5/7020780089.jpg",
+    "price": 2499,
+    "seller": { "id": "seller-8", "name": "Cozy Home" }
+  }
+]

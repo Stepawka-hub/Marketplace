@@ -21,18 +21,12 @@
   "catalog-search": {
     "placeholder": "Введите название товара..."
   },
-  "product": {
-    "owner-label": "Продавец",
-    "add-to-cart": "В корзину",
-    "in-cart": "В корзине"
-  },
   "not-found": {
     "label": "Ничего не найдено!",
     "btn-label": "Вернуться на главную"
   },
   "cart": {
     "title": "Корзина",
-    "back-btn": "Вернуться в каталог",
     "select-all": "Выбрать все",
     "remove-all": "Удалить выбранное",
     "item": {
@@ -55,5 +49,38 @@
     "badge": {
       "tool-tip": "В корзину"
     }
+  },
+  "favorites": {
+    "title": "Избранное",
+    "badge": {
+      "tool-tip": "Перейти в избранное"
+    }
+  },
+  "product": {
+    "rating": {
+      "label": "Рейтинг",
+      "reviews_zero": "{{count}} отзывов",
+      "reviews_one": "{{count}} отзыв",
+      "reviews_few": "{{count}} отзыва",
+      "reviews_many": "{{count}} отзывов"
+    },
+    "details": {
+      "label": "О товаре",
+      "description": "Описание",
+      "no-description": "Описания нет",
+      "reviews": "Отзывы"
+    },
+    "seller": {
+      "label": "Продавец"
+    },
+    "buttons": {
+      "add-to-cart": "Добавить в корзину",
+      "in-cart": "В корзине",
+      "add-to-favorites": "Добавить в избранное",
+      "remove-from-favorites": "Убрать из избранного"
+    }
+  },
+  "common": {
+    "back-btn": "Вернуться в каталог"
   }
 }

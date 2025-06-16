@@ -1,7 +1,7 @@
-import { TProduct } from '@types';
+import { TCartProduct } from "@types";
 
 export type TCartState = {
-  products: TProduct[];
+  cartItems: TCartProduct[];
   selectedIds: string[];
-  isLoadingProducts: boolean;
-}
+  isLoading: boolean;
+};

@@ -1,2 +1,2 @@
-export { CatalogSearch, FilterPanel, ProductList } from "./components";
+export { CatalogSearch, FilterPanel, ProductListContainer } from "./components";
 export { default as catalogReducer } from "./services/slices/catalog";

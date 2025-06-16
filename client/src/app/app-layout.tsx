@@ -1,5 +1,6 @@
 import { Header } from "@components/header";
 import { CartBadge } from "@modules/cart";
+import { FavoritesBadge } from "@modules/favorites";
 import { LanguageSwitcher } from "@modules/i18n";
 import { ThemeSwitcher } from "@modules/theme";
 import { Paper } from "@mui/material";
@@ -16,7 +17,12 @@ export const AppLayout: FC = () => {
             <ThemeSwitcher />
           </>
         }
-        rightPart={<CartBadge />}
+        rightPart={
+          <>
+            <FavoritesBadge />
+            <CartBadge />
+          </>
+        }
       />
       <Outlet />
     </Paper>

@@ -1,4 +1,3 @@
-import testImg from "@images/testImg.jpg";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {
   CardActions,
@@ -12,23 +11,21 @@ import {
 } from "@mui/material";
 import { formattedWithSpace } from "@shared/helpers/numbers";
 import { Card } from "@ui/card";
+import { t } from "i18next";
 import { FC, MouseEvent } from "react";
-import { CartItemProps } from "./type";
 import { useTranslation } from "react-i18next";
 import { cardMediaStyles, cardStyles } from "./styles";
-import { t } from "i18next";
+import { CartItemProps } from "./type";
 
 export const CartItem: FC<CartItemProps> = ({
-  id,
-  image,
-  name,
-  price,
+  product,
   isSelected,
   handleCardClick,
   handleDelete,
   handleSelect,
 }) => {
   const { i18n } = useTranslation();
+  const { id, name, price, image } = product;
   const formattedPrice = formattedWithSpace(price, i18n.language);
 
   const onDelete = (e: MouseEvent) => {
@@ -47,7 +44,7 @@ export const CartItem: FC<CartItemProps> = ({
 
   return (
     <Card sx={cardStyles} variant="outlined" onClick={onCardClick}>
-      <CardMedia sx={cardMediaStyles} image={testImg} title={name} />
+      <CardMedia sx={cardMediaStyles} image={image} title={name} />
       <CardContent sx={{ flexGrow: 1, px: 0, ml: 2 }}>
         <Grid
           sx={{
