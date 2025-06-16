@@ -1,12 +1,24 @@
 import { AddToCartButton } from "@components/add-to-cart-button";
-import { CardActions, CardContent, CardMedia, Typography } from "@mui/material";
+import { LikeButton } from "@components/like-button";
+import {
+  Box,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography,
+} from "@mui/material";
 import { formattedWithSpace } from "@shared/helpers/numbers";
 import { Card } from "@ui/card";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import {
+  boxLikeButtonStyles,
+  cardMediaStyles,
+  nameTypographyStyles,
+  priceTypographyStyles,
+} from "./styles";
 import { ProductCardProps } from "./type";
-import { LikeButton } from "@components/like-button";
 
 export const ProductCard: FC<ProductCardProps> = ({
   product,
@@ -38,31 +50,26 @@ export const ProductCard: FC<ProductCardProps> = ({
       variant="outlined"
       onClick={handleNavigateToProduct}
     >
-      <CardMedia
-        sx={{ height: "25vh", borderRadius: "1.25rem" }}
-        image={image}
-        title={name}
-      >
-        <LikeButton
-          isActive={isInFavorites}
-          title={
-            isInFavorites
-              ? t("product.buttons.remove-from-favorites")
-              : t("product.buttons.add-to-favorites")
-          }
-          callback={handleToggleFavorite}
-        />
+      <CardMedia sx={cardMediaStyles} image={image} title={name}>
+        <Box sx={boxLikeButtonStyles}>
+          <LikeButton
+            isActive={isInFavorites}
+            title={
+              isInFavorites
+                ? t("product.buttons.remove-from-favorites")
+                : t("product.buttons.add-to-favorites")
+            }
+            callback={handleToggleFavorite}
+          />
+        </Box>
       </CardMedia>
 
       <CardContent sx={{ flexGrow: 1 }}>
-        <Typography
-          sx={{ mb: 1, fontSize: "1.25rem", fontWeight: 600 }}
-          color="textPrimary"
-        >
+        <Typography sx={priceTypographyStyles} color="textPrimary">
           {`${formattedPrice} ₽`}
         </Typography>
 
-        <Typography variant="h5" sx={{ fontSize: "1.25rem", fontWeight: 500 }}>
+        <Typography variant="h5" sx={nameTypographyStyles}>
           {name}
         </Typography>
 
