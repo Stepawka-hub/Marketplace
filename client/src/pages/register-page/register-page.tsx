@@ -4,7 +4,7 @@ import { FC } from "react";
 
 export const RegisterPage: FC = () => {
   return (
-    <Box>
+    <Box sx={{ py: 3, px: { xs: 2, sm: 3, lg: 5 } }}>
       <RegisterForm />
     </Box>
   );

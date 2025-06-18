@@ -1,5 +1,3 @@
-export type RegisterFormProps = {};
-
 export type TRegisterForm = {
   firstName: string;
   lastName: string;
