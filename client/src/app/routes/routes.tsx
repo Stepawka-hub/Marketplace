@@ -2,8 +2,10 @@ import {
   CartPage,
   CatalogPage,
   FavoritesPage,
+  LoginPage,
   NotFoundPage,
   ProductPage,
+  RegisterPage,
 } from "@pages";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { AppLayout } from "../app-layout";
@@ -31,6 +33,14 @@ export const router = createBrowserRouter([
       {
         path: "favorites",
         element: <FavoritesPage />,
+      },
+      {
+        path: "register",
+        element: <RegisterPage />,
+      },
+      {
+        path: "login",
+        element: <LoginPage />,
       },
       {
         path: "*",

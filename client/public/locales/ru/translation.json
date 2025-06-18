@@ -11,6 +11,37 @@
     "light": "Светлая",
     "system": "Системная"
   },
+
+  "register-form": {
+    "title": "Регистрация",
+    "fields": {
+      "firstName": {
+        "label": "Имя",
+        "placeholder": "Степан"
+      },
+      "lastName": {
+        "label": "Фамилия",
+        "placeholder": "Львов"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "email@example.com"
+      },
+      "phone": {
+        "label": "Телефон",
+        "placeholder": "+7 (XXX) XXX-XX-XX"
+      },
+      "password": {
+        "label": "Пароль",
+        "placeholder": "Введите пароль"
+      },
+      "repeatPassword": {
+        "label": "Повторите пароль",
+        "placeholder": "Введите пароль"
+      }
+    }
+  },
+
   "category-select": {
     "label": "Категория",
     "all": "Все"
@@ -21,10 +52,12 @@
   "catalog-search": {
     "placeholder": "Введите название товара..."
   },
+
   "not-found": {
     "label": "Ничего не найдено!",
     "btn-label": "Вернуться на главную"
   },
+
   "cart": {
     "title": "Корзина",
     "select-all": "Выбрать все",
@@ -50,12 +83,14 @@
       "tool-tip": "В корзину"
     }
   },
+
   "favorites": {
     "title": "Избранное",
     "badge": {
       "tool-tip": "Перейти в избранное"
     }
   },
+
   "product": {
     "rating": {
       "label": "Рейтинг",
@@ -80,6 +115,7 @@
       "remove-from-favorites": "Убрать из избранного"
     }
   },
+
   "common": {
     "back-btn": "Вернуться в каталог"
   }

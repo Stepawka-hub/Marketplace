@@ -11,6 +11,37 @@
     "light": "Light",
     "system": "System"
   },
+
+  "register-form": {
+    "title": "Register",
+    "fields": {
+      "firstName": {
+        "label": "First name",
+        "placeholder": "Stepan"
+      },
+      "lastName": {
+        "label": "Last name",
+        "placeholder": "Lvov"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "email@example.com"
+      },
+      "phone": {
+        "label": "Phone",
+        "placeholder": "+1 (XXX) XXX-XX-XX"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter password"
+      },
+      "repeatPassword": {
+        "label": "Repeat password",
+        "placeholder": "Enter password"
+      }
+    }
+  },
+
   "category-select": {
     "label": "Category",
     "all": "All"
@@ -21,10 +52,12 @@
   "catalog-search": {
     "placeholder": "Enter product name..."
   },
+
   "not-found": {
     "label": "Nothing found!",
     "btn-label": "Return to home"
   },
+
   "cart": {
     "title": "Cart",
     "select-all": "Select all",
@@ -48,12 +81,14 @@
       "tool-tip": "Go to cart"
     }
   },
+
   "favorites": {
     "title": "Favorites",
     "badge": {
       "tool-tip": "Go to favorites"
     }
   },
+
   "product": {
     "rating": {
       "label": "Rating",
@@ -76,6 +111,7 @@
       "remove-from-favorites": "Remove from favorites"
     }
   },
+
   "common": {
     "back-btn": "Return to catalog"
   }

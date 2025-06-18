@@ -3,3 +3,5 @@ export * from './not-found-page';
 export * from './cart-page';
 export * from './product-page';
 export * from './favorites-page';
+export * from './register-page';
+export * from './login-page';
