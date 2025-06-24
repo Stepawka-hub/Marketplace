@@ -12,6 +12,21 @@
     "system": "Системная"
   },
 
+  "form": {
+    "validation": {
+      "required": "Обязательное поле",
+      "minLength_zero": "Минимальная длина поля: {{count}} символов",
+      "minLength_one": "Минимальная длина поля: {{count}} символ",
+      "minLength_few": "Минимальная длина поля: {{count}} символа",
+      "minLength_many": "Минимальная длина поля: {{count}} символов",
+      "maxLength_zero": "Максимальная длина поля: {{count}} символов",
+      "maxLength_one": "Максимальная длина поля: {{count}} символ",
+      "maxLength_few": "Максимальная длина поля: {{count}} символа",
+      "maxLength_many": "Максимальная длина поля: {{count}} символов",
+      "email-invalid": "Некорректный адрес почты",
+      "passwordsDoNotMatch": "Пароли не совпадают"
+    }
+  },
   "register-form": {
     "title": "Регистрация",
     "fields": {

@@ -18,6 +18,7 @@ export const Input: FC<InputProps> = ({ name, ...props }) => {
       onChange={field.onChange}
       error={fieldState.invalid}
       helperText={fieldState.error?.message}
+      variant="standard"
     />
   );
 };

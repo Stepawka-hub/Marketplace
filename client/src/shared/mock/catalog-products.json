@@ -3,7 +3,7 @@
     "id": "product-1",
     "name": "Экологичная бутылка для воды",
     "shortDescription": "Многоразовая бутылка для воды из экологически чистых материалов.",
-    "category": "Дом и Кухня",
+    "category": "category 1",
     "image": "https://giftdev.ru/upload/iblock/547/54722dbdeec414b06064516495d60ada.png",
     "price": 1499,
     "seller": { "id": "seller-1", "name": "Green Living Co" }
@@ -12,7 +12,7 @@
     "id": "product-2",
     "name": "Уютный вязаный плед",
     "shortDescription": "Мягкий и теплый вязаный плед для уютных вечеров.",
-    "category": "Домашний декор",
+    "category": "category 1",
     "image": "https://cs1.livemaster.ru/storage/06/e7/1f65c56da13f8ef879f414a1761j--dlya-doma-i-interera-teplyj-pled-uyutnyj-vecher-vyazanyj-sher.jpg",
     "price": 3499,
     "seller": { "id": "seller-2", "name": "Home Comforts" }

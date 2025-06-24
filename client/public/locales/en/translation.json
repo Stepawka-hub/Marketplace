@@ -12,6 +12,17 @@
     "system": "System"
   },
 
+  "form": {
+    "validation": {
+      "required": "This field is required",
+      "minLength_one": "Minimum field length: {{count}} symbol",
+      "minLength_other": "Minimum field length: {{count}} symbols",
+      "maxLength_one": "Maximum field length: {{count}} symbol",
+      "maxLength_other": "Maximum field length: {{count}} symbols",
+      "email-invalid": "Invalid email address",
+      "passwordsDoNotMatch": "Passwords do not match"
+    }
+  },
   "register-form": {
     "title": "Register",
     "fields": {
