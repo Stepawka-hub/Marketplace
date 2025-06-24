@@ -1,13 +1,27 @@
-import { LoginForm } from "@modules/login";
-import { Box } from "@mui/material";
+import { LoginForm } from "@modules/auth";
+import { LinkedText } from "@ui/linked-text";
+import { PageContainer } from "@ui/page-container";
 import { FC } from "react";
-import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export const LoginPage: FC = () => {
+  const { t } = useTranslation();
+
   return (
-    <Box sx={{ py: 3, px: { xs: 2, sm: 3, lg: 5 } }}>
+    <PageContainer>
       <LoginForm />
-      <NavLink to="/register">Нет аккаунта? Зарегистрироваться</NavLink>
-    </Box>
+      <LinkedText
+        to="/register"
+        text="Нет аккаунта?"
+        linkText="Зарегистрироваться"
+        sx={{ mt: 2 }}
+      />
+      <LinkedText
+        to="/reset-password"
+        text="Забыли пароль?"
+        linkText="Восстановить"
+        sx={{ mt: 1 }}
+      />
+    </PageContainer>
   );
 };

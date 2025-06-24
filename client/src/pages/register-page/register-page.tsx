@@ -1,13 +1,21 @@
-import { RegisterForm } from "@modules/register";
-import { Box } from "@mui/material";
+import { RegisterForm } from "@modules/auth";
+import { LinkedText } from "@ui/linked-text";
+import { PageContainer } from "@ui/page-container";
 import { FC } from "react";
-import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export const RegisterPage: FC = () => {
+  const { t } = useTranslation();
+
   return (
-    <Box sx={{ py: 3, px: { xs: 2, sm: 3, lg: 5 } }}>
+    <PageContainer>
       <RegisterForm />
-      <NavLink to="/login">Уже есть аккаунт? Войти</NavLink>
-    </Box>
+      <LinkedText
+        to="/login"
+        text="Уже есть аккаунт?"
+        linkText="Войти"
+        sx={{ mt: 2 }}
+      />
+    </PageContainer>
   );
 };

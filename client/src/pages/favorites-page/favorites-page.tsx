@@ -2,7 +2,8 @@ import { BackButton } from "@components/back-button";
 import { useCart } from "@hooks/useCart";
 import { useFavorites } from "@hooks/useFavorites";
 import { FavoritesList } from "@modules/favorites";
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
+import { PageContainer } from "@ui/page-container";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -12,7 +13,7 @@ export const FavoritesPage: FC = () => {
   const { isInFavorites, toggleFavorite } = useFavorites();
 
   return (
-    <Box sx={{ py: 3, px: { xs: 2, sm: 3, lg: 5 } }}>
+    <PageContainer>
       <BackButton />
       <Typography
         variant="h2"
@@ -26,6 +27,6 @@ export const FavoritesPage: FC = () => {
         addToCart={addToCart}
         toggleFavorite={toggleFavorite}
       />
-    </Box>
+    </PageContainer>
   );
 };

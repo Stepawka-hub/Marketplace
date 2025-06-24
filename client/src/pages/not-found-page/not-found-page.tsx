@@ -1,9 +1,9 @@
 import { NotFound } from "@components/not-found";
-import { Box } from "@mui/material";
+import { PageContainer } from "@ui/page-container";
 import { FC } from "react";
 
 export const NotFoundPage: FC = () => (
-  <Box sx={{ mt: 10 }}>
+  <PageContainer sx={{ mt: 10 }}>
     <NotFound />
-  </Box>
+  </PageContainer>
 );
