@@ -43,6 +43,10 @@ export const router = createBrowserRouter([
         element: <LoginPage />,
       },
       {
+        path: "forgot-password",
+        element: <div>Forgot password</div>,
+      },
+      {
         path: "*",
         element: <NotFoundPage />,
       },

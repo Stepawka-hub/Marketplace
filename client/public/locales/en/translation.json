@@ -23,47 +23,59 @@
       "passwords-not-match": "Passwords do not match"
     }
   },
-  "register-form": {
-    "title": "Register",
-    "fields": {
-      "firstName": {
-        "label": "First name",
-        "placeholder": "Stepan"
+  "register": {
+    "form": {
+      "title": "Register",
+      "fields": {
+        "firstName": {
+          "label": "First name",
+          "placeholder": "Stepan"
+        },
+        "lastName": {
+          "label": "Last name",
+          "placeholder": "Lvov"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "email@example.com"
+        },
+        "phone": {
+          "label": "Phone",
+          "placeholder": "+1 (XXX) XXX-XX-XX"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Enter password"
+        },
+        "confirmPassword": {
+          "label": "Repeat password",
+          "placeholder": "Enter password"
+        }
       },
-      "lastName": {
-        "label": "Last name",
-        "placeholder": "Lvov"
-      },
-      "email": {
-        "label": "Email",
-        "placeholder": "email@example.com"
-      },
-      "phone": {
-        "label": "Phone",
-        "placeholder": "+1 (XXX) XXX-XX-XX"
-      },
-      "password": {
-        "label": "Password",
-        "placeholder": "Enter password"
-      },
-      "confirmPassword": {
-        "label": "Repeat password",
-        "placeholder": "Enter password"
-      }
-    }
+      "submit-button": "Register"
+    },
+    "already-have-account": "Already have an account?",
+    "login-link": "Login"
   },
-  "login-form": {
-    "title": "Login",
-    "fields": {
-      "email": {
-        "label": "Email",
-        "placeholder": "email@example.com"
+  "login": {
+    "form": {
+      "title": "Login",
+      "fields": {
+        "email": {
+          "label": "Email",
+          "placeholder": "email@example.com"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Enter password"
+        }
       },
-      "password": {
-        "label": "Password",
-        "placeholder": "Enter password"
-      }
-    }
+      "submit-button": "Login"
+    },
+    "no-account": "Don't have an account?",
+    "register-link": "Register",
+    "forgot-password": "Forgot your password?",
+    "reset-password-link": "Restore"
   },
 
   "category-select": {

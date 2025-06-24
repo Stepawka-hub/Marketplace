@@ -27,47 +27,59 @@
       "passwords-not-match": "Пароли не совпадают"
     }
   },
-  "register-form": {
-    "title": "Регистрация",
-    "fields": {
-      "firstName": {
-        "label": "Имя",
-        "placeholder": "Степан"
+  "register": {
+    "form": {
+      "title": "Регистрация",
+      "fields": {
+        "firstName": {
+          "label": "Имя",
+          "placeholder": "Степан"
+        },
+        "lastName": {
+          "label": "Фамилия",
+          "placeholder": "Львов"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "email@example.com"
+        },
+        "phone": {
+          "label": "Телефон",
+          "placeholder": "+7 (XXX) XXX-XX-XX"
+        },
+        "password": {
+          "label": "Пароль",
+          "placeholder": "Введите пароль"
+        },
+        "confirmPassword": {
+          "label": "Повторите пароль",
+          "placeholder": "Введите пароль"
+        }
       },
-      "lastName": {
-        "label": "Фамилия",
-        "placeholder": "Львов"
-      },
-      "email": {
-        "label": "Email",
-        "placeholder": "email@example.com"
-      },
-      "phone": {
-        "label": "Телефон",
-        "placeholder": "+7 (XXX) XXX-XX-XX"
-      },
-      "password": {
-        "label": "Пароль",
-        "placeholder": "Введите пароль"
-      },
-      "confirmPassword": {
-        "label": "Повторите пароль",
-        "placeholder": "Введите пароль"
-      }
-    }
+      "submit-button": "Зарегистрироваться"
+    },
+    "already-have-account": "Уже есть аккаунт?",
+    "login-link": "Войти"
   },
-  "login-form": {
-    "title": "Вход",
-    "fields": {
-      "email": {
-        "label": "Email",
-        "placeholder": "email@example.com"
+  "login": {
+    "form": {
+      "title": "Вход",
+      "fields": {
+        "email": {
+          "label": "Email",
+          "placeholder": "email@example.com"
+        },
+        "password": {
+          "label": "Пароль",
+          "placeholder": "Введите пароль"
+        }
       },
-      "password": {
-        "label": "Пароль",
-        "placeholder": "Введите пароль"
-      }
-    }
+      "submit-button": "Войти"
+    },
+    "no-account": "Нет аккаунта?",
+    "register-link": "Зарегистрироваться",
+    "forgot-password": "Забыли пароль?",
+    "reset-password-link": "Восстановить"
   },
 
   "category-select": {

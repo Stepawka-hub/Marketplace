@@ -12,8 +12,8 @@ export const RegisterPage: FC = () => {
       <RegisterForm />
       <LinkedText
         to="/login"
-        text="Уже есть аккаунт?"
-        linkText="Войти"
+        text={t("register.already-have-account")}
+        linkText={t("register.login-link")}
         sx={{ mt: 2 }}
       />
     </PageContainer>

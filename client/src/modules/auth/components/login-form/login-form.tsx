@@ -50,10 +50,10 @@ export const LoginForm: FC = () => {
     <Grid container sx={{ justifyContent: "center", mt: 10 }}>
       <Grid size={{ xs: 12, md: 8, lg: 6 }}>
         <FormProvider {...methods}>
-          <Form title={t("login-form.title")} onSubmit={onSubmit}>
+          <Form title={t("login.form.title")} onSubmit={onSubmit}>
             {fields.map(({ name, type, validation }) => {
-              const label = t(`login-form.fields.${name}.label`);
-              const placeholder = t(`login-form.fields.${name}.placeholder`);
+              const label = t(`login.form.fields.${name}.label`);
+              const placeholder = t(`login.form.fields.${name}.placeholder`);
 
               if (type === "password") {
                 return (
@@ -77,7 +77,7 @@ export const LoginForm: FC = () => {
             })}
 
             <Button type="submit" variant="contained" sx={{ mt: 2 }}>
-              Войти
+              {t('login.form.submit-button')}
             </Button>
           </Form>
         </FormProvider>

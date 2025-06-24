@@ -89,10 +89,10 @@ export const RegisterForm: FC = () => {
     <Grid container sx={{ justifyContent: "center", mt: 10 }}>
       <Grid size={{ xs: 12, md: 8, lg: 6 }}>
         <FormProvider {...methods}>
-          <Form title={t("register-form.title")} onSubmit={onSubmit}>
+          <Form title={t("register.form.title")} onSubmit={onSubmit}>
             {fields.map(({ name, type, validation }) => {
-              const label = t(`register-form.fields.${name}.label`);
-              const placeholder = t(`register-form.fields.${name}.placeholder`);
+              const label = t(`register.form.fields.${name}.label`);
+              const placeholder = t(`register.form.fields.${name}.placeholder`);
 
               if (type === "password") {
                 return (
@@ -116,7 +116,7 @@ export const RegisterForm: FC = () => {
             })}
 
             <Button type="submit" variant="contained" sx={{ mt: 2 }}>
-              Зарегистрироваться
+              {t("register.form.submit-button")}
             </Button>
           </Form>
         </FormProvider>
