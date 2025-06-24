@@ -18,9 +18,16 @@ export const RegisterForm: FC = () => {
   const methods = useForm<TRegisterForm>({
     mode: "onChange",
   });
-  const { register, handleSubmit } = methods;
+  const { register, handleSubmit, setError } = methods;
 
   const onSubmit = handleSubmit((formData) => {
+    if (formData.password !== formData.confirmPassword) {
+      setError("confirmPassword", {
+        type: "manual",
+        message: "Пароли не совпадают",
+      });
+      return;
+    }
     console.log(formData);
   });
 
@@ -66,7 +73,7 @@ export const RegisterForm: FC = () => {
         },
       },
       {
-        name: "repeatPassword",
+        name: "confirmPassword",
         type: "password",
         validation: {
           ...requiredValidation(t),

@@ -50,7 +50,7 @@
         "label": "Пароль",
         "placeholder": "Введите пароль"
       },
-      "repeatPassword": {
+      "confirmPassword": {
         "label": "Повторите пароль",
         "placeholder": "Введите пароль"
       }

@@ -6,7 +6,7 @@ export type TRegisterForm = {
   email: string;
   phone?: string;
   password: string;
-  repeatPassword: string;
+  confirmPassword: string;
 };
 
 export type TField = {
