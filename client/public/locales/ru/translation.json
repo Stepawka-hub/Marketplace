@@ -24,7 +24,7 @@
       "maxLength_few": "Максимальная длина поля: {{count}} символа",
       "maxLength_many": "Максимальная длина поля: {{count}} символов",
       "email-invalid": "Некорректный адрес почты",
-      "passwordsDoNotMatch": "Пароли не совпадают"
+      "passwords-not-match": "Пароли не совпадают"
     }
   },
   "register-form": {
@@ -52,6 +52,19 @@
       },
       "confirmPassword": {
         "label": "Повторите пароль",
+        "placeholder": "Введите пароль"
+      }
+    }
+  },
+  "login-form": {
+    "title": "Вход",
+    "fields": {
+      "email": {
+        "label": "Email",
+        "placeholder": "email@example.com"
+      },
+      "password": {
+        "label": "Пароль",
         "placeholder": "Введите пароль"
       }
     }

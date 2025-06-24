@@ -24,7 +24,7 @@ export const RegisterForm: FC = () => {
     if (formData.password !== formData.confirmPassword) {
       setError("confirmPassword", {
         type: "manual",
-        message: "Пароли не совпадают",
+        message: t("form.validation.passwords-not-match"),
       });
       return;
     }

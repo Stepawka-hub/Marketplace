@@ -20,7 +20,7 @@
       "maxLength_one": "Maximum field length: {{count}} symbol",
       "maxLength_other": "Maximum field length: {{count}} symbols",
       "email-invalid": "Invalid email address",
-      "passwordsDoNotMatch": "Passwords do not match"
+      "passwords-not-match": "Passwords do not match"
     }
   },
   "register-form": {
@@ -46,8 +46,21 @@
         "label": "Password",
         "placeholder": "Enter password"
       },
-      "repeatPassword": {
+      "confirmPassword": {
         "label": "Repeat password",
+        "placeholder": "Enter password"
+      }
+    }
+  },
+  "login-form": {
+    "title": "Login",
+    "fields": {
+      "email": {
+        "label": "Email",
+        "placeholder": "email@example.com"
+      },
+      "password": {
+        "label": "Password",
         "placeholder": "Enter password"
       }
     }
