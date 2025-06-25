@@ -31,8 +31,8 @@ export const ForgotPasswordForm: FC = () => {
       <FormProvider {...methods}>
         <Form title={t("forgot-password.form.title")} onSubmit={onSubmit}>
           <Input
-            label={t("forgot-password.form.fields.email.label")}
-            placeholder={t("forgot-password.form.fields.email.placeholder")}
+            label={t("form.fields.email.label")}
+            placeholder={t("form.fields.email.placeholder")}
             {...register("email", {
               ...requiredValidation(t),
               ...emailValidation(t),

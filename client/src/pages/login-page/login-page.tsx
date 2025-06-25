@@ -12,14 +12,14 @@ export const LoginPage: FC = () => {
       <LoginForm />
       <LinkedText
         to="/register"
-        text={t("login.no-account")}
-        linkText={t("login.register-link")}
+        text={t("auth.linked-text.no-account")}
+        linkText={t("auth.links.register")}
         sx={{ mt: 2 }}
       />
       <LinkedText
         to="/forgot-password"
-        text={t("login.forgot-password")}
-        linkText={t("login.reset-password-link")}
+        text={t("auth.linked-text.forgot-password")}
+        linkText={t("auth.links.recover-password")}
         sx={{ mt: 1 }}
       />
     </PageContainer>

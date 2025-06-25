@@ -12,6 +12,19 @@
     "system": "System"
   },
 
+  "auth": {
+    "links": {
+      "login": "Login",
+      "register": "Register",
+      "recover-password": "Restore"
+    },
+    "linked-text": {
+      "no-account": "Don't have an account?",
+      "forgot-password": "Forgot your password?",
+      "remembered-password": "Remembered your password?",
+      "already-have-account": "Already have an account?"
+    }
+  },
   "form": {
     "validation": {
       "required": "This field is required",
@@ -21,6 +34,20 @@
       "maxLength_other": "Maximum field length: {{count}} symbols",
       "email-invalid": "Invalid email address",
       "passwords-not-match": "Passwords do not match"
+    },
+    "fields": {
+      "email": {
+        "label": "Email",
+        "placeholder": "email@example.com"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter password"
+      },
+      "confirmPassword": {
+        "label": "Repeat password",
+        "placeholder": "Enter password"
+      }
     }
   },
   "register": {
@@ -35,47 +62,31 @@
           "label": "Last name",
           "placeholder": "Lvov"
         },
-        "email": {
-          "label": "Email",
-          "placeholder": "email@example.com"
-        },
         "phone": {
           "label": "Phone",
           "placeholder": "+1 (XXX) XXX-XX-XX"
-        },
-        "password": {
-          "label": "Password",
-          "placeholder": "Enter password"
-        },
-        "confirmPassword": {
-          "label": "Repeat password",
-          "placeholder": "Enter password"
         }
       },
       "submit-button": "Register"
-    },
-    "already-have-account": "Already have an account?",
-    "login-link": "Login"
+    }
   },
   "login": {
     "form": {
       "title": "Login",
-      "fields": {
-        "email": {
-          "label": "Email",
-          "placeholder": "email@example.com"
-        },
-        "password": {
-          "label": "Password",
-          "placeholder": "Enter password"
-        }
-      },
       "submit-button": "Login"
-    },
-    "no-account": "Don't have an account?",
-    "register-link": "Register",
-    "forgot-password": "Forgot your password?",
-    "reset-password-link": "Restore"
+    }
+  },
+  "forgot-password": {
+    "form": {
+      "title": "Password recovery",
+      "submit-button": "Restore"
+    }
+  },
+  "reset-password": {
+    "form": {
+      "title": "Password reset",
+      "submit-button": "Reset"
+    }
   },
 
   "category-select": {

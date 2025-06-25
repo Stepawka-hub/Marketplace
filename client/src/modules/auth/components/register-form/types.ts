@@ -12,5 +12,6 @@ export type TRegisterForm = {
 export type TField = {
   name: keyof TRegisterForm;
   type?: "text" | "phone" | "password";
+  translationPath?: string;
   validation?: RegisterOptions<TRegisterForm>;
 };

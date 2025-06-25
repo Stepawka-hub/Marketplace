@@ -15,11 +15,18 @@ import { TResetPasswordForm } from "./type";
 export const ResetPasswordForm: FC = () => {
   const { t } = useTranslation();
   const methods = useForm<TResetPasswordForm>({ mode: "onChange" });
-  const { register, handleSubmit } = methods;
+  const { register, handleSubmit, setError } = methods;
   // const navigate = useNavigate();
 
   const onSubmit = handleSubmit((formData) => {
     console.log(formData);
+    if (formData.password !== formData.confirmPassword) {
+      setError("confirmPassword", {
+        type: "manual",
+        message: t("form.validation.passwords-not-match"),
+      });
+      return;
+    }
 
     // resetPasswordApi({ password, token })
     //   .then(() => {
@@ -39,7 +46,7 @@ export const ResetPasswordForm: FC = () => {
   return (
     <CenteredGrid>
       <FormProvider {...methods}>
-        <Form title={t("repeat-password.form.title")} onSubmit={onSubmit}>
+        <Form title={t("reset-password.form.title")} onSubmit={onSubmit}>
           <PasswordInput
             {...register("password", {
               ...requiredValidation(t),
@@ -48,7 +55,8 @@ export const ResetPasswordForm: FC = () => {
             })}
           />
           <PasswordInput
-            label="Repeat password"
+            label={t("form.fields.confirmPassword.label")}
+            placeholder={t("form.fields.confirmPassword.placeholder")}
             {...register("confirmPassword", {
               ...requiredValidation(t),
               ...minLengthValidation(8, t),
@@ -56,7 +64,7 @@ export const ResetPasswordForm: FC = () => {
             })}
           />
           <Button type="submit" variant="contained" sx={{ mt: 2 }}>
-            {t("repeat-password.form.submit-button")}
+            {t("reset-password.form.submit-button")}
           </Button>
         </Form>
       </FormProvider>

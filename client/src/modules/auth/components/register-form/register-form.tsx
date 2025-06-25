@@ -3,7 +3,7 @@ import {
   emailValidation,
   maxLengthValidation,
   minLengthValidation,
-  requiredValidation
+  requiredValidation,
 } from "@shared/helpers/validate";
 import { CenteredGrid } from "@ui/centered-grid";
 import { Form } from "@ui/form";
@@ -35,6 +35,7 @@ export const RegisterForm: FC = () => {
     () => [
       {
         name: "firstName",
+        translationPath: "register.form.fields",
         validation: {
           ...requiredValidation(t),
           ...minLengthValidation(2, t),
@@ -43,6 +44,7 @@ export const RegisterForm: FC = () => {
       },
       {
         name: "lastName",
+        translationPath: "register.form.fields",
         validation: {
           ...requiredValidation(t),
           ...minLengthValidation(2, t),
@@ -51,18 +53,22 @@ export const RegisterForm: FC = () => {
       },
       {
         name: "email",
+        translationPath: "form.fields",
         validation: {
           ...requiredValidation(t),
-          ...emailValidation(t)
+          ...emailValidation(t),
         },
       },
       {
         name: "phone",
         type: "phone",
+        translationPath: "register.form.fields",
+        prefix: "register.form",
       },
       {
         name: "password",
         type: "password",
+        translationPath: "form.fields",
         validation: {
           ...requiredValidation(t),
           ...minLengthValidation(8, t),
@@ -72,6 +78,7 @@ export const RegisterForm: FC = () => {
       {
         name: "confirmPassword",
         type: "password",
+        translationPath: "form.fields",
         validation: {
           ...requiredValidation(t),
           ...minLengthValidation(8, t),
@@ -86,9 +93,9 @@ export const RegisterForm: FC = () => {
     <CenteredGrid>
       <FormProvider {...methods}>
         <Form title={t("register.form.title")} onSubmit={onSubmit}>
-          {fields.map(({ name, type, validation }) => {
-            const label = t(`register.form.fields.${name}.label`);
-            const placeholder = t(`register.form.fields.${name}.placeholder`);
+          {fields.map(({ name, type, translationPath, validation }) => {
+            const label = t(`${translationPath}.${name}.label`);
+            const placeholder = t(`${translationPath}.${name}.placeholder`);
 
             if (type === "password") {
               return (

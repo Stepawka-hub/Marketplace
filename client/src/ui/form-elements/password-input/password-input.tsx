@@ -10,12 +10,15 @@ import {
 import { FC, MouseEvent, useState } from "react";
 import { useController, useFormContext } from "react-hook-form";
 import { PasswordInputProps } from "./type";
+import { useTranslation } from "react-i18next";
 
 export const PasswordInput: FC<PasswordInputProps> = ({
   name,
   label,
+  placeholder,
   ...props
 }) => {
+  const { t } = useTranslation();
   const { control } = useFormContext();
   const { field, fieldState } = useController({
     name,
@@ -38,12 +41,13 @@ export const PasswordInput: FC<PasswordInputProps> = ({
   return (
     <FormControl variant="standard" error={invalid}>
       <InputLabel htmlFor="standard-adornment-password">
-        {label || "Password"}
+        {label || t("form.fields.password.label")}
       </InputLabel>
       <Input
         {...props}
         autoComplete="true"
         name={name}
+        placeholder={placeholder || t("form.fields.password.placeholder")}
         type={showPassword ? "text" : "password"}
         value={field.value || ""}
         onChange={field.onChange}

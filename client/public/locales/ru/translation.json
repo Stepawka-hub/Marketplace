@@ -12,6 +12,19 @@
     "system": "Системная"
   },
 
+  "auth": {
+    "links": {
+      "login": "Войти",
+      "register": "Зарегистрироваться",
+      "recover-password": "Восстановить пароль"
+    },
+    "linked-text": {
+      "no-account": "Нет аккаунта?",
+      "forgot-password": "Забыли пароль?",
+      "remembered-password": "Вспомнили пароль?",
+      "already-have-account": "Уже есть аккаунт?"
+    }
+  },
   "form": {
     "validation": {
       "required": "Обязательное поле",
@@ -25,6 +38,20 @@
       "maxLength_many": "Максимальная длина поля: {{count}} символов",
       "email-invalid": "Некорректный адрес почты",
       "passwords-not-match": "Пароли не совпадают"
+    },
+    "fields": {
+      "email": {
+        "label": "Email",
+        "placeholder": "email@example.com"
+      },
+      "password": {
+        "label": "Пароль",
+        "placeholder": "Введите пароль"
+      },
+      "confirmPassword": {
+        "label": "Повторите пароль",
+        "placeholder": "Введите пароль"
+      }
     }
   },
   "register": {
@@ -39,47 +66,31 @@
           "label": "Фамилия",
           "placeholder": "Львов"
         },
-        "email": {
-          "label": "Email",
-          "placeholder": "email@example.com"
-        },
         "phone": {
           "label": "Телефон",
           "placeholder": "+7 (XXX) XXX-XX-XX"
-        },
-        "password": {
-          "label": "Пароль",
-          "placeholder": "Введите пароль"
-        },
-        "confirmPassword": {
-          "label": "Повторите пароль",
-          "placeholder": "Введите пароль"
         }
       },
       "submit-button": "Зарегистрироваться"
-    },
-    "already-have-account": "Уже есть аккаунт?",
-    "login-link": "Войти"
+    }
   },
   "login": {
     "form": {
       "title": "Вход",
-      "fields": {
-        "email": {
-          "label": "Email",
-          "placeholder": "email@example.com"
-        },
-        "password": {
-          "label": "Пароль",
-          "placeholder": "Введите пароль"
-        }
-      },
       "submit-button": "Войти"
-    },
-    "no-account": "Нет аккаунта?",
-    "register-link": "Зарегистрироваться",
-    "forgot-password": "Забыли пароль?",
-    "reset-password-link": "Восстановить"
+    }
+  },
+  "forgot-password": {
+    "form": {
+      "title": "Восстановление пароля",
+      "submit-button": "Восстановить"
+    }
+  },
+  "reset-password": {
+    "form": {
+      "title": "Сброс пароля",
+      "submit-button": "Сбросить"
+    }
   },
 
   "category-select": {

@@ -3,15 +3,15 @@ import {
   emailValidation,
   maxLengthValidation,
   minLengthValidation,
-  requiredValidation
+  requiredValidation,
 } from "@shared/helpers/validate";
 import { CenteredGrid } from "@ui/centered-grid";
 import { Form } from "@ui/form";
 import { Input, PasswordInput } from "@ui/form-elements";
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { TField, TLoginForm } from "./types";
+import { TLoginForm } from "./types";
 
 export const LoginForm: FC = () => {
   const { t } = useTranslation();
@@ -22,57 +22,25 @@ export const LoginForm: FC = () => {
     console.log(formData);
   });
 
-  const fields: TField[] = useMemo(
-    () => [
-      {
-        name: "email",
-        validation: {
-          ...requiredValidation(t),
-          ...emailValidation(t),
-        },
-      },
-      {
-        name: "password",
-        type: "password",
-        validation: {
-          ...requiredValidation(t),
-          ...minLengthValidation(8, t),
-          ...maxLengthValidation(100, t),
-        },
-      },
-    ],
-    [t]
-  );
-
   return (
     <CenteredGrid>
       <FormProvider {...methods}>
         <Form title={t("login.form.title")} onSubmit={onSubmit}>
-          {fields.map(({ name, type, validation }) => {
-            const label = t(`login.form.fields.${name}.label`);
-            const placeholder = t(`login.form.fields.${name}.placeholder`);
-
-            if (type === "password") {
-              return (
-                <PasswordInput
-                  key={name}
-                  label={label}
-                  placeholder={placeholder}
-                  {...register(name, validation)}
-                />
-              );
-            }
-
-            return (
-              <Input
-                key={name}
-                label={label}
-                placeholder={placeholder}
-                {...register(name, validation)}
-              />
-            );
-          })}
-
+          <Input
+            label={t("form.fields.email.label")}
+            placeholder={t("form.fields.email.placeholder")}
+            {...register("email", {
+              ...requiredValidation(t),
+              ...emailValidation(t),
+            })}
+          />
+          <PasswordInput
+            {...register("password", {
+              ...requiredValidation(t),
+              ...minLengthValidation(8, t),
+              ...maxLengthValidation(100, t),
+            })}
+          />
           <Button type="submit" variant="contained" sx={{ mt: 2 }}>
             {t("login.form.submit-button")}
           </Button>
