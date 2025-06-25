@@ -37,7 +37,9 @@ export const PasswordInput: FC<PasswordInputProps> = ({
 
   return (
     <FormControl variant="standard" error={invalid}>
-      <InputLabel htmlFor="standard-adornment-password">{label}</InputLabel>
+      <InputLabel htmlFor="standard-adornment-password">
+        {label || "Password"}
+      </InputLabel>
       <Input
         {...props}
         autoComplete="true"

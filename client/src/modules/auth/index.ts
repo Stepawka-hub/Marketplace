@@ -1,1 +1,6 @@
-export { LoginForm, RegisterForm } from './components'
+export {
+  LoginForm,
+  RegisterForm,
+  ForgotPasswordForm,
+  ResetPasswordForm,
+} from "./components";

@@ -2,10 +2,12 @@ import {
   CartPage,
   CatalogPage,
   FavoritesPage,
+  ForgotPasswordPage,
   LoginPage,
   NotFoundPage,
   ProductPage,
   RegisterPage,
+  ResetPasswordPage,
 } from "@pages";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { AppLayout } from "../app-layout";
@@ -44,7 +46,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "forgot-password",
-        element: <div>Forgot password</div>,
+        element: <ForgotPasswordPage />,
+      },
+      {
+        path: "reset-password",
+        element: <ResetPasswordPage />,
       },
       {
         path: "*",

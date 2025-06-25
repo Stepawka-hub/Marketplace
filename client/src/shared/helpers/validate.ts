@@ -19,3 +19,10 @@ export const maxLengthValidation = (maxLength: number, t: TFunction) => ({
 export const requiredValidation = (t: TFunction) => ({
   required: t("form.validation.required"),
 });
+
+export const emailValidation = (t: TFunction) => ({
+  pattern: {
+    value: EMAIL_REGEX,
+    message: t("form.validation.email-invalid"),
+  },
+});

@@ -1,17 +1,17 @@
-import { Button, Grid } from "@mui/material";
+import { Button } from "@mui/material";
+import {
+  emailValidation,
+  maxLengthValidation,
+  minLengthValidation,
+  requiredValidation
+} from "@shared/helpers/validate";
+import { CenteredGrid } from "@ui/centered-grid";
 import { Form } from "@ui/form";
-import { Input } from "@ui/form-elements";
+import { Input, PasswordInput } from "@ui/form-elements";
 import { FC, useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { TField, TRegisterForm } from "./types";
-import {
-  EMAIL_REGEX,
-  maxLengthValidation,
-  minLengthValidation,
-  requiredValidation,
-} from "@shared/helpers/validate";
-import { PasswordInput } from "@ui/form-elements";
 
 export const RegisterForm: FC = () => {
   const { t } = useTranslation();
@@ -53,10 +53,7 @@ export const RegisterForm: FC = () => {
         name: "email",
         validation: {
           ...requiredValidation(t),
-          pattern: {
-            value: EMAIL_REGEX,
-            message: t("form.validation.email-invalid"),
-          },
+          ...emailValidation(t)
         },
       },
       {
@@ -86,41 +83,39 @@ export const RegisterForm: FC = () => {
   );
 
   return (
-    <Grid container sx={{ justifyContent: "center", mt: 10 }}>
-      <Grid size={{ xs: 12, md: 8, lg: 6 }}>
-        <FormProvider {...methods}>
-          <Form title={t("register.form.title")} onSubmit={onSubmit}>
-            {fields.map(({ name, type, validation }) => {
-              const label = t(`register.form.fields.${name}.label`);
-              const placeholder = t(`register.form.fields.${name}.placeholder`);
+    <CenteredGrid>
+      <FormProvider {...methods}>
+        <Form title={t("register.form.title")} onSubmit={onSubmit}>
+          {fields.map(({ name, type, validation }) => {
+            const label = t(`register.form.fields.${name}.label`);
+            const placeholder = t(`register.form.fields.${name}.placeholder`);
 
-              if (type === "password") {
-                return (
-                  <PasswordInput
-                    key={name}
-                    label={label}
-                    placeholder={placeholder}
-                    {...register(name, validation)}
-                  />
-                );
-              }
-
+            if (type === "password") {
               return (
-                <Input
+                <PasswordInput
                   key={name}
                   label={label}
                   placeholder={placeholder}
                   {...register(name, validation)}
                 />
               );
-            })}
+            }
 
-            <Button type="submit" variant="contained" sx={{ mt: 2 }}>
-              {t("register.form.submit-button")}
-            </Button>
-          </Form>
-        </FormProvider>
-      </Grid>
-    </Grid>
+            return (
+              <Input
+                key={name}
+                label={label}
+                placeholder={placeholder}
+                {...register(name, validation)}
+              />
+            );
+          })}
+
+          <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+            {t("register.form.submit-button")}
+          </Button>
+        </Form>
+      </FormProvider>
+    </CenteredGrid>
   );
 };
