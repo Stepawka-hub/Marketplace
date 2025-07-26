@@ -160,6 +160,8 @@
   },
 
   "common": {
-    "back-btn": "Return to catalog"
+    "buttons": {
+      "back": "Return to catalog"
+    }
   }
 }
