@@ -1,0 +1,128 @@
+import { Button } from "@mui/material";
+import {
+  emailValidation,
+  maxLengthValidation,
+  minLengthValidation,
+  requiredValidation,
+} from "@shared/helpers/validate";
+import { CenteredGrid } from "@ui/centered-grid";
+import { Form } from "@ui/form";
+import { Input, PasswordInput } from "@ui/form-elements";
+import { FC, useMemo } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { TField, TRegisterForm } from "./types";
+
+export const RegisterForm: FC = () => {
+  const { t } = useTranslation();
+  const methods = useForm<TRegisterForm>({
+    mode: "onChange",
+  });
+  const { register, handleSubmit, setError } = methods;
+
+  const onSubmit = handleSubmit((formData) => {
+    if (formData.password !== formData.confirmPassword) {
+      setError("confirmPassword", {
+        type: "manual",
+        message: t("form.validation.passwords-not-match"),
+      });
+      return;
+    }
+    console.log(formData);
+  });
+
+  const fields: TField[] = useMemo(
+    () => [
+      {
+        name: "firstName",
+        translationPath: "register.form.fields",
+        validation: {
+          ...requiredValidation(t),
+          ...minLengthValidation(2, t),
+          ...maxLengthValidation(50, t),
+        },
+      },
+      {
+        name: "lastName",
+        translationPath: "register.form.fields",
+        validation: {
+          ...requiredValidation(t),
+          ...minLengthValidation(2, t),
+          ...maxLengthValidation(50, t),
+        },
+      },
+      {
+        name: "email",
+        translationPath: "form.fields",
+        validation: {
+          ...requiredValidation(t),
+          ...emailValidation(t),
+        },
+      },
+      {
+        name: "phone",
+        type: "phone",
+        translationPath: "register.form.fields",
+        prefix: "register.form",
+      },
+      {
+        name: "password",
+        type: "password",
+        translationPath: "form.fields",
+        validation: {
+          ...requiredValidation(t),
+          ...minLengthValidation(8, t),
+          ...maxLengthValidation(100, t),
+        },
+      },
+      {
+        name: "confirmPassword",
+        type: "password",
+        translationPath: "form.fields",
+        validation: {
+          ...requiredValidation(t),
+          ...minLengthValidation(8, t),
+          ...maxLengthValidation(100, t),
+        },
+      },
+    ],
+    [t]
+  );
+
+  return (
+    <CenteredGrid>
+      <FormProvider {...methods}>
+        <Form title={t("register.form.title")} onSubmit={onSubmit}>
+          {fields.map(({ name, type, translationPath, validation }) => {
+            const label = t(`${translationPath}.${name}.label`);
+            const placeholder = t(`${translationPath}.${name}.placeholder`);
+
+            if (type === "password") {
+              return (
+                <PasswordInput
+                  key={name}
+                  label={label}
+                  placeholder={placeholder}
+                  {...register(name, validation)}
+                />
+              );
+            }
+
+            return (
+              <Input
+                key={name}
+                label={label}
+                placeholder={placeholder}
+                {...register(name, validation)}
+              />
+            );
+          })}
+
+          <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+            {t("register.form.submit-button")}
+          </Button>
+        </Form>
+      </FormProvider>
+    </CenteredGrid>
+  );
+};

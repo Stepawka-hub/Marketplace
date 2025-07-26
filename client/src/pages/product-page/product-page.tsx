@@ -3,7 +3,7 @@ import { NotFound } from "@components/not-found";
 import { useCart } from "@hooks/useCart";
 import { useFavorites } from "@hooks/useFavorites";
 import { Product } from "@modules/product";
-import { Box } from "@mui/material";
+import { PageContainer } from "@ui/page-container";
 import { FC } from "react";
 import { useParams } from "react-router-dom";
 
@@ -15,7 +15,7 @@ export const ProductPage: FC = () => {
   if (!productId) return <NotFound />;
 
   return (
-    <Box sx={{ py: 3, px: { xs: 2, sm: 3, lg: 5 } }}>
+    <PageContainer>
       <BackButton />
       <Product
         id={productId}
@@ -24,6 +24,6 @@ export const ProductPage: FC = () => {
         isInFavorites={isInFavorites(productId)}
         toggleFavorite={toggleFavorite}
       />
-    </Box>
+    </PageContainer>
   );
 };

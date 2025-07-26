@@ -11,6 +11,84 @@
     "light": "Light",
     "system": "System"
   },
+
+  "auth": {
+    "links": {
+      "login": "Login",
+      "register": "Register",
+      "recover-password": "Restore"
+    },
+    "linked-text": {
+      "no-account": "Don't have an account?",
+      "forgot-password": "Forgot your password?",
+      "remembered-password": "Remembered your password?",
+      "already-have-account": "Already have an account?"
+    }
+  },
+  "form": {
+    "validation": {
+      "required": "This field is required",
+      "minLength_one": "Minimum field length: {{count}} symbol",
+      "minLength_other": "Minimum field length: {{count}} symbols",
+      "maxLength_one": "Maximum field length: {{count}} symbol",
+      "maxLength_other": "Maximum field length: {{count}} symbols",
+      "email-invalid": "Invalid email address",
+      "passwords-not-match": "Passwords do not match"
+    },
+    "fields": {
+      "email": {
+        "label": "Email",
+        "placeholder": "email@example.com"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter password"
+      },
+      "confirmPassword": {
+        "label": "Repeat password",
+        "placeholder": "Enter password"
+      }
+    }
+  },
+  "register": {
+    "form": {
+      "title": "Register",
+      "fields": {
+        "firstName": {
+          "label": "First name",
+          "placeholder": "Stepan"
+        },
+        "lastName": {
+          "label": "Last name",
+          "placeholder": "Lvov"
+        },
+        "phone": {
+          "label": "Phone",
+          "placeholder": "+1 (XXX) XXX-XX-XX"
+        }
+      },
+      "submit-button": "Register"
+    }
+  },
+  "login": {
+    "form": {
+      "title": "Login",
+      "submit-button": "Login"
+    }
+  },
+  "forgot-password": {
+    "form": {
+      "title": "Password recovery",
+      "submit-button": "Restore"
+    }
+  },
+  "reset-password": {
+    "form": {
+      "title": "Password reset",
+      "submit-button": "Reset"
+    }
+  },
+
   "category-select": {
     "label": "Category",
     "all": "All"
@@ -21,10 +99,12 @@
   "catalog-search": {
     "placeholder": "Enter product name..."
   },
+
   "not-found": {
     "label": "Nothing found!",
     "btn-label": "Return to home"
   },
+
   "cart": {
     "title": "Cart",
     "select-all": "Select all",
@@ -48,12 +128,14 @@
       "tool-tip": "Go to cart"
     }
   },
+
   "favorites": {
     "title": "Favorites",
     "badge": {
       "tool-tip": "Go to favorites"
     }
   },
+
   "product": {
     "rating": {
       "label": "Rating",
@@ -76,7 +158,10 @@
       "remove-from-favorites": "Remove from favorites"
     }
   },
+
   "common": {
-    "back-btn": "Return to catalog"
+    "buttons": {
+      "back": "Return to catalog"
+    }
   }
 }

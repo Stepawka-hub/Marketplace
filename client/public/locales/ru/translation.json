@@ -11,6 +11,88 @@
     "light": "Светлая",
     "system": "Системная"
   },
+
+  "auth": {
+    "links": {
+      "login": "Войти",
+      "register": "Зарегистрироваться",
+      "recover-password": "Восстановить пароль"
+    },
+    "linked-text": {
+      "no-account": "Нет аккаунта?",
+      "forgot-password": "Забыли пароль?",
+      "remembered-password": "Вспомнили пароль?",
+      "already-have-account": "Уже есть аккаунт?"
+    }
+  },
+  "form": {
+    "validation": {
+      "required": "Обязательное поле",
+      "minLength_zero": "Минимальная длина поля: {{count}} символов",
+      "minLength_one": "Минимальная длина поля: {{count}} символ",
+      "minLength_few": "Минимальная длина поля: {{count}} символа",
+      "minLength_many": "Минимальная длина поля: {{count}} символов",
+      "maxLength_zero": "Максимальная длина поля: {{count}} символов",
+      "maxLength_one": "Максимальная длина поля: {{count}} символ",
+      "maxLength_few": "Максимальная длина поля: {{count}} символа",
+      "maxLength_many": "Максимальная длина поля: {{count}} символов",
+      "email-invalid": "Некорректный адрес почты",
+      "passwords-not-match": "Пароли не совпадают"
+    },
+    "fields": {
+      "email": {
+        "label": "Email",
+        "placeholder": "email@example.com"
+      },
+      "password": {
+        "label": "Пароль",
+        "placeholder": "Введите пароль"
+      },
+      "confirmPassword": {
+        "label": "Повторите пароль",
+        "placeholder": "Введите пароль"
+      }
+    }
+  },
+  "register": {
+    "form": {
+      "title": "Регистрация",
+      "fields": {
+        "firstName": {
+          "label": "Имя",
+          "placeholder": "Степан"
+        },
+        "lastName": {
+          "label": "Фамилия",
+          "placeholder": "Львов"
+        },
+        "phone": {
+          "label": "Телефон",
+          "placeholder": "+7 (XXX) XXX-XX-XX"
+        }
+      },
+      "submit-button": "Зарегистрироваться"
+    }
+  },
+  "login": {
+    "form": {
+      "title": "Вход",
+      "submit-button": "Войти"
+    }
+  },
+  "forgot-password": {
+    "form": {
+      "title": "Восстановление пароля",
+      "submit-button": "Восстановить"
+    }
+  },
+  "reset-password": {
+    "form": {
+      "title": "Сброс пароля",
+      "submit-button": "Сбросить"
+    }
+  },
+
   "category-select": {
     "label": "Категория",
     "all": "Все"
@@ -21,10 +103,12 @@
   "catalog-search": {
     "placeholder": "Введите название товара..."
   },
+
   "not-found": {
     "label": "Ничего не найдено!",
     "btn-label": "Вернуться на главную"
   },
+
   "cart": {
     "title": "Корзина",
     "select-all": "Выбрать все",
@@ -50,12 +134,14 @@
       "tool-tip": "В корзину"
     }
   },
+
   "favorites": {
     "title": "Избранное",
     "badge": {
       "tool-tip": "Перейти в избранное"
     }
   },
+
   "product": {
     "rating": {
       "label": "Рейтинг",
@@ -80,7 +166,10 @@
       "remove-from-favorites": "Убрать из избранного"
     }
   },
+
   "common": {
-    "back-btn": "Вернуться в каталог"
+    "buttons": {
+      "back": "Вернуться в каталог"
+    }
   }
 }
