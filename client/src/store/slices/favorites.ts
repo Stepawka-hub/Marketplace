@@ -1,6 +1,6 @@
+import { TProduct } from "@/shared/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TProduct } from "@types";
-import { TFavoritesState } from "../../../../../shared/types/favorite-types";
+import { TFavoritesState } from "./types";
 
 const initialState: TFavoritesState = {
   favoriteItems: [],

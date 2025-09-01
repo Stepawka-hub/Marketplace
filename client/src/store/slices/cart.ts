@@ -1,7 +1,7 @@
+import { TCartProduct } from "@/shared/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { toggleArrayItem } from "@shared/helpers/array-helper";
-import { TCartProduct } from "@types";
-import { TCartState } from "./cart/types";
+import { TCartState } from "./types";
+import { toggleArrayItem } from "@/shared/helpers";
 
 const initialState: TCartState = {
   cartItems: [],

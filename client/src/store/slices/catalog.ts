@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TCatalogState } from "./types";
-import { TFilter } from "@modules/catalog/types";
-import mockProducts from "@shared/mock/catalog-products.json";
+import { TFilter } from "@/shared/types";
+import mockProducts from "@/shared/mock/catalog-products.json";
 
 const initialState: TCatalogState = {
   products: [...mockProducts],
