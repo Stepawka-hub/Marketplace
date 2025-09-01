@@ -1,4 +1,15 @@
-import DeleteIcon from "@mui/icons-material/Delete";
+import { FC, MouseEvent } from "react";
+import { useTranslation } from "react-i18next";
+import {
+  cardActionsStyle,
+  cardContentStyle,
+  cardMediaStyle,
+  cardStyle,
+  checkboxStyle,
+  gridContainerStyle,
+  priceStyle,
+  titleStyle,
+} from "./styles";
 import {
   CardActions,
   CardContent,
@@ -9,13 +20,10 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { formattedWithSpace } from "@shared/helpers/numbers";
-import { Card } from "@ui/card";
-import { t } from "i18next";
-import { FC, MouseEvent } from "react";
-import { useTranslation } from "react-i18next";
-import { cardMediaStyles, cardStyles } from "./styles";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { CartItemProps } from "./type";
+import { Card } from "@/components/ui";
+import { formattedWithSpace } from "@/shared/helpers";
 
 export const CartItem: FC<CartItemProps> = ({
   product,
@@ -24,7 +32,7 @@ export const CartItem: FC<CartItemProps> = ({
   handleDelete,
   handleSelect,
 }) => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { id, name, price, image } = product;
   const formattedPrice = formattedWithSpace(price, i18n.language);
 
@@ -43,32 +51,18 @@ export const CartItem: FC<CartItemProps> = ({
   };
 
   return (
-    <Card sx={cardStyles} variant="outlined" onClick={onCardClick}>
-      <CardMedia title={name} image={image} sx={cardMediaStyles} />
-      <CardContent sx={{ flexGrow: 1, px: 0, ml: 2 }}>
-        <Grid
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <Typography
-            variant="h4"
-            sx={{ fontSize: { xs: "1rem", sm: "1.15rem" } }}
-          >
+    <Card variant="outlined" sx={cardStyle} onClick={onCardClick}>
+      <CardMedia title={name} image={image} sx={cardMediaStyle} />
+      <CardContent sx={cardContentStyle}>
+        <Grid sx={gridContainerStyle}>
+          <Typography variant="h4" sx={titleStyle}>
             {name}
           </Typography>
-          <CardActions
-            sx={{
-              flexDirection: { xs: "column-reverse", sm: "row" },
-            }}
-            disableSpacing
-          >
+          <CardActions sx={cardActionsStyle} disableSpacing>
             <Tooltip title={t("cart.item.choose")}>
               <Checkbox
-                sx={{ mr: { sm: 1 } }}
                 checked={isSelected}
+                sx={checkboxStyle}
                 onClick={onSelect}
               />
             </Tooltip>
@@ -80,7 +74,7 @@ export const CartItem: FC<CartItemProps> = ({
           </CardActions>
         </Grid>
         <Grid>
-          <Typography fontWeight="600">{formattedPrice} ₽</Typography>
+          <Typography sx={priceStyle}>{formattedPrice} ₽</Typography>
         </Grid>
       </CardContent>
     </Card>
