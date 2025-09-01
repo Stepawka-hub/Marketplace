@@ -1,8 +1,7 @@
-import { ProductList } from "@components/product-list";
-import { getFavoriteItems, getIsLoading } from "@modules/favorites";
 import { FC, memo } from "react";
 import { useSelector } from "react-redux";
 import { FavoritesListProps } from "./types";
+import { getFavoriteItems, getIsLoading } from "@/store/slices/favorites";
 
 export const FavoritesList: FC<FavoritesListProps> = memo(
   ({ isInCart, isInFavorites, addToCart, toggleFavorite }) => {

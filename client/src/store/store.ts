@@ -6,7 +6,7 @@ import {
 } from "react-redux";
 import catalogReducer from "@/store/slices/catalog";
 import cartReducer from "@/store/slices/cart";
-import productReducer from "@/store/slices/catalog";
+import productReducer from "@/store/slices/product";
 import favoritesReducer from "@/store/slices/favorites";
 
 export const rootReducer = combineReducers({

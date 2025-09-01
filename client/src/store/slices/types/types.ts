@@ -1,4 +1,10 @@
-import { TCartProduct, TFilter, TProduct, TRange } from "@/shared/types";
+import {
+  TCartProduct,
+  TFilter,
+  TProduct,
+  TRange,
+  TReview,
+} from "@/shared/types";
 
 export type TCatalogState = {
   products: TProduct[];
@@ -18,4 +24,9 @@ export type TCartState = {
   cartItems: TCartProduct[];
   selectedIds: string[];
   isLoading: boolean;
+};
+
+export type TProductState = {
+  product: TProduct | null;
+  reviews: TReview[];
 };

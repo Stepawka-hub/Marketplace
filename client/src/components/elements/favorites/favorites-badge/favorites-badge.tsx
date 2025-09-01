@@ -1,23 +1,18 @@
-import { getFavoriteTotalItems } from "@modules/favorites/services/slices/favorites";
-import { Badge, IconButton, Tooltip } from "@mui/material";
-import { useSelector } from "@store/types";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { Badge, IconButton, Tooltip } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { TFavoriesBadgeUIProps } from "./types";
 
-export const FavoritesBadge: FC = () => {
+export const FavoritesBadgeUI: FC<TFavoriesBadgeUIProps> = ({
+  count,
+  onClick,
+}) => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
-  const count = useSelector(getFavoriteTotalItems);
-
-  const handleClick = () => {
-    navigate("/favorites");
-  };
 
   return (
     <Tooltip title={t("favorites.badge.tool-tip")}>
-      <IconButton aria-label="favorites" onClick={handleClick}>
+      <IconButton aria-label="favorites" onClick={onClick}>
         <Badge badgeContent={count} color="warning">
           <FavoriteIcon />
         </Badge>

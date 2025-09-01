@@ -1,1 +1,1 @@
-export { FavoritesBadge } from './favorites-badge';
+export { FavoritesBadgeUI } from "./favorites-badge";
