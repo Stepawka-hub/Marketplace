@@ -9,6 +9,15 @@ export const SearchInput: FC<SearchInputProps> = ({
   onChange,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
+
   return (
     <Search>
       <SearchIconWrapper active={isFocused}>
@@ -19,8 +28,8 @@ export const SearchInput: FC<SearchInputProps> = ({
         placeholder={placeholder}
         inputProps={{ "aria-label": "search" }}
         onChange={onChange}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
       />
     </Search>
   );

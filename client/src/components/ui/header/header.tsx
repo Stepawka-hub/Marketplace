@@ -1,6 +1,6 @@
-import { Box, Toolbar } from "@mui/material";
-import { AppBar } from "@ui/app-bar";
 import { FC } from "react";
+import { Box, Toolbar } from "@mui/material";
+import { AppBar } from "@/components/ui";
 import { HeaderProps } from "./type";
 
 export const Header: FC<HeaderProps> = ({ leftPart, rightPart }) => (

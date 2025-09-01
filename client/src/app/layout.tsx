@@ -1,8 +1,10 @@
-import { Header } from "@components/header";
-import { CartBadge } from "@modules/cart";
-import { FavoritesBadge } from "@modules/favorites";
-import { LanguageSwitcher } from "@modules/i18n";
-import { ThemeSwitcher } from "@modules/theme";
+import {
+  FavoritesBadge,
+  CartBadge,
+  LanguageSwitcher,
+  ThemeSwitcher,
+} from "@/components/containers";
+import { Header } from "@/components/ui";
 import { Paper } from "@mui/material";
 import { FC } from "react";
 import { Outlet } from "react-router-dom";

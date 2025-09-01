@@ -1,6 +1,6 @@
+import { calculateTotalPrice } from "@/shared/helpers";
 import { createSelector } from "@reduxjs/toolkit";
-import { calculateTotalPrice } from "@shared/helpers/numbers";
-import { getCartItems, getSelectedIds } from "../slices/cart";
+import { getCartItems, getSelectedIds } from "@/store/slices/cart";
 
 export const getTotalPrice = createSelector(
   [getCartItems, getSelectedIds],

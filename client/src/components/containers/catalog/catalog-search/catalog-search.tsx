@@ -1,12 +1,21 @@
-import { ChangeEvent, FC, memo, useState } from "react";
+import { ChangeEvent, FC, memo, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "@/store";
+import { getSearchQuery, setSearchQuery } from "@/store/slices/catalog";
+import { SearchInput } from "@/components/ui";
+import { useDebounce } from "@/hooks/useDebounce";
 
 export const CatalogSearch: FC = memo(() => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const handleSearchChange = (value: string) => {
-    dispatch(setSearchQuery(value));
-  };
+
+  const handleSearchChange = useCallback(
+    (value: string) => {
+      dispatch(setSearchQuery(value));
+    },
+    [dispatch]
+  );
+
   const debouncedCallback = useDebounce(handleSearchChange, 1000);
 
   const searchQuery = useSelector(getSearchQuery);

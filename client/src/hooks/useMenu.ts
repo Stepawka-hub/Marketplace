@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 
+// Todo: Добавить memo?
 export const useMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const anchorRef = useRef<HTMLButtonElement>(null);

@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { useTranslation } from "react-i18next";
 import {
   FormControl,
   InputLabel,
@@ -8,7 +9,6 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import { CategoryMenuProps } from "./type";
-import { useTranslation } from "react-i18next";
 
 export const CategoryMenu: FC<CategoryMenuProps> = ({
   categories,
@@ -17,7 +17,7 @@ export const CategoryMenu: FC<CategoryMenuProps> = ({
 }) => {
   const { t } = useTranslation();
   const handleChange = (event: SelectChangeEvent) => {
-    onChange(event.target.value as string);
+    onChange(event.target.value);
   };
 
   return (
@@ -28,6 +28,7 @@ export const CategoryMenu: FC<CategoryMenuProps> = ({
       <Select
         id="category-select"
         labelId={t("category-select.label")}
+        // Todo: сделать перевод
         label="Категория"
         value={selectedCategory}
         onChange={handleChange}
@@ -35,8 +36,8 @@ export const CategoryMenu: FC<CategoryMenuProps> = ({
         <MenuItem value="all">
           <ListItemText>{t("category-select.all")}</ListItemText>
         </MenuItem>
-        {categories.map((c) => (
-          <MenuItem value={c}>
+        {categories.map((c, index) => (
+          <MenuItem key={index} value={c}>
             <ListItemText>{c}</ListItemText>
           </MenuItem>
         ))}

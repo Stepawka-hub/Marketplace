@@ -1,7 +1,6 @@
-import { CartContainer } from "@/components/containers";
-import { BackButton } from "@/components/elements";
-import { PageContainer } from "@/components/ui";
 import { FC } from "react";
+import { CartContainer, BackButton } from "@/components/containers";
+import { PageContainer } from "@/components/ui";
 
 export const CartPage: FC = () => (
   <PageContainer>

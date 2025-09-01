@@ -1,8 +1,9 @@
 import { Box, Slider, Typography } from "@mui/material";
 import { FC, useMemo } from "react";
-import { PriceSliderProps } from "./type";
+import { TPriceSliderProps } from "./type";
+import { labelBoxStyle, wrapperStyle } from "./styles";
 
-export const PriceSlider: FC<PriceSliderProps> = ({
+export const PriceSlider: FC<TPriceSliderProps> = ({
   priceRange,
   priceValue,
   setPriceValue,
@@ -15,7 +16,7 @@ export const PriceSlider: FC<PriceSliderProps> = ({
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={wrapperStyle}>
       <Slider
         marks={marks}
         step={10}
@@ -25,7 +26,7 @@ export const PriceSlider: FC<PriceSliderProps> = ({
         valueLabelDisplay="auto"
         onChange={handleChange}
       />
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Box sx={labelBoxStyle}>
         <Typography variant="body2">{min}</Typography>
         <Typography variant="body2">{max}</Typography>
       </Box>

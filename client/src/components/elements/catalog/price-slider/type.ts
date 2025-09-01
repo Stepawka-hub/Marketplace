@@ -1,7 +1,6 @@
-import { TRange } from "@modules/catalog/services/slices/types";
-import { TSetState } from "@types";
+import { TRange, TSetState } from "@/shared/types";
 
-export type PriceSliderProps = {
+export type TPriceSliderProps = {
   priceRange: TRange;
   priceValue: number[];
   setPriceValue: TSetState<number[]>;

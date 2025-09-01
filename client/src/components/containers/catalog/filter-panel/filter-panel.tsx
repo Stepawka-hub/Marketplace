@@ -1,3 +1,5 @@
+import { FC, useState } from "react";
+import { useTranslation } from "react-i18next";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import {
   Box,
@@ -9,9 +11,25 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { FC, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { FilterPanelProps } from "./type";
+import { useDispatch, useSelector } from "@/store";
+import {
+  getCategories,
+  getFilters,
+  getPriceRange,
+  setFilters,
+} from "@/store/slices/catalog";
+import { Drawer, DrawerHeader } from "@/components/ui";
+import { CategoryMenu, PriceSlider } from "@/components/elements";
+import {
+  applyBtnBoxStyle,
+  applyBtnStyle,
+  categoryMenuBoxStyle,
+  dividerStyle,
+  drawerStyle,
+  filterBoxStyle,
+  priceSliderBoxStyle,
+} from "./styles";
 
 export const FilterPanel: FC<FilterPanelProps> = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
@@ -37,9 +55,9 @@ export const FilterPanel: FC<FilterPanelProps> = ({ isOpen, onClose }) => {
   return (
     <Drawer
       open={isOpen}
-      onClose={onClose}
       variant={matches ? "temporary" : "persistent"}
-      sx={{ width: isOpen ? 320 : 0, mr: isOpen ? 3 : 0 }}
+      sx={isOpen ? drawerStyle.active : drawerStyle.base}
+      onClose={onClose}
     >
       {isOpen && (
         <>
@@ -48,17 +66,19 @@ export const FilterPanel: FC<FilterPanelProps> = ({ isOpen, onClose }) => {
               <ChevronLeftIcon />
             </IconButton>
           </DrawerHeader>
-          <Divider sx={{ mb: 1 }} />
-          <Box>
+
+          <Divider sx={dividerStyle} />
+
+          <Box sx={filterBoxStyle}>
             <List>
-              <ListItem sx={{ mb: 1 }}>
+              <ListItem sx={categoryMenuBoxStyle}>
                 <CategoryMenu
                   categories={categories}
                   selectedCategory={category}
                   onChange={setCategory}
                 />
               </ListItem>
-              <ListItem sx={{ px: 4 }}>
+              <ListItem sx={priceSliderBoxStyle}>
                 <PriceSlider
                   priceValue={priceValue}
                   priceRange={priceRange}
@@ -66,12 +86,14 @@ export const FilterPanel: FC<FilterPanelProps> = ({ isOpen, onClose }) => {
                 />
               </ListItem>
             </List>
-            <Divider sx={{ my: 1 }} />
+
+            <Divider sx={dividerStyle} />
+
             <List>
-              <ListItem sx={{ justifyContent: "center" }}>
+              <ListItem sx={applyBtnBoxStyle}>
                 <Button
-                  sx={{ whiteSpace: "nowrap", overflow: "hidden" }}
                   variant="contained"
+                  sx={applyBtnStyle}
                   onClick={handleApplyFilters}
                 >
                   {t("filter.submit-btn-label")}

@@ -1,5 +1,9 @@
 import { FC, useCallback, useState } from "react";
-import { ProductList } from "@/components/containers";
+import {
+  CatalogSearch,
+  FilterPanel,
+  ProductList,
+} from "@/components/containers";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { Grid, IconButton } from "@mui/material";
 
@@ -9,6 +13,10 @@ export const CatalogPage: FC = () => {
   const onFilterClick = useCallback(() => {
     setIsSidebarOpen((p) => !p);
   }, []);
+
+  const handleCloseSidebar = () => {
+    setIsSidebarOpen(false);
+  };
 
   return (
     <Grid container spacing={4} p={3} direction="column">
@@ -25,10 +33,7 @@ export const CatalogPage: FC = () => {
 
       <Grid container spacing={0}>
         <Grid>
-          <FilterPanel
-            isOpen={isSidebarOpen}
-            onClose={() => setIsSidebarOpen(false)}
-          />
+          <FilterPanel isOpen={isSidebarOpen} onClose={handleCloseSidebar} />
         </Grid>
         <Grid size="grow">
           <ProductList />
