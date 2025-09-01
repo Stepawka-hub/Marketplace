@@ -1,1 +1,1 @@
-export { ProductList } from './product-list.tsx';
+export { ProductListUI } from './product-list';

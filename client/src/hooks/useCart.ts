@@ -1,7 +1,6 @@
-import { addToCart, getCartItems } from "@modules/cart";
-import { isInArray } from "@shared/helpers/array-helper";
-import { productToCartItem } from "@shared/helpers/product-helper";
-import { TProductData } from "@types";
+import { isInArray, productToCartItem } from "@/shared/helpers";
+import { TProductData } from "@/shared/types";
+import { addToCart, getCartItems } from "@/store/slices/cart";
 import { useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 

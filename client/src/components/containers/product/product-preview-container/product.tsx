@@ -1,15 +1,6 @@
-import { NotFound } from "@components/not-found";
-import {
-  ProductDescription,
-  ProductImages,
-  ProductMeta,
-  ProductPurchase,
-  ProductReviews,
-} from "@modules/product/components";
-import { Box, Divider, Grid, Typography } from "@mui/material";
-import mockProducts from "@shared/mock/products.json";
 import { FC } from "react";
 import { ProductProps } from "./type";
+import { Box, Divider, Grid, Typography } from "@mui/material";
 
 export const ProductPreviewContainer: FC<ProductProps> = ({
   id,
@@ -19,7 +10,9 @@ export const ProductPreviewContainer: FC<ProductProps> = ({
   toggleFavorite,
 }) => {
   const product = mockProducts.find((p) => p.id === id);
+  
   if (!product) return <NotFound />;
+
   const {
     name,
     images,

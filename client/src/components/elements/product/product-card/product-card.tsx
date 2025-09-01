@@ -1,5 +1,6 @@
-import { AddToCartButton } from "@components/add-to-cart-button";
-import { LikeButton } from "@components/like-button";
+import { FC } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   CardActions,
@@ -7,18 +8,19 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import { formattedWithSpace } from "@shared/helpers/numbers";
-import { Card } from "@ui/card";
-import { FC } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import {
-  boxLikeButtonStyles,
-  cardMediaStyles,
-  nameTypographyStyles,
-  priceTypographyStyles,
+  boxLikeButtonStyle,
+  cardContentStyle,
+  cardMediaStyle,
+  cardStyle,
+  descTypographyStyle,
+  nameTypographyStyle,
+  priceTypographyStyle,
 } from "./styles";
 import { ProductCardProps } from "./type";
+import { formattedWithSpace } from "@/shared/helpers";
+import { Card } from "@/components/ui";
+import { AddToCartButton, LikeButton } from "@/components/containers";
 
 export const ProductCard: FC<ProductCardProps> = ({
   product,
@@ -45,13 +47,9 @@ export const ProductCard: FC<ProductCardProps> = ({
   };
 
   return (
-    <Card
-      sx={{ backgroundColor: "custom.primary" }}
-      variant="outlined"
-      onClick={handleNavigateToProduct}
-    >
-      <CardMedia sx={cardMediaStyles} image={image} title={name}>
-        <Box sx={boxLikeButtonStyles}>
+    <Card variant="outlined" sx={cardStyle} onClick={handleNavigateToProduct}>
+      <CardMedia title={name} image={image} sx={cardMediaStyle}>
+        <Box sx={boxLikeButtonStyle}>
           <LikeButton
             isActive={isInFavorites}
             title={
@@ -59,21 +57,21 @@ export const ProductCard: FC<ProductCardProps> = ({
                 ? t("product.buttons.remove-from-favorites")
                 : t("product.buttons.add-to-favorites")
             }
-            callback={handleToggleFavorite}
+            handleClick={handleToggleFavorite}
           />
         </Box>
       </CardMedia>
 
-      <CardContent sx={{ flexGrow: 1 }}>
-        <Typography sx={priceTypographyStyles} color="textPrimary">
+      <CardContent sx={cardContentStyle}>
+        <Typography sx={priceTypographyStyle} color="textPrimary">
           {`${formattedPrice} ₽`}
         </Typography>
 
-        <Typography variant="h5" sx={nameTypographyStyles}>
+        <Typography variant="h5" sx={nameTypographyStyle}>
           {name}
         </Typography>
 
-        <Typography sx={{ my: 1 }} color="textSecondary">
+        <Typography sx={descTypographyStyle} color="textSecondary">
           {shortDescription}
         </Typography>
 

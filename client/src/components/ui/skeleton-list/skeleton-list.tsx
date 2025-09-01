@@ -1,15 +1,16 @@
-import { Grid } from "@mui/material";
-import { SkeletonCard } from "@ui/skeleton-card";
 import { FC } from "react";
-import { SkeletonListProps } from "./type";
+import { TSkeletonListProps } from "./type";
+import { Grid } from "@mui/material";
+import { skeletonItemStyle } from "./styles";
+import { SkeletonCard } from "@/components/ui";
 
-export const SkeletonList: FC<SkeletonListProps> = ({ count = 10 }) => (
+export const SkeletonList: FC<TSkeletonListProps> = ({ count = 10 }) => (
   <Grid container spacing={2}>
     {[...Array(count)].map((_, index) => (
       <Grid
         key={index}
         size={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 }}
-        sx={{ height: "40vh" }}
+        sx={skeletonItemStyle}
       >
         <SkeletonCard variant="rounded" />
       </Grid>

@@ -1,14 +1,9 @@
-import { useCart } from "@hooks/useCart";
-import { useFavorites } from "@hooks/useFavorites";
-import { CatalogSearch, FilterPanel } from "@modules/catalog";
-import { ProductListContainer } from "@modules/catalog";
+import { FC, useCallback, useState } from "react";
+import { ProductList } from "@/components/containers";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { Grid, IconButton } from "@mui/material";
-import { FC, useCallback, useState } from "react";
 
 export const CatalogPage: FC = () => {
-  const { isInCart, addToCart } = useCart();
-  const { isInFavorites, toggleFavorite } = useFavorites();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const onFilterClick = useCallback(() => {
@@ -36,12 +31,7 @@ export const CatalogPage: FC = () => {
           />
         </Grid>
         <Grid size="grow">
-          <ProductListContainer
-            isInCart={isInCart}
-            isInFavorites={isInFavorites}
-            addToCart={addToCart}
-            toggleFavorite={toggleFavorite}
-          />
+          <ProductList />
         </Grid>
       </Grid>
     </Grid>

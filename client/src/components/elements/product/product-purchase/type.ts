@@ -1,4 +1,4 @@
-export type ProductPurchaseProps = {
+export type TProductPurchaseProps = {
   isInCart: boolean;
   isInFavorites: boolean;
   price: number;

@@ -1,3 +1,3 @@
-export type SkeletonListProps = {
+export type TSkeletonListProps = {
   count?: number;
 }

@@ -1,11 +1,10 @@
-import { NotFound } from "@components/not-found";
-import { ProductCard } from "@components/product-card";
-import { Grid } from "@mui/material";
 import { FC, memo } from "react";
-import { SkeletonList } from "../../ui/skeleton-list";
-import { ProductListProps } from "./type";
+import { Grid } from "@mui/material";
+import { TProductListUIProps } from "./type";
+import { SkeletonList } from "@/components/ui";
+import { NotFound, ProductCard } from "@/components/elements";
 
-export const ProductList: FC<ProductListProps> = memo(
+export const ProductListUI: FC<TProductListUIProps> = memo(
   ({
     products,
     isLoading,

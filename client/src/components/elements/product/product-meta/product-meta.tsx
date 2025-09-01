@@ -1,10 +1,16 @@
-import { Avatar, Box, Grid, List, Paper, Typography } from "@mui/material";
-import { AttributeItem } from "@ui/attribute-item";
-import { RatingScore } from "@ui/rating-score";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { mainContainerStyles, titleStyles } from "./styles";
+import { Avatar, Box, Grid, List, Paper, Typography } from "@mui/material";
+import {
+  listStyle,
+  mainContainerStyle,
+  productDetailsStyle,
+  titleStyle,
+  wrapperStyle,
+} from "./styles";
 import { ProductMetaProps } from "./type";
+import { AttributeItem } from "@/components/ui";
+import { RatingScore } from "@/components/ui/rating-score";
 
 export const ProductMeta: FC<ProductMetaProps> = ({
   rating,
@@ -15,17 +21,17 @@ export const ProductMeta: FC<ProductMetaProps> = ({
   const { t } = useTranslation();
 
   return (
-    <Paper sx={{ p: 2, backgroundColor: "custom.primary" }} variant="outlined">
-      <Box sx={mainContainerStyles}>
+    <Paper variant="outlined" sx={wrapperStyle}>
+      <Box sx={mainContainerStyle}>
         <Box>
-          <Typography variant="h3" sx={titleStyles}>
+          <Typography variant="h3" sx={titleStyle}>
             {t("product.rating.label")}
           </Typography>
           <RatingScore ratingScore={rating} numberReviews={numberReviews} />
         </Box>
 
         <Box>
-          <Typography variant="h3" sx={titleStyles}>
+          <Typography variant="h3" sx={titleStyle}>
             {t("product.seller.label")}
           </Typography>
           <Grid container alignItems="center" spacing={1}>
@@ -35,10 +41,11 @@ export const ProductMeta: FC<ProductMetaProps> = ({
         </Box>
 
         <Box>
-          <Typography variant="h3" sx={{ ...titleStyles, mb: 0 }}>
+          <Typography variant="h3" sx={productDetailsStyle}>
             {t("product.details.label")}
           </Typography>
-          <List sx={{ py: 0 }}>
+
+          <List sx={listStyle}>
             {attributes.map((attr, index) => (
               <AttributeItem
                 key={index}

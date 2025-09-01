@@ -1,8 +1,8 @@
-import { toggleFavorite, getFavoriteItems } from "@modules/favorites";
-import { isInArray } from "@shared/helpers/array-helper";
-import { useDispatch, useSelector } from "@store/types";
-import { TProductData } from "@types";
 import { useCallback, useMemo } from "react";
+import { isInArray } from "@/shared/helpers";
+import { TProductData } from "@/shared/types";
+import { useDispatch, useSelector } from "@/store";
+import { getFavoriteItems, toggleFavorite } from "@/store/slices/favorites";
 
 export const useFavorites = () => {
   const dispatch = useDispatch();

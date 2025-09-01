@@ -1,3 +1,3 @@
-export type ProductDescriptionProps = {
+export type TProductDescriptionProps = {
   description: string;
-}
+};

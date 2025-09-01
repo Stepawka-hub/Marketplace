@@ -25,7 +25,7 @@ export const ImageSlider: FC<ImageSliderProps> = ({
 
   return (
     <SliderBox>
-      <SliderButton sx={{ left: 15 }} disabled={isFirst} onClick={handlePrev}>
+      <SliderButton disabled={isFirst} sx={{ left: 15 }} onClick={handlePrev}>
         <ChevronLeftRoundedIcon fontSize="large" />
       </SliderButton>
       <SliderImage
@@ -33,7 +33,7 @@ export const ImageSlider: FC<ImageSliderProps> = ({
         alt={`Product thumbnail ${currentPosition}`}
         onClick={onImageClick}
       />
-      <SliderButton sx={{ right: 15 }} disabled={isLast} onClick={handleNext}>
+      <SliderButton disabled={isLast} sx={{ right: 15 }} onClick={handleNext}>
         <ChevronRightRoundedIcon fontSize="large" />
       </SliderButton>
     </SliderBox>
