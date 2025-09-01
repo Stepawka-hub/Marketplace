@@ -1,3 +1,3 @@
-export * from './types';
 export * from './global.types';
-export * from './product-actions';
+export * from './product.types';
+export * from './catalog.types';
