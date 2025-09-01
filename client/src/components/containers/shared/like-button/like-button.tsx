@@ -8,13 +8,13 @@ import { LikeButtonProps } from "./type";
 export const LikeButton: FC<LikeButtonProps> = ({
   isActive,
   title,
-  callback,
+  handleClick,
 }) => {
   const onClick = (e: MouseEvent) => {
     e.stopPropagation();
-    callback();
+    handleClick();
   };
-  
+
   return (
     <Tooltip title={title}>
       <IconButton sx={likeButtonStyles} onClick={onClick}>

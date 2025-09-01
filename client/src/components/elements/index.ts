@@ -1,3 +1,3 @@
-export * from './shared';
+export * from '../containers/shared';
 export * from './theme';
 export * from './cart';

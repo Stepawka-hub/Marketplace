@@ -1,1 +1,1 @@
-export * from './cart-summary';
+export { CartSummaryUI } from "./cart-summary";

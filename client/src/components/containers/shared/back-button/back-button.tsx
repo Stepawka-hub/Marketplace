@@ -1,10 +1,11 @@
 import { FC } from "react";
-import { IconButton, Tooltip } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { BackButtonProps } from "./type";
+import { IconButton, Tooltip } from "@mui/material";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { ROUTES } from "@/config/routes";
+import { backButtonStyle } from "./styles";
 
 export const BackButton: FC<BackButtonProps> = ({
   title,
@@ -18,11 +19,7 @@ export const BackButton: FC<BackButtonProps> = ({
 
   return (
     <Tooltip title={label}>
-      <IconButton
-        aria-label={label}
-        sx={{ mb: 2, backgroundColor: "custom.primary", border: "1px solid" }}
-        onClick={handleClick}
-      >
+      <IconButton aria-label={label} sx={backButtonStyle} onClick={handleClick}>
         <KeyboardArrowLeftIcon />
       </IconButton>
     </Tooltip>

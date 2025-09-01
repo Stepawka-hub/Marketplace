@@ -21,11 +21,11 @@ import {
   Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { CartItemProps } from "./type";
+import { TCartItemUIProps } from "./type";
 import { Card } from "@/components/ui";
 import { formattedWithSpace } from "@/shared/helpers";
 
-export const CartItem: FC<CartItemProps> = ({
+export const CartItemUI: FC<TCartItemUIProps> = ({
   product,
   isSelected,
   handleCardClick,

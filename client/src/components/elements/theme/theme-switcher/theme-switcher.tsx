@@ -1,4 +1,8 @@
-import { useTheme } from "@hooks/useTheme";
+import { FC } from "react";
+import { useTranslation } from "react-i18next";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import SettingsBrightnessIcon from "@mui/icons-material/SettingsBrightness";
 import {
   IconButton,
   ListItemIcon,
@@ -7,14 +11,9 @@ import {
   MenuItem,
   Tooltip,
 } from "@mui/material";
-import { FC } from "react";
-import { useTranslation } from "react-i18next";
-
-import { useMenu } from "@hooks/useMenu";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import SettingsBrightnessIcon from "@mui/icons-material/SettingsBrightness";
-import { Theme } from "@providers/theme/types";
+import { useMenu } from "@/hooks/useMenu";
+import { useTheme } from "@/hooks/useTheme";
+import { Theme } from "@/providers";
 
 export const ThemeSwitcher: FC = () => {
   const { theme, setTheme } = useTheme();

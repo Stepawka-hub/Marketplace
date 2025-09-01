@@ -1,11 +1,11 @@
-import { BackButton } from "@components/back-button";
-import { Cart } from "@modules/cart";
-import { PageContainer } from "@ui/page-container";
+import { CartContainer } from "@/components/containers";
+import { BackButton } from "@/components/elements";
+import { PageContainer } from "@/components/ui";
 import { FC } from "react";
 
 export const CartPage: FC = () => (
   <PageContainer>
     <BackButton />
-    <Cart />
+    <CartContainer />
   </PageContainer>
 );

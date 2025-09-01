@@ -5,7 +5,7 @@ import { Box, Link, Typography } from "@mui/material";
 import { containerStyle, linkStyle, textStyle, titleStyle } from "./styles";
 import glassIcon from "@/assets/images/glass.png";
 
-export const EmptyCart: FC = () => {
+export const EmptyCartUI: FC = () => {
   const { t } = useTranslation();
 
   return (

@@ -7,11 +7,11 @@ import {
   textStyle,
   titleStyle,
 } from "./styles";
-import { TCartSummaryProps } from "./type";
+import { TCartSummaryPropsUI } from "./type";
 import { formattedWithSpace } from "@/shared/helpers";
 import { useTranslation } from "react-i18next";
 
-export const CartSummary: FC<TCartSummaryProps> = ({
+export const CartSummaryUI: FC<TCartSummaryPropsUI> = ({
   totalCount,
   totalPrice,
   onCheckout,

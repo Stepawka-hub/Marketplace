@@ -1,10 +1,10 @@
 import { FC } from "react";
-import { CartSummary } from "@/components/elements";
+import { CartSummaryUI } from "@/components/elements";
 import { useSelector } from "@/store";
 import { getSelectedItemsCount } from "@/store/slices/cart";
 import { getTotalPrice } from "@/store/selectors/cart";
 
-export const CartSummaryContainer: FC = () => {
+export const CartSummary: FC = () => {
   const totalCount = useSelector(getSelectedItemsCount);
   const totalPrice = useSelector(getTotalPrice);
 
@@ -13,7 +13,7 @@ export const CartSummaryContainer: FC = () => {
   };
 
   return (
-    <CartSummary
+    <CartSummaryUI
       totalCount={totalCount}
       totalPrice={totalPrice}
       onCheckout={handleCheckout}

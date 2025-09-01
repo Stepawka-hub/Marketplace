@@ -1,13 +1,14 @@
-import {
-  clearSelected,
-  selectAllCartItems,
-} from "@modules/cart/services/slices/cart";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { Button, Checkbox, FormControlLabel, Grid, Paper } from "@mui/material";
 import { ChangeEvent, FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { removeBtnStyles, selectAllContainerStyles } from "./styles";
+import { clearSelected, selectAllCartItems } from "@/store/slices/cart";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Button, Checkbox, FormControlLabel, Grid, Paper } from "@mui/material";
+import {
+  gridContainerStyle,
+  removeBtnStyles,
+  selectAllContainerStyles,
+} from "./styles";
 import { CartListHeaderProps } from "./type";
 
 export const CartListHeader: FC<CartListHeaderProps> = ({
@@ -18,8 +19,8 @@ export const CartListHeader: FC<CartListHeaderProps> = ({
   const dispatch = useDispatch();
   const isAllSelected = totalProducts === totalSelected;
 
-  const handleSelectAll = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch(selectAllCartItems(event.target.checked));
+  const handleSelectAll = (evt: ChangeEvent<HTMLInputElement>) => {
+    dispatch(selectAllCartItems(evt.target.checked));
   };
 
   const handleDeleteAll = () => {
@@ -28,10 +29,7 @@ export const CartListHeader: FC<CartListHeaderProps> = ({
 
   return (
     <Paper sx={selectAllContainerStyles} variant="outlined">
-      <Grid
-        container
-        sx={{ alignItems: "center", justifyContent: "space-between" }}
-      >
+      <Grid container sx={gridContainerStyle}>
         <FormControlLabel
           label={t("cart.select-all")}
           control={
@@ -43,10 +41,10 @@ export const CartListHeader: FC<CartListHeaderProps> = ({
           }
         />
         <Button
-          sx={removeBtnStyles}
           color="error"
           variant="outlined"
           startIcon={<DeleteIcon />}
+          sx={removeBtnStyles}
           onClick={handleDeleteAll}
         >
           {t("cart.remove-all")}

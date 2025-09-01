@@ -1,1 +1,0 @@
-export { CartBadgeContainer } from './cart-badge-container';

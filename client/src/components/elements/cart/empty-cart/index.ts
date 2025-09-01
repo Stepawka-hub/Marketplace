@@ -1,1 +1,1 @@
-export { EmptyCart } from './empty-cart';
+export { EmptyCartUI } from './empty-cart';

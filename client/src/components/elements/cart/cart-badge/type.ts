@@ -1,4 +1,4 @@
-export type TCartBadgeProps = {
+export type TCartBadgeUIProps = {
   count: number;
   onClick: () => void;
 }

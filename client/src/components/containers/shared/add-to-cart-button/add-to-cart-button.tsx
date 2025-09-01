@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { ROUTES } from "@/config/routes";
 
 export const AddToCartButton: FC<AddToCartButtonProps> = ({
   isInCart,
@@ -20,7 +21,7 @@ export const AddToCartButton: FC<AddToCartButtonProps> = ({
 
   const handleNavigateToCart = (e: MouseEvent) => {
     e.stopPropagation();
-    navigate("/cart");
+    navigate(ROUTES.CART);
   };
 
   return isInCart ? (

@@ -1,16 +1,18 @@
+import { FC } from "react";
+import { useNavigate } from "react-router-dom";
+import { Grid } from "@mui/material";
+import { useDispatch, useSelector } from "@/store";
 import {
   getCartItems,
   getSelectedIds,
   removeFromCart,
   toggleSelectedProduct,
-} from "@modules/cart/services/slices/cart";
-import { Grid } from "@mui/material";
-import { isInArray } from "@shared/helpers/array-helper";
-import { useDispatch, useSelector } from "@store/types";
-import { FC } from "react";
-import { useNavigate } from "react-router-dom";
-import { CartItem } from "../../../elements/cart/cart-item";
-import { CartListHeader } from "../cart-list-header";
+} from "@/store/slices/cart";
+import { isInArray } from "@/shared/helpers";
+import { CartListHeader } from "@/components/containers";
+import { CartItemUI } from "@/components/elements";
+import { gridStyle } from "./styles";
+import { ROUTES } from "@/config/routes";
 
 export const CartList: FC = () => {
   const navigate = useNavigate();
@@ -27,21 +29,21 @@ export const CartList: FC = () => {
   };
 
   const handleCardClick = (id: string) => {
-    navigate(`/catalog/${id}`);
+    navigate(ROUTES.CATALOG_PRODUCT(id));
   };
 
   return (
-    <Grid container spacing={2} flexDirection="column">
+    <Grid container sx={gridStyle}>
       <CartListHeader
         totalProducts={cartItems.length}
         totalSelected={selectedIds.length}
       />
-      <Grid container spacing={2} flexDirection="column">
-        {cartItems.map((i) => (
-          <CartItem
-            key={i.id}
-            product={i}
-            isSelected={isInArray(selectedIds, i.id)}
+      <Grid container sx={gridStyle}>
+        {cartItems.map((p) => (
+          <CartItemUI
+            key={p.id}
+            product={p}
+            isSelected={isInArray(selectedIds, p.id)}
             handleCardClick={handleCardClick}
             handleDelete={handleDelete}
             handleSelect={handleSelect}
