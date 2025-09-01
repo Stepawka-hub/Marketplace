@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import { ThemeContext } from "./context/theme-context";
+import { ThemeContext } from "./theme-context";
 import { Theme, ThemeProviderProps } from "./types";
 import { ThemeProvider as MuiThemeProvider, createTheme } from "@mui/material";
-import { ThemeSettings } from "@shared/config/mui/theme";
+import { ThemeSettings } from "@/config/mui";
 
 export const ThemeProvider = ({
   children,
@@ -14,9 +14,12 @@ export const ThemeProvider = ({
   );
 
   // Проверка системной темы
-  const resolvedTheme = theme === "system"
-    ? window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
-    : theme;
+  const resolvedTheme =
+    theme === "system"
+      ? window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light"
+      : theme;
 
   useEffect(() => {
     const root = window.document.documentElement;

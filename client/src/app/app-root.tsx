@@ -1,10 +1,10 @@
-import { CssBaseline } from "@mui/material";
-import { ThemeProvider } from "@providers/theme/theme-provider";
 import { FC, Suspense } from "react";
 import { RouterProvider } from "react-router-dom";
-import { router } from "./routes/routes";
+import { router } from "./router";
+import { ThemeProvider } from "@/providers/theme";
+import { CssBaseline } from "@mui/material";
 
-export const App: FC = () => {
+export const AppRoot: FC = () => {
   return (
     <Suspense fallback="">
       <ThemeProvider storageKey="vite-ui-theme">

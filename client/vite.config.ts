@@ -6,17 +6,7 @@ import path from "path";
 export default defineConfig({
   resolve: {
     alias: {
-      "@pages": path.resolve(__dirname, "src/pages"),
-      "@components": path.resolve(__dirname, "src/components"),
-      "@modules": path.resolve(__dirname, "src/modules"),
-      "@ui": path.resolve(__dirname, "src/ui"),
-      "@images": path.resolve(__dirname, "src/assets/images"),
-      "@store": path.resolve(__dirname, "src/app/store"),
-      "@providers": path.resolve(__dirname, "src/app/providers"),
-      "@api": path.resolve(__dirname, "src/shared/api"),
-      "@hooks": path.resolve(__dirname, "src/shared/hooks"),
-      "@types": path.resolve(__dirname, "src/shared/types"),
-      "@shared": path.resolve(__dirname, "src/shared"),
+      "@": path.resolve(__dirname, "src"),
     },
   },
   plugins: [react()],

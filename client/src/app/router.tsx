@@ -8,52 +8,53 @@ import {
   ProductPage,
   RegisterPage,
   ResetPasswordPage,
-} from "@pages";
+} from "@/pages";
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import { AppLayout } from "../app-layout";
+import { AppLayout } from "./layout";
+import { ROUTES } from "@/config/routes";
 
 export const router = createBrowserRouter([
   {
     element: <AppLayout />,
     children: [
       {
-        path: "/",
-        element: <Navigate to="/catalog" replace />,
+        path: ROUTES.HOME,
+        element: <Navigate to={ROUTES.CATALOG} replace />,
       },
       {
-        path: "/catalog",
+        path: ROUTES.CATALOG,
         element: <CatalogPage />,
       },
       {
-        path: "/catalog/:productId",
+        path: ROUTES.CATALOG_PRODUCT(":productId"),
         element: <ProductPage />,
       },
       {
-        path: "cart",
+        path: ROUTES.CART,
         element: <CartPage />,
       },
       {
-        path: "favorites",
+        path: ROUTES.FAVORITES,
         element: <FavoritesPage />,
       },
       {
-        path: "register",
+        path: ROUTES.REGISTER,
         element: <RegisterPage />,
       },
       {
-        path: "login",
+        path: ROUTES.LOGIN,
         element: <LoginPage />,
       },
       {
-        path: "forgot-password",
+        path: ROUTES.FORGOT_PASSWORD,
         element: <ForgotPasswordPage />,
       },
       {
-        path: "reset-password",
+        path: ROUTES.RESET_PASSWORD,
         element: <ResetPasswordPage />,
       },
       {
-        path: "*",
+        path: ROUTES.NOT_FOUND,
         element: <NotFoundPage />,
       },
     ],

@@ -1,10 +1,10 @@
 import { FC, MouseEvent } from "react";
 import { AddToCartButtonProps } from "./type";
-import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { Button } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 export const AddToCartButton: FC<AddToCartButtonProps> = ({
   isInCart,
