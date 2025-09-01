@@ -1,9 +1,5 @@
 export type TCartSummaryProps = {
-  totalPrice: string;
-  labels: {
-    information: string;
-    products: string;
-    checkout: string;
-  };
+  totalCount: number;
+  totalPrice: number;
   onCheckout: () => void;
 };

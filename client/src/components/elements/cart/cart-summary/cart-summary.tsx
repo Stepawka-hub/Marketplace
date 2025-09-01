@@ -8,18 +8,29 @@ import {
   titleStyle,
 } from "./styles";
 import { TCartSummaryProps } from "./type";
+import { formattedWithSpace } from "@/shared/helpers";
+import { useTranslation } from "react-i18next";
 
-export const CartSummary: FC<TCartSummaryProps> = ({ totalPrice, labels }) => {
+export const CartSummary: FC<TCartSummaryProps> = ({
+  totalCount,
+  totalPrice,
+  onCheckout,
+}) => {
+  const { t, i18n } = useTranslation();
+  const formattedPrice = formattedWithSpace(totalPrice, i18n.language);
+
   return (
     <Box sx={containerStyle}>
-      <Typography sx={titleStyle}>{labels.information}</Typography>
+      <Typography sx={titleStyle}>{t("cart.summary.information")}</Typography>
 
       <Box sx={priceBoxStyle}>
-        <Typography sx={textStyle}>{labels.products}</Typography>
-        <Typography sx={textStyle}>{`${totalPrice} ₽`}</Typography>
+        <Typography sx={textStyle}>
+          {t("cart.summary.products", { count: totalCount })}
+        </Typography>
+        <Typography sx={textStyle}>{`${formattedPrice} ₽`}</Typography>
       </Box>
-      <Button variant="contained" sx={checkoutBtnStyle}>
-        {labels.checkout}
+      <Button variant="contained" sx={checkoutBtnStyle} onClick={onCheckout}>
+        {t("cart.summary.checkout")}
       </Button>
     </Box>
   );
