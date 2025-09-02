@@ -1,7 +1,7 @@
-import { ROUTES } from "@/config/routes";
-import { CatalogPage, NotFoundPage } from "@/pages";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { AppLayout } from "./layout";
+import { CartPage, CatalogPage, NotFoundPage, FavoritesPage } from "@/pages";
+import { ROUTES } from "@/config/routes";
 
 export const router = createBrowserRouter([
   {
@@ -19,14 +19,14 @@ export const router = createBrowserRouter([
       //   path: ROUTES.CATALOG_PRODUCT(":productId"),
       //   element: <ProductPage />,
       // },
-      // {
-      //   path: ROUTES.CART,
-      //   element: <CartPage />,
-      // },
-      // {
-      //   path: ROUTES.FAVORITES,
-      //   element: <FavoritesPage />,
-      // },
+      {
+        path: ROUTES.CART,
+        element: <CartPage />,
+      },
+      {
+        path: ROUTES.FAVORITES,
+        element: <FavoritesPage />,
+      },
       // {
       //   path: ROUTES.REGISTER,
       //   element: <RegisterPage />,
