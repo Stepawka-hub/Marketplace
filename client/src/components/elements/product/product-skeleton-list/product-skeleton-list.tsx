@@ -4,7 +4,7 @@ import { Grid } from "@mui/material";
 import { skeletonItemStyle } from "./styles";
 import { SkeletonCard } from "@/components/ui";
 
-export const SkeletonList: FC<TSkeletonListProps> = ({ count = 10 }) => (
+export const ProductSkeletonList: FC<TSkeletonListProps> = ({ count = 10 }) => (
   <Grid container spacing={2}>
     {[...Array(count)].map((_, index) => (
       <Grid

@@ -1,11 +1,7 @@
 import { ChangeEventHandler } from 'react';
 
-export type SearchInputProps = {
+export type TSearchBarProps = {
   value: string;
   placeholder?: string;
   onChange: ChangeEventHandler;
-}
-
-export type SearchIconWrapperProps = {
-  active: boolean;
 }

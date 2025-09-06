@@ -9,8 +9,7 @@ import {
   wrapperStyle,
 } from "./styles";
 import { ProductMetaProps } from "./type";
-import { AttributeItem } from "@/components/ui";
-import { RatingScore } from "@/components/ui/rating-score";
+import { RatingScore, AttributeItem } from "@/components/elements";
 
 export const ProductMeta: FC<ProductMetaProps> = ({
   rating,

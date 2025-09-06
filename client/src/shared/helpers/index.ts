@@ -3,3 +3,4 @@ export * from './filter';
 export * from './numbers';
 export * from './product-helper';
 export * from './validate';
+export * from './normalize-sx';

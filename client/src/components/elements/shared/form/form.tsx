@@ -1,8 +1,7 @@
-import { Paper } from "@mui/material";
-import { FormFieldset } from "@ui/form/form-fieldset/fieldset";
 import { FC } from "react";
 import { FormProps } from "react-router-dom";
-import { FormTitle } from "./form-title";
+import { Paper } from "@mui/material";
+import { FormFieldset, FormTitle } from "@/components/ui";
 
 export const Form: FC<FormProps> = ({ title, children, ...props }) => (
   <Paper

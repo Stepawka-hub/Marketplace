@@ -1,7 +1,9 @@
-import { Box, ImageList, useMediaQuery, useTheme } from "@mui/material";
 import { FC, useState } from "react";
+import { Box, ImageList, useMediaQuery, useTheme } from "@mui/material";
 import { ProductImagesProps } from "./type";
-import { ImageListItem, ImagePreview, ImageSlider } from "@/components/ui";
+import { ImageSlider } from "@/components/ui/image-slider";
+import { ImageListItem } from "@/components/ui";
+import { ImagePreview } from "@/components/elements";
 
 export const ProductImages: FC<ProductImagesProps> = ({ images }) => {
   const theme = useTheme();

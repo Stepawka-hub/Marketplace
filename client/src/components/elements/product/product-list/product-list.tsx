@@ -1,8 +1,11 @@
 import { FC, memo } from "react";
 import { Grid } from "@mui/material";
 import { TProductListUIProps } from "./type";
-import { SkeletonList } from "@/components/ui";
-import { NotFound, ProductCard } from "@/components/elements";
+import {
+  NotFound,
+  ProductCard,
+  ProductSkeletonList,
+} from "@/components/elements";
 
 export const ProductListUI: FC<TProductListUIProps> = memo(
   ({
@@ -14,7 +17,7 @@ export const ProductListUI: FC<TProductListUIProps> = memo(
     toggleFavorite,
   }) => {
     if (isLoading) {
-      return <SkeletonList />;
+      return <ProductSkeletonList />;
     }
 
     if (!products.length) {

@@ -1,13 +1,13 @@
+import { FC } from "react";
+import { Outlet } from "react-router-dom";
+import { Paper } from "@mui/material";
 import {
   FavoritesBadge,
   CartBadge,
   LanguageSwitcher,
   ThemeSwitcher,
 } from "@/components/containers";
-import { Header } from "@/components/ui";
-import { Paper } from "@mui/material";
-import { FC } from "react";
-import { Outlet } from "react-router-dom";
+import { Header } from "@/components/elements";
 
 export const AppLayout: FC = () => {
   return (

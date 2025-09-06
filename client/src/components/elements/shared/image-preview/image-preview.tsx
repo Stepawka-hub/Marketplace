@@ -1,18 +1,15 @@
-import { Backdrop } from "@mui/material";
 import { FC } from "react";
+import { Backdrop } from "@mui/material";
 import { ImagePreviewProps } from "./type";
-import { StyledImage } from "./styles";
+import { backDropStyle } from "./styles";
+import { StyledImage } from "@/components/ui";
 
 export const ImagePreview: FC<ImagePreviewProps> = ({
   image,
   isOpen,
   onClose,
 }) => (
-  <Backdrop
-    sx={(theme) => ({ zIndex: theme.zIndex.drawer + 1 })}
-    open={isOpen}
-    onClick={onClose}
-  >
+  <Backdrop open={isOpen} sx={backDropStyle} onClick={onClose}>
     <StyledImage src={image} alt="Preview image" />
   </Backdrop>
 );

@@ -1,29 +1,24 @@
-import SearchIcon from "@mui/icons-material/Search";
 import { FC, useState } from "react";
-import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
-import { SearchInputProps } from "./types";
+import { SearchIconWrapper, SearchInput, SearchWrapper } from "@/components/ui";
+import SearchIcon from "@mui/icons-material/Search";
+import { TSearchBarProps } from "./types";
 
-export const SearchInput: FC<SearchInputProps> = ({
+export const SearchBar: FC<TSearchBarProps> = ({
   value,
   placeholder,
   onChange,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
-  const handleFocus = () => {
-    setIsFocused(true);
-  };
-
-  const handleBlur = () => {
-    setIsFocused(false);
-  };
+  const handleFocus = () => setIsFocused(true);
+  const handleBlur = () => setIsFocused(false);
 
   return (
-    <Search>
+    <SearchWrapper>
       <SearchIconWrapper active={isFocused}>
         <SearchIcon />
       </SearchIconWrapper>
-      <StyledInputBase
+      <SearchInput
         value={value}
         placeholder={placeholder}
         inputProps={{ "aria-label": "search" }}
@@ -31,6 +26,6 @@ export const SearchInput: FC<SearchInputProps> = ({
         onFocus={handleFocus}
         onBlur={handleBlur}
       />
-    </Search>
+    </SearchWrapper>
   );
 };

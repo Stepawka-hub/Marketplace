@@ -2,8 +2,8 @@ import { ChangeEvent, FC, memo, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "@/store";
 import { getSearchQuery, setSearchQuery } from "@/store/slices/catalog";
-import { SearchInput } from "@/components/ui";
 import { useDebounce } from "@/hooks/useDebounce";
+import { SearchBar } from "@/components/elements";
 
 export const CatalogSearch: FC = memo(() => {
   const { t } = useTranslation();
@@ -27,9 +27,9 @@ export const CatalogSearch: FC = memo(() => {
   };
 
   return (
-    <SearchInput
-      placeholder={t("catalog-search.placeholder")}
+    <SearchBar
       value={value}
+      placeholder={t("catalog-search.placeholder")}
       onChange={handleChange}
     />
   );
