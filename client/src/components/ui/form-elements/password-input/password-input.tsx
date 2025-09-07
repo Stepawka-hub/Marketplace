@@ -1,4 +1,8 @@
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { FC, MouseEvent, useState } from "react";
+import { useController, useFormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import {
   FormControl,
   FormHelperText,
@@ -7,10 +11,7 @@ import {
   InputAdornment,
   InputLabel,
 } from "@mui/material";
-import { FC, MouseEvent, useState } from "react";
-import { useController, useFormContext } from "react-hook-form";
 import { PasswordInputProps } from "./type";
-import { useTranslation } from "react-i18next";
 
 export const PasswordInput: FC<PasswordInputProps> = ({
   name,
@@ -62,7 +63,7 @@ export const PasswordInput: FC<PasswordInputProps> = ({
               onMouseDown={handleMouseDownPassword}
               onMouseUp={handleMouseUpPassword}
             >
-              {showPassword ? <VisibilityOff /> : <Visibility />}
+              {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
             </IconButton>
           </InputAdornment>
         }

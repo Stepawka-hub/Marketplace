@@ -9,6 +9,6 @@ export * from "./image-list-item";
 export * from "./page-container";
 export * from "./search-elements";
 export * from "./skeleton-card";
-// form-elements, image-slider, search-input
-
+export * from './slider-elements';
+// form-elements
 export * from "./styled-image";

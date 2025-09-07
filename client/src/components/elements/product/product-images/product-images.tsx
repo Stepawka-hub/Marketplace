@@ -1,9 +1,8 @@
 import { FC, useState } from "react";
 import { Box, ImageList, useMediaQuery, useTheme } from "@mui/material";
 import { ProductImagesProps } from "./type";
-import { ImageSlider } from "@/components/ui/image-slider";
 import { ImageListItem } from "@/components/ui";
-import { ImagePreview } from "@/components/elements";
+import { ImagePreview, ImageSlider } from "@/components/elements";
 
 export const ProductImages: FC<ProductImagesProps> = ({ images }) => {
   const theme = useTheme();
@@ -12,16 +11,31 @@ export const ProductImages: FC<ProductImagesProps> = ({ images }) => {
   const [position, setPosition] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
 
-  const onImageChange = (position: number) => setPosition(position);
   const onImageClick = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
+
+  const isFirst = position === 0;
+  const isLast = position === images.length - 1;
+
+  const handlePrev = () => {
+    if (isFirst) return;
+    setPosition((p) => p - 1);
+  };  
+
+  const handleNext = () => {
+    if (isLast) return;
+    setPosition((p) => p + 1);
+  };
 
   return (
     <Box component="section">
       <ImageSlider
         images={images}
         currentPosition={position}
-        onImageChange={onImageChange}
+        disableNextButton={isFirst}
+        disablePrevButton={isLast}
+        handlePrev={handlePrev}
+        handleNext={handleNext}
         onImageClick={onImageClick}
       />
 

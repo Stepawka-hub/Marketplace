@@ -1,12 +1,12 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import glassImg from "@/assets/images/glass.png";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Box, Button, Typography } from "@mui/material";
-import { NotFoundProps } from "./type";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { ROUTES } from "@/config/routes";
+import { NotFoundProps } from "./type";
 import { notFoundBoxStyle, redirectBtnStyle, titleStyle } from "./styles";
+import glassImg from "@/assets/images/glass.png";
 
 export const NotFound: FC<NotFoundProps> = ({ label, hideBtn }) => {
   const { t } = useTranslation();
