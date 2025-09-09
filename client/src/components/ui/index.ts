@@ -10,5 +10,4 @@ export * from "./page-container";
 export * from "./search-elements";
 export * from "./skeleton-card";
 export * from './slider-elements';
-// form-elements
 export * from "./styled-image";
