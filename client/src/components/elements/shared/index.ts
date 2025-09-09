@@ -6,4 +6,4 @@ export * from "./image-slider";
 export * from "./linked-text";
 export * from "./rating-score";
 export * from "./search-bar";
-export * from "./form-elements";
+export * from './password-input';
