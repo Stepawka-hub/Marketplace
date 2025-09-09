@@ -3,8 +3,9 @@ import { useTranslation } from "react-i18next";
 import { Box, Paper, Typography } from "@mui/material";
 import { TProductPurchaseProps } from "./type";
 import { contentBoxStyle, priceStyle, wrapperStyle } from "./styles";
-import { AddToCartButton, LikeButton } from "@/components/containers";
+import { AddToCartButton } from "@/components/containers";
 import { formattedWithSpace } from "@/shared/helpers";
+import { LikeButton } from '@/components/elements';
 
 export const ProductPurchase: FC<TProductPurchaseProps> = ({
   isInCart,

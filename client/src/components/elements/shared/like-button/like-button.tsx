@@ -1,7 +1,7 @@
+import { FC, MouseEvent } from "react";
+import { IconButton, Tooltip } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { IconButton, Tooltip } from "@mui/material";
-import { FC, MouseEvent } from "react";
 import { likeButtonStyles } from "./styles";
 import { LikeButtonProps } from "./type";
 

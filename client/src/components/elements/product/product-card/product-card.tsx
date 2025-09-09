@@ -20,7 +20,8 @@ import {
 import { ProductCardProps } from "./type";
 import { formattedWithSpace } from "@/shared/helpers";
 import { Card } from "@/components/ui";
-import { AddToCartButton, LikeButton } from "@/components/containers";
+import { AddToCartButton } from "@/components/containers";
+import { LikeButton } from '@/components/elements';
 
 export const ProductCard: FC<ProductCardProps> = ({
   product,

@@ -9,7 +9,6 @@ export const FavoritesBadgeUI: FC<TFavoriesBadgeUIProps> = ({
   onClick,
 }) => {
   const { t } = useTranslation();
-
   return (
     <Tooltip title={t("favorites.badge.tool-tip")}>
       <IconButton aria-label="favorites" onClick={onClick}>

@@ -1,6 +1,6 @@
-import { Box, Typography } from "@mui/material";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
+import { Box, Typography } from "@mui/material";
 import { titleStyle } from "./styles";
 
 export const ProductReviews: FC = () => {
