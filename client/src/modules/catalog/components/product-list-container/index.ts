@@ -1,1 +1,0 @@
-export { ProductListContainer } from './product-list-container';

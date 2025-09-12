@@ -1,21 +1,21 @@
-import { ForgotPasswordForm } from "@modules/auth";
-import { LinkedText } from "@ui/linked-text";
-import { PageContainer } from "@ui/page-container";
-import { FC } from "react";
-import { useTranslation } from "react-i18next";
+// import { ForgotPasswordForm } from "@modules/auth";
+// import { LinkedText } from "@ui/linked-text";
+// import { PageContainer } from "@ui/page-container";
+// import { FC } from "react";
+// import { useTranslation } from "react-i18next";
 
-export const ForgotPasswordPage: FC = () => {
-  const { t } = useTranslation();
+// export const ForgotPasswordPage: FC = () => {
+//   const { t } = useTranslation();
 
-  return (
-    <PageContainer>
-      <ForgotPasswordForm />
-      <LinkedText
-        to="/login"
-        text={t("auth.linked-text.remembered-password")}
-        linkText={t("auth.links.login")}
-        sx={{ mt: 2 }}
-      />
-    </PageContainer>
-  );
-};
+//   return (
+//     <PageContainer>
+//       <ForgotPasswordForm />
+//       <LinkedText
+//         to="/login"
+//         text={t("auth.linked-text.remembered-password")}
+//         linkText={t("auth.links.login")}
+//         sx={{ mt: 2 }}
+//       />
+//     </PageContainer>
+//   );
+// };

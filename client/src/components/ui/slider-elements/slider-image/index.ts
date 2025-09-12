@@ -1,0 +1,1 @@
+export { SliderImage } from './slider-image';
