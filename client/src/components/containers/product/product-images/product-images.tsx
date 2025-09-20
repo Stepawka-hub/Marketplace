@@ -4,6 +4,7 @@ import { ProductImagesProps } from "./type";
 import { ImageListItem } from "@/components/ui";
 import { ImagePreview, ImageSlider } from "@/components/elements";
 
+// Todo: Переписать компонент
 export const ProductImages: FC<ProductImagesProps> = ({ images }) => {
   const theme = useTheme();
   const isMedium = useMediaQuery(theme.breakpoints.down("md"));

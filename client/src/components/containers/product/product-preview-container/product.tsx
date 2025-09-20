@@ -2,6 +2,7 @@ import { FC } from "react";
 import { ProductProps } from "./type";
 import { Box, Divider, Grid, Typography } from "@mui/material";
 
+// Todo: Переписать компонент
 export const ProductPreviewContainer: FC<ProductProps> = ({
   id,
   isInCart,

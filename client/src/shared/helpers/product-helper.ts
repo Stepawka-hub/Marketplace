@@ -1,5 +1,6 @@
-import { TCartProduct, TProductData } from "@types";
+import { TCartProduct, TProductData } from "@/shared/types";
 
+// Todo: Переписать логику
 export const productToCartItem = (product: TProductData): TCartProduct => {
   const image = "image" in product ? product.image : product.images[0];
 

@@ -31,6 +31,7 @@ import {
   priceSliderBoxStyle,
 } from "./styles";
 
+// Todo: Переписать компонент
 export const FilterPanel: FC<FilterPanelProps> = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();

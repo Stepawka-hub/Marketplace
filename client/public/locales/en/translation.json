@@ -107,8 +107,6 @@
 
   "cart": {
     "title": "Cart",
-    "select-all": "Select all",
-    "remove-all": "Delete selected",
     "item": {
       "remove-btn": "Remove from cart",
       "choose": "Choose"
@@ -163,5 +161,10 @@
     "buttons": {
       "back": "Return to catalog"
     }
+  },
+
+  "selection-actions": {
+    "select-all": "Select all",
+    "remove-all": "Delete selected"
   }
 }

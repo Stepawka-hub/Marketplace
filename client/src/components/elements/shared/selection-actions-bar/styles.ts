@@ -1,6 +1,6 @@
 import { SxProps } from "@mui/material";
 
-export const selectAllContainerStyles: SxProps = {
+export const selectAllContainerStyle: SxProps = {
   borderRadius: 2,
   py: 1,
   px: 2,
@@ -12,7 +12,7 @@ export const gridContainerStyle: SxProps = {
   justifyContent: "space-between",
 } as const;
 
-export const removeBtnStyles: SxProps = {
+export const removeBtnStyle: SxProps = {
   px: 1.5,
   py: 0.5,
   fontSize: {

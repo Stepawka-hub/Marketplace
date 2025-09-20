@@ -12,3 +12,4 @@ export * from './back-button';
 export * from './add-to-cart-button';
 export * from './language-switcher';
 export * from './theme-switcher';
+export * from './selection-actions-bar';
