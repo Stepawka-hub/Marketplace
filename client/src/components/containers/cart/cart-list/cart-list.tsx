@@ -14,7 +14,6 @@ import { CartItemUI } from "@/components/elements";
 import { gridStyle } from "./styles";
 import { ROUTES } from "@/config/routes";
 
-// Todo: Переписать компонент
 export const CartList: FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();

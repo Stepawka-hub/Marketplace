@@ -7,8 +7,7 @@ import { gridContainerStyle, titleStyle } from "./styles";
 import { EmptyCartUI } from "@/components/elements";
 import { CartList, CartSummary } from "@/components/containers";
 
-// Todo: Переписать компонент
-export const CartContainer: FC = () => {
+export const Cart: FC = () => {
   const { t } = useTranslation();
   const totalCount = useSelector(getCartTotalItems);
 

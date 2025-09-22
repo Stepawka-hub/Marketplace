@@ -1,5 +1,6 @@
 import { Box, styled } from "@mui/material";
 
+// Todo: Подумать, как лучше всего организовать layout для страниц
 export const PageContainer = styled(Box)(({ theme }) => ({
   paddingTop: theme.spacing(3),
   paddingBottom: theme.spacing(3),
