@@ -16,8 +16,8 @@ export const CategoryMenu: FC<CategoryMenuProps> = ({
   onChange,
 }) => {
   const { t } = useTranslation();
-  const handleChange = (event: SelectChangeEvent) => {
-    onChange(event.target.value);
+  const handleChange = (evt: SelectChangeEvent) => {
+    onChange(evt.target.value);
   };
 
   return (
@@ -27,9 +27,7 @@ export const CategoryMenu: FC<CategoryMenuProps> = ({
       </InputLabel>
       <Select
         id="category-select"
-        labelId={t("category-select.label")}
-        // Todo: сделать перевод
-        label="Категория"
+        label={t("category-select.label")}
         value={selectedCategory}
         onChange={handleChange}
       >
