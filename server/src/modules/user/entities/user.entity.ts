@@ -2,10 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { USER_ROLES } from '../constants';
+import { ProductEntity } from '@/modules/product';
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -33,6 +35,9 @@ export class UserEntity {
     default: USER_ROLES.USER,
   })
   role: string;
+
+  @OneToMany(() => ProductEntity, (product) => product.owner)
+  products: ProductEntity[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
