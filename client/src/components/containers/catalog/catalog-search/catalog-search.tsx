@@ -15,7 +15,6 @@ export const CatalogSearch: FC = memo(() => {
     },
     [dispatch]
   );
-
   const debouncedCallback = useDebounce(handleSearchChange, 1000);
 
   const searchQuery = useSelector(getSearchQuery);

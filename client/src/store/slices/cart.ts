@@ -17,7 +17,7 @@ const cartSlice = createSlice({
       state.selectedIds = toggleArrayItem(state.selectedIds, payload);
     },
     addToCart: (state, { payload }: PayloadAction<TCartProduct>) => {
-      state.cartItems = [...state.cartItems, payload];
+      state.cartItems.push(payload);
     },
     removeFromCart: (state, { payload }: PayloadAction<string>) => {
       state.cartItems = state.cartItems.filter((i) => i.id !== payload);

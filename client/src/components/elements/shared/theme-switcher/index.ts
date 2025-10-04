@@ -1,0 +1,1 @@
+export { ThemeSwitcherUI } from './theme-switcher';

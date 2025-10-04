@@ -1,4 +1,4 @@
-import { TProduct, TProductActions } from "@types";
+import { TProduct, TProductActions } from "@/shared/types";
 
 export type ProductCardProps = Pick<
   TProductActions,

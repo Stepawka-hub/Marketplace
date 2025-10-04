@@ -1,18 +1,22 @@
 import { FC } from "react";
-import { ProductProps } from "./type";
 import { Box, Divider, Grid, Typography } from "@mui/material";
+import { dividerStyle, productContentStyle, productNameStyle } from "./styles";
+import { TProductDetailsUIProps } from "./types";
+import { ProductImages } from "@/components/containers";
+import {
+  ProductDescription,
+  ProductMeta,
+  ProductPurchase,
+  ProductReviews,
+} from "@/components/elements";
 
-export const ProductPreviewContainer: FC<ProductProps> = ({
-  id,
+export const ProductDetailsUI: FC<TProductDetailsUIProps> = ({
+  product,
   isInCart,
   isInFavorites,
   addToCart,
   toggleFavorite,
 }) => {
-  const product = mockProducts.find((p) => p.id === id);
-  
-  if (!product) return <NotFound />;
-
   const {
     name,
     images,
@@ -24,15 +28,9 @@ export const ProductPreviewContainer: FC<ProductProps> = ({
     seller,
   } = product;
 
-  const addProductToCart = () => addToCart(product);
-  const toggleProductInFavorites = () => toggleFavorite(product);
-
   return (
     <Box>
-      <Typography
-        variant="h2"
-        sx={{ mb: 2, fontSize: "2rem", fontWeight: 600 }}
-      >
+      <Typography variant="h2" sx={productNameStyle}>
         {name}
       </Typography>
 
@@ -42,13 +40,13 @@ export const ProductPreviewContainer: FC<ProductProps> = ({
         </Grid>
 
         <Grid flexGrow={1}>
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          <Box sx={productContentStyle}>
             <ProductPurchase
               isInCart={isInCart}
               isInFavorites={isInFavorites}
               price={price}
-              addToCart={addProductToCart}
-              toggleFavorite={toggleProductInFavorites}
+              addToCart={addToCart}
+              toggleFavorite={toggleFavorite}
             />
             <ProductMeta
               rating={rating}
@@ -60,11 +58,11 @@ export const ProductPreviewContainer: FC<ProductProps> = ({
         </Grid>
       </Grid>
 
-      <Divider sx={{ my: 3 }} />
+      <Divider sx={dividerStyle} />
 
       <Grid container flexDirection="column">
         <ProductDescription description={description} />
-        <Divider sx={{ my: 3 }} />
+        <Divider sx={dividerStyle} />
         <ProductReviews />
       </Grid>
     </Box>

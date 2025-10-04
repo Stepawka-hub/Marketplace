@@ -3,6 +3,7 @@ import { TCatalogState } from "./types";
 import { TFilter } from "@/shared/types";
 import mockProducts from "@/shared/mock/catalog-products.json";
 
+// Todo: Корректно записывать через useEffect
 const initialState: TCatalogState = {
   products: [...mockProducts],
   isLoadingProducts: false,

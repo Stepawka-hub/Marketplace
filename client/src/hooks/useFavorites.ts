@@ -12,6 +12,7 @@ export const useFavorites = () => {
     [favoriteItems]
   );
 
+  // Todo: Подумать, можно ли сделать лучше
   const toggleProductInFavorites = useCallback(
     (product: TProductData) => {
       const { id, name, price, category, seller } = product;

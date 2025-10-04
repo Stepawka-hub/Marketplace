@@ -111,8 +111,6 @@
 
   "cart": {
     "title": "Корзина",
-    "select-all": "Выбрать все",
-    "remove-all": "Удалить выбранное",
     "item": {
       "remove-btn": "Удалить из корзины",
       "choose": "Выбрать"
@@ -171,5 +169,10 @@
     "buttons": {
       "back": "Вернуться в каталог"
     }
+  },
+
+  "selection-actions": {
+    "select-all": "Выбрать все",
+    "remove-all": "Удалить выбранное"
   }
 }
