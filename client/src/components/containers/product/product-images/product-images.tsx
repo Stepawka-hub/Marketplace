@@ -12,16 +12,16 @@ export const ProductImages: FC<ProductImagesProps> = ({ images }) => {
   const [position, setPosition] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
 
-  const onImageClick = () => setIsOpen(true);
-  const handleClose = () => setIsOpen(false);
-
   const isFirst = position === 0;
   const isLast = position === images.length - 1;
+
+  const onImageClick = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
 
   const handlePrev = () => {
     if (isFirst) return;
     setPosition((p) => p - 1);
-  };  
+  };
 
   const handleNext = () => {
     if (isLast) return;
