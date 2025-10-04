@@ -3,9 +3,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { getTypeOrmConfig } from '@/config/typeorm.config';
+import { getTypeOrmConfig } from '@/config/typeorm';
 import { UserModule } from '@/modules/user';
-import { ProductModule } from './modules/product/product.module';
+import { ProductModule } from '@/modules/product';
 
 @Module({
   imports: [
