@@ -6,29 +6,37 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { USER_ROLES } from '../constants';
+import { API_PROPERTY, USER_ROLES, VALIDATION } from '../constants';
 import { ProductEntity } from '@/modules/product';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 @Entity({ name: 'users' })
 export class UserEntity {
+  @ApiProperty(API_PROPERTY.ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'email', length: 128, unique: true })
+  @ApiProperty(API_PROPERTY.EMAIL)
+  @Column({ name: 'email', length: VALIDATION.EMAIL.MAX, unique: true })
   email: string;
 
-  @Column({ name: 'first_name', length: 64 })
+  @ApiProperty(API_PROPERTY.FIRST_NAME)
+  @Column({ name: 'first_name', length: VALIDATION.NAME.MAX })
   firstName: string;
 
-  @Column({ name: 'last_name', length: 64 })
+  @ApiProperty(API_PROPERTY.LAST_NAME)
+  @Column({ name: 'last_name', length: VALIDATION.NAME.MAX })
   lastName: string;
 
+  @ApiPropertyOptional(API_PROPERTY.AVATAR)
   @Column({ type: 'text', nullable: true })
   avatar: string;
 
-  @Column({ length: 20, nullable: true })
+  @ApiPropertyOptional(API_PROPERTY.PHONE)
+  @Column({ length: VALIDATION.PHONE.MAX, nullable: true })
   phone: string;
 
+  @ApiProperty(API_PROPERTY.ROLE)
   @Column({
     type: 'enum',
     enum: USER_ROLES,
@@ -36,12 +44,15 @@ export class UserEntity {
   })
   role: string;
 
+  @ApiProperty(API_PROPERTY.PRODUCTS)
   @OneToMany(() => ProductEntity, (product) => product.owner)
   products: ProductEntity[];
 
+  @ApiProperty(API_PROPERTY.CREATE_DATE)
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
+  @ApiProperty(API_PROPERTY.UPDATE_DATE)
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 }

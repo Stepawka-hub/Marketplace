@@ -10,12 +10,14 @@ import {
 } from 'typeorm';
 import { UserEntity } from '@/modules/user';
 import { ProductImageEntity } from './product-image.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity({ name: 'products' })
 export class ProductEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @ApiProperty({ name: 'Название товара', example: 'Наушники' })
   @Column({ length: 255 })
   name: string;
 
