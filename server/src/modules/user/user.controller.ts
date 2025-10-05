@@ -37,6 +37,7 @@ export class UserController {
     summary: 'Создать пользователя',
     description: 'Создаёт пользователя и возвращает его',
   })
+  @ApiOkResponse({ description: 'Пользователь создан', type: UserEntity })
   @Post()
   create(@Body() dto: CreateUserDto): Promise<UserEntity> {
     return this.userService.create(dto);

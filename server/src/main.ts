@@ -2,17 +2,20 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { getSwaggerConfig, SWAGGER_SETUP_OPTIONS } from './config/swagger';
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
+import { loggerMiddleware } from './common/middlewares/logger.middleware';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const port = process.env.PORT ?? 3000;
+  const globalLogger = new Logger('Global logger');
+
+  app.use(loggerMiddleware(globalLogger));
+  app.useGlobalPipes(new ValidationPipe());
 
   const swaggerConfig = getSwaggerConfig();
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('/docs', app, document, SWAGGER_SETUP_OPTIONS);
-
-  app.useGlobalPipes(new ValidationPipe());
 
   await app.listen(port);
 
