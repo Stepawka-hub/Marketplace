@@ -5,7 +5,7 @@ import { VALIDATION } from './validation.constants';
 export const API_PROPERTY = {
   ID: {
     description: 'UUID пользователя',
-    example: 'a1b2c3d4-e5f6-7890',
+    example: 'baa1c774-d4c7-44d3-a712-efbc7414f62c',
   },
   EMAIL: {
     description: 'Email',

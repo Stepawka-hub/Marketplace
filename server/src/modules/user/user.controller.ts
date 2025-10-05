@@ -8,9 +8,10 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { UserEntity } from './entities';
+import { UserParamsDto } from './dto/user-params.dto';
 
 @ApiTags('User')
-@Controller('users')
+@Controller({ path: 'users' })
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -24,13 +25,13 @@ export class UserController {
     example: {
       status: HttpStatus.NOT_FOUND,
       message: 'User not found',
-      timestamp: '2025-02-18',
-      path: '/users/123',
+      timestamp: '2025-10-05T16:46:59.369Z',
+      path: '/users/baa1c774-d4c7-44d3-a712-efbc7414f62c',
     },
   })
   @Get(':id')
-  findById(@Param(':id') id: string) {
-    return this.userService.findById(id);
+  findById(@Param() params: UserParamsDto) {
+    return this.userService.findById(params.id);
   }
 
   @ApiOperation({
