@@ -28,4 +28,7 @@ export const MESSAGES = {
     INVALID: (field: string) =>
       `${field} must start with a capital letter and can only contain letters, single spaces or hyphens`,
   },
+  AVATAR: {
+    INVALID_URL: 'Avatar must be a valid URL',
+  },
 } as const;

@@ -1,8 +1,9 @@
 import { ProductEntity } from '@/modules/product';
 import { USER_ROLES } from './user.constants';
 import { VALIDATION } from './validation.constants';
+import { TApiPropertyOptions } from '@/common';
 
-export const API_PROPERTY = {
+export const USER_API_PROPERTIES: TApiPropertyOptions = {
   ID: {
     description: 'UUID пользователя',
     example: 'baa1c774-d4c7-44d3-a712-efbc7414f62c',
@@ -43,13 +44,5 @@ export const API_PROPERTY = {
     description: 'Список товаров',
     type: () => ProductEntity,
     isArray: true,
-  },
-  CREATE_DATE: {
-    description: 'Дата создания',
-    example: '2025-10-05 15:34:15.642024',
-  },
-  UPDATE_DATE: {
-    description: 'Дата обновления',
-    example: '2025-10-05 15:39:15.942054',
   },
 } as const;

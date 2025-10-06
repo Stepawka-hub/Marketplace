@@ -1,6 +1,6 @@
 import { Body, Controller, Get, HttpStatus, Param, Post } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto';
+import { CreateUserDto, UserParamsDto } from './dto';
 import {
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -8,7 +8,6 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { UserEntity } from './entities';
-import { UserParamsDto } from './dto/user-params.dto';
 
 @ApiTags('User')
 @Controller({ path: 'users' })

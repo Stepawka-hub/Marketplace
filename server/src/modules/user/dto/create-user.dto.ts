@@ -10,23 +10,23 @@ import {
   Length,
   Matches,
 } from 'class-validator';
-import { MESSAGES, VALIDATION, API_PROPERTY } from '../constants';
+import { MESSAGES, VALIDATION, USER_API_PROPERTIES } from '../constants';
 
 export class CreateUserDto {
-  @ApiProperty(API_PROPERTY.EMAIL)
+  @ApiProperty(USER_API_PROPERTIES.EMAIL)
   @IsEmail({}, { message: MESSAGES.EMAIL.INVALID })
   @IsNotEmpty()
   @Length(VALIDATION.EMAIL.MIN, VALIDATION.EMAIL.MAX)
   email: string;
 
-  @ApiPropertyOptional(API_PROPERTY.PHONE)
+  @ApiPropertyOptional(USER_API_PROPERTIES.PHONE)
   @IsOptional()
   @IsPhoneNumber('RU', { message: MESSAGES.PHONE.INVALID })
   @IsString()
   @Length(VALIDATION.PHONE.MIN, VALIDATION.PHONE.MAX)
   phone: string;
 
-  @ApiProperty(API_PROPERTY.FIRST_NAME)
+  @ApiProperty(USER_API_PROPERTIES.FIRST_NAME)
   @IsString()
   @Length(VALIDATION.NAME.MIN, VALIDATION.NAME.MAX)
   @Matches(PATTERNS.NAME, {
@@ -35,7 +35,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   firstName: string;
 
-  @ApiProperty(API_PROPERTY.LAST_NAME)
+  @ApiProperty(USER_API_PROPERTIES.LAST_NAME)
   @IsString()
   @Length(VALIDATION.NAME.MIN, VALIDATION.NAME.MAX)
   @Matches(PATTERNS.NAME, {
@@ -44,7 +44,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   lastName: string;
 
-  @ApiPropertyOptional(API_PROPERTY.AVATAR)
+  @ApiPropertyOptional(USER_API_PROPERTIES.AVATAR)
   @IsOptional()
   @IsString()
   @IsUrl()
