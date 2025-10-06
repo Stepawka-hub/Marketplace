@@ -1,34 +1,31 @@
 export const VALIDATION = {
-  EMAIL: {
-    MIN: 8,
-    MAX: 128,
-  },
   NAME: {
+    MIN: 8,
+    MAX: 255,
+  },
+  DESCRIPTION: {
+    MIN: 16,
+    MAX: 1024,
+  },
+  SHORT_DESCRIPTION: {
+    MIN: 10,
+    MAX: 255,
+  },
+  CATEGORY: {
     MIN: 2,
-    MAX: 64,
+    MAX: 32,
   },
-  PASSWORD: {
-    MIN: 8,
-    MAX: 128,
+  PRICE: {
+    PRECISION: 10,
+    SCALE: 2,
+    MIN: 0.0,
+    MAX: 1_000_000.0,
   },
-  PHONE: {
-    MIN: 5,
-    MAX: 20,
-  },
-} as const;
-
-export const MESSAGES = {
-  EMAIL: {
-    INVALID: 'Invalid email format',
-  },
-  PHONE: {
-    INVALID: 'Invalid phone number format',
-  },
-  NAME: {
-    INVALID: (field: string) =>
-      `${field} must start with a capital letter and can only contain letters, single spaces or hyphens`,
-  },
-  AVATAR: {
-    INVALID_URL: 'Avatar must be a valid URL',
+  RATING: {
+    PRECISION: 3,
+    SCALE: 2,
+    DEFAULT: 0.0,
+    MIN: 0,
+    MAX: 5.0,
   },
 } as const;
