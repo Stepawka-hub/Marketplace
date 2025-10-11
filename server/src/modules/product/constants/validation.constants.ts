@@ -25,7 +25,7 @@ export const VALIDATION = {
     PRECISION: 3,
     SCALE: 2,
     DEFAULT: 0.0,
-    MIN: 0,
+    MIN: 0.0,
     MAX: 5.0,
   },
 } as const;
