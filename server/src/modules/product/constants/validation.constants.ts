@@ -1,4 +1,4 @@
-export const VALIDATION = {
+export const PRODUCT_VALIDATION = {
   NAME: {
     MIN: 8,
     MAX: 255,
@@ -27,5 +27,16 @@ export const VALIDATION = {
     DEFAULT: 0.0,
     MIN: 0.0,
     MAX: 5.0,
+  },
+} as const;
+
+export const PRODUCT_MEDIA_VALIDATION = {
+  URL: {
+    MIN: 10,
+    MAX: 1024,
+  },
+  FILENAME: {
+    MIN: 1,
+    MAX: 255,
   },
 } as const;

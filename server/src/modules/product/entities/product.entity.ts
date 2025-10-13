@@ -11,7 +11,7 @@ import {
 import { UserEntity } from '@/modules/user';
 import { ProductMediaEntity } from './product-media.entity';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { PRODUCT_API_PROPERTIES, VALIDATION } from '../constants';
+import { PRODUCT_API_PROPERTIES, PRODUCT_VALIDATION } from '../constants';
 import { COMMON_API_PROPERTIES } from '@/common';
 
 @Entity({ name: 'products' })
@@ -21,13 +21,13 @@ export class ProductEntity {
   id: string;
 
   @ApiProperty(PRODUCT_API_PROPERTIES.NAME)
-  @Column({ length: VALIDATION.NAME.MAX })
+  @Column({ length: PRODUCT_VALIDATION.NAME.MAX })
   name: string;
 
   @ApiProperty(PRODUCT_API_PROPERTIES.SHORT_DESCRIPTION)
   @Column({
     name: 'short_description',
-    length: VALIDATION.SHORT_DESCRIPTION.MAX,
+    length: PRODUCT_VALIDATION.SHORT_DESCRIPTION.MAX,
   })
   shortDescription: string;
 
@@ -36,14 +36,14 @@ export class ProductEntity {
   description: string;
 
   @ApiProperty(PRODUCT_API_PROPERTIES.CATEGORY)
-  @Column({ length: VALIDATION.CATEGORY.MAX })
+  @Column({ length: PRODUCT_VALIDATION.CATEGORY.MAX })
   category: string;
 
   @ApiProperty(PRODUCT_API_PROPERTIES.PRICE)
   @Column({
     type: 'decimal',
-    precision: VALIDATION.PRICE.PRECISION,
-    scale: VALIDATION.PRICE.SCALE,
+    precision: PRODUCT_VALIDATION.PRICE.PRECISION,
+    scale: PRODUCT_VALIDATION.PRICE.SCALE,
     unsigned: true,
   })
   price: number;
@@ -51,9 +51,9 @@ export class ProductEntity {
   @ApiProperty(PRODUCT_API_PROPERTIES.RATING)
   @Column({
     type: 'decimal',
-    precision: VALIDATION.RATING.PRECISION,
-    scale: VALIDATION.RATING.SCALE,
-    default: VALIDATION.RATING.DEFAULT,
+    precision: PRODUCT_VALIDATION.RATING.PRECISION,
+    scale: PRODUCT_VALIDATION.RATING.SCALE,
+    default: PRODUCT_VALIDATION.RATING.DEFAULT,
     unsigned: true,
   })
   rating: number;
