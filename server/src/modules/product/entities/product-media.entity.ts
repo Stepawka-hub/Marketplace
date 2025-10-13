@@ -7,28 +7,30 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ProductEntity } from './product.entity';
+import { MEDIA_TYPE, TMediaType } from '@/common';
 
-@Entity({ name: 'product_images' })
-export class ProductImageEntity {
+@Entity({ name: 'product_media' })
+export class ProductMediaEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
   url: string;
 
-  @Column({
-    name: 'is_main',
-    default: false,
-  })
-  isMain: boolean;
+  @Column()
+  filename: string;
+
+  @Column({ name: 'is_preview', default: false })
+  isPreview: boolean;
 
   @Column({
-    name: 'display_order',
-    default: 0,
+    type: 'enum',
+    enum: MEDIA_TYPE,
+    default: MEDIA_TYPE.IMAGE,
   })
-  displayOrder: number;
+  type: TMediaType;
 
-  @ManyToOne(() => ProductEntity, (product) => product.images, {
+  @ManyToOne(() => ProductEntity, (product) => product.media, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'product_id' })

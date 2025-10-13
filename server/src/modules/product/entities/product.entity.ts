@@ -9,7 +9,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { UserEntity } from '@/modules/user';
-import { ProductImageEntity } from './product-image.entity';
+import { ProductMediaEntity } from './product-media.entity';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { PRODUCT_API_PROPERTIES, VALIDATION } from '../constants';
 import { COMMON_API_PROPERTIES } from '@/common';
@@ -58,9 +58,9 @@ export class ProductEntity {
   })
   rating: number;
 
-  @ApiProperty(PRODUCT_API_PROPERTIES.IMAGES)
-  @OneToMany(() => ProductImageEntity, (image) => image.product)
-  images: ProductImageEntity[];
+  @ApiPropertyOptional(PRODUCT_API_PROPERTIES.MEDIA)
+  @OneToMany(() => ProductMediaEntity, (media) => media.product)
+  media: ProductMediaEntity[];
 
   @ApiProperty(PRODUCT_API_PROPERTIES.OWNER)
   @ManyToOne(() => UserEntity, (user) => user.products, { onDelete: 'CASCADE' })

@@ -10,6 +10,7 @@ import { ProductEntity } from '@/modules/product';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { COMMON_API_PROPERTIES } from '@/common';
 import { USER_API_PROPERTIES, USER_ROLES, VALIDATION } from '../constants';
+import { TUserRole } from '../types';
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -43,7 +44,7 @@ export class UserEntity {
     enum: USER_ROLES,
     default: USER_ROLES.USER,
   })
-  role: string;
+  role: TUserRole;
 
   @ApiProperty(USER_API_PROPERTIES.PRODUCTS)
   @OneToMany(() => ProductEntity, (product) => product.owner)

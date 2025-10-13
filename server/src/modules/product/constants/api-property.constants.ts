@@ -1,5 +1,5 @@
 import { TApiPropertyOptions } from '@/common';
-import { ProductImageEntity } from '../entities';
+import { ProductMediaEntity } from '../entities';
 import { UserEntity } from '@/modules/user';
 import { VALIDATION } from './validation.constants';
 
@@ -53,9 +53,9 @@ export const PRODUCT_API_PROPERTIES: TApiPropertyOptions = {
     maximum: VALIDATION.RATING.MAX,
     multipleOf: 0.01,
   },
-  IMAGES: {
-    description: 'Изображения товара',
-    type: () => ProductImageEntity,
+  MEDIA: {
+    description: 'Фото/видео товара',
+    type: () => ProductMediaEntity,
     isArray: true,
   },
   // Todo: Скорректировать, какие поля будут приходить вместе с товаром
