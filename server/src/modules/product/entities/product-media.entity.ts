@@ -40,7 +40,7 @@ export class ProductMediaEntity {
   })
   type: TMediaType;
 
-  @ApiProperty(PRODUCT_MEDIA_API_PROPERTIES.PRODUCT_ID)
+  @ApiProperty(PRODUCT_MEDIA_API_PROPERTIES.PRODUCT)
   @ManyToOne(() => ProductEntity, (product) => product.media, {
     onDelete: 'CASCADE',
     nullable: false,

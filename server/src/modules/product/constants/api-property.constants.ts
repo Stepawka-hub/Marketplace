@@ -1,5 +1,5 @@
 import { MEDIA_TYPE, TApiPropertyOptions } from '@/common';
-import { ProductMediaEntity } from '../entities';
+import { ProductEntity, ProductMediaEntity } from '../entities';
 import { UserEntity } from '@/modules/user';
 import {
   PRODUCT_MEDIA_VALIDATION,
@@ -8,11 +8,11 @@ import {
 
 export const PRODUCT_API_PROPERTIES: TApiPropertyOptions = {
   ID: {
-    description: 'UUID продукта',
+    description: 'UUID товара',
     example: 'baa1c774-d4c7-44d3-a712-efbc7414f62c',
   },
   NAME: {
-    description: 'Название продукта',
+    description: 'Название товара',
     example: 'Наушники',
     minLength: PRODUCT_VALIDATION.NAME.MIN,
     maxLength: PRODUCT_VALIDATION.NAME.MAX,
@@ -95,9 +95,8 @@ export const PRODUCT_MEDIA_API_PROPERTIES: TApiPropertyOptions = {
     description: 'Тип медиафайла',
     example: MEDIA_TYPE.IMAGE,
   },
-  PRODUCT_ID: {
-    description: 'ID товара, к которому относится изображение',
-    type: 'string',
-    example: 'baa1c774-d4c7-44d3-a712-efbc7414f62c',
+  PRODUCT: {
+    description: 'Товар, к которому относится медиафайл',
+    type: () => ProductEntity,
   },
 } as const;
