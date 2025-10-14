@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable, PipeTransform } from '@nestjs/common';
 import { TFilesValidationOptions } from './types';
+import { formatFileSize } from '../utils';
 
 @Injectable()
 export class FilesValidationPipe implements PipeTransform {
@@ -70,7 +71,7 @@ export class FilesValidationPipe implements PipeTransform {
     if (maxSize && file.size > maxSize) {
       const type = isImage ? 'Image' : isVideo ? 'Video' : 'File';
       throw new BadRequestException(
-        `${type} ${file.originalname} exceeds maximum size of ${maxSize / 1024 / 1024}MB`,
+        `${type} ${file.originalname} exceeds maximum size of ${formatFileSize(maxSize)}`,
       );
     }
   }
