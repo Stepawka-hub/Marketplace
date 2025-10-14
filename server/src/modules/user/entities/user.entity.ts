@@ -9,7 +9,7 @@ import {
 import { ProductEntity } from '@/modules/product';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { COMMON_API_PROPERTIES } from '@/common';
-import { USER_API_PROPERTIES, USER_ROLES, VALIDATION } from '../constants';
+import { USER_API_PROPERTIES, USER_ROLES, USER_VALIDATION } from '../constants';
 import { TUserRole } from '../types';
 
 @Entity({ name: 'users' })
@@ -19,15 +19,15 @@ export class UserEntity {
   id: string;
 
   @ApiProperty(USER_API_PROPERTIES.EMAIL)
-  @Column({ name: 'email', length: VALIDATION.EMAIL.MAX, unique: true })
+  @Column({ name: 'email', length: USER_VALIDATION.EMAIL.MAX, unique: true })
   email: string;
 
   @ApiProperty(USER_API_PROPERTIES.FIRST_NAME)
-  @Column({ name: 'first_name', length: VALIDATION.NAME.MAX })
+  @Column({ name: 'first_name', length: USER_VALIDATION.NAME.MAX })
   firstName: string;
 
   @ApiProperty(USER_API_PROPERTIES.LAST_NAME)
-  @Column({ name: 'last_name', length: VALIDATION.NAME.MAX })
+  @Column({ name: 'last_name', length: USER_VALIDATION.NAME.MAX })
   lastName: string;
 
   @ApiPropertyOptional(USER_API_PROPERTIES.AVATAR)
@@ -35,7 +35,7 @@ export class UserEntity {
   avatar: string;
 
   @ApiPropertyOptional(USER_API_PROPERTIES.PHONE)
-  @Column({ length: VALIDATION.PHONE.MAX, nullable: true })
+  @Column({ length: USER_VALIDATION.PHONE.MAX, nullable: true })
   phone: string;
 
   @ApiProperty(USER_API_PROPERTIES.ROLE)

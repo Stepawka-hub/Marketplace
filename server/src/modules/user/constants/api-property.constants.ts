@@ -1,6 +1,6 @@
 import { ProductEntity } from '@/modules/product';
 import { USER_ROLES } from './user.constants';
-import { VALIDATION } from './validation.constants';
+import { USER_VALIDATION } from './validation.constants';
 import { TApiPropertyOptions } from '@/common';
 
 export const USER_API_PROPERTIES: TApiPropertyOptions = {
@@ -11,26 +11,26 @@ export const USER_API_PROPERTIES: TApiPropertyOptions = {
   EMAIL: {
     description: 'Email',
     example: 'user@example.com',
-    minLength: VALIDATION.EMAIL.MIN,
-    maxLength: VALIDATION.EMAIL.MAX,
+    minLength: USER_VALIDATION.EMAIL.MIN,
+    maxLength: USER_VALIDATION.EMAIL.MAX,
   },
   PHONE: {
     description: 'Номер телефона',
     example: '88005555353',
-    minLength: VALIDATION.PHONE.MIN,
-    maxLength: VALIDATION.PHONE.MAX,
+    minLength: USER_VALIDATION.PHONE.MIN,
+    maxLength: USER_VALIDATION.PHONE.MAX,
   },
   FIRST_NAME: {
     description: 'Имя пользователя',
     example: 'Степан',
-    minLength: VALIDATION.NAME.MIN,
-    maxLength: VALIDATION.NAME.MAX,
+    minLength: USER_VALIDATION.NAME.MIN,
+    maxLength: USER_VALIDATION.NAME.MAX,
   },
   LAST_NAME: {
     description: 'Фамилия пользователя',
     example: 'Львов',
-    minLength: VALIDATION.NAME.MIN,
-    maxLength: VALIDATION.NAME.MAX,
+    minLength: USER_VALIDATION.NAME.MIN,
+    maxLength: USER_VALIDATION.NAME.MAX,
   },
   AVATAR: {
     description: 'Аватар',

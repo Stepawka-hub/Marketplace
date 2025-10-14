@@ -35,6 +35,7 @@ export class ProductEntity {
   @Column({ type: 'text' })
   description: string;
 
+  // Todo: Продумать категории
   @ApiProperty(PRODUCT_API_PROPERTIES.CATEGORY)
   @Column({ length: PRODUCT_VALIDATION.CATEGORY.MAX })
   category: string;

@@ -10,36 +10,40 @@ import {
   Length,
   Matches,
 } from 'class-validator';
-import { MESSAGES, VALIDATION, USER_API_PROPERTIES } from '../constants';
+import {
+  USER_VALIDAION_MESSAGES,
+  USER_VALIDATION,
+  USER_API_PROPERTIES,
+} from '../constants';
 
 export class CreateUserDto {
   @ApiProperty(USER_API_PROPERTIES.EMAIL)
-  @IsEmail({}, { message: MESSAGES.EMAIL.INVALID })
+  @IsEmail({}, { message: USER_VALIDAION_MESSAGES.EMAIL.INVALID })
   @IsNotEmpty()
-  @Length(VALIDATION.EMAIL.MIN, VALIDATION.EMAIL.MAX)
+  @Length(USER_VALIDATION.EMAIL.MIN, USER_VALIDATION.EMAIL.MAX)
   email: string;
 
   @ApiPropertyOptional(USER_API_PROPERTIES.PHONE)
   @IsOptional()
-  @IsPhoneNumber('RU', { message: MESSAGES.PHONE.INVALID })
+  @IsPhoneNumber('RU', { message: USER_VALIDAION_MESSAGES.PHONE.INVALID })
   @IsString()
-  @Length(VALIDATION.PHONE.MIN, VALIDATION.PHONE.MAX)
+  @Length(USER_VALIDATION.PHONE.MIN, USER_VALIDATION.PHONE.MAX)
   phone: string;
 
   @ApiProperty(USER_API_PROPERTIES.FIRST_NAME)
   @IsString()
-  @Length(VALIDATION.NAME.MIN, VALIDATION.NAME.MAX)
+  @Length(USER_VALIDATION.NAME.MIN, USER_VALIDATION.NAME.MAX)
   @Matches(PATTERNS.NAME, {
-    message: MESSAGES.NAME.INVALID('First name'),
+    message: USER_VALIDAION_MESSAGES.NAME.INVALID('First name'),
   })
   @IsNotEmpty()
   firstName: string;
 
   @ApiProperty(USER_API_PROPERTIES.LAST_NAME)
   @IsString()
-  @Length(VALIDATION.NAME.MIN, VALIDATION.NAME.MAX)
+  @Length(USER_VALIDATION.NAME.MIN, USER_VALIDATION.NAME.MAX)
   @Matches(PATTERNS.NAME, {
-    message: MESSAGES.NAME.INVALID('Last name'),
+    message: USER_VALIDAION_MESSAGES.NAME.INVALID('Last name'),
   })
   @IsNotEmpty()
   lastName: string;

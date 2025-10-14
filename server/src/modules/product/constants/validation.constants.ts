@@ -16,7 +16,7 @@ export const PRODUCT_VALIDATION = {
     MAX: 32,
   },
   PRICE: {
-    PRECISION: 10,
+    PRECISION: 9,
     SCALE: 2,
     MIN: 0.0,
     MAX: 1_000_000.0,
@@ -28,7 +28,20 @@ export const PRODUCT_VALIDATION = {
     MIN: 0.0,
     MAX: 5.0,
   },
-} as const;
+  MEDIA: {
+    MIN_COUNT: 1,
+    MAX_COUNT: 10,
+    MAX_IMAGE_SIZE: 5 * 1024 * 1024,
+    MAX_VIDEO_SIZE: 50 * 1024 * 1024,
+    ALLOWED_MIME_TYPES: [
+      'image/jpeg',
+      'image/png',
+      'image/webp',
+      'video/mp4',
+      'video/webm',
+    ],
+  },
+};
 
 export const PRODUCT_MEDIA_VALIDATION = {
   URL: {

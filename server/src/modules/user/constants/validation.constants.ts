@@ -1,4 +1,4 @@
-export const VALIDATION = {
+export const USER_VALIDATION = {
   EMAIL: {
     MIN: 8,
     MAX: 128,
@@ -17,7 +17,7 @@ export const VALIDATION = {
   },
 } as const;
 
-export const MESSAGES = {
+export const USER_VALIDAION_MESSAGES = {
   EMAIL: {
     INVALID: 'Invalid email format',
   },
