@@ -5,31 +5,28 @@ import {
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
-import { ProductService } from './product.service';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { CreateProductDto } from './dto';
-import { PRODUCT_VALIDATION } from './constants';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import { ApiConsumes, ApiOperation } from '@nestjs/swagger';
 import { FilesValidationPipe } from '@/common/pipes';
+import { PRODUCT_MEDIA_VALIDATION_OPTIONS } from './constants';
+import { CreateProductDto } from './dto';
+import { ProductService } from './product.service';
 
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Post()
-  @UseInterceptors(FileInterceptor('media', { storage: null }))
+  @ApiOperation({ summary: 'Create product' })
+  @ApiConsumes('multipart/form-data')
+  @UseInterceptors(FilesInterceptor('media'))
   createProduct(
-    @UploadedFiles(
-      new FilesValidationPipe({
-        minCount: PRODUCT_VALIDATION.MEDIA.MIN_COUNT,
-        maxCount: PRODUCT_VALIDATION.MEDIA.MAX_COUNT,
-        maxImageSize: PRODUCT_VALIDATION.MEDIA.MAX_IMAGE_SIZE,
-        maxVideoSize: PRODUCT_VALIDATION.MEDIA.MAX_VIDEO_SIZE,
-        allowedMimeTypes: PRODUCT_VALIDATION.MEDIA.ALLOWED_MIME_TYPES,
-      }),
-    )
+    @UploadedFiles(new FilesValidationPipe(PRODUCT_MEDIA_VALIDATION_OPTIONS))
     files: Express.Multer.File[],
     @Body() data: CreateProductDto,
   ) {
-    return this.productService.create(data, files);
+    // Todo: Добавить AuthGuard
+    const userId = 'baa1c774-d4c7-44d3-a712-efbc7414f62f';
+    return this.productService.create(data, files, userId);
   }
 }

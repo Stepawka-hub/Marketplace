@@ -3,8 +3,10 @@ import { ProductEntity, ProductMediaEntity } from '../entities';
 import { UserEntity } from '@/modules/user';
 import {
   PRODUCT_MEDIA_VALIDATION,
+  PRODUCT_MEDIA_VALIDATION_OPTIONS,
   PRODUCT_VALIDATION,
 } from './validation.constants';
+import { formatFileSize } from '@/common/utils';
 
 export const PRODUCT_API_PROPERTIES: TApiPropertyOptions = {
   ID: {
@@ -26,9 +28,7 @@ export const PRODUCT_API_PROPERTIES: TApiPropertyOptions = {
   },
   DESCRIPTION: {
     description: 'Описание',
-    example: `Эти наушники созданы для тех, кто ценит качественный звук и комфорт в повседневной жизни. 
-      Они воспроизводят чистый и сбалансированный звук с детальными высокими частотами и насыщенными басами, 
-      что позволяет по-новому услышать любимые треки.`,
+    example: `Эти наушники созданы для тех, кто ценит качественный звук и комфорт в повседневной жизни. Они воспроизводят чистый и сбалансированный звук с детальными высокими частотами и насыщенными басами, что позволяет по-новому услышать любимые треки.`,
     required: false,
     minLength: PRODUCT_VALIDATION.DESCRIPTION.MIN,
     maxLength: PRODUCT_VALIDATION.DESCRIPTION.MAX,
@@ -102,3 +102,10 @@ export const PRODUCT_MEDIA_API_PROPERTIES: TApiPropertyOptions = {
     type: () => ProductEntity,
   },
 } as const;
+
+export const PRODUCT_MEDIA_API_DESCRIPTION =
+  `Product media files.<br>` +
+  `Required: ${PRODUCT_MEDIA_VALIDATION_OPTIONS.minCount}-${PRODUCT_MEDIA_VALIDATION_OPTIONS.maxCount} files.<br>` +
+  `Images: max ${formatFileSize(PRODUCT_MEDIA_VALIDATION_OPTIONS.maxImageSize)}<br>` +
+  `Videos: max ${formatFileSize(PRODUCT_MEDIA_VALIDATION_OPTIONS.maxVideoSize)}<br>` +
+  `Allowed types: ${PRODUCT_MEDIA_VALIDATION_OPTIONS.allowedMimeTypes.join(', ')}`;

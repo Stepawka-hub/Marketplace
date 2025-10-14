@@ -7,7 +7,11 @@ import {
   Max,
   Min,
 } from 'class-validator';
-import { PRODUCT_API_PROPERTIES, PRODUCT_VALIDATION } from '../constants';
+import {
+  PRODUCT_API_PROPERTIES,
+  PRODUCT_MEDIA_API_DESCRIPTION,
+  PRODUCT_VALIDATION,
+} from '../constants';
 
 export class CreateProductDto {
   @ApiProperty(PRODUCT_API_PROPERTIES.NAME)
@@ -53,4 +57,11 @@ export class CreateProductDto {
   @Min(PRODUCT_VALIDATION.RATING.MIN)
   @Max(PRODUCT_VALIDATION.RATING.MAX)
   rating: number;
+
+  @ApiProperty({
+    type: 'array',
+    items: { type: 'string', format: 'binary' },
+    description: PRODUCT_MEDIA_API_DESCRIPTION,
+  })
+  media?: null;
 }

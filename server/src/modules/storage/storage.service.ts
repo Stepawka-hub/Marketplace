@@ -31,6 +31,7 @@ export class StorageService {
 
       return await this.client.send(command);
     } catch (e) {
+      // Todo: Нужен ли логгер?
       this.logger.error(e);
       throw new InternalServerErrorException('Error with storage');
     }

@@ -6,7 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { getTypeOrmConfig } from '@/config/typeorm';
 import { UserModule } from '@/modules/user';
 import { ProductModule } from '@/modules/product';
-import { StorageModule } from './modules/storage/storage.module';
+import { StorageModule } from '@/modules/storage';
 
 @Module({
   imports: [
