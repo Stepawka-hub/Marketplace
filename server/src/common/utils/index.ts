@@ -1,1 +1,1 @@
-export * from './file-size.utils';
+export * from './files.utils';

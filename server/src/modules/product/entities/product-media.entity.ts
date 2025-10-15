@@ -20,10 +20,6 @@ export class ProductMediaEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ApiProperty(PRODUCT_MEDIA_API_PROPERTIES.URL)
-  @Column({ length: PRODUCT_MEDIA_VALIDATION.URL.MAX })
-  url: string;
-
   @ApiProperty(PRODUCT_MEDIA_API_PROPERTIES.FILENAME)
   @Column({ length: PRODUCT_MEDIA_VALIDATION.FILENAME.MAX })
   filename: string;

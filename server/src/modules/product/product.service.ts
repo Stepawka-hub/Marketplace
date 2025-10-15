@@ -1,25 +1,66 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ProductEntity } from './entities';
 import { Repository } from 'typeorm';
+import { StorageService } from '@/modules/storage';
+import { ProductEntity, ProductMediaEntity } from './entities';
 import { CreateProductDto } from './dto';
-import { ConfigService } from '@nestjs/config';
-import { StorageService } from '@/modules/storage/storage.service';
+import { generateFileName } from '@/common/utils';
+import { MEDIA_TYPE } from '@/common';
 
 @Injectable()
 export class ProductService {
   constructor(
     @InjectRepository(ProductEntity)
     private readonly productRepository: Repository<ProductEntity>,
-    private readonly configService: ConfigService,
+    @InjectRepository(ProductMediaEntity)
+    private readonly productMediaRepository: Repository<ProductMediaEntity>,
     private readonly storageService: StorageService,
   ) {}
 
-  async create(
+  async createProduct(
     data: CreateProductDto,
     files: Express.Multer.File[],
     userId: string,
   ) {
-    
+    // Todo: сделать транзакцией
+    const product = this.productRepository.create({
+      ...data,
+      owner: { id: userId },
+    });
+    await this.productRepository.save(product);
+
+    // Todo: иначе выбирать preview
+    const promises: Promise<ProductMediaEntity>[] = [];
+
+    files.forEach((f, idx) => {
+      promises.push(this.createProductMedia(f, product.id, idx === 0));
+    });
+
+    await Promise.all(promises);
+
+    // Возвращать вместе с изображениями
+    return product;
+  }
+
+  async createProductMedia(
+    file: Express.Multer.File,
+    productId: string,
+    isPreview: boolean,
+  ): Promise<ProductMediaEntity> {
+    // Todo: Вынести путь в константы
+    const key = generateFileName(file, 'products/media/');
+    await this.storageService.uploadFile(key, file);
+
+    // Todo: Вынести проверку
+    const isImage = file.mimetype.startsWith('image/');
+
+    const productMedia = this.productMediaRepository.create({
+      filename: key,
+      type: isImage ? MEDIA_TYPE.IMAGE : MEDIA_TYPE.VIDEO,
+      isPreview,
+      product: { id: productId },
+    });
+
+    return await this.productMediaRepository.save(productMedia);
   }
 }

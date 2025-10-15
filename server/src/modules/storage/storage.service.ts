@@ -24,7 +24,7 @@ export class StorageService {
     try {
       const command = new PutObjectCommand({
         Bucket: this.bucket,
-        Key: file.originalname,
+        Key: key,
         Body: file.buffer,
         ContentType: file.mimetype,
       });

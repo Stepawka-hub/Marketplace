@@ -2,6 +2,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
   Length,
   Max,
@@ -30,7 +31,7 @@ export class CreateProductDto {
   shortDescription: string;
 
   @ApiPropertyOptional(PRODUCT_API_PROPERTIES.DESCRIPTION)
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   @Length(
     PRODUCT_VALIDATION.DESCRIPTION.MIN,
@@ -58,10 +59,11 @@ export class CreateProductDto {
   @Max(PRODUCT_VALIDATION.RATING.MAX)
   rating: number;
 
+  // Todo: Исправить
   @ApiProperty({
     type: 'array',
     items: { type: 'string', format: 'binary' },
     description: PRODUCT_MEDIA_API_DESCRIPTION,
   })
-  media?: null;
+  media?: any;
 }

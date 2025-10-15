@@ -27,6 +27,6 @@ export class ProductController {
   ) {
     // Todo: Добавить AuthGuard
     const userId = 'baa1c774-d4c7-44d3-a712-efbc7414f62f';
-    return this.productService.create(data, files, userId);
+    return this.productService.createProduct(data, files, userId);
   }
 }

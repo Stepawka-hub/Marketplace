@@ -32,8 +32,8 @@ export class ProductEntity {
   shortDescription: string;
 
   @ApiPropertyOptional(PRODUCT_API_PROPERTIES.DESCRIPTION)
-  @Column({ type: 'text' })
-  description: string;
+  @Column({ type: 'text', nullable: true })
+  description?: string;
 
   // Todo: Продумать категории
   @ApiProperty(PRODUCT_API_PROPERTIES.CATEGORY)

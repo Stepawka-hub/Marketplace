@@ -10,7 +10,13 @@ async function bootstrap() {
   const port = process.env.PORT ?? 3000;
   const globalLogger = new Logger('Global logger');
 
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      transformOptions: { enableImplicitConversion: true },
+      whitelist: true,
+    }),
+  );
   app.useGlobalFilters(new AllExceptionsFilter());
   app.use(loggerMiddleware(globalLogger));
 

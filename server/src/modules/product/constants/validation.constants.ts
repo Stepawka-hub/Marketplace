@@ -2,7 +2,7 @@ import { TFilesValidationOptions } from '@/common/pipes';
 
 export const PRODUCT_VALIDATION = {
   NAME: {
-    MIN: 8,
+    MIN: 3,
     MAX: 255,
   },
   DESCRIPTION: {
@@ -20,7 +20,7 @@ export const PRODUCT_VALIDATION = {
   PRICE: {
     PRECISION: 9,
     SCALE: 2,
-    MIN: 0.0,
+    MIN: 50.0,
     MAX: 1_000_000.0,
   },
   RATING: {
