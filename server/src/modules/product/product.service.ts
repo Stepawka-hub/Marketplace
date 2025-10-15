@@ -4,8 +4,8 @@ import { Repository } from 'typeorm';
 import { StorageService } from '@/modules/storage';
 import { ProductEntity, ProductMediaEntity } from './entities';
 import { CreateProductDto } from './dto';
-import { generateFileName, getMediaType, isImage } from '@/common/utils';
-import { MEDIA_TYPE } from '@/common';
+import { generateFileName, getMediaType } from '@/common/utils';
+import { STORAGE_PATHS } from '@/config/s3';
 
 @Injectable()
 export class ProductService {
@@ -23,6 +23,7 @@ export class ProductService {
     userId: string,
   ) {
     // Todo: сделать транзакцией
+    // Todo: Искать пользователя и привязывать
     const product = this.productRepository.create({
       ...data,
       owner: { id: userId },
@@ -38,8 +39,10 @@ export class ProductService {
 
     await Promise.all(promises);
 
-    // Todo: Возвращать вместе с изображениями
-    return product;
+    return this.productRepository.findOne({
+      where: { id: product.id },
+      relations: ['media'],
+    });
   }
 
   async createProductMedia(
@@ -47,8 +50,7 @@ export class ProductService {
     productId: string,
     isPreview: boolean,
   ): Promise<ProductMediaEntity> {
-    // Todo: Вынести путь в константы
-    const key = generateFileName(file, 'products/media/');
+    const key = generateFileName(file, STORAGE_PATHS.PRODUCTS);
     await this.storageService.uploadFile(key, file);
 
     const type = getMediaType(file.mimetype);

@@ -1,6 +1,10 @@
 import { S3ClientConfig } from '@aws-sdk/client-s3';
 import { ConfigService } from '@nestjs/config';
 
+export const STORAGE_PATHS = {
+  PRODUCTS: 'products/media/',
+} as const;
+
 export function getStorageConfig(configService: ConfigService): S3ClientConfig {
   return {
     endpoint: configService.getOrThrow<string>('S3_ENDPOINT'),
