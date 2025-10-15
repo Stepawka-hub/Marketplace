@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable, PipeTransform } from '@nestjs/common';
 import { TFilesValidationOptions } from './types';
-import { formatFileSize } from '../utils';
+import { formatFileSize, getMediaType } from '@/common/utils';
+import { MEDIA_TYPE } from '@/common/constants';
 
 @Injectable()
 export class FilesValidationPipe implements PipeTransform {
@@ -60,8 +61,10 @@ export class FilesValidationPipe implements PipeTransform {
   }
 
   private validateFileSize(file: Express.Multer.File) {
-    const isImage = file.mimetype.startsWith('image/');
-    const isVideo = file.mimetype.startsWith('video/');
+    const type = getMediaType(file.mimetype);
+    const isImage = type === MEDIA_TYPE.IMAGE;
+    const isVideo = type === MEDIA_TYPE.VIDEO;
+
     const maxSize = isImage
       ? this.options.maxImageSize
       : isVideo

@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { StorageService } from '@/modules/storage';
 import { ProductEntity, ProductMediaEntity } from './entities';
 import { CreateProductDto } from './dto';
-import { generateFileName } from '@/common/utils';
+import { generateFileName, getMediaType, isImage } from '@/common/utils';
 import { MEDIA_TYPE } from '@/common';
 
 @Injectable()
@@ -38,7 +38,7 @@ export class ProductService {
 
     await Promise.all(promises);
 
-    // Возвращать вместе с изображениями
+    // Todo: Возвращать вместе с изображениями
     return product;
   }
 
@@ -51,12 +51,10 @@ export class ProductService {
     const key = generateFileName(file, 'products/media/');
     await this.storageService.uploadFile(key, file);
 
-    // Todo: Вынести проверку
-    const isImage = file.mimetype.startsWith('image/');
-
+    const type = getMediaType(file.mimetype);
     const productMedia = this.productMediaRepository.create({
       filename: key,
-      type: isImage ? MEDIA_TYPE.IMAGE : MEDIA_TYPE.VIDEO,
+      type,
       isPreview,
       product: { id: productId },
     });
