@@ -2,11 +2,9 @@ import { MEDIA_TYPE, TApiPropertyOptions } from '@/common';
 import { ProductEntity, ProductMediaEntity } from '../entities';
 import { UserEntity } from '@/modules/user/entities';
 import {
-  PRODUCT_MEDIA_VALIDATION,
-  PRODUCT_MEDIA_VALIDATION_OPTIONS,
   PRODUCT_VALIDATION,
+  PRODUCT_MEDIA_VALIDATION,
 } from './validation.constants';
-import { formatFileSize } from '@/common/utils';
 
 export const PRODUCT_API_PROPERTIES: TApiPropertyOptions = {
   ID: {
@@ -102,10 +100,3 @@ export const PRODUCT_MEDIA_API_PROPERTIES: TApiPropertyOptions = {
     type: () => ProductEntity,
   },
 } as const;
-
-export const PRODUCT_MEDIA_API_DESCRIPTION =
-  `Product media files.<br>` +
-  `Required: ${PRODUCT_MEDIA_VALIDATION_OPTIONS.minCount}-${PRODUCT_MEDIA_VALIDATION_OPTIONS.maxCount} files.<br>` +
-  `Images: max ${formatFileSize(PRODUCT_MEDIA_VALIDATION_OPTIONS.maxImageSize)}<br>` +
-  `Videos: max ${formatFileSize(PRODUCT_MEDIA_VALIDATION_OPTIONS.maxVideoSize)}<br>` +
-  `Allowed types: ${PRODUCT_MEDIA_VALIDATION_OPTIONS.allowedMimeTypes.join(', ')}`;

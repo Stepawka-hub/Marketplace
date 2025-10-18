@@ -1,4 +1,7 @@
-import { TFilesValidationOptions } from '@/common/pipes';
+import {
+  TFilesValidationOptions,
+  TFileValidationOptions,
+} from '@/common/validation';
 
 export const PRODUCT_VALIDATION = {
   NAME: {
@@ -32,21 +35,6 @@ export const PRODUCT_VALIDATION = {
   },
 };
 
-export const PRODUCT_MEDIA_VALIDATION_OPTIONS: Required<TFilesValidationOptions> =
-  {
-    minCount: 1,
-    maxCount: 7,
-    maxImageSize: 5 * 1024 * 1024,
-    maxVideoSize: 50 * 1024 * 1024,
-    allowedMimeTypes: [
-      'image/jpeg',
-      'image/png',
-      'image/webp',
-      'video/mp4',
-      'video/webm',
-    ],
-  } as const;
-
 export const PRODUCT_MEDIA_VALIDATION = {
   URL: {
     MIN: 10,
@@ -56,4 +44,24 @@ export const PRODUCT_MEDIA_VALIDATION = {
     MIN: 1,
     MAX: 255,
   },
+} as const;
+
+export const PRODUCT_MEDIA_FILES_VALIDATION_OPTIONS: TFilesValidationOptions = {
+  minCount: 1,
+  maxCount: 7,
+  maxImageSize: 5 * 1024 * 1024,
+  maxVideoSize: 50 * 1024 * 1024,
+  allowedMimeTypes: [
+    'image/jpeg',
+    'image/png',
+    'image/webp',
+    'video/mp4',
+    'video/webm',
+  ],
+} as const;
+
+export const PRODUCT_PREVIEW_FILE_VALIDATION_OPTIONS: TFileValidationOptions = {
+  required: true,
+  maxImageSize: 5 * 1024 * 1024,
+  allowedMimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
 } as const;

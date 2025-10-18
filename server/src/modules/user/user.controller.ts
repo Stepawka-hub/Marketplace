@@ -10,7 +10,7 @@ import {
 import { UserEntity } from './entities';
 
 @ApiTags('User')
-@Controller({ path: 'users' })
+@Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 

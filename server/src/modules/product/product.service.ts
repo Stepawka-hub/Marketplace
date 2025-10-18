@@ -22,11 +22,12 @@ export class ProductService {
 
   async createProduct(
     data: CreateProductDto,
-    files: Express.Multer.File[],
+    previewFile: Express.Multer.File,
+    mediaFiles: Express.Multer.File[],
     userId: string,
   ) {
-    const user = await this.userService.findById(userId);
     // Todo: сделать транзакцией
+    const user = await this.userService.findById(userId);
     const product = this.productRepository.create({
       ...data,
       owner: {
@@ -35,11 +36,12 @@ export class ProductService {
     });
     await this.productRepository.save(product);
 
-    // Todo: иначе выбирать preview
     const promises: Promise<ProductMediaEntity>[] = [];
 
-    files.forEach((f, idx) => {
-      promises.push(this.createProductMedia(f, product.id, idx === 0));
+    promises.push(this.createProductMedia(previewFile, product.id, true));
+
+    mediaFiles.forEach((f) => {
+      promises.push(this.createProductMedia(f, product.id));
     });
 
     await Promise.all(promises);
@@ -53,7 +55,7 @@ export class ProductService {
   async createProductMedia(
     file: Express.Multer.File,
     productId: string,
-    isPreview: boolean,
+    isPreview = false,
   ): Promise<ProductMediaEntity> {
     const key = generateFileName(file, STORAGE_PATHS.PRODUCTS);
     await this.storageService.uploadFile(key, file);

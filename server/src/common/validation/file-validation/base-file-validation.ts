@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { formatFileSize, getMediaType } from '@/common/utils';
 import { MEDIA_TYPE } from '@/common/constants';
-import { TBaseValidationOptions } from './types';
+import { TBaseValidationOptions, TFilesValidationOptions } from './types';
 
 @Injectable()
 export abstract class BaseFileValidation {
@@ -34,6 +34,32 @@ export abstract class BaseFileValidation {
       const type = isImage ? 'Image' : isVideo ? 'Video' : 'File';
       throw new BadRequestException(
         `${type} ${file.originalname} exceeds maximum size of ${formatFileSize(maxSize)}`,
+      );
+    }
+  }
+
+  protected validateFilesCount(
+    files: Express.Multer.File[],
+    options: TFilesValidationOptions,
+  ) {
+    if (!files || !files.length) {
+      if (options.minCount && options.minCount > 0) {
+        throw new BadRequestException(
+          `Minimum ${options.minCount} media file(s) required`,
+        );
+      }
+      return;
+    }
+
+    if (options.minCount && files.length < options.minCount) {
+      throw new BadRequestException(
+        `Minimum ${options.minCount} media file(s) required`,
+      );
+    }
+
+    if (options.maxCount && files.length > options.maxCount) {
+      throw new BadRequestException(
+        `Maximum ${options.maxCount} media file(s) allowed`,
       );
     }
   }
