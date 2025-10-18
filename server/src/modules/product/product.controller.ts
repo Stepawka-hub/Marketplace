@@ -2,10 +2,11 @@ import {
   Body,
   Controller,
   Post,
+  UploadedFile,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
-import { FilesInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { ApiConsumes, ApiOperation } from '@nestjs/swagger';
 import { FilesValidationPipe } from '@/common/pipes';
 import { PRODUCT_MEDIA_VALIDATION_OPTIONS } from './constants';
@@ -19,8 +20,10 @@ export class ProductController {
   @Post()
   @ApiOperation({ summary: 'Create product' })
   @ApiConsumes('multipart/form-data')
-  @UseInterceptors(FilesInterceptor('media'))
+  @UseInterceptors(FileInterceptor('preview'), FilesInterceptor('media'))
   createProduct(
+    @UploadedFile(new FileValidationPipe(PRODUCT_PREVIEW_VALIDATION))
+    preview: Express.Multer.File,
     @UploadedFiles(new FilesValidationPipe(PRODUCT_MEDIA_VALIDATION_OPTIONS))
     files: Express.Multer.File[],
     @Body() data: CreateProductDto,
