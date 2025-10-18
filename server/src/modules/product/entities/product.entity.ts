@@ -1,3 +1,4 @@
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   CreateDateColumn,
   Entity,
@@ -8,11 +9,10 @@ import {
   JoinColumn,
   OneToMany,
 } from 'typeorm';
-import { UserEntity } from '@/modules/user';
-import { ProductMediaEntity } from './product-media.entity';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { PRODUCT_API_PROPERTIES, PRODUCT_VALIDATION } from '../constants';
+import { UserEntity } from '@/modules/user/entities';
 import { COMMON_API_PROPERTIES } from '@/common';
+import { ProductMediaEntity } from './product-media.entity';
+import { PRODUCT_API_PROPERTIES, PRODUCT_VALIDATION } from '../constants';
 
 @Entity({ name: 'products' })
 export class ProductEntity {

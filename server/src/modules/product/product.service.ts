@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
+import { STORAGE_PATHS } from '@/config/s3';
+import { generateFileName, getMediaType } from '@/common/utils';
 import { StorageService } from '@/modules/storage';
+import { UserService } from '@/modules/user';
 import { ProductEntity, ProductMediaEntity } from './entities';
 import { CreateProductDto } from './dto';
-import { generateFileName, getMediaType } from '@/common/utils';
-import { STORAGE_PATHS } from '@/config/s3';
 
 @Injectable()
 export class ProductService {
@@ -14,6 +16,7 @@ export class ProductService {
     private readonly productRepository: Repository<ProductEntity>,
     @InjectRepository(ProductMediaEntity)
     private readonly productMediaRepository: Repository<ProductMediaEntity>,
+    private readonly userService: UserService,
     private readonly storageService: StorageService,
   ) {}
 
@@ -22,11 +25,13 @@ export class ProductService {
     files: Express.Multer.File[],
     userId: string,
   ) {
+    const user = await this.userService.findById(userId);
     // Todo: сделать транзакцией
-    // Todo: Искать пользователя и привязывать
     const product = this.productRepository.create({
       ...data,
-      owner: { id: userId },
+      owner: {
+        id: user.id,
+      },
     });
     await this.productRepository.save(product);
 

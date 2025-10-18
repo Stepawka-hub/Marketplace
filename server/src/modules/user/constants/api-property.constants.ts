@@ -1,4 +1,4 @@
-import { ProductEntity } from '@/modules/product';
+import { ProductEntity } from '@/modules/product/entities';
 import { USER_ROLES } from './user.constants';
 import { USER_VALIDATION } from './validation.constants';
 import { TApiPropertyOptions } from '@/common';

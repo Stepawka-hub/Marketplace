@@ -1,6 +1,6 @@
 import { MEDIA_TYPE, TApiPropertyOptions } from '@/common';
 import { ProductEntity, ProductMediaEntity } from '../entities';
-import { UserEntity } from '@/modules/user';
+import { UserEntity } from '@/modules/user/entities';
 import {
   PRODUCT_MEDIA_VALIDATION,
   PRODUCT_MEDIA_VALIDATION_OPTIONS,

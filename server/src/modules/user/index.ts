@@ -1,4 +1,2 @@
-export * from './user.module';
-export * from './constants';
-export * from './entities';
-export * from './dto';
+export { UserModule } from './user.module';
+export { UserService } from './user.service';

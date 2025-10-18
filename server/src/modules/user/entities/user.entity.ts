@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { ProductEntity } from '@/modules/product';
+import { ProductEntity } from '@/modules/product/entities';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { COMMON_API_PROPERTIES } from '@/common';
 import { USER_API_PROPERTIES, USER_ROLES, USER_VALIDATION } from '../constants';
