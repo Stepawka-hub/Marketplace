@@ -1,6 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
-import { UserEntity } from '@/modules/user/entities';
 import { AuthService } from './auth.service';
 import { RegisterRequestDto } from './dto';
 
@@ -12,9 +11,9 @@ export class AuthController {
     summary: 'Зарегистрировать пользователя',
     description: 'Регистрирует пользователя и возвращает его',
   })
-  @ApiOkResponse({ description: 'Пользователь создан', type: UserEntity })
+  @ApiOkResponse({ description: 'Пользователь создан' })
   @Post('register')
-  register(@Body() dto: RegisterRequestDto): Promise<UserEntity> {
+  register(@Body() dto: RegisterRequestDto) {
     return this.authService.register(dto);
   }
 }
