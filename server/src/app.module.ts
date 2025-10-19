@@ -7,6 +7,7 @@ import { getTypeOrmConfig } from '@/config/typeorm';
 import { UserModule } from '@/modules/user';
 import { ProductModule } from '@/modules/product';
 import { StorageModule } from '@/modules/storage';
+import { AuthModule } from '@/modules/auth';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { StorageModule } from '@/modules/storage';
       inject: [ConfigService],
     }),
     UserModule,
+    AuthModule,
     ProductModule,
     StorageModule,
   ],

@@ -57,10 +57,10 @@ export class ProductService {
 
     await Promise.all(promises);
 
-    // Возврат созданного товара
+    // Поиск и возврат созданного товара
     const createdProduct = await this.productRepository.findOne({
       where: { id: product.id },
-      relations: ['media'],
+      relations: ['media', 'owner'],
     });
 
     if (!createdProduct) {

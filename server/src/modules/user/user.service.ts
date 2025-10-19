@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from './entities';
-import { CreateUserDto } from './dto';
 
 @Injectable()
 export class UserService {
@@ -21,10 +20,5 @@ export class UserService {
     }
 
     return user;
-  }
-
-  async create(dto: CreateUserDto): Promise<UserEntity> {
-    const user = this.userRepository.create(dto);
-    return await this.userRepository.save(user);
   }
 }

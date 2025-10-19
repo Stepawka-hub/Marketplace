@@ -22,6 +22,10 @@ export class UserEntity {
   @Column({ name: 'email', length: USER_VALIDATION.EMAIL.MAX, unique: true })
   email: string;
 
+  @ApiPropertyOptional(USER_API_PROPERTIES.PHONE)
+  @Column({ length: USER_VALIDATION.PHONE.MAX, nullable: true })
+  phone: string;
+
   @ApiProperty(USER_API_PROPERTIES.FIRST_NAME)
   @Column({ name: 'first_name', length: USER_VALIDATION.NAME.MAX })
   firstName: string;
@@ -30,13 +34,13 @@ export class UserEntity {
   @Column({ name: 'last_name', length: USER_VALIDATION.NAME.MAX })
   lastName: string;
 
+  @ApiProperty(USER_API_PROPERTIES.PASSWORD)
+  @Column({ length: USER_VALIDATION.PASSWORD.MAX })
+  password: string;
+
   @ApiPropertyOptional(USER_API_PROPERTIES.AVATAR)
   @Column({ type: 'text', nullable: true })
   avatar: string;
-
-  @ApiPropertyOptional(USER_API_PROPERTIES.PHONE)
-  @Column({ length: USER_VALIDATION.PHONE.MAX, nullable: true })
-  phone: string;
 
   @ApiProperty(USER_API_PROPERTIES.ROLE)
   @Column({

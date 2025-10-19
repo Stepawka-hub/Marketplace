@@ -1,6 +1,6 @@
-import { Body, Controller, Get, HttpStatus, Param, Post } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Param } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto, UserParamsDto } from './dto';
+import { UserParamsDto } from './dto';
 import {
   ApiNotFoundResponse,
   ApiOkResponse,
@@ -31,15 +31,5 @@ export class UserController {
   @Get(':id')
   findById(@Param() params: UserParamsDto) {
     return this.userService.findById(params.id);
-  }
-
-  @ApiOperation({
-    summary: 'Создать пользователя',
-    description: 'Создаёт пользователя и возвращает его',
-  })
-  @ApiOkResponse({ description: 'Пользователь создан', type: UserEntity })
-  @Post()
-  create(@Body() dto: CreateUserDto): Promise<UserEntity> {
-    return this.userService.create(dto);
   }
 }

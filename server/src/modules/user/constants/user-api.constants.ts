@@ -32,6 +32,12 @@ export const USER_API_PROPERTIES: TApiPropertyOptions = {
     minLength: USER_VALIDATION.NAME.MIN,
     maxLength: USER_VALIDATION.NAME.MAX,
   },
+  PASSWORD: {
+    description: 'Пароль пользователя',
+    example: 'qwerty123456',
+    minLength: USER_VALIDATION.PASSWORD.MIN,
+    maxLength: USER_VALIDATION.PASSWORD.MAX,
+  },
   AVATAR: {
     description: 'Аватар',
     example: 'https://storage.example.com/avatars/123456',

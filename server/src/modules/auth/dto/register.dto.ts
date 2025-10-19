@@ -6,17 +6,16 @@ import {
   IsOptional,
   IsPhoneNumber,
   IsString,
-  IsUrl,
   Length,
   Matches,
 } from 'class-validator';
 import {
+  USER_API_PROPERTIES,
   USER_VALIDAION_MESSAGES,
   USER_VALIDATION,
-  USER_API_PROPERTIES,
-} from '../constants';
+} from '@/modules/user/constants';
 
-export class CreateUserDto {
+export class RegisterRequestDto {
   @ApiProperty(USER_API_PROPERTIES.EMAIL)
   @IsEmail({}, { message: USER_VALIDAION_MESSAGES.EMAIL.INVALID })
   @IsNotEmpty()
@@ -48,9 +47,9 @@ export class CreateUserDto {
   @IsNotEmpty()
   lastName: string;
 
-  @ApiPropertyOptional(USER_API_PROPERTIES.AVATAR)
-  @IsOptional()
+  @ApiProperty(USER_API_PROPERTIES.PASSWORD)
   @IsString()
-  @IsUrl()
-  avatar: string;
+  @Length(USER_VALIDATION.PASSWORD.MIN, USER_VALIDATION.PASSWORD.MAX)
+  @IsNotEmpty()
+  password: string;
 }
