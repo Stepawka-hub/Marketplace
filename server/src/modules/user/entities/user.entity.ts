@@ -47,7 +47,7 @@ export class UserEntity {
   role: TUserRole;
 
   @ApiProperty(USER_API_PROPERTIES.PRODUCTS)
-  @OneToMany(() => ProductEntity, (product) => product.owner)
+  @OneToMany(() => ProductEntity, (product) => product.seller)
   products: ProductEntity[];
 
   @ApiProperty(COMMON_API_PROPERTIES.CREATE_DATE)

@@ -1,17 +1,23 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiConsumes, ApiOperation } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiConsumes,
+  ApiOkResponse,
+  ApiOperation,
+} from '@nestjs/swagger';
 import {
   PRODUCT_MEDIA_FILES_VALIDATION_OPTIONS,
   PRODUCT_PREVIEW_FILE_VALIDATION_OPTIONS,
-} from './constants';
-import { CreateProductDto } from './dto';
+} from './constants/product-validation.constants';
+import { CreateProductDto, FindProductsResponseDto } from './dto';
 import { ProductService } from './product.service';
 import { TProductFiles } from './types';
 import { ProductFilesValidationPipe } from './pipes';
@@ -20,11 +26,11 @@ import { ProductFilesValidationPipe } from './pipes';
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
-  @Post()
-  @ApiOperation({ summary: 'Create product' })
+  @ApiOperation({ summary: 'Создать товар' })
+  @ApiOkResponse({ description: 'Товар создан' })
   @ApiConsumes('multipart/form-data')
   @ApiBody({
-    description: 'Product data with preview image and media files',
+    description: 'Данные товара с превью товара и медиа-файлами',
     type: CreateProductDto,
   })
   @UseInterceptors(
@@ -36,6 +42,7 @@ export class ProductController {
       },
     ]),
   )
+  @Post()
   createProduct(
     @UploadedFiles(
       new ProductFilesValidationPipe(
@@ -45,7 +52,7 @@ export class ProductController {
     )
     files: TProductFiles,
     @Body() data: CreateProductDto,
-  ) {
+  ): Promise<FindProductsResponseDto> {
     // Todo: Добавить AuthGuard
     const userId = 'baa1c774-d4c7-44d3-a712-efbc7414f62f';
     return this.productService.createProduct(
@@ -54,5 +61,11 @@ export class ProductController {
       files.media,
       userId,
     );
+  }
+
+  @Get()
+  @ApiOperation({ summary: 'Получить список товаров' })
+  findProducts(): Promise<FindProductsResponseDto[]> {
+    return this.productService.findProducts();
   }
 }

@@ -1,2 +1,2 @@
-export * from './api-property.constants';
-export * from './validation.constants';
+export * from './product-api.constants';
+export * from './product-validation.constants';

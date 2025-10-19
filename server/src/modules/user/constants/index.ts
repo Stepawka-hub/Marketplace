@@ -1,3 +1,3 @@
 export * from './user.constants';
-export * from './validation.constants';
-export * from './api-property.constants';
+export * from './user-validation.constants';
+export * from './user-api.constants';

@@ -63,10 +63,10 @@ export class ProductEntity {
   @OneToMany(() => ProductMediaEntity, (media) => media.product)
   media: ProductMediaEntity[];
 
-  @ApiProperty(PRODUCT_API_PROPERTIES.OWNER)
+  @ApiProperty(PRODUCT_API_PROPERTIES.SELLER)
   @ManyToOne(() => UserEntity, (user) => user.products, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'owner_id' })
-  owner: UserEntity;
+  @JoinColumn({ name: 'seller_id' })
+  seller: UserEntity;
 
   @ApiProperty(COMMON_API_PROPERTIES.CREATE_DATE)
   @CreateDateColumn({ name: 'created_at' })

@@ -4,7 +4,7 @@ import { UserEntity } from '@/modules/user/entities';
 import {
   PRODUCT_VALIDATION,
   PRODUCT_MEDIA_VALIDATION,
-} from './validation.constants';
+} from './product-validation.constants';
 
 export const PRODUCT_API_PROPERTIES: TApiPropertyOptions = {
   ID: {
@@ -61,8 +61,7 @@ export const PRODUCT_API_PROPERTIES: TApiPropertyOptions = {
     type: () => ProductMediaEntity,
     isArray: true,
   },
-  // Todo: Скорректировать, какие поля будут приходить вместе с товаром
-  OWNER: {
+  SELLER: {
     description: 'Владелец товара',
     type: () => UserEntity,
   },
@@ -75,7 +74,8 @@ export const PRODUCT_MEDIA_API_PROPERTIES: TApiPropertyOptions = {
   },
   URL: {
     description: 'URL медиафайла',
-    example: 'https://storage.example.com/images/123456',
+    example:
+      'https://storage.example.com/products/media/3c914eccea19fab604902838c363cd1b.jpg',
     minLength: PRODUCT_MEDIA_VALIDATION.URL.MIN,
     maxLength: PRODUCT_MEDIA_VALIDATION.URL.MAX,
   },
