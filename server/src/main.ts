@@ -4,6 +4,7 @@ import { AppModule } from './app.module';
 import { getSwaggerConfig, SWAGGER_SETUP_OPTIONS } from './config/swagger';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { AllExceptionsFilter, loggerMiddleware } from '@/common';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -19,6 +20,7 @@ async function bootstrap() {
   );
   app.useGlobalFilters(new AllExceptionsFilter());
   app.use(loggerMiddleware(globalLogger));
+  app.use(cookieParser());
 
   const swaggerConfig = getSwaggerConfig();
   const document = SwaggerModule.createDocument(app, swaggerConfig);
