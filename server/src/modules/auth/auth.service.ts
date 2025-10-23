@@ -90,6 +90,7 @@ export class AuthService {
 
   logout(res: Response) {
     this.setCookie(res, REFRESH_TOKEN_COOKIE_KEY, new Date(0));
+    return true;
   }
 
   async refresh(res: Response, req: Request) {

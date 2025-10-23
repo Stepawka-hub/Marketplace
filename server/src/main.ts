@@ -1,10 +1,10 @@
 import { NestFactory } from '@nestjs/core';
-import { SwaggerModule } from '@nestjs/swagger';
-import { AppModule } from './app.module';
-import { getSwaggerConfig, SWAGGER_SETUP_OPTIONS } from './config/swagger';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { AllExceptionsFilter, loggerMiddleware } from '@/common';
+import { AppModule } from './app.module';
+import { ServerLogger, setupSwagger } from './utils';
 import * as cookieParser from 'cookie-parser';
+import { SWAGGER_PATH } from './config/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -22,19 +22,11 @@ async function bootstrap() {
   app.use(loggerMiddleware(globalLogger));
   app.use(cookieParser());
 
-  const swaggerConfig = getSwaggerConfig();
-  const document = SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('/docs', app, document, SWAGGER_SETUP_OPTIONS);
+  setupSwagger(app);
 
   await app.listen(port);
 
-  console.log(
-    '\x1b[36m%s\x1b[0m',
-    `🚀 Server running on http://localhost:${port}`,
-  );
-  console.log(
-    '\x1b[32m%s\x1b[0m',
-    `👉 Environment: ${process.env.NODE_ENV || 'development'}`,
-  );
+  ServerLogger.logStart(port);
+  ServerLogger.logSwagger(SWAGGER_PATH, port);
 }
 bootstrap();
