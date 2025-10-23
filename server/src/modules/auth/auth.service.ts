@@ -93,6 +93,16 @@ export class AuthService {
     return true;
   }
 
+  async validate(id: string) {
+    const user = await this.userRepository.findOne({ where: { id } });
+
+    if (!user) {
+      throw new NotFoundException('Пользователь не найден!');
+    }
+
+    return user;
+  }
+
   async refresh(res: Response, req: Request) {
     // Todo: Исправить типизацию
     const refreshToken = req.cookies[REFRESH_TOKEN_COOKIE_KEY] as string;

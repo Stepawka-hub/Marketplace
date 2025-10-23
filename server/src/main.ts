@@ -1,9 +1,9 @@
 import { NestFactory } from '@nestjs/core';
 import { Logger, ValidationPipe } from '@nestjs/common';
-import { AllExceptionsFilter, loggerMiddleware } from '@/common';
 import { AppModule } from './app.module';
-import { ServerLogger, setupSwagger } from './utils';
+import { AllExceptionsFilter, loggerMiddleware } from '@/common';
 import * as cookieParser from 'cookie-parser';
+import { ServerLogger, setupSwagger } from './utils';
 import { SWAGGER_PATH } from './config/swagger';
 
 async function bootstrap() {
