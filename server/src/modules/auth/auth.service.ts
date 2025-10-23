@@ -2,18 +2,23 @@ import {
   ConflictException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Repository } from 'typeorm';
+import { Request, Response } from 'express';
+
+import { hash, verify } from 'argon2';
+import * as ms from 'ms';
+import type { StringValue } from 'ms';
+
 import { UserEntity } from '@/modules/user/entities';
 import { LoginRequestDto, RegisterRequestDto } from './dto';
-import { hash, verify } from 'argon2';
 import { JwtPayload } from './types';
-import ms, { StringValue } from 'ms';
-import { Response } from 'express';
 import { isDev } from '@/utils';
+import { REFRESH_TOKEN_COOKIE_KEY } from './constants';
 
 @Injectable()
 export class AuthService {
@@ -83,10 +88,39 @@ export class AuthService {
     return this.auth(res, user.id);
   }
 
+  logout(res: Response) {
+    this.setCookie(res, REFRESH_TOKEN_COOKIE_KEY, new Date(0));
+  }
+
+  async refresh(res: Response, req: Request) {
+    // Todo: Исправить типизацию
+    const refreshToken = req.cookies[REFRESH_TOKEN_COOKIE_KEY] as string;
+
+    if (!refreshToken) {
+      throw new UnauthorizedException('Недействительный refresh-токен');
+    }
+
+    const payload: JwtPayload = await this.jwtService.verifyAsync(refreshToken);
+
+    if (payload) {
+      const user = await this.userRepository.findOne({
+        where: { id: payload.id },
+        select: { id: true },
+      });
+
+      if (!user) {
+        throw new NotFoundException('Пользователь не найден!');
+      }
+
+      return this.auth(res, user.id);
+    }
+  }
+
   private auth(res: Response, id: string) {
     const { accessToken, refreshToken } = this.generateTokens(id);
 
-    this.setCookie(res, refreshToken, new Date(ms(this.JWT_REFRESH_TOKEN_TTL)));
+    const expires = new Date(Date.now() + ms(this.JWT_REFRESH_TOKEN_TTL));
+    this.setCookie(res, refreshToken, expires);
 
     return { accessToken };
   }
@@ -108,7 +142,7 @@ export class AuthService {
   private setCookie(res: Response, value: string, expires: Date) {
     const isDevMode = isDev(this.configService);
 
-    res.cookie('refreshToken', value, {
+    res.cookie(REFRESH_TOKEN_COOKIE_KEY, value, {
       httpOnly: true,
       domain: this.COOKIE_DOMAIN,
       expires,
