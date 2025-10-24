@@ -1,35 +1,28 @@
-import { Controller, Get, HttpStatus, Param } from '@nestjs/common';
-import { UserService } from './user.service';
-import { UserParamsDto } from './dto';
+import { Controller, Get, HttpCode, HttpStatus } from '@nestjs/common';
 import {
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
-  ApiTags,
 } from '@nestjs/swagger';
+import { UserService } from './user.service';
 import { UserEntity } from './entities';
+import { Authorization, Authorizated } from '@/modules/auth/decorators';
 
-@ApiTags('User')
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @ApiOperation({
-    summary: 'Получить пользователя по Id',
-    description: 'Возвращает пользователя по Id',
+    summary: 'Получение данных пользователя',
+    description:
+      'Проверяет авторизован ли пользователь и возвращает его данные',
   })
-  @ApiOkResponse({ description: 'Пользователь найден', type: UserEntity })
-  @ApiNotFoundResponse({
-    description: 'Пользователь не найден',
-    example: {
-      status: HttpStatus.NOT_FOUND,
-      message: 'User not found',
-      timestamp: '2025-10-05T16:46:59.369Z',
-      path: '/users/baa1c774-d4c7-44d3-a712-efbc7414f62c',
-    },
-  })
-  @Get(':id')
-  findById(@Param() params: UserParamsDto) {
-    return this.userService.findById(params.id);
+  @ApiOkResponse({ type: UserEntity })
+  @ApiNotFoundResponse({ description: 'Пользователь не найден' })
+  @Authorization()
+  @Get('@me')
+  @HttpCode(HttpStatus.OK)
+  me(@Authorizated() user: UserEntity) {
+    return user;
   }
 }
