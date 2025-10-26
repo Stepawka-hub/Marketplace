@@ -14,5 +14,6 @@ export function getSwaggerConfig() {
     .setDescription('API documentation for Marketplace')
     .setVersion('1.0.0')
     .setContact('Stepawka', '', 'stepan-lvov-04@mail.ru')
+    .addBearerAuth()
     .build();
 }

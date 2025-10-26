@@ -8,6 +8,7 @@ import {
 } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import {
+  ApiBearerAuth,
   ApiBody,
   ApiConsumes,
   ApiOkResponse,
@@ -16,11 +17,12 @@ import {
 import {
   PRODUCT_MEDIA_FILES_VALIDATION_OPTIONS,
   PRODUCT_PREVIEW_FILE_VALIDATION_OPTIONS,
-} from './constants/product-validation.constants';
-import { CreateProductDto, FindProductsResponseDto } from './dto';
+} from './constants';
 import { ProductService } from './product.service';
-import { TProductFiles } from './types';
 import { ProductFilesValidationPipe } from './pipes';
+import { CreateProductDto, FindProductsResponseDto } from './dto';
+import { TProductFiles } from './types';
+import { Authorizated, Authorization } from '@/modules/auth/decorators';
 
 @Controller('products')
 export class ProductController {
@@ -33,6 +35,7 @@ export class ProductController {
     description: 'Данные товара с превью товара и медиа-файлами',
     type: CreateProductDto,
   })
+  @ApiBearerAuth()
   @UseInterceptors(
     FileFieldsInterceptor([
       { name: 'preview', maxCount: 1 },
@@ -42,8 +45,10 @@ export class ProductController {
       },
     ]),
   )
+  @Authorization()
   @Post()
   createProduct(
+    @Authorizated('id') userId: string,
     @UploadedFiles(
       new ProductFilesValidationPipe(
         PRODUCT_PREVIEW_FILE_VALIDATION_OPTIONS,
@@ -53,8 +58,6 @@ export class ProductController {
     files: TProductFiles,
     @Body() data: CreateProductDto,
   ): Promise<FindProductsResponseDto> {
-    // Todo: Добавить AuthGuard
-    const userId = 'baa1c774-d4c7-44d3-a712-efbc7414f62f';
     return this.productService.createProduct(
       data,
       files.preview,

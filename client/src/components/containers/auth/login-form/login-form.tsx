@@ -1,16 +1,16 @@
-import { Button } from "@mui/material";
+import { FC } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import {
   emailValidation,
   maxLengthValidation,
   minLengthValidation,
   requiredValidation,
-} from "@shared/helpers/validate";
-import { CenteredGrid } from "@ui/centered-grid";
-import { Form } from "@ui/form";
-import { Input, PasswordInput } from "@ui/form-elements";
-import { FC } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
+} from "@/shared/helpers";
+import { Input, PasswordInput } from "@/components/containers";
+import { Form } from "@/components/elements";
+import { CenteredGrid } from "@/components/ui";
+import { Button } from "@mui/material";
 import { TLoginForm } from "./types";
 
 export const LoginForm: FC = () => {

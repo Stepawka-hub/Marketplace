@@ -60,7 +60,14 @@ export class ProductService {
     // Поиск и возврат созданного товара
     const createdProduct = await this.productRepository.findOne({
       where: { id: product.id },
-      relations: ['media', 'owner'],
+      relations: ['media', 'seller'],
+      select: {
+        seller: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        },
+      },
     });
 
     if (!createdProduct) {
@@ -97,6 +104,7 @@ export class ProductService {
       },
       select: {
         seller: {
+          id: true,
           firstName: true,
           lastName: true,
         },

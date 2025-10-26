@@ -1,8 +1,15 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { ROUTES } from "@/config/routes";
 import { AppLayout } from "./layout";
-import { CartPage, CatalogPage, NotFoundPage, FavoritesPage } from "@/pages";
-import { ProductPage } from "@/pages/product-page";
+import {
+  CartPage,
+  CatalogPage,
+  NotFoundPage,
+  FavoritesPage,
+  RegisterPage,
+  LoginPage,
+  ProductPage
+} from "@/pages";
 
 export const router = createBrowserRouter([
   {
@@ -28,14 +35,14 @@ export const router = createBrowserRouter([
         path: ROUTES.FAVORITES,
         element: <FavoritesPage />,
       },
-      // {
-      //   path: ROUTES.REGISTER,
-      //   element: <RegisterPage />,
-      // },
-      // {
-      //   path: ROUTES.LOGIN,
-      //   element: <LoginPage />,
-      // },
+      {
+        path: ROUTES.REGISTER,
+        element: <RegisterPage />,
+      },
+      {
+        path: ROUTES.LOGIN,
+        element: <LoginPage />,
+      },
       // {
       //   path: ROUTES.FORGOT_PASSWORD,
       //   element: <ForgotPasswordPage />,

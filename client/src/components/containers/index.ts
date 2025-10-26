@@ -3,3 +3,4 @@ export * from "./shared";
 export * from "./favorites";
 export * from "./product";
 export * from "./catalog";
+export * from './auth';
