@@ -1,6 +1,6 @@
-import { TProduct, TProductActions } from "@/shared/types";
+import { TProductOld, TProductActions } from "@/shared/types";
 
 export type TProductListUIProps = TProductActions & {
-  products: TProduct[];
+  products: TProductOld[];
   isLoading: boolean;
 };

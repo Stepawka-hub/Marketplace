@@ -1,13 +1,13 @@
 import {
   TCartProduct,
   TFilter,
-  TProduct,
+  TProductOld,
   TRange,
   TReview,
 } from "@/shared/types";
 
 export type TCatalogState = {
-  products: TProduct[];
+  products: TProductOld[];
   isLoadingProducts: boolean;
   categories: string[];
   priceRange: TRange;
@@ -16,7 +16,7 @@ export type TCatalogState = {
 };
 
 export type TFavoritesState = {
-  favoriteItems: TProduct[];
+  favoriteItems: TProductOld[];
   isLoading: boolean;
 };
 
@@ -27,7 +27,7 @@ export type TCartState = {
 };
 
 export type TProductState = {
-  product: TProduct | null;
+  product: TProductOld | null;
   reviews: TReview[];
 };
 

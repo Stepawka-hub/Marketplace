@@ -1,20 +1,35 @@
 export type TProductSeller = {
   id: string;
-  name: string;
+  firstName: string;
+  lastName: string;
 };
 
 export type TProduct = {
   id: string;
   name: string;
-  shortDescription?: string;
+  shortDescription: string;
+  description?: string;
   category: string;
-  image: string;
+  price: number;
+  rating: number;
+  preview: string;
+  media: string[];
+  seller: TProductSeller;
+};
+
+export type TProductOld = {
+  id: string;
+  name: string;
+  shortDescription: string;
+  category: string;
+  preview: string;
+  images: string[];
   price: number;
   seller: TProductSeller;
 };
 
-export type TProductDetails = Omit<TProduct, "image"> & {
-  description: string;
+export type TProductDetails = Omit<TProductOld, "image"> & {
+  description?: string;
   images: string[];
   attributes: TProductAttribute[];
   rating: number;
@@ -23,14 +38,17 @@ export type TProductDetails = Omit<TProduct, "image"> & {
   updatedAt?: string;
 };
 
-export type TProductData = TProduct | TProductDetails;
+export type TProductData = TProductOld | TProductDetails;
 
 export type TProductAttribute = {
   name: string;
   value: string;
 };
 
-export type TCartProduct = Pick<TProduct, "id" | "name" | "image" | "price">;
+export type TCartProduct = Pick<
+  TProductOld,
+  "id" | "name" | "preview" | "price"
+>;
 
 export type TProductActions = {
   isInCart: (pId: string) => boolean;
