@@ -157,6 +157,12 @@
     }
   },
 
+  "profile": {
+    "badge": {
+      "tool-tip": "Login to account"
+    }
+  },
+
   "common": {
     "buttons": {
       "back": "Return to catalog"

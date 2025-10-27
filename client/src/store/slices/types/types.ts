@@ -30,3 +30,8 @@ export type TProductState = {
   product: TProduct | null;
   reviews: TReview[];
 };
+
+export type TProfileState = {
+  isAuthChecked: boolean;
+  isAuth: boolean;
+};
