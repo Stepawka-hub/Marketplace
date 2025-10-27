@@ -12,23 +12,18 @@ export type TProduct = {
   category: string;
   price: number;
   rating: number;
-  preview: string;
-  media: string[];
+  media: TProductMedia[];
   seller: TProductSeller;
+  createdAt: string;
+  updatedAt: string;
 };
 
-export type TProductOld = {
-  id: string;
-  name: string;
-  shortDescription: string;
-  category: string;
-  preview: string;
-  images: string[];
-  price: number;
-  seller: TProductSeller;
+export type TProductMedia = {
+  url: string;
+  isPreview: boolean;
 };
 
-export type TProductDetails = Omit<TProductOld, "image"> & {
+export type TProductDetails = {
   description?: string;
   images: string[];
   attributes: TProductAttribute[];
@@ -38,21 +33,11 @@ export type TProductDetails = Omit<TProductOld, "image"> & {
   updatedAt?: string;
 };
 
-export type TProductData = TProductOld | TProductDetails;
+export type TProductData = TProduct | TProductDetails;
 
 export type TProductAttribute = {
   name: string;
   value: string;
 };
 
-export type TCartProduct = Pick<
-  TProductOld,
-  "id" | "name" | "preview" | "price"
->;
-
-export type TProductActions = {
-  isInCart: (pId: string) => boolean;
-  isInFavorites: (pId: string) => boolean;
-  addToCart: (p: TProductData) => void;
-  toggleFavorite: (p: TProductData) => void;
-};
+export type TCartProduct = Pick<TProduct, "id" | "name" | "media" | "price">;

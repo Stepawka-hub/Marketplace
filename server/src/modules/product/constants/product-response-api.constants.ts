@@ -7,7 +7,7 @@ export const PRODUCT_RESPONSE_API_PROPERTIES: TApiPropertyOptions = {
     type: ProductSellerDto,
   },
   MEDIA: {
-    description: 'Фото и видео товара',
+    description: 'Список изображений и видео (URL)',
     type: ProductMediaDto,
     isArray: true,
   },

@@ -1,6 +1,6 @@
-import { MEDIA_TYPE, TApiPropertyOptions } from '@/common';
-import { ProductEntity, ProductMediaEntity } from '../entities';
 import { UserEntity } from '@/modules/user/entities';
+import { ProductEntity, ProductMediaEntity } from '../entities';
+import { MEDIA_TYPE, TApiPropertyOptions } from '@/common';
 import {
   PRODUCT_VALIDATION,
   PRODUCT_MEDIA_VALIDATION,
@@ -58,7 +58,7 @@ export const PRODUCT_API_PROPERTIES: TApiPropertyOptions = {
   },
   MEDIA: {
     description: 'Фото/видео товара',
-    type: () => ProductMediaEntity,
+    type: ProductMediaEntity,
     isArray: true,
   },
   SELLER: {
@@ -97,6 +97,6 @@ export const PRODUCT_MEDIA_API_PROPERTIES: TApiPropertyOptions = {
   },
   PRODUCT: {
     description: 'Товар, к которому относится медиафайл',
-    type: () => ProductEntity,
+    type: ProductEntity,
   },
 } as const;

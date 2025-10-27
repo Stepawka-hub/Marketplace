@@ -22,6 +22,12 @@ async function bootstrap() {
   app.use(loggerMiddleware(globalLogger));
   app.use(cookieParser());
 
+  // Todo: Убрать
+  app.enableCors({
+    origin: ['http://localhost:5173'],
+    credentials: true,
+  });
+
   setupSwagger(app);
 
   await app.listen(port);

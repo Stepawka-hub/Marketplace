@@ -1,18 +1,18 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ConfigService } from '@nestjs/config';
 import { Repository } from 'typeorm';
 
 import { STORAGE_PATHS } from '@/config/s3';
-import { generateFileName, getMediaType } from '@/common/utils';
 import { StorageService } from '@/modules/storage';
 import { UserService } from '@/modules/user';
+import { generateFileName, getMediaType } from '@/common/utils';
 import { ProductEntity, ProductMediaEntity } from './entities';
 import {
   CreateProductDto,
-  FindProductsResponseDto,
   ProductMediaDto,
+  BaseProductResponseDto,
 } from './dto';
-import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class ProductService {
@@ -74,7 +74,7 @@ export class ProductService {
       throw new NotFoundException('Созданный товар не найден!');
     }
 
-    return this.mapToResponseDto(createdProduct);
+    return this.mapToBaseProductDto(createdProduct);
   }
 
   async createProductMedia(
@@ -96,7 +96,7 @@ export class ProductService {
     return await this.productMediaRepository.save(productMedia);
   }
 
-  async findProducts(): Promise<FindProductsResponseDto[]> {
+  async findProducts(): Promise<BaseProductResponseDto[]> {
     const products = await this.productRepository.find({
       relations: {
         seller: true,
@@ -119,10 +119,10 @@ export class ProductService {
       throw new NotFoundException('Products not found!');
     }
 
-    return products.map((product) => this.mapToResponseDto(product));
+    return products.map((product) => this.mapToBaseProductDto(product));
   }
 
-  private mapToResponseDto(product: ProductEntity) {
+  private mapToBaseProductDto(product: ProductEntity): BaseProductResponseDto {
     const media: ProductMediaDto[] = product.media.map((m) => ({
       url: this.mediaBaseUrl + m.filename,
       isPreview: m.isPreview,

@@ -14,15 +14,16 @@ import {
   ApiOkResponse,
   ApiOperation,
 } from '@nestjs/swagger';
+
+import { Authorizated, Authorization } from '@/modules/auth/decorators';
+import { ProductService } from './product.service';
+import { ProductFilesValidationPipe } from './pipes';
+import { BaseProductResponseDto, CreateProductDto } from './dto';
 import {
   PRODUCT_MEDIA_FILES_VALIDATION_OPTIONS,
   PRODUCT_PREVIEW_FILE_VALIDATION_OPTIONS,
 } from './constants';
-import { ProductService } from './product.service';
-import { ProductFilesValidationPipe } from './pipes';
-import { CreateProductDto, FindProductsResponseDto } from './dto';
 import { TProductFiles } from './types';
-import { Authorizated, Authorization } from '@/modules/auth/decorators';
 
 @Controller('products')
 export class ProductController {
@@ -57,7 +58,7 @@ export class ProductController {
     )
     files: TProductFiles,
     @Body() data: CreateProductDto,
-  ): Promise<FindProductsResponseDto> {
+  ): Promise<BaseProductResponseDto> {
     return this.productService.createProduct(
       data,
       files.preview,
@@ -68,7 +69,7 @@ export class ProductController {
 
   @Get()
   @ApiOperation({ summary: 'Получить список товаров' })
-  findProducts(): Promise<FindProductsResponseDto[]> {
+  findProducts(): Promise<BaseProductResponseDto[]> {
     return this.productService.findProducts();
   }
 }
