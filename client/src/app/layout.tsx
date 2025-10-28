@@ -6,6 +6,7 @@ import {
   CartBadge,
   LanguageSwitcher,
   ThemeSwitcher,
+  ProfileBadge,
 } from "@/components/containers";
 import { Header } from "@/components/elements";
 
@@ -23,6 +24,7 @@ export const AppLayout: FC = () => {
           <>
             <FavoritesBadge />
             <CartBadge />
+            <ProfileBadge />
           </>
         }
       />

@@ -1,6 +1,10 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+
+import { AddToCartButton } from "@/components/containers";
+import { LikeButton } from "@/components/elements";
+import { Card } from "@/components/ui";
 import {
   Box,
   CardActions,
@@ -8,6 +12,8 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+
+import { formattedWithSpace } from "@/shared/helpers";
 import {
   boxLikeButtonStyle,
   cardContentStyle,
@@ -18,10 +24,7 @@ import {
   priceTypographyStyle,
 } from "./styles";
 import { ProductCardProps } from "./type";
-import { formattedWithSpace } from "@/shared/helpers";
-import { Card } from "@/components/ui";
-import { AddToCartButton } from "@/components/containers";
-import { LikeButton } from '@/components/elements';
+import { ROUTES } from "@/config/routes";
 
 export const ProductCard: FC<ProductCardProps> = ({
   product,
@@ -32,8 +35,10 @@ export const ProductCard: FC<ProductCardProps> = ({
 }) => {
   const { i18n, t } = useTranslation();
   const navigate = useNavigate();
-  const { id, name, shortDescription, image, seller, price } = product;
+  const { id, name, shortDescription, media, seller, price } = product;
   const formattedPrice = formattedWithSpace(price, i18n.language);
+
+  const preview = media.find((m) => m.isPreview);
 
   const handleAddToCart = () => {
     addToCart(product);
@@ -44,12 +49,12 @@ export const ProductCard: FC<ProductCardProps> = ({
   };
 
   const handleNavigateToProduct = () => {
-    navigate(`/catalog/${id}`);
+    navigate(ROUTES.CATALOG_PRODUCT(id));
   };
 
   return (
     <Card variant="outlined" sx={cardStyle} onClick={handleNavigateToProduct}>
-      <CardMedia title={name} image={image} sx={cardMediaStyle}>
+      <CardMedia title={name} image={preview?.url} sx={cardMediaStyle}>
         <Box sx={boxLikeButtonStyle}>
           <LikeButton
             isActive={isInFavorites}
@@ -76,9 +81,9 @@ export const ProductCard: FC<ProductCardProps> = ({
           {shortDescription}
         </Typography>
 
-        <Typography>{`${t("product.seller.label")}: ${
-          seller.name
-        }`}</Typography>
+        <Typography>{`${t(
+          "product.seller.label"
+        )}: ${`${seller.firstName} ${seller.lastName}`}`}</Typography>
       </CardContent>
 
       <CardActions>

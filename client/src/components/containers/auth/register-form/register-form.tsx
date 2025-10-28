@@ -1,16 +1,16 @@
+import { FC, useMemo } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { Button } from "@mui/material";
+import { Input, PasswordInput } from "@/components/containers";
+import { Form } from "@/components/elements";
+import { CenteredGrid } from "@/components/ui";
 import {
   emailValidation,
   maxLengthValidation,
   minLengthValidation,
   requiredValidation,
-} from "@shared/helpers/validate";
-import { CenteredGrid } from "@ui/centered-grid";
-import { Form } from "@ui/form";
-import { Input, PasswordInput } from "@ui/form-elements";
-import { FC, useMemo } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
+} from "@/shared/helpers";
 import { TField, TRegisterForm } from "./types";
 
 export const RegisterForm: FC = () => {

@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { getTypeOrmConfig } from '@/config/typeorm.config';
+import { getTypeOrmConfig } from '@/config/typeorm';
 import { UserModule } from '@/modules/user';
-import { ProductModule } from './modules/product/product.module';
+import { ProductModule } from '@/modules/product';
+import { StorageModule } from '@/modules/storage';
+import { AuthModule } from '@/modules/auth';
 
 @Module({
   imports: [
@@ -18,9 +18,9 @@ import { ProductModule } from './modules/product/product.module';
       inject: [ConfigService],
     }),
     UserModule,
+    AuthModule,
     ProductModule,
+    StorageModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

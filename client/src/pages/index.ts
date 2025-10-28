@@ -1,9 +1,10 @@
-export * from './catalog-page';
-export * from './not-found-page';
-export * from './cart-page';
+export { CatalogPage } from "./catalog-page";
+export { NotFoundPage } from "./not-found-page";
+export { CartPage } from "./cart-page";
 // export * from './product-page';
-export * from './favorites-page';
-// export * from './register-page';
-// export * from './login-page';
+export { FavoritesPage } from "./favorites-page";
+export { RegisterPage } from "./register-page";
+export { LoginPage } from "./login-page";
+export { ProductPage } from "./product-page";
 // export * from './reset-password-page';
 // export * from './forgot-password-page';

@@ -7,8 +7,6 @@ import {
 } from "@/shared/types";
 
 export type TCatalogState = {
-  products: TProduct[];
-  isLoadingProducts: boolean;
   categories: string[];
   priceRange: TRange;
   searchQuery: string;
@@ -29,4 +27,9 @@ export type TCartState = {
 export type TProductState = {
   product: TProduct | null;
   reviews: TReview[];
+};
+
+export type TProfileState = {
+  isAuthChecked: boolean;
+  isAuth: boolean;
 };

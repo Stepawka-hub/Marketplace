@@ -1,22 +1,19 @@
 import { FC } from "react";
 import { checkInRange, includesRow } from "@/shared/helpers";
 import { useSelector } from "@/store";
-import {
-  getFilters,
-  getIsLoadingProducts,
-  getProducts,
-  getSearchQuery,
-} from "@/store/slices/catalog";
+import { getFilters, getSearchQuery } from "@/store/slices/catalog";
 import { useCart } from "@/hooks/useCart";
 import { useFavorites } from "@/hooks/useFavorites";
 import { ProductListUI } from "@/components/elements";
+import { productAPI } from "@/services";
 
 export const ProductList: FC = () => {
+  const { data: products = [], isLoading } =
+    productAPI.useFetchAllProductsQuery(5);
+
   const { isInCart, addToCart } = useCart();
   const { isInFavorites, toggleFavorite } = useFavorites();
 
-  const products = useSelector(getProducts);
-  const isLoading = useSelector(getIsLoadingProducts);
   const searchQuery = useSelector(getSearchQuery);
   const { category, price } = useSelector(getFilters);
 

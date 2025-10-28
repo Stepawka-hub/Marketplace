@@ -1,13 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TCatalogState } from "./types";
 import { TFilter } from "@/shared/types";
-import mockProducts from "@/shared/mock/catalog-products.json";
 
-// Todo: Корректно записывать через useEffect
 const initialState: TCatalogState = {
-  products: [...mockProducts],
-  isLoadingProducts: false,
-
   categories: ["category 1", "category 2"],
   priceRange: {
     min: 0,
@@ -36,8 +31,6 @@ const catalogSlice = createSlice({
     },
   },
   selectors: {
-    getProducts: (state) => state.products,
-    getIsLoadingProducts: (state) => state.isLoadingProducts,
     getSearchQuery: (state) => state.searchQuery,
     getFilters: (state) => state.filters,
     getCategories: (state) => state.categories,
@@ -47,11 +40,5 @@ const catalogSlice = createSlice({
 
 export default catalogSlice.reducer;
 export const { setSearchQuery, setFilters } = catalogSlice.actions;
-export const {
-  getProducts,
-  getIsLoadingProducts,
-  getSearchQuery,
-  getFilters,
-  getCategories,
-  getPriceRange,
-} = catalogSlice.selectors;
+export const { getSearchQuery, getFilters, getCategories, getPriceRange } =
+  catalogSlice.selectors;
