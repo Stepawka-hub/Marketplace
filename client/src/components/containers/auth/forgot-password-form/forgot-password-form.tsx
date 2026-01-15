@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { emailValidation, requiredValidation } from "@shared/helpers/validate";
-import { CenteredGrid } from "@ui/centered-grid";
+import { CenteredBox } from "@ui/centered-grid";
 import { Input } from "@ui/form-elements";
 import { FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -27,7 +27,7 @@ export const ForgotPasswordForm: FC = () => {
   });
 
   return (
-    <CenteredGrid>
+    <CenteredBox>
       <FormProvider {...methods}>
         <Form title={t("forgot-password.form.title")} onSubmit={onSubmit}>
           <Input
@@ -43,6 +43,6 @@ export const ForgotPasswordForm: FC = () => {
           </Button>
         </Form>
       </FormProvider>
-    </CenteredGrid>
+    </CenteredBox>
   );
 };

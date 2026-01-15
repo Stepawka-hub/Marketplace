@@ -4,7 +4,7 @@ import {
   minLengthValidation,
   requiredValidation,
 } from "@shared/helpers/validate";
-import { CenteredGrid } from "@ui/centered-grid";
+import { CenteredBox } from "@ui/centered-grid";
 import { Form } from "@ui/form";
 import { PasswordInput } from "@ui/form-elements";
 import { FC } from "react";
@@ -44,7 +44,7 @@ export const ResetPasswordForm: FC = () => {
   // }, [navigate]);
 
   return (
-    <CenteredGrid>
+    <CenteredBox>
       <FormProvider {...methods}>
         <Form title={t("reset-password.form.title")} onSubmit={onSubmit}>
           <PasswordInput
@@ -68,6 +68,6 @@ export const ResetPasswordForm: FC = () => {
           </Button>
         </Form>
       </FormProvider>
-    </CenteredGrid>
+    </CenteredBox>
   );
 };

@@ -1,6 +1,6 @@
 export * from "./app-bar";
 export * from "./card";
-export * from "./centered-grid";
+export * from "./centered-box";
 export * from "./drawer";
 export * from "./drawer-header";
 export * from "./form-title";

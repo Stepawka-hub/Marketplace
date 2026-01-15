@@ -9,7 +9,7 @@ import {
 } from "@/shared/helpers";
 import { Input, PasswordInput } from "@/components/containers";
 import { Form } from "@/components/elements";
-import { CenteredGrid } from "@/components/ui";
+import { CenteredBox } from "@/components/ui";
 import { Button } from "@mui/material";
 import { TLoginForm } from "./types";
 
@@ -23,7 +23,7 @@ export const LoginForm: FC = () => {
   });
 
   return (
-    <CenteredGrid>
+    <CenteredBox>
       <FormProvider {...methods}>
         <Form title={t("login.form.title")} onSubmit={onSubmit}>
           <Input
@@ -41,11 +41,15 @@ export const LoginForm: FC = () => {
               ...maxLengthValidation(100, t),
             })}
           />
-          <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{ mt: 2, py: 1, fontSize: "0.95rem" }}
+          >
             {t("login.form.submit-button")}
           </Button>
         </Form>
       </FormProvider>
-    </CenteredGrid>
+    </CenteredBox>
   );
 };

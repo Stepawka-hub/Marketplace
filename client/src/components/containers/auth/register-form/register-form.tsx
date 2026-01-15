@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@mui/material";
 import { Input, PasswordInput } from "@/components/containers";
 import { Form } from "@/components/elements";
-import { CenteredGrid } from "@/components/ui";
+import { CenteredBox } from "@/components/ui";
 import {
   emailValidation,
   maxLengthValidation,
@@ -90,7 +90,7 @@ export const RegisterForm: FC = () => {
   );
 
   return (
-    <CenteredGrid>
+    <CenteredBox>
       <FormProvider {...methods}>
         <Form title={t("register.form.title")} onSubmit={onSubmit}>
           {fields.map(({ name, type, translationPath, validation }) => {
@@ -123,6 +123,6 @@ export const RegisterForm: FC = () => {
           </Button>
         </Form>
       </FormProvider>
-    </CenteredGrid>
+    </CenteredBox>
   );
 };
