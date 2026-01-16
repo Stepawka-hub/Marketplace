@@ -1,16 +1,19 @@
 import { FC, useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { Button } from "@mui/material";
-import { Input, PasswordInput } from "@/components/containers";
-import { Form } from "@/components/elements";
-import { CenteredBox } from "@/components/ui";
 import {
   emailValidation,
   maxLengthValidation,
   minLengthValidation,
   requiredValidation,
 } from "@/shared/helpers";
+
+import { Input, PasswordInput } from "@/components/containers";
+import { Form } from "@/components/elements";
+import { CenteredBox, SubmitButton } from "@/components/ui";
+import PersonIcon from "@mui/icons-material/Person";
+import EmailIcon from "@mui/icons-material/Email";
+import PhoneIcon from "@mui/icons-material/Phone";
 import { TField, TRegisterForm } from "./types";
 
 export const RegisterForm: FC = () => {
@@ -41,6 +44,7 @@ export const RegisterForm: FC = () => {
           ...minLengthValidation(2, t),
           ...maxLengthValidation(50, t),
         },
+        icon: <PersonIcon />,
       },
       {
         name: "lastName",
@@ -50,6 +54,7 @@ export const RegisterForm: FC = () => {
           ...minLengthValidation(2, t),
           ...maxLengthValidation(50, t),
         },
+        icon: <PersonIcon />,
       },
       {
         name: "email",
@@ -58,12 +63,14 @@ export const RegisterForm: FC = () => {
           ...requiredValidation(t),
           ...emailValidation(t),
         },
+        icon: <EmailIcon />,
       },
       {
         name: "phone",
         type: "phone",
         translationPath: "register.form.fields",
         prefix: "register.form",
+        icon: <PhoneIcon />,
       },
       {
         name: "password",
@@ -93,7 +100,7 @@ export const RegisterForm: FC = () => {
     <CenteredBox>
       <FormProvider {...methods}>
         <Form title={t("register.form.title")} onSubmit={onSubmit}>
-          {fields.map(({ name, type, translationPath, validation }) => {
+          {fields.map(({ name, type, translationPath, validation, icon }) => {
             const label = t(`${translationPath}.${name}.label`);
             const placeholder = t(`${translationPath}.${name}.placeholder`);
 
@@ -113,14 +120,13 @@ export const RegisterForm: FC = () => {
                 key={name}
                 label={label}
                 placeholder={placeholder}
+                startIcon={icon}
                 {...register(name, validation)}
               />
             );
           })}
 
-          <Button type="submit" variant="contained" sx={{ mt: 2 }}>
-            {t("register.form.submit-button")}
-          </Button>
+          <SubmitButton>{t("register.form.submit-button")}</SubmitButton>
         </Form>
       </FormProvider>
     </CenteredBox>

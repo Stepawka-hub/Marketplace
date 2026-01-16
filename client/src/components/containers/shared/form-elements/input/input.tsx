@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { useController, useFormContext } from "react-hook-form";
-import { TextField } from "@mui/material";
+import { InputAdornment, TextField } from "@mui/material";
 import { InputProps } from "./type";
 
 // Todo: Исправить цвет input`а на тёмной теме при подстановке значений
-export const Input: FC<InputProps> = ({ name, ...props }) => {
+export const Input: FC<InputProps> = ({ name, startIcon, ...props }) => {
   const { control } = useFormContext();
   const { field, fieldState } = useController({
     name,
@@ -20,6 +20,13 @@ export const Input: FC<InputProps> = ({ name, ...props }) => {
       error={fieldState.invalid}
       helperText={fieldState.error?.message}
       variant="outlined"
+      slotProps={{
+        input: {
+          startAdornment: startIcon && (
+            <InputAdornment position="start">{startIcon}</InputAdornment>
+          ),
+        },
+      }}
     />
   );
 };

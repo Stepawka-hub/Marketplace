@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { RegisterOptions } from "react-hook-form";
 
 export type TRegisterForm = {
@@ -14,4 +15,5 @@ export type TField = {
   type?: "text" | "phone" | "password";
   translationPath?: string;
   validation?: RegisterOptions<TRegisterForm>;
+  icon?: ReactNode;
 };

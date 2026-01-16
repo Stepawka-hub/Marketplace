@@ -6,7 +6,7 @@ export const formStyle: SxProps<Theme> = {
   borderRadius: "1rem",
   backgroundColor: "custom.primary",
   border: 0,
-  width: "35rem",
+  width: "33.5rem",
 } as const;
 
 export const formTitleStyle: SxProps = {

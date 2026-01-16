@@ -1,6 +1,7 @@
 import { FC } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import PasswordIcon from "@mui/icons-material/Lock";
 import {
   FormControl,
   FormHelperText,
@@ -26,6 +27,11 @@ export const PasswordInputUI: FC<TPasswordInputUIProps> = ({
       label={label}
       type={showPassword ? "text" : "password"}
       autoComplete="current-password"
+      startAdornment={
+        <InputAdornment position="start">
+          <PasswordIcon />
+        </InputAdornment>
+      }
       endAdornment={
         <InputAdornment position="end">
           <IconButton

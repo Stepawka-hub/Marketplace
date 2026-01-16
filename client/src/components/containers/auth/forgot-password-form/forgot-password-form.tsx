@@ -1,12 +1,13 @@
-import { Button } from "@mui/material";
-import { emailValidation, requiredValidation } from "@shared/helpers/validate";
-import { CenteredBox } from "@ui/centered-grid";
-import { Input } from "@ui/form-elements";
 import { FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { emailValidation, requiredValidation } from "@/shared/helpers/validate";
+
+import { Input } from "@/components/containers";
+import { Form } from "@/components/elements";
+import { CenteredBox, SubmitButton } from "@/components/ui";
+import EmailIcon from "@mui/icons-material/Email";
 import { TForgotPasswordForm } from "./type";
-import { Form } from "@ui/form";
 
 export const ForgotPasswordForm: FC = () => {
   const { t } = useTranslation();
@@ -37,10 +38,9 @@ export const ForgotPasswordForm: FC = () => {
               ...requiredValidation(t),
               ...emailValidation(t),
             })}
+            startIcon={<EmailIcon />}
           />
-          <Button type="submit" variant="contained" sx={{ mt: 2 }}>
-            {t("forgot-password.form.submit-button")}
-          </Button>
+          <SubmitButton>{t("forgot-password.form.submit-button")}</SubmitButton>
         </Form>
       </FormProvider>
     </CenteredBox>

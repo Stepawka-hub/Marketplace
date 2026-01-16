@@ -8,7 +8,9 @@ import {
   FavoritesPage,
   RegisterPage,
   LoginPage,
-  ProductPage
+  ProductPage,
+  ForgotPasswordPage,
+  ResetPasswordPage
 } from "@/pages";
 
 export const router = createBrowserRouter([
@@ -43,14 +45,14 @@ export const router = createBrowserRouter([
         path: ROUTES.LOGIN,
         element: <LoginPage />,
       },
-      // {
-      //   path: ROUTES.FORGOT_PASSWORD,
-      //   element: <ForgotPasswordPage />,
-      // },
-      // {
-      //   path: ROUTES.RESET_PASSWORD,
-      //   element: <ResetPasswordPage />,
-      // },
+      {
+        path: ROUTES.FORGOT_PASSWORD,
+        element: <ForgotPasswordPage />,
+      },
+      {
+        path: ROUTES.RESET_PASSWORD,
+        element: <ResetPasswordPage />,
+      },
       {
         path: ROUTES.NOT_FOUND,
         element: <NotFoundPage />,

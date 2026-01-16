@@ -7,10 +7,11 @@ import {
   minLengthValidation,
   requiredValidation,
 } from "@/shared/helpers";
+
 import { Input, PasswordInput } from "@/components/containers";
 import { Form } from "@/components/elements";
-import { CenteredBox } from "@/components/ui";
-import { Button } from "@mui/material";
+import { CenteredBox, SubmitButton } from "@/components/ui";
+import EmailIcon from "@mui/icons-material/Email";
 import { TLoginForm } from "./types";
 
 export const LoginForm: FC = () => {
@@ -33,6 +34,7 @@ export const LoginForm: FC = () => {
               ...requiredValidation(t),
               ...emailValidation(t),
             })}
+            startIcon={<EmailIcon />}
           />
           <PasswordInput
             {...register("password", {
@@ -41,13 +43,7 @@ export const LoginForm: FC = () => {
               ...maxLengthValidation(100, t),
             })}
           />
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{ mt: 2, py: 1, fontSize: "0.95rem" }}
-          >
-            {t("login.form.submit-button")}
-          </Button>
+          <SubmitButton>{t("login.form.submit-button")}</SubmitButton>
         </Form>
       </FormProvider>
     </CenteredBox>

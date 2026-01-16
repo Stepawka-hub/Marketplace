@@ -11,3 +11,4 @@ export * from "./search-elements";
 export * from "./skeleton-card";
 export * from './slider-elements';
 export * from "./styled-image";
+export * from './submit-button';
