@@ -7,7 +7,7 @@ declare module "@mui/material/styles" {
       appBar: {
         iconColor: string;
         iconHover: string;
-      },
+      };
     };
   }
 }

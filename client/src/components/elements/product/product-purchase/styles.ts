@@ -2,7 +2,7 @@ import { SxProps } from "@mui/material";
 
 export const wrapperStyle: SxProps = {
   p: 2,
-  backgroundColor: "custom.primary",
+  backgroundColor: "custom.primary.main",
 } as const;
 
 export const contentBoxStyle: SxProps = {

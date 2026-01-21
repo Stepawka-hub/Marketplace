@@ -14,19 +14,32 @@ export const Input: FC<InputProps> = ({ name, startIcon, ...props }) => {
   return (
     <TextField
       {...props}
+      variant="outlined"
       name={name}
       value={field.value || ""}
-      onChange={field.onChange}
       error={fieldState.invalid}
       helperText={fieldState.error?.message}
-      variant="outlined"
       slotProps={{
         input: {
           startAdornment: startIcon && (
             <InputAdornment position="start">{startIcon}</InputAdornment>
           ),
         },
+        formHelperText: {
+          sx: {
+            marginLeft: 0,
+          },
+        },
       }}
+      sx={{
+        "& .MuiInputLabel-root": {
+          "&.Mui-focused": {
+            color: (theme) =>
+              theme.palette.mode === "dark" ? "primary.light" : "primary.main",
+          },
+        },
+      }}
+      onChange={field.onChange}
     />
   );
 };

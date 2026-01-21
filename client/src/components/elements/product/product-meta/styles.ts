@@ -2,7 +2,7 @@ import { SxProps, Theme } from "@mui/material";
 
 export const wrapperStyle: SxProps<Theme> = {
   p: 2,
-  backgroundColor: "custom.primary",
+  backgroundColor: "custom.primary.main",
 } as const;
 
 export const mainContainerStyle: SxProps = {

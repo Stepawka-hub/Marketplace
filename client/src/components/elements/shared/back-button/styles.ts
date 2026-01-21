@@ -2,6 +2,6 @@ import { SxProps } from "@mui/material";
 
 export const backButtonStyle: SxProps = {
   mb: 2,
-  backgroundColor: "custom.primary",
+  backgroundColor: "custom.primary.main",
   border: "1px solid",
 };

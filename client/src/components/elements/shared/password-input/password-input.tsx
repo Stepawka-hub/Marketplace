@@ -21,7 +21,17 @@ export const PasswordInputUI: FC<TPasswordInputUIProps> = ({
   ...props
 }) => (
   <FormControl error={error}>
-    <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
+    <InputLabel
+      htmlFor="outlined-adornment-password"
+      sx={{
+        "&.Mui-focused": {
+          color: (theme) =>
+            theme.palette.mode === "dark" ? "primary.light" : "primary.main",
+        },
+      }}
+    >
+      {label}
+    </InputLabel>
     <OutlinedInput
       id="outlined-adornment-password"
       label={label}
@@ -48,6 +58,6 @@ export const PasswordInputUI: FC<TPasswordInputUIProps> = ({
       }
       {...props}
     />
-    <FormHelperText>{helperText}</FormHelperText>
+    <FormHelperText sx={{ marginLeft: 0 }}>{helperText}</FormHelperText>
   </FormControl>
 );

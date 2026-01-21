@@ -1,7 +1,7 @@
 import { SxProps, Theme } from "@mui/material";
 
 export const cardStyle: SxProps<Theme> = {
-  backgroundColor: "custom.primary",
+  backgroundColor: "custom.primary.main",
 } as const;
 
 export const cardMediaStyle: SxProps<Theme> = {

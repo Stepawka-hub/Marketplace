@@ -1,7 +1,7 @@
 import { SxProps } from "@mui/material";
 
 export const submitButtonStyle: SxProps = {
-  mt: 2,
+  mt: 1,
   py: 1,
   fontSize: "1.15rem",
   fontWeight: 700,
