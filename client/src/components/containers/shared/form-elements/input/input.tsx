@@ -2,6 +2,7 @@ import { FC } from "react";
 import { useController, useFormContext } from "react-hook-form";
 import { InputAdornment, TextField } from "@mui/material";
 import { InputProps } from "./type";
+import { inputStyle } from "./styles";
 
 // Todo: Исправить цвет input`а на тёмной теме при подстановке значений
 export const Input: FC<InputProps> = ({ name, startIcon, ...props }) => {
@@ -31,14 +32,7 @@ export const Input: FC<InputProps> = ({ name, startIcon, ...props }) => {
           },
         },
       }}
-      sx={{
-        "& .MuiInputLabel-root": {
-          "&.Mui-focused": {
-            color: (theme) =>
-              theme.palette.mode === "dark" ? "primary.light" : "primary.main",
-          },
-        },
-      }}
+      sx={inputStyle}
       onChange={field.onChange}
     />
   );

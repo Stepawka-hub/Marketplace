@@ -11,6 +11,7 @@ import {
   OutlinedInput,
 } from "@mui/material";
 import { TPasswordInputUIProps } from "./type";
+import { passwordInputLabelStyle, passwordInputStyle } from "./styles";
 
 export const PasswordInputUI: FC<TPasswordInputUIProps> = ({
   label,
@@ -23,12 +24,7 @@ export const PasswordInputUI: FC<TPasswordInputUIProps> = ({
   <FormControl error={error}>
     <InputLabel
       htmlFor="outlined-adornment-password"
-      sx={{
-        "&.Mui-focused": {
-          color: (theme) =>
-            theme.palette.mode === "dark" ? "primary.light" : "primary.main",
-        },
-      }}
+      sx={passwordInputLabelStyle}
     >
       {label}
     </InputLabel>
@@ -56,8 +52,9 @@ export const PasswordInputUI: FC<TPasswordInputUIProps> = ({
           </IconButton>
         </InputAdornment>
       }
+      sx={passwordInputStyle}
       {...props}
     />
-    <FormHelperText sx={{ marginLeft: 0 }}>{helperText}</FormHelperText>
+    <FormHelperText sx={{ ml: 0 }}>{helperText}</FormHelperText>
   </FormControl>
 );
