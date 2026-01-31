@@ -13,14 +13,17 @@ import { Form } from "@/components/elements";
 import { CenteredBox, SubmitButton } from "@/components/ui";
 import EmailIcon from "@mui/icons-material/Email";
 import { TLoginForm } from "./types";
+import { useLoginMutation } from "@/services/auth/auth.service";
 
 export const LoginForm: FC = () => {
   const { t } = useTranslation();
   const methods = useForm<TLoginForm>({ mode: "onChange" });
   const { register, handleSubmit } = methods;
 
+  const [login, { error, isLoading }] = useLoginMutation();
+
   const onSubmit = handleSubmit((formData) => {
-    console.log(formData);
+    login(formData);
   });
 
   return (
@@ -34,6 +37,7 @@ export const LoginForm: FC = () => {
               ...requiredValidation(t),
               ...emailValidation(t),
             })}
+            autoComplete="email"
             startIcon={<EmailIcon />}
           />
           <PasswordInput
@@ -43,7 +47,9 @@ export const LoginForm: FC = () => {
               ...maxLengthValidation(100, t),
             })}
           />
-          <SubmitButton>{t("login.form.submit-button")}</SubmitButton>
+          <SubmitButton disabled={isLoading}>
+            {t("login.form.submit-button")}
+          </SubmitButton>
         </Form>
       </FormProvider>
     </CenteredBox>

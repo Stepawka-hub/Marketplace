@@ -1,6 +1,3 @@
-import { ReactNode } from 'react';
-import { RegisterOptions } from "react-hook-form";
-
 export type TRegisterForm = {
   firstName: string;
   lastName: string;
@@ -8,12 +5,4 @@ export type TRegisterForm = {
   phone?: string;
   password: string;
   confirmPassword: string;
-};
-
-export type TField = {
-  name: keyof TRegisterForm;
-  type?: "text" | "phone" | "password";
-  translationPath?: string;
-  validation?: RegisterOptions<TRegisterForm>;
-  icon?: ReactNode;
 };
