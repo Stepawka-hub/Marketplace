@@ -10,8 +10,9 @@ import {
   LoginPage,
   ProductPage,
   ForgotPasswordPage,
-  ResetPasswordPage
+  ResetPasswordPage,
 } from "@/pages";
+import { ProtectedRoute } from "@/components/containers";
 
 export const router = createBrowserRouter([
   {
@@ -30,28 +31,38 @@ export const router = createBrowserRouter([
         element: <ProductPage />,
       },
       {
-        path: ROUTES.CART,
-        element: <CartPage />,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.CART,
+            element: <CartPage />,
+          },
+          {
+            path: ROUTES.FAVORITES,
+            element: <FavoritesPage />,
+          },
+        ],
       },
       {
-        path: ROUTES.FAVORITES,
-        element: <FavoritesPage />,
-      },
-      {
-        path: ROUTES.REGISTER,
-        element: <RegisterPage />,
-      },
-      {
-        path: ROUTES.LOGIN,
-        element: <LoginPage />,
-      },
-      {
-        path: ROUTES.FORGOT_PASSWORD,
-        element: <ForgotPasswordPage />,
-      },
-      {
-        path: ROUTES.RESET_PASSWORD,
-        element: <ResetPasswordPage />,
+        element: <ProtectedRoute onlyUnAuth />,
+        children: [
+          {
+            path: ROUTES.REGISTER,
+            element: <RegisterPage />,
+          },
+          {
+            path: ROUTES.LOGIN,
+            element: <LoginPage />,
+          },
+          {
+            path: ROUTES.FORGOT_PASSWORD,
+            element: <ForgotPasswordPage />,
+          },
+          {
+            path: ROUTES.RESET_PASSWORD,
+            element: <ResetPasswordPage />,
+          },
+        ],
       },
       {
         path: ROUTES.NOT_FOUND,

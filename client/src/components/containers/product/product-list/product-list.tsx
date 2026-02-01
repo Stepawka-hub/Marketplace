@@ -5,11 +5,10 @@ import { getFilters, getSearchQuery } from "@/store/slices/catalog";
 import { useCart } from "@/hooks/useCart";
 import { useFavorites } from "@/hooks/useFavorites";
 import { ProductListUI } from "@/components/elements";
-import { productAPI } from "@/services";
+import { useGetAllProductsQuery } from "@/services";
 
 export const ProductList: FC = () => {
-  const { data: products = [], isLoading } =
-    productAPI.useFetchAllProductsQuery(5);
+  const { data: products = [], isLoading } = useGetAllProductsQuery(5);
 
   const { isInCart, addToCart } = useCart();
   const { isInFavorites, toggleFavorite } = useFavorites();
