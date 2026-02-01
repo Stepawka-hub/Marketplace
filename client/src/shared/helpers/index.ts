@@ -4,3 +4,4 @@ export * from './numbers';
 export * from './product-helper';
 export * from './validate';
 export * from './normalize-sx';
+export * from './is-tokens';

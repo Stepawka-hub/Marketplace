@@ -158,7 +158,7 @@ export class AuthService {
       domain: this.COOKIE_DOMAIN,
       expires,
       secure: !isDevMode,
-      sameSite: isDevMode ? 'none' : 'lax',
+      sameSite: isDevMode ? 'lax' : 'none',
     });
   }
 }
