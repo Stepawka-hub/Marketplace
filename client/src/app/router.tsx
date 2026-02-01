@@ -11,6 +11,7 @@ import {
   ProductPage,
   ForgotPasswordPage,
   ResetPasswordPage,
+  ProfilePage,
 } from "@/pages";
 import { ProtectedRoute } from "@/components/containers";
 
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.FAVORITES,
             element: <FavoritesPage />,
+          },
+          {
+            path: ROUTES.PROFILE,
+            element: <ProfilePage />,
           },
         ],
       },

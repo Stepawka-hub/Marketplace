@@ -16,7 +16,7 @@ import { Paper } from "@mui/material";
 
 export const AppLayout: FC = () => {
   const isAuth = useSelector(getIsAuth);
-  const { data } = useGetMeQuery();
+  useGetMeQuery();
 
   const leftPartElements = (
     <>
@@ -41,7 +41,6 @@ export const AppLayout: FC = () => {
     <Paper sx={{ minHeight: "100vh", height: "100%" }}>
       <Header leftPart={leftPartElements} rightPart={rightPartElements} />
       <Outlet />
-      {`${data?.firstName} ${data?.lastName}`}
     </Paper>
   );
 };
