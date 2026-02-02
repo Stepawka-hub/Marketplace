@@ -33,6 +33,11 @@ export const baseQueryWithReauth: BaseQueryFn<
   // Ждём разблокировки mutex
   await mutex.waitForUnlock();
 
+  // Todo: Убрать
+  // await new Promise((resolve) => {
+  //   setTimeout(() => resolve(true), 2000);
+  // });
+
   let result = await baseQuery(args, api, extraOptions);
 
   if (result.error && result.error.status === HTTP_STATUS.UNAUTHORIZED) {
