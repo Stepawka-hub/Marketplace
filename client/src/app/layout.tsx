@@ -10,6 +10,7 @@ import {
   LanguageSwitcher,
   ThemeSwitcher,
   ProfileBadge,
+  AccountMenu,
 } from "@/components/containers";
 import { Header } from "@/components/elements";
 import { Paper } from "@mui/material";
@@ -36,7 +37,7 @@ export const AppLayout: FC = () => {
           <CartBadge />
         </>
       )}
-      <ProfileBadge />
+      {isAuth ? <AccountMenu /> : <ProfileBadge />}
     </>
   );
 

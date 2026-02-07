@@ -30,7 +30,7 @@ export const authAPI = baseAPI.injectEndpoints({
         dispatch(authAPI.util.invalidateTags(["Auth"]));
       },
     }),
-    logout: build.mutation({
+    logout: build.mutation<void, void>({
       query: () => ({
         url: "auth/logout",
         method: "POST",

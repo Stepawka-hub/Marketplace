@@ -160,6 +160,14 @@
   "profile": {
     "badge": {
       "tool-tip": "Login to account"
+    },
+    "account-menu": {
+      "tool-tip": "Account settings",
+      "menu-items": {
+        "settings": "Settings",
+        "log-out": "Log out",
+        "logging-out": "Logging out..."
+      }
     }
   },
 
