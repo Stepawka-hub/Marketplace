@@ -13,7 +13,11 @@ import {
   ResetPasswordPage,
   ProfilePage,
 } from "@/pages";
-import { ProtectedRoute } from "@/components/containers";
+import {
+  ProfileData,
+  ProfileSettings,
+  ProtectedRoute,
+} from "@/components/containers";
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +49,16 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.PROFILE,
             element: <ProfilePage />,
+            children: [
+              {
+                index: true,
+                element: <ProfileData />,
+              },
+              {
+                path: ROUTES.PROFILE_SETTINGS,
+                element: <ProfileSettings />,
+              },
+            ],
           },
         ],
       },
