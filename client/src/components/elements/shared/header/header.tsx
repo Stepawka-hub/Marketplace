@@ -8,7 +8,6 @@ export const Header: FC<HeaderProps> = ({ leftPart, rightPart }) => (
   <AppBar position="static">
     <Toolbar variant="dense" sx={toolbarStyle}>
       <Box sx={headerPartStyle}>{leftPart}</Box>
-      <Box flexGrow={1} />
       <Box sx={headerPartStyle}>{rightPart}</Box>
     </Toolbar>
   </AppBar>

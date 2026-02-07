@@ -20,23 +20,7 @@ export const listItemStyle: SxProps<Theme> = {
 export const listItemButtonStyle: SxProps<Theme> = ({ palette }) =>
   ({
     "&.active": {
-      bgcolor: palette.action.selected,
-      borderRight: `3px solid 
+      borderRight: `4px solid 
         ${palette.mode === THEMES_MAP.DARK ? palette.primary.main : palette.primary.light}`,
-    },
-  }) as const;
-
-export const logoutButtonStyle: SxProps<Theme> = ({ palette }) =>
-  ({
-    color: "error.main",
-    "&:hover": {
-      backgroundColor:
-        palette.mode === "dark"
-          ? "rgba(211, 47, 47, 0.08)"
-          : "rgba(211, 47, 47, 0.04)",
-    },
-    "&:last-of-type": {
-      borderBottomLeftRadius: 8,
-      borderBottomRightRadius: 8,
     },
   }) as const;

@@ -170,12 +170,13 @@
       "tool-tip": "Войти в аккаунт"
     },
     "account-menu": {
-      "tool-tip": "Мой аккаунт",
-      "menu-items": {
-        "settings": "Настройки",
-        "log-out": "Выйти из аккаунта",
-        "logging-out": "Выход из аккаунта..."
-      }
+      "tool-tip": "Мой аккаунт"
+    },
+    "menu-items": {
+      "profile": "Профиль",
+      "settings": "Настройки",
+      "log-out": "Выйти из аккаунта",
+      "logging-out": "Выход из аккаунта..."
     }
   },
 

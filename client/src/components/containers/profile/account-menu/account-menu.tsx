@@ -55,15 +55,15 @@ export const AccountMenu: FC = () => {
             <ListItemIcon>
               <Settings fontSize="small" />
             </ListItemIcon>
-            {t("profile.account-menu.menu-items.settings")}
+            {t("profile.menu-items.settings")}
           </MenuItem>
           <MenuItem onClick={handleLogout} disabled={isLoading}>
             <ListItemIcon>
               <Logout fontSize="small" />
             </ListItemIcon>
             {isLoading
-              ? t("profile.account-menu.menu-items.logging-out")
-              : t("profile.account-menu.menu-items.log-out")}
+              ? t("profile.menu-items.logging-out")
+              : t("profile.menu-items.log-out")}
           </MenuItem>
         </>
       }

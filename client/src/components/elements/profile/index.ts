@@ -1,2 +1,3 @@
 export { ProfileBadgeUI } from "./profile-badge";
-export { AccountMenuUI } from './account-menu';
+export { ProfileMenuUI, type TMenuItem } from "./profile-menu";
+export { AccountMenuUI } from "./account-menu";
