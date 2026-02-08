@@ -4,9 +4,16 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/config/routes";
 import { useGetMeQuery, useLogoutMutation } from "@/services";
 import { AccountMenuUI } from "@/components/elements";
-import { Avatar, Divider, ListItemIcon, MenuItem } from "@mui/material";
+import {
+  Avatar,
+  Divider,
+  ListItemIcon,
+  MenuItem,
+  Typography,
+} from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
 import Settings from "@mui/icons-material/Settings";
+import { logoutMenuItemStyle, usernameStyle } from "./styles";
 
 export const AccountMenu: FC = () => {
   const { t } = useTranslation();
@@ -45,10 +52,12 @@ export const AccountMenu: FC = () => {
       isOpen={isOpen}
       anchorEl={anchorEl}
       items={
-        <>
+        <div>
           <MenuItem onClick={navigateToProfile}>
             <Avatar />
-            {`${data?.firstName} ${data?.lastName}`}
+            <Typography
+              sx={usernameStyle}
+            >{`${data?.firstName} ${data?.lastName}`}</Typography>
           </MenuItem>
           <Divider />
           <MenuItem onClick={navigateToSettings}>
@@ -57,15 +66,19 @@ export const AccountMenu: FC = () => {
             </ListItemIcon>
             {t("profile.menu-items.settings")}
           </MenuItem>
-          <MenuItem onClick={handleLogout} disabled={isLoading}>
+          <MenuItem
+            disabled={isLoading}
+            sx={logoutMenuItemStyle}
+            onClick={handleLogout}
+          >
             <ListItemIcon>
-              <Logout fontSize="small" />
+              <Logout fontSize="small" color="error" />
             </ListItemIcon>
             {isLoading
               ? t("profile.menu-items.logging-out")
               : t("profile.menu-items.log-out")}
           </MenuItem>
-        </>
+        </div>
       }
       onClick={handleClick}
       onClose={handleClose}

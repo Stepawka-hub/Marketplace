@@ -23,6 +23,16 @@ export class UserController {
   @Get('@me')
   @HttpCode(HttpStatus.OK)
   me(@Authorizated() user: UserEntity) {
-    return user;
+    const { id, email, phone, firstName, lastName, avatar, role } = user;
+
+    return {
+      id,
+      email,
+      phone,
+      firstName,
+      lastName,
+      avatar,
+      role,
+    };
   }
 }
