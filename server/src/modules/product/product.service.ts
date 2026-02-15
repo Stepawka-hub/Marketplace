@@ -11,7 +11,8 @@ import { ProductEntity, ProductMediaEntity } from './entities';
 import {
   CreateProductDto,
   ProductMediaDto,
-  BaseProductResponseDto,
+  ProductListItemResponseDto,
+  ProductDetailsResponseDto,
 } from './dto';
 
 @Injectable()
@@ -74,7 +75,7 @@ export class ProductService {
       throw new NotFoundException('Созданный товар не найден!');
     }
 
-    return this.mapToBaseProductDto(createdProduct);
+    return this.mapToProductDetailsDto(createdProduct);
   }
 
   async createProductMedia(
@@ -96,13 +97,19 @@ export class ProductService {
     return await this.productMediaRepository.save(productMedia);
   }
 
-  async findProducts(): Promise<BaseProductResponseDto[]> {
+  async findProducts(): Promise<ProductListItemResponseDto[]> {
     const products = await this.productRepository.find({
       relations: {
         seller: true,
         media: true,
       },
       select: {
+        id: true,
+        name: true,
+        shortDescription: true,
+        category: true,
+        price: true,
+        createdAt: true,
         seller: {
           id: true,
           firstName: true,
@@ -115,10 +122,10 @@ export class ProductService {
       },
     });
 
-    return products.map((product) => this.mapToBaseProductDto(product));
+    return products.map((product) => this.mapToProductListItemDto(product));
   }
 
-  async findProductById(id: string): Promise<BaseProductResponseDto> {
+  async findProductById(id: string): Promise<ProductDetailsResponseDto> {
     const product = await this.productRepository.findOne({
       where: {
         id,
@@ -144,10 +151,24 @@ export class ProductService {
       throw new NotFoundException('Product not found!');
     }
 
-    return this.mapToBaseProductDto(product);
+    return this.mapToProductDetailsDto(product);
   }
 
-  private mapToBaseProductDto(product: ProductEntity): BaseProductResponseDto {
+  private mapToProductListItemDto(
+    product: ProductEntity,
+  ): ProductListItemResponseDto {
+    const previewMedia = product.media.find((m) => m.isPreview);
+    const preview = this.mediaBaseUrl + previewMedia?.filename;
+
+    return {
+      ...product,
+      preview,
+    };
+  }
+
+  private mapToProductDetailsDto(
+    product: ProductEntity,
+  ): ProductDetailsResponseDto {
     const media: ProductMediaDto[] = product.media.map((m) => ({
       url: this.mediaBaseUrl + m.filename,
       isPreview: m.isPreview,

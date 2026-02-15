@@ -1,9 +1,9 @@
 import { baseAPI } from "../base/base.service";
-import { TProduct } from "@/shared/types";
+import { TProductDetails, TProductListItem } from "@/shared/types";
 
 export const productAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
-    getAllProducts: build.query<TProduct[], number>({
+    getAllProducts: build.query<TProductListItem[], number>({
       query: (limit: number = 5) => ({
         url: "/products",
         params: {
@@ -11,7 +11,12 @@ export const productAPI = baseAPI.injectEndpoints({
         },
       }),
     }),
+    getProductById: build.query<TProductDetails, string>({
+      query: (productId: string) => ({
+        url: `/products/${productId}`,
+      }),
+    }),
   }),
 });
 
-export const { useGetAllProductsQuery } = productAPI;
+export const { useGetAllProductsQuery, useGetProductByIdQuery } = productAPI;

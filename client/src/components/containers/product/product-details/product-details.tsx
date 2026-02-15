@@ -1,15 +1,14 @@
 import { FC } from "react";
-import { NotFound, ProductDetailsUI } from "@/components/elements";
 import { useParams } from "react-router-dom";
+import { skipToken } from "@reduxjs/toolkit/query";
+import { useGetProductByIdQuery } from "@/services";
 import { useCart } from "@/hooks/useCart";
 import { useFavorites } from "@/hooks/useFavorites";
-import mockProducts from "@/shared/mock/products.json";
+import { NotFound, ProductDetailsUI } from "@/components/elements";
 
 export const ProductDetails: FC = () => {
   const { productId } = useParams<"productId">();
-
-  // Todo: Переписать на корректное получение из стора
-  const product = mockProducts.find((p) => p.id === productId);
+  const { data: product } = useGetProductByIdQuery(productId ?? skipToken);
 
   const { isInCart, addToCart } = useCart();
   const { isInFavorites, toggleFavorite } = useFavorites();

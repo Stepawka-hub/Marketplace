@@ -6,7 +6,6 @@ import {
 } from "react-redux";
 import catalogReducer from "@/store/slices/catalog";
 import cartReducer from "@/store/slices/cart";
-import productReducer from "@/store/slices/product";
 import favoritesReducer from "@/store/slices/favorites";
 import profileReducer from "@/store/slices/profile";
 import { baseAPI } from "@/services/base/base.service";
@@ -14,7 +13,6 @@ import { baseAPI } from "@/services/base/base.service";
 export const rootReducer = combineReducers({
   catalog: catalogReducer,
   cart: cartReducer,
-  product: productReducer,
   favorites: favoritesReducer,
   profile: profileReducer,
   [baseAPI.reducerPath]: baseAPI.reducer,

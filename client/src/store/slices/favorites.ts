@@ -1,4 +1,4 @@
-import { TProduct } from "@/shared/types";
+import { TProductListItem } from "@/shared/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TFavoritesState } from "./types";
 
@@ -11,7 +11,7 @@ const favoriteSlice = createSlice({
   name: "favorites",
   initialState,
   reducers: {
-    toggleFavorite: (state, { payload }: PayloadAction<TProduct>) => {
+    toggleFavorite: (state, { payload }: PayloadAction<TProductListItem>) => {
       const product = payload;
       const existingProductIndex = state.favoriteItems.findIndex(
         (item) => item.id === product.id

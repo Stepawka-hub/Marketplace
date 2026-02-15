@@ -1,10 +1,4 @@
-import {
-  TCartProduct,
-  TFilter,
-  TProduct,
-  TRange,
-  TReview,
-} from "@/shared/types";
+import { TCartProduct, TFilter, TProductDetails, TRange } from "@/shared/types";
 
 export type TCatalogState = {
   categories: string[];
@@ -14,7 +8,7 @@ export type TCatalogState = {
 };
 
 export type TFavoritesState = {
-  favoriteItems: TProduct[];
+  favoriteItems: TProductDetails[];
   isLoading: boolean;
 };
 
@@ -22,11 +16,6 @@ export type TCartState = {
   cartItems: TCartProduct[];
   selectedIds: string[];
   isLoading: boolean;
-};
-
-export type TProductState = {
-  product: TProduct | null;
-  reviews: TReview[];
 };
 
 export type TProfileState = {

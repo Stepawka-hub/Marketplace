@@ -17,16 +17,8 @@ export const ProductDetailsUI: FC<TProductDetailsUIProps> = ({
   addToCart,
   toggleFavorite,
 }) => {
-  const {
-    name,
-    images,
-    price,
-    attributes,
-    description,
-    rating,
-    numberReviews,
-    seller,
-  } = product;
+  const { name, media, price, description, rating, seller } = product;
+  const { firstName, lastName } = seller;
 
   return (
     <Box>
@@ -36,7 +28,7 @@ export const ProductDetailsUI: FC<TProductDetailsUIProps> = ({
 
       <Grid container justifyContent="space-between" spacing={4}>
         <Grid size={{ xs: 12, lg: 7, xl: 6 }}>
-          <ProductImages images={images} />
+          <ProductImages images={media} />
         </Grid>
 
         <Grid flexGrow={1}>
@@ -50,9 +42,11 @@ export const ProductDetailsUI: FC<TProductDetailsUIProps> = ({
             />
             <ProductMeta
               rating={rating}
-              numberReviews={numberReviews}
-              seller={seller.name}
-              attributes={attributes}
+              // Todo: исправить на корректное число ревью
+              numberReviews={0}
+              seller={`${lastName} ${firstName}`}
+              // Todo: исправить на корректные атрибуты
+              attributes={[]}
             />
           </Box>
         </Grid>

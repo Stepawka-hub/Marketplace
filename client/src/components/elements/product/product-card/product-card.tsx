@@ -23,10 +23,10 @@ import {
   nameTypographyStyle,
   priceTypographyStyle,
 } from "./styles";
-import { ProductCardProps } from "./type";
+import { TProductCardProps } from "./type";
 import { ROUTES } from "@/config/routes";
 
-export const ProductCard: FC<ProductCardProps> = ({
+export const ProductCard: FC<TProductCardProps> = ({
   product,
   isInCart,
   isInFavorites,
@@ -35,10 +35,8 @@ export const ProductCard: FC<ProductCardProps> = ({
 }) => {
   const { i18n, t } = useTranslation();
   const navigate = useNavigate();
-  const { id, name, shortDescription, media, seller, price } = product;
+  const { id, name, shortDescription, preview, seller, price } = product;
   const formattedPrice = formattedWithSpace(price, i18n.language);
-
-  const preview = media.find((m) => m.isPreview);
 
   const handleAddToCart = () => {
     addToCart(product);
@@ -54,7 +52,7 @@ export const ProductCard: FC<ProductCardProps> = ({
 
   return (
     <Card variant="outlined" sx={cardStyle} onClick={handleNavigateToProduct}>
-      <CardMedia title={name} image={preview?.url} sx={cardMediaStyle}>
+      <CardMedia title={name} image={preview} sx={cardMediaStyle}>
         <Box sx={boxLikeButtonStyle}>
           <LikeButton
             isActive={isInFavorites}
@@ -82,7 +80,7 @@ export const ProductCard: FC<ProductCardProps> = ({
         </Typography>
 
         <Typography>{`${t(
-          "product.seller.label"
+          "product.seller.label",
         )}: ${`${seller.firstName} ${seller.lastName}`}`}</Typography>
       </CardContent>
 

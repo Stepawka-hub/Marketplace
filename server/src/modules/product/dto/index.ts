@@ -1,4 +1,5 @@
 export { CreateProductDto } from './create-product.dto';
-export { FindOneProductResponseDto } from './find-products.dto';
-export { BaseProductResponseDto } from './base-product-response.dto';
+export { BaseProductResponseDto } from './base-product.dto';
+export { ProductDetailsResponseDto } from './product-details.dto';
+export { ProductListItemResponseDto } from './product-list-item.dto';
 export { ProductMediaDto, ProductSellerDto } from './common.dto';

@@ -1,3 +1,3 @@
 export type TProductDescriptionProps = {
-  description: string;
+  description?: string;
 };

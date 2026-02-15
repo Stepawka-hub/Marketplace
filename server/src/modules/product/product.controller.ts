@@ -20,7 +20,12 @@ import {
 import { Authorizated, Authorization } from '@/modules/auth/decorators';
 import { ProductService } from './product.service';
 import { ProductFilesValidationPipe } from './pipes';
-import { BaseProductResponseDto, CreateProductDto } from './dto';
+import {
+  BaseProductResponseDto,
+  CreateProductDto,
+  ProductDetailsResponseDto,
+  ProductListItemResponseDto,
+} from './dto';
 import {
   PRODUCT_MEDIA_FILES_VALIDATION_OPTIONS,
   PRODUCT_PREVIEW_FILE_VALIDATION_OPTIONS,
@@ -71,25 +76,25 @@ export class ProductController {
 
   @ApiOkResponse({
     description: 'Список товаров',
-    type: BaseProductResponseDto,
+    type: ProductListItemResponseDto,
     isArray: true,
   })
   @ApiOperation({ summary: 'Получить список товаров' })
   @Get()
-  findProducts(): Promise<BaseProductResponseDto[]> {
+  findProducts(): Promise<ProductListItemResponseDto[]> {
     return this.productService.findProducts();
   }
 
   @ApiOperation({ summary: 'Получить товар по ID' })
   @ApiOkResponse({
     description: 'Товар',
-    type: BaseProductResponseDto,
+    type: ProductDetailsResponseDto,
   })
   @ApiNotFoundResponse({ description: 'Товар не найден' })
   @Get(':productId')
   findProductById(
     @Param('productId') id: string,
-  ): Promise<BaseProductResponseDto> {
+  ): Promise<ProductDetailsResponseDto> {
     return this.productService.findProductById(id);
   }
 }

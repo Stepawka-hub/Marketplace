@@ -11,6 +11,9 @@ export class ProductMediaDto {
 }
 
 export class ProductSellerDto {
+  @ApiProperty(USER_API_PROPERTIES.ID)
+  id: string;
+
   @ApiProperty(USER_API_PROPERTIES.FIRST_NAME)
   firstName: string;
 

@@ -1,7 +1,7 @@
-import { TProduct, TProductData } from "@/shared/types";
+import { TProductListItem } from "@/shared/types";
 
-export type ProductCardProps = {
-  product: TProduct;
+export type TProductCardProps = {
+  product: TProductListItem;
   isInCart: boolean;
   isInFavorites: boolean;
   addToCart: (p: TProductData) => void;
