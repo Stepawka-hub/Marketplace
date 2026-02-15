@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
   UploadedFiles,
   UseInterceptors,
@@ -11,6 +12,7 @@ import {
   ApiBearerAuth,
   ApiBody,
   ApiConsumes,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
 } from '@nestjs/swagger';
@@ -67,9 +69,27 @@ export class ProductController {
     );
   }
 
-  @Get()
+  @ApiOkResponse({
+    description: 'Список товаров',
+    type: BaseProductResponseDto,
+    isArray: true,
+  })
   @ApiOperation({ summary: 'Получить список товаров' })
+  @Get()
   findProducts(): Promise<BaseProductResponseDto[]> {
     return this.productService.findProducts();
+  }
+
+  @ApiOperation({ summary: 'Получить товар по ID' })
+  @ApiOkResponse({
+    description: 'Товар',
+    type: BaseProductResponseDto,
+  })
+  @ApiNotFoundResponse({ description: 'Товар не найден' })
+  @Get(':productId')
+  findProductById(
+    @Param('productId') id: string,
+  ): Promise<BaseProductResponseDto> {
+    return this.productService.findProductById(id);
   }
 }

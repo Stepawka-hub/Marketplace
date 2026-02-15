@@ -115,11 +115,36 @@ export class ProductService {
       },
     });
 
-    if (!products) {
-      throw new NotFoundException('Products not found!');
+    return products.map((product) => this.mapToBaseProductDto(product));
+  }
+
+  async findProductById(id: string): Promise<BaseProductResponseDto> {
+    const product = await this.productRepository.findOne({
+      where: {
+        id,
+      },
+      relations: {
+        seller: true,
+        media: true,
+      },
+      select: {
+        seller: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        },
+        media: {
+          filename: true,
+          isPreview: true,
+        },
+      },
+    });
+
+    if (!product) {
+      throw new NotFoundException('Product not found!');
     }
 
-    return products.map((product) => this.mapToBaseProductDto(product));
+    return this.mapToBaseProductDto(product);
   }
 
   private mapToBaseProductDto(product: ProductEntity): BaseProductResponseDto {
