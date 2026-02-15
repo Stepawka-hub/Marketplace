@@ -1,7 +1,4 @@
 import { FC } from "react";
-import { Box, Divider, Grid, Typography } from "@mui/material";
-import { dividerStyle, productContentStyle, productNameStyle } from "./styles";
-import { TProductDetailsUIProps } from "./types";
 import { ProductImages } from "@/components/containers";
 import {
   ProductDescription,
@@ -9,15 +6,12 @@ import {
   ProductPurchase,
   ProductReviews,
 } from "@/components/elements";
+import { Box, Divider, Grid, Typography } from "@mui/material";
+import { dividerStyle, productContentStyle, productNameStyle } from "./styles";
+import { TProductDetailsUIProps } from "./types";
 
-export const ProductDetailsUI: FC<TProductDetailsUIProps> = ({
-  product,
-  isInCart,
-  isInFavorites,
-  addToCart,
-  toggleFavorite,
-}) => {
-  const { name, media, price, description, rating, seller } = product;
+export const ProductDetailsUI: FC<TProductDetailsUIProps> = ({ product }) => {
+  const { id, name, media, price, description, rating, seller } = product;
   const { firstName, lastName } = seller;
 
   return (
@@ -33,13 +27,7 @@ export const ProductDetailsUI: FC<TProductDetailsUIProps> = ({
 
         <Grid flexGrow={1}>
           <Box sx={productContentStyle}>
-            <ProductPurchase
-              isInCart={isInCart}
-              isInFavorites={isInFavorites}
-              price={price}
-              addToCart={addToCart}
-              toggleFavorite={toggleFavorite}
-            />
+            <ProductPurchase productId={id} price={price} />
             <ProductMeta
               rating={rating}
               // Todo: исправить на корректное число ревью

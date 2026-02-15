@@ -6,14 +6,12 @@ import {
 } from "react-redux";
 import catalogReducer from "@/store/slices/catalog";
 import cartReducer from "@/store/slices/cart";
-import favoritesReducer from "@/store/slices/favorites";
 import profileReducer from "@/store/slices/profile";
 import { baseAPI } from "@/services/base/base.service";
 
 export const rootReducer = combineReducers({
   catalog: catalogReducer,
   cart: cartReducer,
-  favorites: favoritesReducer,
   profile: profileReducer,
   [baseAPI.reducerPath]: baseAPI.reducer,
 });

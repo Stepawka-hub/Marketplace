@@ -1,7 +1,4 @@
 export type TProductPurchaseProps = {
-  isInCart: boolean;
-  isInFavorites: boolean;
+  productId: string;
   price: number;
-  addToCart: () => void;
-  toggleFavorite: () => void;
 };

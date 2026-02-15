@@ -2,8 +2,7 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-import { AddToCartButton } from "@/components/containers";
-import { LikeButton } from "@/components/elements";
+import { AddToCartButton, LikeButton } from "@/components/containers";
 import { Card } from "@/components/ui";
 import {
   Box,
@@ -26,25 +25,12 @@ import {
 import { TProductCardProps } from "./type";
 import { ROUTES } from "@/config/routes";
 
-export const ProductCard: FC<TProductCardProps> = ({
-  product,
-  isInCart,
-  isInFavorites,
-  addToCart,
-  toggleFavorite,
-}) => {
+export const ProductCard: FC<TProductCardProps> = ({ product }) => {
   const { i18n, t } = useTranslation();
   const navigate = useNavigate();
+
   const { id, name, shortDescription, preview, seller, price } = product;
   const formattedPrice = formattedWithSpace(price, i18n.language);
-
-  const handleAddToCart = () => {
-    addToCart(product);
-  };
-
-  const handleToggleFavorite = () => {
-    toggleFavorite(product);
-  };
 
   const handleNavigateToProduct = () => {
     navigate(ROUTES.CATALOG_PRODUCT(id));
@@ -54,15 +40,7 @@ export const ProductCard: FC<TProductCardProps> = ({
     <Card variant="outlined" sx={cardStyle} onClick={handleNavigateToProduct}>
       <CardMedia title={name} image={preview} sx={cardMediaStyle}>
         <Box sx={boxLikeButtonStyle}>
-          <LikeButton
-            isActive={isInFavorites}
-            title={
-              isInFavorites
-                ? t("product.buttons.remove-from-favorites")
-                : t("product.buttons.add-to-favorites")
-            }
-            handleClick={handleToggleFavorite}
-          />
+          <LikeButton productId={id} />
         </Box>
       </CardMedia>
 
@@ -85,7 +63,7 @@ export const ProductCard: FC<TProductCardProps> = ({
       </CardContent>
 
       <CardActions>
-        <AddToCartButton isInCart={isInCart} addToCart={handleAddToCart} />
+        <AddToCartButton productId={id} />
       </CardActions>
     </Card>
   );

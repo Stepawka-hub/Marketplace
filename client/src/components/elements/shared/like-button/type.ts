@@ -1,5 +1,4 @@
-export type LikeButtonProps = {
+export type TLikeButtonUIProps = {
   isActive: boolean;
-  title: string;
-  handleClick: () => void;
-}
+  handleAction: () => void;
+};

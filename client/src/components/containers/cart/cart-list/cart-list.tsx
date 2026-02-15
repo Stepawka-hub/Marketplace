@@ -1,18 +1,18 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import { Grid } from "@mui/material";
 import { useDispatch, useSelector } from "@/store";
 import {
   getCartItems,
   getSelectedIds,
-  removeFromCart,
   toggleSelectedProduct,
 } from "@/store/slices/cart";
+import { ROUTES } from "@/config/routes";
 import { isInArray } from "@/shared/helpers";
+
 import { CartListHeader } from "@/components/containers";
 import { CartItemUI } from "@/components/elements";
+import { Grid } from "@mui/material";
 import { gridStyle } from "./styles";
-import { ROUTES } from "@/config/routes";
 
 export const CartList: FC = () => {
   const navigate = useNavigate();
@@ -20,9 +20,7 @@ export const CartList: FC = () => {
   const selectedIds = useSelector(getSelectedIds);
   const cartItems = useSelector(getCartItems);
 
-  const handleDelete = (id: string) => {
-    dispatch(removeFromCart(id));
-  };
+  const handleDelete = (id: string) => {};
 
   const handleSelect = (id: string) => {
     dispatch(toggleSelectedProduct(id));

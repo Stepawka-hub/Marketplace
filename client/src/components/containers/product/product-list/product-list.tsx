@@ -2,16 +2,11 @@ import { FC } from "react";
 import { checkInRange, includesRow } from "@/shared/helpers";
 import { useSelector } from "@/store";
 import { getFilters, getSearchQuery } from "@/store/slices/catalog";
-import { useCart } from "@/hooks/useCart";
-import { useFavorites } from "@/hooks/useFavorites";
 import { ProductListUI } from "@/components/elements";
 import { useGetAllProductsQuery } from "@/services";
 
 export const ProductList: FC = () => {
   const { data: products = [], isLoading } = useGetAllProductsQuery(5);
-
-  const { isInCart, addToCart } = useCart();
-  const { isInFavorites, toggleFavorite } = useFavorites();
 
   const searchQuery = useSelector(getSearchQuery);
   const { category, price } = useSelector(getFilters);
@@ -27,10 +22,6 @@ export const ProductList: FC = () => {
     <ProductListUI
       products={filteredProducts}
       isLoading={isLoading}
-      isInCart={isInCart}
-      isInFavorites={isInFavorites}
-      addToCart={addToCart}
-      toggleFavorite={toggleFavorite}
     />
   );
 };
