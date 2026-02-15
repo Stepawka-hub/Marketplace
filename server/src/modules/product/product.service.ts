@@ -1,16 +1,16 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 
 import { STORAGE_PATHS } from '@/config/s3';
 import { StorageService } from '@/modules/storage';
 import { UserService } from '@/modules/user';
+import { ProductMapper } from './mappers';
 import { generateFileName, getMediaType } from '@/common/utils';
 import { ProductEntity, ProductMediaEntity } from './entities';
 import {
   CreateProductDto,
-  ProductMediaDto,
   ProductListItemResponseDto,
   ProductDetailsResponseDto,
 } from './dto';
@@ -18,6 +18,8 @@ import {
 @Injectable()
 export class ProductService {
   private readonly mediaBaseUrl: string;
+  public readonly productMapper: ProductMapper;
+
   constructor(
     @InjectRepository(ProductEntity)
     private readonly productRepository: Repository<ProductEntity>,
@@ -29,6 +31,8 @@ export class ProductService {
   ) {
     const domain = this.configService.getOrThrow<string>('S3_PUBLIC_DOMAIN');
     this.mediaBaseUrl = domain.endsWith('/') ? domain : domain + '/';
+
+    this.productMapper = new ProductMapper(this.mediaBaseUrl);
   }
 
   async createProduct(
@@ -75,7 +79,7 @@ export class ProductService {
       throw new NotFoundException('Созданный товар не найден!');
     }
 
-    return this.mapToProductDetailsDto(createdProduct);
+    return this.productMapper.toDetails(createdProduct);
   }
 
   async createProductMedia(
@@ -122,7 +126,7 @@ export class ProductService {
       },
     });
 
-    return products.map((product) => this.mapToProductListItemDto(product));
+    return this.productMapper.toListItemArray(products);
   }
 
   async findProductById(id: string): Promise<ProductDetailsResponseDto> {
@@ -151,32 +155,42 @@ export class ProductService {
       throw new NotFoundException('Product not found!');
     }
 
-    return this.mapToProductDetailsDto(product);
+    return this.productMapper.toDetails(product);
   }
 
-  private mapToProductListItemDto(
-    product: ProductEntity,
-  ): ProductListItemResponseDto {
-    const previewMedia = product.media.find((m) => m.isPreview);
-    const preview = this.mediaBaseUrl + previewMedia?.filename;
+  async findProductsByIds(
+    ids: string[],
+  ): Promise<ProductListItemResponseDto[]> {
+    const products = await this.productRepository.find({
+      where: {
+        id: In(ids),
+      },
+      order: {
+        createdAt: 'DESC',
+      },
+      relations: {
+        seller: true,
+        media: true,
+      },
+      select: {
+        id: true,
+        name: true,
+        shortDescription: true,
+        category: true,
+        price: true,
+        createdAt: true,
+        seller: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        },
+        media: {
+          filename: true,
+          isPreview: true,
+        },
+      },
+    });
 
-    return {
-      ...product,
-      preview,
-    };
-  }
-
-  private mapToProductDetailsDto(
-    product: ProductEntity,
-  ): ProductDetailsResponseDto {
-    const media: ProductMediaDto[] = product.media.map((m) => ({
-      url: this.mediaBaseUrl + m.filename,
-      isPreview: m.isPreview,
-    }));
-
-    return {
-      ...product,
-      media,
-    };
+    return this.productMapper.toListItemArray(products);
   }
 }
