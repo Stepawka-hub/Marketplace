@@ -1,16 +1,39 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
+import {
+  useAddProductToFavoritesMutation,
+  useGetFavoritesProductsQuery,
+  useRemoveProductFromFavoritesMutation,
+} from "@/services/favorites";
 import { LikeButtonUI } from "@/components/elements";
 import { TLikeButtonProps } from "./type";
 
 export const LikeButton: FC<TLikeButtonProps> = ({ productId }) => {
-  // const isInFavorites = useCallback(
-  //   (productId: string) => isInArray(favoriteItemsIds, productId),
-  //   [favoriteItemsIds],
-  // );
+  const { data: favorites = [] } = useGetFavoritesProductsQuery(5);
 
-  const isActive = false;
+  const [addProductToFavorite, { isLoading: isAdding }] =
+    useAddProductToFavoritesMutation();
 
-  const onClick = () => {};
+  const [removeProductFromFavorite, { isLoading: isRemoving }] =
+    useRemoveProductFromFavoritesMutation();
 
-  return <LikeButtonUI isActive={isActive} handleAction={onClick} />;
+  const isInFavorites = useMemo(
+    () => favorites.some((f) => f.id === productId),
+    [favorites, productId],
+  );
+
+  const addToFavorite = () => {
+    addProductToFavorite(productId);
+  };
+
+  const removeFromFavorite = () => {
+    removeProductFromFavorite(productId);
+  };
+
+  return (
+    <LikeButtonUI
+      isActive={isInFavorites}
+      disabled={isAdding || isRemoving}
+      handleAction={isInFavorites ? removeFromFavorite : addToFavorite}
+    />
+  );
 };

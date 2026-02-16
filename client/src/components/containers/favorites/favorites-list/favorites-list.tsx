@@ -1,9 +1,9 @@
 import { FC, memo } from "react";
-import { useGetAllProductsQuery } from "@/services";
 import { ProductListUI } from "@/components/elements";
+import { useGetFavoritesProductsQuery } from "@/services/favorites";
 
 export const FavoritesList: FC = memo(() => {
-  const { data: products = [], isLoading } = useGetAllProductsQuery(5);
+  const { data: products = [], isLoading } = useGetFavoritesProductsQuery(5);
 
   return <ProductListUI products={products} isLoading={isLoading} />;
 });

@@ -11,18 +11,30 @@ export const favoritesAPI = baseAPI.injectEndpoints({
           _limit: limit,
         },
       }),
+      transformResponse: (response: TServerResponse<TProductListItem[]>) =>
+        response.data,
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: "Favorites" as const, id })),
+              { type: "Favorites", id: "LIST" },
+            ]
+          : [{ type: "Favorites", id: "LIST" }],
     }),
-    addProductToFavorites: build.mutation<TServerResponse<string>, string>({
+    addProductToFavorites: build.mutation<string, string>({
       query: (productId: string) => ({
         url: `/favorites/${productId}`,
         method: "POST",
       }),
+      transformResponse: (response: TServerResponse<string>) => response.data,
+      invalidatesTags: [{ type: "Favorites", id: "LIST" }],
     }),
     removeProductFromFavorites: build.mutation<TServerResponse, string>({
       query: (productId: string) => ({
         url: `/favorites/${productId}`,
         method: "DELETE",
       }),
+      invalidatesTags: [{ type: "Favorites", id: "LIST" }],
     }),
   }),
 });
