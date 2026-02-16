@@ -14,6 +14,8 @@ import {
   ProductListItemResponseDto,
   ProductDetailsResponseDto,
 } from './dto';
+import { TApiResponse } from '@/common';
+import { ApiResponse } from '@/common/helpers';
 
 @Injectable()
 export class ProductService {
@@ -40,7 +42,7 @@ export class ProductService {
     previewFile: Express.Multer.File,
     mediaFiles: Express.Multer.File[],
     userId: string,
-  ) {
+  ): Promise<TApiResponse<ProductDetailsResponseDto>> {
     // Todo: сделать транзакцией
     const user = await this.userService.findById(userId);
     const product = this.productRepository.create({
@@ -79,7 +81,10 @@ export class ProductService {
       throw new NotFoundException('Созданный товар не найден!');
     }
 
-    return this.productMapper.toDetails(createdProduct);
+    return ApiResponse.success(
+      this.productMapper.toDetails(createdProduct),
+      'Товар успешно создан!',
+    );
   }
 
   async createProductMedia(
@@ -101,7 +106,7 @@ export class ProductService {
     return await this.productMediaRepository.save(productMedia);
   }
 
-  async findProducts(): Promise<ProductListItemResponseDto[]> {
+  async findProducts(): Promise<TApiResponse<ProductListItemResponseDto[]>> {
     const products = await this.productRepository.find({
       relations: {
         seller: true,
@@ -126,10 +131,12 @@ export class ProductService {
       },
     });
 
-    return this.productMapper.toListItemArray(products);
+    return ApiResponse.success(this.productMapper.toListItemArray(products));
   }
 
-  async findProductById(id: string): Promise<ProductDetailsResponseDto> {
+  async findProductById(
+    id: string,
+  ): Promise<TApiResponse<ProductDetailsResponseDto>> {
     const product = await this.productRepository.findOne({
       where: {
         id,
@@ -152,15 +159,15 @@ export class ProductService {
     });
 
     if (!product) {
-      throw new NotFoundException('Product not found!');
+      throw new NotFoundException('Товар не найден!');
     }
 
-    return this.productMapper.toDetails(product);
+    return ApiResponse.success(this.productMapper.toDetails(product));
   }
 
   async findProductsByIds(
     ids: string[],
-  ): Promise<ProductListItemResponseDto[]> {
+  ): Promise<TApiResponse<ProductListItemResponseDto[]>> {
     const products = await this.productRepository.find({
       where: {
         id: In(ids),
@@ -191,6 +198,6 @@ export class ProductService {
       },
     });
 
-    return this.productMapper.toListItemArray(products);
+    return ApiResponse.success(this.productMapper.toListItemArray(products));
   }
 }

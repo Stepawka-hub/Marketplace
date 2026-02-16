@@ -11,13 +11,19 @@ export class FavoritesController {
     return this.favoritesService.findAll(userId);
   }
 
-  @Post()
-  create() {
-    return this.favoritesService.create();
+  @Post(':productId')
+  create(
+    @Authorizated('id') userId: string,
+    @Param('productId') productId: string,
+  ) {
+    return this.favoritesService.create(userId, productId);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.favoritesService.remove(+id);
+  @Delete(':productId')
+  remove(
+    @Authorizated('id') userId: string,
+    @Param('productId') productId: string,
+  ) {
+    return this.favoritesService.remove(userId, productId);
   }
 }
