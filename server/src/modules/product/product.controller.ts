@@ -21,9 +21,10 @@ import { Authorizated, Authorization } from '@/modules/auth/decorators';
 import { ProductService } from './product.service';
 import { ProductFilesValidationPipe } from './pipes';
 import {
-  BaseProductResponseDto,
   CreateProductDto,
+  ProductDetailsDto,
   ProductDetailsResponseDto,
+  ProductListItemDto,
   ProductListItemResponseDto,
 } from './dto';
 import {
@@ -31,13 +32,17 @@ import {
   PRODUCT_PREVIEW_FILE_VALIDATION_OPTIONS,
 } from './constants';
 import { TProductFiles } from './types';
+import { TApiResponse } from '@/common';
 
 @Controller('products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @ApiOperation({ summary: 'Создать товар' })
-  @ApiOkResponse({ description: 'Товар создан' })
+  @ApiOkResponse({
+    description: 'Товар создан',
+    type: ProductDetailsResponseDto,
+  })
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     description: 'Данные товара с превью товара и медиа-файлами',
@@ -65,7 +70,7 @@ export class ProductController {
     )
     files: TProductFiles,
     @Body() data: CreateProductDto,
-  ): Promise<BaseProductResponseDto> {
+  ): Promise<TApiResponse<ProductDetailsDto>> {
     return this.productService.createProduct(
       data,
       files.preview,
@@ -77,24 +82,23 @@ export class ProductController {
   @ApiOkResponse({
     description: 'Список товаров',
     type: ProductListItemResponseDto,
-    isArray: true,
   })
   @ApiOperation({ summary: 'Получить список товаров' })
   @Get()
-  findProducts(): Promise<ProductListItemResponseDto[]> {
+  findProducts(): Promise<TApiResponse<ProductListItemDto[]>> {
     return this.productService.findProducts();
   }
 
   @ApiOperation({ summary: 'Получить товар по ID' })
   @ApiOkResponse({
-    description: 'Товар',
+    description: 'Подробная информация о товаре',
     type: ProductDetailsResponseDto,
   })
   @ApiNotFoundResponse({ description: 'Товар не найден' })
   @Get(':productId')
   findProductById(
     @Param('productId') id: string,
-  ): Promise<ProductDetailsResponseDto> {
+  ): Promise<TApiResponse<ProductDetailsDto>> {
     return this.productService.findProductById(id);
   }
 }

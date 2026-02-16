@@ -6,16 +6,15 @@ import { In, Repository } from 'typeorm';
 import { STORAGE_PATHS } from '@/config/s3';
 import { StorageService } from '@/modules/storage';
 import { UserService } from '@/modules/user';
+
 import { ProductMapper } from './mappers';
-import { generateFileName, getMediaType } from '@/common/utils';
-import { ProductEntity, ProductMediaEntity } from './entities';
-import {
-  CreateProductDto,
-  ProductListItemResponseDto,
-  ProductDetailsResponseDto,
-} from './dto';
-import { TApiResponse } from '@/common';
 import { ApiResponse } from '@/common/helpers';
+import { generateFileName, getMediaType } from '@/common/utils';
+
+import { ProductEntity, ProductMediaEntity } from './entities';
+import { CreateProductDto, ProductDetailsDto } from './dto';
+import { ProductListItemDto } from './dto/product-list-item.dto';
+import { TApiResponse } from '@/common';
 
 @Injectable()
 export class ProductService {
@@ -42,7 +41,7 @@ export class ProductService {
     previewFile: Express.Multer.File,
     mediaFiles: Express.Multer.File[],
     userId: string,
-  ): Promise<TApiResponse<ProductDetailsResponseDto>> {
+  ): Promise<TApiResponse<ProductDetailsDto>> {
     // Todo: сделать транзакцией
     const user = await this.userService.findById(userId);
     const product = this.productRepository.create({
@@ -106,7 +105,7 @@ export class ProductService {
     return await this.productMediaRepository.save(productMedia);
   }
 
-  async findProducts(): Promise<TApiResponse<ProductListItemResponseDto[]>> {
+  async findProducts(): Promise<TApiResponse<ProductListItemDto[]>> {
     const products = await this.productRepository.find({
       relations: {
         seller: true,
@@ -134,9 +133,7 @@ export class ProductService {
     return ApiResponse.success(this.productMapper.toListItemArray(products));
   }
 
-  async findProductById(
-    id: string,
-  ): Promise<TApiResponse<ProductDetailsResponseDto>> {
+  async findProductById(id: string): Promise<TApiResponse<ProductDetailsDto>> {
     const product = await this.productRepository.findOne({
       where: {
         id,
@@ -167,7 +164,7 @@ export class ProductService {
 
   async findProductsByIds(
     ids: string[],
-  ): Promise<TApiResponse<ProductListItemResponseDto[]>> {
+  ): Promise<TApiResponse<ProductListItemDto[]>> {
     const products = await this.productRepository.find({
       where: {
         id: In(ids),

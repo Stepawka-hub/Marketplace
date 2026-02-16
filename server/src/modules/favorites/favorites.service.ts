@@ -7,9 +7,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { FavoriteEntity } from './entities';
 import { ProductService } from '../product/product.service';
-import { ProductListItemResponseDto } from '../product/dto';
-import { TApiResponse } from '@/common';
 import { ApiResponse } from '@/common/helpers';
+import { ProductListItemDto } from '../product/dto';
+import { TApiResponse } from '@/common';
 
 @Injectable()
 export class FavoritesService {
@@ -19,9 +19,7 @@ export class FavoritesService {
     private readonly productService: ProductService,
   ) {}
 
-  async findAll(
-    userId: string,
-  ): Promise<TApiResponse<ProductListItemResponseDto[]>> {
+  async findAll(userId: string): Promise<TApiResponse<ProductListItemDto[]>> {
     const favorites = await this.favoritesRepository.find({
       where: { userId },
       select: {

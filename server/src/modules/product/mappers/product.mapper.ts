@@ -1,6 +1,6 @@
 import {
-  ProductDetailsResponseDto,
-  ProductListItemResponseDto,
+  ProductDetailsDto,
+  ProductListItemDto,
   ProductMediaDto,
 } from '@/modules/product/dto';
 import { ProductEntity } from '@/modules/product/entities';
@@ -8,7 +8,7 @@ import { ProductEntity } from '@/modules/product/entities';
 export class ProductMapper {
   constructor(private readonly mediaBaseUrl: string) {}
 
-  toListItem(product: ProductEntity): ProductListItemResponseDto {
+  toListItem(product: ProductEntity): ProductListItemDto {
     const previewMedia = product.media.find((m) => m.isPreview);
     const preview = this.mediaBaseUrl + previewMedia?.filename;
 
@@ -18,7 +18,7 @@ export class ProductMapper {
     };
   }
 
-  toDetails(product: ProductEntity): ProductDetailsResponseDto {
+  toDetails(product: ProductEntity): ProductDetailsDto {
     const media: ProductMediaDto[] = product.media.map((m) => ({
       url: this.mediaBaseUrl + m.filename,
       isPreview: m.isPreview,
@@ -30,7 +30,7 @@ export class ProductMapper {
     };
   }
 
-  toListItemArray(products: ProductEntity[]): ProductListItemResponseDto[] {
+  toListItemArray(products: ProductEntity[]): ProductListItemDto[] {
     return products.map((product) => this.toListItem(product));
   }
 }

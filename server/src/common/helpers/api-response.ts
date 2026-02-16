@@ -10,6 +10,6 @@ export class ApiResponse {
   }
 
   static deleted(message = 'Успешно удалено'): TApiResponse<null> {
-    return { message };
+    return { data: null, message };
   }
 }
