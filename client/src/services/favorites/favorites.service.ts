@@ -1,6 +1,7 @@
 import { TServerResponse } from "../base";
 import { baseAPI } from "../base/base.service";
 import { TProductListItem } from "@/shared/types";
+import { FAVORITES_TAGS } from "./constants";
 
 export const favoritesAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
@@ -17,24 +18,53 @@ export const favoritesAPI = baseAPI.injectEndpoints({
         result
           ? [
               ...result.map(({ id }) => ({ type: "Favorites" as const, id })),
-              { type: "Favorites", id: "LIST" },
+              FAVORITES_TAGS.LIST,
             ]
-          : [{ type: "Favorites", id: "LIST" }],
+          : [FAVORITES_TAGS.LIST],
     }),
+
     addProductToFavorites: build.mutation<string, string>({
       query: (productId: string) => ({
         url: `/favorites/${productId}`,
         method: "POST",
       }),
       transformResponse: (response: TServerResponse<string>) => response.data,
-      invalidatesTags: [{ type: "Favorites", id: "LIST" }],
+      invalidatesTags: [
+        FAVORITES_TAGS.LIST,
+        FAVORITES_TAGS.IDS,
+        FAVORITES_TAGS.COUNT,
+      ],
     }),
+
     removeProductFromFavorites: build.mutation<TServerResponse, string>({
       query: (productId: string) => ({
         url: `/favorites/${productId}`,
         method: "DELETE",
       }),
-      invalidatesTags: [{ type: "Favorites", id: "LIST" }],
+      invalidatesTags: [
+        FAVORITES_TAGS.LIST,
+        FAVORITES_TAGS.IDS,
+        FAVORITES_TAGS.COUNT,
+      ],
+    }),
+
+    getCountFavorites: build.query<number, void>({
+      query: () => ({
+        url: "/favorites/count",
+        method: "GET",
+      }),
+      transformResponse: (response: TServerResponse<number>): number =>
+        response.data || 0,
+      providesTags: [FAVORITES_TAGS.COUNT],
+    }),
+
+    getFavoriteIds: build.query<string[], void>({
+      query: () => ({
+        url: "favorites/ids",
+        method: "GET",
+      }),
+      transformResponse: (response: TServerResponse<string[]>) => response.data,
+      providesTags: [FAVORITES_TAGS.IDS],
     }),
   }),
 });
@@ -43,4 +73,6 @@ export const {
   useGetFavoritesProductsQuery,
   useAddProductToFavoritesMutation,
   useRemoveProductFromFavoritesMutation,
+  useGetCountFavoritesQuery,
+  useGetFavoriteIdsQuery,
 } = favoritesAPI;

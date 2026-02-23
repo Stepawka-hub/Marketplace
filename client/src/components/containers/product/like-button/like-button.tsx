@@ -1,14 +1,15 @@
 import { FC, useMemo } from "react";
 import {
   useAddProductToFavoritesMutation,
-  useGetFavoritesProductsQuery,
+  useGetFavoriteIdsQuery,
   useRemoveProductFromFavoritesMutation,
 } from "@/services/favorites";
 import { LikeButtonUI } from "@/components/elements";
+import { isInArray } from "@/shared/helpers";
 import { TLikeButtonProps } from "./type";
 
 export const LikeButton: FC<TLikeButtonProps> = ({ productId }) => {
-  const { data: favorites = [] } = useGetFavoritesProductsQuery(5);
+  const { data: favoriteIds = [] } = useGetFavoriteIdsQuery();
 
   const [addProductToFavorite, { isLoading: isAdding }] =
     useAddProductToFavoritesMutation();
@@ -17,8 +18,8 @@ export const LikeButton: FC<TLikeButtonProps> = ({ productId }) => {
     useRemoveProductFromFavoritesMutation();
 
   const isInFavorites = useMemo(
-    () => favorites.some((f) => f.id === productId),
-    [favorites, productId],
+    () => isInArray(favoriteIds, productId),
+    [favoriteIds, productId],
   );
 
   const addToFavorite = () => {

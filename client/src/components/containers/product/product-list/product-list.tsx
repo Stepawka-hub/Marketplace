@@ -15,13 +15,8 @@ export const ProductList: FC = () => {
     (p) =>
       (category === "all" || p.category === category) &&
       checkInRange(p.price, price.max, price.min) &&
-      includesRow(searchQuery, [p.name])
+      includesRow(searchQuery, [p.name]),
   );
 
-  return (
-    <ProductListUI
-      products={filteredProducts}
-      isLoading={isLoading}
-    />
-  );
+  return <ProductListUI isLoading={isLoading} products={filteredProducts} />;
 };
