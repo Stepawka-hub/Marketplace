@@ -6,7 +6,7 @@ export class ApiResponseDto<T = unknown> implements TApiResponse<T> {
   data: T;
 
   @ApiProperty({
-    example: 'Список избранного получен',
+    example: 'Список успешно получен',
     description: 'Сообщение о результате',
     required: false,
   })

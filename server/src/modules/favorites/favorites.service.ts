@@ -65,22 +65,7 @@ export class FavoritesService {
 
     await this.favoritesRepository.save(favoriteProduct);
 
-    // Поиск и возврат созданного товара
-    const createdFavoriteProduct = await this.favoritesRepository.findOne({
-      where: { productId },
-      select: {
-        productId: true,
-      },
-    });
-
-    if (!createdFavoriteProduct) {
-      throw new NotFoundException('Избранный товар не найден!');
-    }
-
-    return ApiResponse.created(
-      createdFavoriteProduct.productId,
-      'Товар успешно добавлен в избранное',
-    );
+    return ApiResponse.created(productId, 'Товар успешно добавлен в избранное');
   }
 
   async remove(userId: string, productId: string): Promise<TApiResponse> {
@@ -100,5 +85,23 @@ export class FavoritesService {
     return ApiResponse.deleted(
       `Товар #${productId} успешно удален из избранного`,
     );
+  }
+
+  async getCount(userId: string): Promise<TApiResponse<number>> {
+    const count = await this.favoritesRepository.count({
+      where: { userId },
+    });
+
+    return ApiResponse.success(count);
+  }
+
+  async getFavoriteIds(userId: string): Promise<TApiResponse<string[]>> {
+    const favorites = await this.favoritesRepository.find({
+      where: { userId },
+      select: ['productId'],
+      order: { createdAt: 'DESC' },
+    });
+
+    return ApiResponse.success(favorites.map((f) => f.productId));
   }
 }

@@ -7,6 +7,8 @@ import {
   FavoritesListResponseDto,
   RemoveFavoriteResponseDto,
   CreateFavoriteResponseDto,
+  FavoritesCountResponseDto,
+  FavoriteIdsResponseDto,
 } from './dto';
 import { TApiResponse } from '@/common';
 @Controller('favorites')
@@ -64,5 +66,35 @@ export class FavoritesController {
     @Param('productId') productId: string,
   ) {
     return this.favoritesService.remove(userId, productId);
+  }
+
+  @ApiOperation({
+    summary: 'Получение количества избранных товаров',
+    description:
+      'Проверяет авторизован ли пользователь и возвращает количество избранных товаров',
+  })
+  @ApiOkResponse({
+    description: 'Количество избранных товаров',
+    type: FavoritesCountResponseDto,
+  })
+  @Authorization()
+  @Get('count')
+  getCount(@Authorizated('id') userId: string) {
+    return this.favoritesService.getCount(userId);
+  }
+
+  @ApiOperation({
+    summary: 'Получение списка ID избранных товаров',
+    description:
+      'Проверяет авторизован ли пользователь и возвращает список ID избранных товаров',
+  })
+  @ApiOkResponse({
+    description: 'Список ID избранных товаров',
+    type: FavoriteIdsResponseDto,
+  })
+  @Authorization()
+  @Get('ids')
+  async getFavoriteIds(@Authorizated('id') userId: string) {
+    return this.favoritesService.getFavoriteIds(userId);
   }
 }
