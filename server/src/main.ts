@@ -1,10 +1,13 @@
+import { AppModule } from './app.module';
+
 import { NestFactory } from '@nestjs/core';
 import { Logger, ValidationPipe } from '@nestjs/common';
-import { AppModule } from './app.module';
+import { ConfigService } from '@nestjs/config';
+import { SWAGGER_PATH } from './config/swagger';
 import { AllExceptionsFilter, loggerMiddleware } from '@/common';
+
 import * as cookieParser from 'cookie-parser';
 import { ServerLogger, setupSwagger } from './utils';
-import { SWAGGER_PATH } from './config/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -22,9 +25,11 @@ async function bootstrap() {
   app.use(loggerMiddleware(globalLogger));
   app.use(cookieParser());
 
+  const config = app.get(ConfigService);
+
   // Todo: Убрать
   app.enableCors({
-    origin: ['http://localhost:5173'],
+    origin: [config.getOrThrow<string>('ALLOWED_ORIGINS').split(',')],
     credentials: true,
   });
 

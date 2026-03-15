@@ -28,16 +28,16 @@ export const router = createBrowserRouter([
         element: <Navigate to={ROUTES.CATALOG} replace />,
       },
       {
-        path: ROUTES.CATALOG,
-        element: <CatalogPage />,
-      },
-      {
-        path: ROUTES.CATALOG_PRODUCT(":productId"),
-        element: <ProductPage />,
-      },
-      {
         element: <ProtectedRoute />,
         children: [
+          {
+            path: ROUTES.CATALOG,
+            element: <CatalogPage />,
+          },
+          {
+            path: ROUTES.CATALOG_PRODUCT(":productId"),
+            element: <ProductPage />,
+          },
           {
             path: ROUTES.CART,
             element: <CartPage />,
