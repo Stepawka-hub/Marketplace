@@ -1,23 +1,32 @@
-import { TServerResponse } from "../base";
+import {
+  TPaginatedResponse,
+  TPaginationParams,
+  TServerResponse,
+} from "../base";
 import { baseAPI } from "../base/base.service";
-import { TProductListItem } from "@/shared/types";
 import { FAVORITES_TAGS } from "./constants";
+import { TProductListItem } from "@/shared/types";
+import { TFavoritesResponse } from "./types";
 
 export const favoritesAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
-    getFavoritesProducts: build.query<TProductListItem[], number>({
-      query: (limit: number = 5) => ({
+    getFavoritesProducts: build.query<TFavoritesResponse, TPaginationParams>({
+      query: (params: TPaginationParams = { page: 1, limit: 10 }) => ({
         url: "/favorites",
         params: {
-          _limit: limit,
+          page: params.page,
+          limit: params.limit,
         },
       }),
-      transformResponse: (response: TServerResponse<TProductListItem[]>) =>
+      transformResponse: (response: TPaginatedResponse<TProductListItem>) =>
         response.data,
       providesTags: (result) =>
-        result
+        result?.items
           ? [
-              ...result.map(({ id }) => ({ type: "Favorites" as const, id })),
+              ...result.items.map(({ id }) => ({
+                type: "Favorites" as const,
+                id,
+              })),
               FAVORITES_TAGS.LIST,
             ]
           : [FAVORITES_TAGS.LIST],

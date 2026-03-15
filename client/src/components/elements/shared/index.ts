@@ -7,6 +7,7 @@ export * from "./linked-text";
 export * from "./rating-score";
 export * from "./search-bar";
 export * from "./password-input";
+export * from './pagination';
 export * from "./like-button";
 export * from "./back-button";
 export * from "./add-to-cart-button";

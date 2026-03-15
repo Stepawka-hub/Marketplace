@@ -130,6 +130,7 @@ export class ProductService {
           lastName: true,
         },
         media: {
+          id: true,
           filename: true,
           isPreview: true,
         },
@@ -210,6 +211,7 @@ export class ProductService {
           lastName: true,
         },
         media: {
+          id: true,
           filename: true,
           isPreview: true,
         },
