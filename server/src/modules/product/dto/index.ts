@@ -6,6 +6,6 @@ export {
 } from './product-details.dto';
 export {
   ProductListItemDto,
-  ProductListItemResponseDto,
+  ProductListPaginatedResponseDto,
 } from './product-list-item.dto';
 export { ProductMediaDto, ProductSellerDto } from './common.dto';

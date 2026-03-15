@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { BaseProductResponseDto } from './base-product.dto';
 import { ProductSellerDto } from './common.dto';
 import { PRODUCT_RESPONSE_API_PROPERTIES } from '../constants/product-response-api.constants';
-import { ApiResponseDto } from '@/common';
+import { ApiResponseDto, PaginatedResponseDto } from '@/common';
 
 export class ProductListItemDto extends BaseProductResponseDto {
   @ApiProperty(PRODUCT_RESPONSE_API_PROPERTIES.PREVIEW)
@@ -12,12 +12,12 @@ export class ProductListItemDto extends BaseProductResponseDto {
   seller: ProductSellerDto;
 }
 
-export class ProductListItemResponseDto extends ApiResponseDto<
-  ProductListItemDto[]
+export class ProductListPaginatedResponseDto extends ApiResponseDto<
+  PaginatedResponseDto<ProductListItemDto>
 > {
   @ApiProperty({
-    type: [ProductListItemDto],
-    description: 'Массив товаров',
+    type: PaginatedResponseDto<ProductListItemDto>,
+    description: 'Пагинированный список товаров',
   })
-  declare data: ProductListItemDto[];
+  declare data: PaginatedResponseDto<ProductListItemDto>;
 }

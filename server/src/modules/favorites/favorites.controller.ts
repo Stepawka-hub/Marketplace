@@ -1,5 +1,5 @@
-import { Controller, Get, Post, Param, Delete } from '@nestjs/common';
-import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import { Controller, Get, Post, Param, Delete, Query } from '@nestjs/common';
+import { ApiOkResponse, ApiOperation, ApiQuery } from '@nestjs/swagger';
 import { FavoritesService } from './favorites.service';
 import { Authorizated, Authorization } from '../auth/decorators';
 import { ProductListItemDto } from '../product/dto';
@@ -10,7 +10,8 @@ import {
   FavoritesCountResponseDto,
   FavoriteIdsResponseDto,
 } from './dto';
-import { TApiResponse } from '@/common';
+import { TApiPaginatedResponse, PaginationDto } from '@/common';
+
 @Controller('favorites')
 export class FavoritesController {
   constructor(private readonly favoritesService: FavoritesService) {}
@@ -24,12 +25,15 @@ export class FavoritesController {
     description: 'Список избранных товаров успешно получен',
     type: FavoritesListResponseDto,
   })
+  @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
+  @ApiQuery({ name: 'limit', required: false, type: Number, example: 10 })
   @Authorization()
   @Get()
   findAll(
     @Authorizated('id') userId: string,
-  ): Promise<TApiResponse<ProductListItemDto[]>> {
-    return this.favoritesService.findAll(userId);
+    @Query() paginationDto: PaginationDto,
+  ): Promise<TApiPaginatedResponse<ProductListItemDto>> {
+    return this.favoritesService.findAll(userId, paginationDto);
   }
 
   @ApiOperation({

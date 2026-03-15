@@ -20,12 +20,10 @@ export class ProductDetailsDto extends BaseProductResponseDto {
   seller: ProductSellerDto;
 }
 
-export class ProductDetailsResponseDto extends ApiResponseDto<
-  ProductDetailsDto[]
-> {
+export class ProductDetailsResponseDto extends ApiResponseDto<ProductDetailsDto> {
   @ApiProperty({
     type: ProductDetailsDto,
     description: 'Подробная информация о товаре',
   })
-  declare data: ProductDetailsDto[];
+  declare data: ProductDetailsDto;
 }

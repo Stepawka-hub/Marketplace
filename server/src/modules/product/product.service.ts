@@ -8,13 +8,14 @@ import { StorageService } from '@/modules/storage';
 import { UserService } from '@/modules/user';
 
 import { ProductMapper } from './mappers';
-import { ApiResponse } from '@/common/helpers';
+import { ApiPaginatedResponse, ApiResponse } from '@/common/helpers';
 import { generateFileName, getMediaType } from '@/common/utils';
 
 import { ProductEntity, ProductMediaEntity } from './entities';
 import { CreateProductDto, ProductDetailsDto } from './dto';
+import { PaginationDto } from '@/common/dto/pagination.dto';
 import { ProductListItemDto } from './dto/product-list-item.dto';
-import { TApiResponse } from '@/common';
+import { TApiPaginatedResponse, TApiResponse } from '@/common';
 
 @Injectable()
 export class ProductService {
@@ -105,8 +106,13 @@ export class ProductService {
     return await this.productMediaRepository.save(productMedia);
   }
 
-  async findProducts(): Promise<TApiResponse<ProductListItemDto[]>> {
-    const products = await this.productRepository.find({
+  async findProducts(
+    paginationDto: PaginationDto,
+  ): Promise<TApiPaginatedResponse<ProductListItemDto>> {
+    const { page = 1, limit = 10 } = paginationDto;
+    const skip = (page - 1) * limit;
+
+    const [products, total] = await this.productRepository.findAndCount({
       relations: {
         seller: true,
         media: true,
@@ -128,9 +134,20 @@ export class ProductService {
           isPreview: true,
         },
       },
+      order: {
+        createdAt: 'DESC',
+      },
+      skip,
+      take: limit,
     });
 
-    return ApiResponse.success(this.productMapper.toListItemArray(products));
+    return ApiPaginatedResponse.success(
+      this.productMapper.toListItemArray(products),
+      total,
+      page,
+      limit,
+      'Список товаров успешно получен',
+    );
   }
 
   async findProductById(id: string): Promise<TApiResponse<ProductDetailsDto>> {
@@ -164,8 +181,12 @@ export class ProductService {
 
   async findProductsByIds(
     ids: string[],
-  ): Promise<TApiResponse<ProductListItemDto[]>> {
-    const products = await this.productRepository.find({
+    paginationDto: PaginationDto,
+  ): Promise<TApiPaginatedResponse<ProductListItemDto>> {
+    const { page = 1, limit = 10 } = paginationDto;
+    const skip = (page - 1) * limit;
+
+    const [products, total] = await this.productRepository.findAndCount({
       where: {
         id: In(ids),
       },
@@ -193,8 +214,16 @@ export class ProductService {
           isPreview: true,
         },
       },
+      skip,
+      take: limit,
     });
 
-    return ApiResponse.success(this.productMapper.toListItemArray(products));
+    return ApiPaginatedResponse.success(
+      this.productMapper.toListItemArray(products),
+      total,
+      page,
+      limit,
+      'Товары успешно получены',
+    );
   }
 }

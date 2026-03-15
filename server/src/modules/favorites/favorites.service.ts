@@ -5,11 +5,13 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
 import { FavoriteEntity } from './entities';
 import { ProductService } from '../product/product.service';
-import { ApiResponse } from '@/common/helpers';
+import { ApiPaginatedResponse, ApiResponse } from '@/common/helpers';
+
 import { ProductListItemDto } from '../product/dto';
-import { TApiResponse } from '@/common';
+import { TApiPaginatedResponse, TApiResponse, PaginationDto } from '@/common';
 
 @Injectable()
 export class FavoritesService {
@@ -19,7 +21,10 @@ export class FavoritesService {
     private readonly productService: ProductService,
   ) {}
 
-  async findAll(userId: string): Promise<TApiResponse<ProductListItemDto[]>> {
+  async findAll(
+    userId: string,
+    paginationDto: PaginationDto,
+  ): Promise<TApiPaginatedResponse<ProductListItemDto>> {
     const favorites = await this.favoritesRepository.find({
       where: { userId },
       select: {
@@ -33,13 +38,27 @@ export class FavoritesService {
     const productIds = favorites.map((f) => f.productId);
 
     if (!productIds.length) {
-      return ApiResponse.success([]);
+      return ApiPaginatedResponse.success(
+        [],
+        0,
+        paginationDto.page || 1,
+        paginationDto.limit || 10,
+        'Список избранных товаров пуст',
+      );
     }
 
-    const { data = [] } =
-      await this.productService.findProductsByIds(productIds);
+    const { data } = await this.productService.findProductsByIds(
+      productIds,
+      paginationDto,
+    );
 
-    return ApiResponse.success(data);
+    return ApiPaginatedResponse.success(
+      data.items,
+      data.meta.total,
+      data.meta.page,
+      data.meta.limit,
+      'Список избранных товаров успешно получен',
+    );
   }
 
   async create(

@@ -1,13 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { ProductListItemDto } from '@/modules/product/dto';
-import { ApiResponseDto } from '@/common';
+import { ApiResponseDto, PaginatedResponseDto } from '@/common';
 
 export class FavoritesListResponseDto extends ApiResponseDto<
-  ProductListItemDto[]
+  PaginatedResponseDto<ProductListItemDto>
 > {
   @ApiProperty({
-    type: [ProductListItemDto],
-    description: 'Массив избранных товаров',
+    type: PaginatedResponseDto<ProductListItemDto>,
+    description: 'Пагинированный список избранных товаров',
   })
-  declare data: ProductListItemDto[];
+  declare data: PaginatedResponseDto<ProductListItemDto>;
 }

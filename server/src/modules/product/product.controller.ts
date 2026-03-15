@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   Post,
+  Query,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
@@ -15,6 +16,7 @@ import {
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
+  ApiQuery,
 } from '@nestjs/swagger';
 
 import { Authorizated, Authorization } from '@/modules/auth/decorators';
@@ -25,14 +27,15 @@ import {
   ProductDetailsDto,
   ProductDetailsResponseDto,
   ProductListItemDto,
-  ProductListItemResponseDto,
 } from './dto';
 import {
   PRODUCT_MEDIA_FILES_VALIDATION_OPTIONS,
   PRODUCT_PREVIEW_FILE_VALIDATION_OPTIONS,
 } from './constants';
 import { TProductFiles } from './types';
-import { TApiResponse } from '@/common';
+import { TApiPaginatedResponse, TApiResponse } from '@/common';
+import { PaginationDto } from '@/common/dto/pagination.dto';
+import { ProductListPaginatedResponseDto } from './dto/product-list-item.dto';
 
 @Controller('products')
 export class ProductController {
@@ -81,12 +84,16 @@ export class ProductController {
 
   @ApiOkResponse({
     description: 'Список товаров',
-    type: ProductListItemResponseDto,
+    type: ProductListPaginatedResponseDto,
   })
   @ApiOperation({ summary: 'Получить список товаров' })
+  @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
+  @ApiQuery({ name: 'limit', required: false, type: Number, example: 10 })
   @Get()
-  findProducts(): Promise<TApiResponse<ProductListItemDto[]>> {
-    return this.productService.findProducts();
+  findProducts(
+    @Query() paginationDto: PaginationDto,
+  ): Promise<TApiPaginatedResponse<ProductListItemDto>> {
+    return this.productService.findProducts(paginationDto);
   }
 
   @ApiOperation({ summary: 'Получить товар по ID' })
