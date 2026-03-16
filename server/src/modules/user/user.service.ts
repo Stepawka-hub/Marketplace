@@ -13,6 +13,12 @@ export class UserService {
   async findById(id: string): Promise<UserEntity> {
     const user = await this.userRepository.findOne({
       where: { id },
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        role: true,
+      },
     });
 
     if (!user) {

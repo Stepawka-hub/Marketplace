@@ -9,8 +9,6 @@ export type TCartPaginatedResponse = TApiPaginatedResponse<
 
 export type TCartActionResponse = TApiResponse<TCartActionData>;
 
-export type TCartRemoveResponse = TApiResponse<null>;
-
 export type TCartGetCountResponse = TApiResponse<number>;
 
 export type TCartGetTotalItemsResponse = TApiResponse<number>;

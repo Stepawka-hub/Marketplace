@@ -10,8 +10,13 @@ import { FavoriteEntity } from './entities';
 import { ProductService } from '../product/product.service';
 import { ApiPaginatedResponse, ApiResponse } from '@/common/helpers';
 
-import { ProductListItemDto } from '../product/dto';
-import { TApiPaginatedResponse, TApiResponse, PaginationDto } from '@/common';
+import { TApiResponse, PaginationDto } from '@/common';
+import {
+  TFavoritesActionResponse,
+  TFavoritesCountResponse,
+  TFavoritesIdsResponse,
+  TFavoritesPaginatedResponse,
+} from './types';
 
 @Injectable()
 export class FavoritesService {
@@ -24,7 +29,7 @@ export class FavoritesService {
   async findAll(
     userId: string,
     paginationDto: PaginationDto,
-  ): Promise<TApiPaginatedResponse<ProductListItemDto>> {
+  ): Promise<TFavoritesPaginatedResponse> {
     const favorites = await this.favoritesRepository.find({
       where: { userId },
       select: {
@@ -64,7 +69,7 @@ export class FavoritesService {
   async create(
     userId: string,
     productId: string,
-  ): Promise<TApiResponse<string>> {
+  ): Promise<TFavoritesActionResponse> {
     const existingFavorite = await this.favoritesRepository.findOne({
       where: {
         userId,
@@ -106,7 +111,7 @@ export class FavoritesService {
     );
   }
 
-  async getCount(userId: string): Promise<TApiResponse<number>> {
+  async getCount(userId: string): Promise<TFavoritesCountResponse> {
     const count = await this.favoritesRepository.count({
       where: { userId },
     });
@@ -114,7 +119,7 @@ export class FavoritesService {
     return ApiResponse.success(count);
   }
 
-  async getFavoriteIds(userId: string): Promise<TApiResponse<string[]>> {
+  async getFavoriteIds(userId: string): Promise<TFavoritesIdsResponse> {
     const favorites = await this.favoritesRepository.find({
       where: { userId },
       select: ['productId'],

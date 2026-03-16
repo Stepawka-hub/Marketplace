@@ -11,7 +11,7 @@ import { ProductEntity } from '@/modules/product/entities';
 import { CartEntity } from './entities';
 
 import { ApiPaginatedResponse, ApiResponse } from '@/common/helpers';
-import { PaginationDto } from '@/common';
+import { PaginationDto, TApiResponse } from '@/common';
 import { AddToCartDto, UpdateCartItemDto, CartItemDto } from './dto';
 import { ProductListItemDto } from '../product/dto';
 import {
@@ -19,7 +19,6 @@ import {
   TCartGetCountResponse,
   TCartGetTotalItemsResponse,
   TCartPaginatedResponse,
-  TCartRemoveResponse,
 } from './types';
 
 @Injectable()
@@ -155,7 +154,7 @@ export class CartService {
   async removeFromCart(
     userId: string,
     productId: string,
-  ): Promise<TCartRemoveResponse> {
+  ): Promise<TApiResponse> {
     const cartItem = await this.cartRepository.findOne({
       where: { userId, productId },
     });
@@ -169,7 +168,7 @@ export class CartService {
     return ApiResponse.deleted('Товар успешно удален из корзины');
   }
 
-  async clearCart(userId: string): Promise<TCartRemoveResponse> {
+  async clearCart(userId: string): Promise<TApiResponse> {
     await this.cartRepository.delete({ userId });
     return ApiResponse.deleted('Корзина успешно очищена');
   }

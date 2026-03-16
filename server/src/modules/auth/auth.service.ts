@@ -104,7 +104,6 @@ export class AuthService {
   }
 
   async refresh(res: Response, req: Request) {
-    // Todo: Исправить типизацию
     const refreshToken = req.cookies[REFRESH_TOKEN_COOKIE_KEY] as string;
 
     if (!refreshToken) {

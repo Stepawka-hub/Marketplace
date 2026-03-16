@@ -10,12 +10,16 @@ import { UserService } from '@/modules/user';
 import { ProductMapper } from './mappers';
 import { ApiPaginatedResponse, ApiResponse } from '@/common/helpers';
 import { generateFileName, getMediaType } from '@/common/utils';
+import { PaginationDto } from '@/common/dto';
 
 import { ProductEntity, ProductMediaEntity } from './entities';
-import { CreateProductDto, ProductDetailsDto } from './dto';
-import { PaginationDto } from '@/common/dto/pagination.dto';
-import { ProductListItemDto } from './dto/product-list-item.dto';
-import { TApiPaginatedResponse, TApiResponse } from '@/common';
+import { CreateProductDto } from './dto';
+import {
+  TProductByIdsResponse,
+  TProductCreateResponse,
+  TProductDetailsResponse,
+  TProductListResponse,
+} from './types';
 
 @Injectable()
 export class ProductService {
@@ -42,7 +46,7 @@ export class ProductService {
     previewFile: Express.Multer.File,
     mediaFiles: Express.Multer.File[],
     userId: string,
-  ): Promise<TApiResponse<ProductDetailsDto>> {
+  ): Promise<TProductCreateResponse> {
     // Todo: сделать транзакцией
     const user = await this.userService.findById(userId);
     const product = this.productRepository.create({
@@ -108,7 +112,7 @@ export class ProductService {
 
   async findProducts(
     paginationDto: PaginationDto,
-  ): Promise<TApiPaginatedResponse<ProductListItemDto>> {
+  ): Promise<TProductListResponse> {
     const { page = 1, limit = 10 } = paginationDto;
     const skip = (page - 1) * limit;
 
@@ -151,7 +155,7 @@ export class ProductService {
     );
   }
 
-  async findProductById(id: string): Promise<TApiResponse<ProductDetailsDto>> {
+  async findProductById(id: string): Promise<TProductDetailsResponse> {
     const product = await this.productRepository.findOne({
       where: {
         id,
@@ -183,7 +187,7 @@ export class ProductService {
   async findProductsByIds(
     ids: string[],
     paginationDto: PaginationDto,
-  ): Promise<TApiPaginatedResponse<ProductListItemDto>> {
+  ): Promise<TProductByIdsResponse> {
     const { page = 1, limit = 10 } = paginationDto;
     const skip = (page - 1) * limit;
 
