@@ -3,7 +3,7 @@ export type TApiResponse<T = unknown> = {
   message?: string;
 };
 
-export type TApiPaginatedResponse<T> = {
+export type TApiPaginatedResponse<T, E = object> = {
   message: string;
   data: {
     items: T[];
@@ -15,5 +15,5 @@ export type TApiPaginatedResponse<T> = {
       hasNext: boolean;
       hasPrevious: boolean;
     };
-  };
+  } & E;
 };

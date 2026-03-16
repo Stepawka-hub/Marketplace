@@ -1,24 +1,244 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { In, Repository } from 'typeorm';
+
+import { ProductService } from '../product/product.service';
+import { ProductEntity } from '@/modules/product/entities';
+import { CartEntity } from './entities';
+
+import { ApiPaginatedResponse, ApiResponse } from '@/common/helpers';
+import { PaginationDto } from '@/common';
+import { AddToCartDto, UpdateCartItemDto, CartItemDto } from './dto';
+import { ProductListItemDto } from '../product/dto';
+import {
+  TCartActionResponse,
+  TCartGetCountResponse,
+  TCartGetTotalItemsResponse,
+  TCartPaginatedResponse,
+  TCartRemoveResponse,
+} from './types';
 
 @Injectable()
 export class CartService {
-  create() {
-    return 'This action adds a new cart';
+  constructor(
+    @InjectRepository(CartEntity)
+    private readonly cartRepository: Repository<CartEntity>,
+    @InjectRepository(ProductEntity)
+    private readonly productRepository: Repository<ProductEntity>,
+    private readonly productService: ProductService,
+  ) {}
+
+  async findAll(
+    userId: string,
+    paginationDto: PaginationDto,
+  ): Promise<TCartPaginatedResponse> {
+    const { page = 1, limit = 10 } = paginationDto;
+    const skip = (page - 1) * limit;
+
+    const [cartItems, total] = await this.cartRepository.findAndCount({
+      where: { userId },
+      select: {
+        productId: true,
+        count: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+      order: {
+        createdAt: 'DESC',
+      },
+      skip,
+      take: limit,
+    });
+
+    if (!cartItems.length) {
+      return ApiPaginatedResponse.success([], 0, page, limit, 'Корзина пуста');
+    }
+
+    const productIds = cartItems.map((item) => item.productId);
+    const { data } = await this.productService.findProductsByIds(
+      productIds,
+      paginationDto,
+    );
+
+    const items = this.mapCartItemsToDto(cartItems, data.items);
+
+    const totalPrice = await this.getTotalPrice(userId);
+
+    return ApiPaginatedResponse.success(
+      items,
+      total,
+      page,
+      limit,
+      'Список товаров в корзине успешно получен',
+      { totalPrice },
+    );
   }
 
-  findAll() {
-    return `This action returns all cart`;
+  async addToCart(
+    userId: string,
+    productId: string,
+    dto: AddToCartDto,
+  ): Promise<TCartActionResponse> {
+    // Проверяем существование товара
+    const exists = await this.productService.exists(productId);
+    if (!exists) {
+      throw new NotFoundException('Товар не найден!');
+    }
+
+    const existingItem = await this.cartRepository.findOne({
+      where: { userId, productId },
+    });
+
+    if (existingItem) {
+      existingItem.count += dto.count || 1;
+      await this.cartRepository.save(existingItem);
+
+      return ApiResponse.success(
+        {
+          productId: existingItem.productId,
+          count: existingItem.count,
+        },
+        'Количество товара в корзине обновлено',
+      );
+    }
+
+    const cartItem = this.cartRepository.create({
+      userId,
+      productId,
+      count: dto.count || 1,
+    });
+
+    await this.cartRepository.save(cartItem);
+
+    return ApiResponse.success(
+      {
+        productId: cartItem.productId,
+        count: cartItem.count,
+      },
+      'Товар успешно добавлен в корзину',
+    );
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} cart`;
+  async updateCount(
+    userId: string,
+    productId: string,
+    dto: UpdateCartItemDto,
+  ): Promise<TCartActionResponse> {
+    const cartItem = await this.cartRepository.findOne({
+      where: { userId, productId },
+    });
+
+    if (!cartItem) {
+      throw new NotFoundException('Товар не найден в корзине');
+    }
+
+    if (dto.count < 1) {
+      throw new BadRequestException('Количество должно быть не меньше 1');
+    }
+
+    cartItem.count = dto.count;
+    await this.cartRepository.save(cartItem);
+
+    return ApiResponse.success(
+      {
+        productId: cartItem.productId,
+        count: cartItem.count,
+      },
+      'Количество товара обновлено',
+    );
   }
 
-  update(id: number) {
-    return `This action updates a #${id} cart`;
+  async removeFromCart(
+    userId: string,
+    productId: string,
+  ): Promise<TCartRemoveResponse> {
+    const cartItem = await this.cartRepository.findOne({
+      where: { userId, productId },
+    });
+
+    if (!cartItem) {
+      throw new NotFoundException('Товар не найден в корзине');
+    }
+
+    await this.cartRepository.remove(cartItem);
+
+    return ApiResponse.deleted('Товар успешно удален из корзины');
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} cart`;
+  async clearCart(userId: string): Promise<TCartRemoveResponse> {
+    await this.cartRepository.delete({ userId });
+    return ApiResponse.deleted('Корзина успешно очищена');
+  }
+
+  async getCount(userId: string): Promise<TCartGetCountResponse> {
+    const count = await this.cartRepository.count({
+      where: { userId },
+    });
+
+    return ApiResponse.success(count, 'Количество товаров в корзине');
+  }
+
+  async getTotalItems(userId: string): Promise<TCartGetTotalItemsResponse> {
+    const items = await this.cartRepository.find({
+      where: { userId },
+      select: ['count'],
+    });
+
+    const totalItems = items.reduce((sum, item) => sum + item.count, 0);
+
+    return ApiResponse.success(
+      totalItems,
+      'Общее количество товаров в корзине',
+    );
+  }
+
+  async getTotalPrice(userId: string): Promise<number> {
+    const cartItems = await this.cartRepository.find({
+      where: { userId },
+    });
+
+    return this.calculateTotalPrice(cartItems);
+  }
+
+  protected mapCartItemsToDto(
+    cartItems: CartEntity[],
+    products: ProductListItemDto[],
+  ): CartItemDto[] {
+    const items: CartItemDto[] = [];
+
+    for (const cartItem of cartItems) {
+      const product = products.find((p) => p.id === cartItem.productId);
+
+      if (product) {
+        items.push({
+          count: cartItem.count,
+          product,
+          createdAt: cartItem.createdAt,
+          updatedAt: cartItem.updatedAt,
+        });
+      }
+    }
+
+    return items;
+  }
+
+  private async calculateTotalPrice(items: CartEntity[]): Promise<number> {
+    if (!items.length) return 0;
+
+    const productIds = items.map((item) => item.productId);
+
+    const products = await this.productRepository.find({
+      where: { id: In(productIds) },
+      select: { id: true, price: true },
+    });
+
+    return items.reduce((total, item) => {
+      const product = products.find((p) => p.id === item.productId);
+      return total + (product?.price || 0) * item.count;
+    }, 0);
   }
 }

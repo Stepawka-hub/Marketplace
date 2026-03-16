@@ -228,4 +228,12 @@ export class ProductService {
       'Товары успешно получены',
     );
   }
+
+  async exists(id: string): Promise<boolean> {
+    const count = await this.productRepository.count({
+      where: { id },
+    });
+
+    return count > 0;
+  }
 }

@@ -1,13 +1,14 @@
 import { TApiPaginatedResponse } from '../types';
 
 export class ApiPaginatedResponse {
-  static success<T>(
+  static success<T, E = object>(
     items: T[],
     total: number,
     page: number,
     limit: number,
     message: string = 'Успешно',
-  ): TApiPaginatedResponse<T> {
+    extraData?: E,
+  ): TApiPaginatedResponse<T, E> {
     const totalPages = Math.ceil(total / limit);
 
     return {
@@ -22,7 +23,8 @@ export class ApiPaginatedResponse {
           hasNext: page < totalPages,
           hasPrevious: page > 1,
         },
-      },
+        ...extraData,
+      } as TApiPaginatedResponse<T, E>['data'],
     };
   }
 
