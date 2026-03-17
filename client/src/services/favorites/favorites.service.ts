@@ -4,7 +4,7 @@ import {
   TServerResponse,
 } from "../base";
 import { baseAPI } from "../base/base.service";
-import { FAVORITES_TAGS } from "./constants";
+import { FAVORITES_TAG_TYPE, FAVORITES_TAGS } from "./constants";
 import { TProductListItem } from "@/shared/types";
 import { TFavoritesResponse } from "./types";
 
@@ -24,7 +24,7 @@ export const favoritesAPI = baseAPI.injectEndpoints({
         result?.items
           ? [
               ...result.items.map(({ id }) => ({
-                type: "Favorites" as const,
+                type: FAVORITES_TAG_TYPE,
                 id,
               })),
               FAVORITES_TAGS.LIST,
@@ -69,7 +69,7 @@ export const favoritesAPI = baseAPI.injectEndpoints({
 
     getFavoriteIds: build.query<string[], void>({
       query: () => ({
-        url: "favorites/ids",
+        url: "/favorites/ids",
         method: "GET",
       }),
       transformResponse: (response: TServerResponse<string[]>) => response.data,

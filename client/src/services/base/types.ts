@@ -3,7 +3,7 @@ export type TServerResponse<T = unknown> = {
   message?: string;
   statusCode: number;
   timestamp: string;
-}
+};
 
 export type TPaginationMeta = {
   total: number;
@@ -12,14 +12,16 @@ export type TPaginationMeta = {
   totalPages: number;
   hasNext: boolean;
   hasPrevious: boolean;
-}
+};
 
-export type TPaginatedData<T> = {
+export type TPaginatedData<T, E = object> = {
   items: T[];
   meta: TPaginationMeta;
-}
+} & E;
 
-export type TPaginatedResponse<T> = TServerResponse<TPaginatedData<T>>;
+export type TPaginatedResponse<T, E = object> = TServerResponse<
+  TPaginatedData<T, E>
+>;
 
 export type TPaginationParams = {
   page?: number;

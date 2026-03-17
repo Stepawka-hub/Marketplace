@@ -1,5 +1,16 @@
+export const FAVORITES_TAG_TYPE = "Favorites" as const;
+
 export const FAVORITES_TAGS = {
-  LIST: { type: "Favorites" as const, id: "LIST" },
-  COUNT: { type: "Favorites" as const, id: "COUNT" },
-  IDS: { type: "Favorites" as const, id: "IDS" },
+  LIST: {
+    type: FAVORITES_TAG_TYPE,
+    id: "LIST",
+  },
+  COUNT: {
+    type: FAVORITES_TAG_TYPE,
+    id: "COUNT",
+  },
+  IDS: {
+    type: FAVORITES_TAG_TYPE,
+    id: "IDS",
+  },
 } as const;

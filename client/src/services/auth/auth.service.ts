@@ -1,6 +1,7 @@
 import { baseAPI } from "../base/base.service";
 import { LS_KEYS } from "@/shared/constants";
 import { TAuthResponse, TLoginPayload, TRegisterPayload } from "./types";
+import { AUTH_TAG_TYPE } from "./constants";
 
 export const authAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
@@ -14,7 +15,7 @@ export const authAPI = baseAPI.injectEndpoints({
         const { data } = await queryFulfilled;
         localStorage.setItem(LS_KEYS.ACCESS_TOKEN, data.accessToken);
 
-        dispatch(authAPI.util.invalidateTags(["Auth"]));
+        dispatch(authAPI.util.invalidateTags([AUTH_TAG_TYPE]));
       },
     }),
     register: build.mutation<TAuthResponse, TRegisterPayload>({
@@ -27,7 +28,7 @@ export const authAPI = baseAPI.injectEndpoints({
         const { data } = await queryFulfilled;
         localStorage.setItem(LS_KEYS.ACCESS_TOKEN, data.accessToken);
 
-        dispatch(authAPI.util.invalidateTags(["Auth"]));
+        dispatch(authAPI.util.invalidateTags([AUTH_TAG_TYPE]));
       },
     }),
     logout: build.mutation<void, void>({
