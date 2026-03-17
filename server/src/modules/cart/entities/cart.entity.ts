@@ -5,6 +5,7 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  PrimaryColumn,
 } from 'typeorm';
 import { UserEntity } from '@/modules/user/entities';
 import { ProductEntity } from '@/modules/product/entities';
@@ -14,14 +15,11 @@ import { CART_API_PROPERTIES } from '../constants/cart-api.constants';
 
 @Entity('cart')
 export class CartEntity {
-  @ApiProperty(CART_API_PROPERTIES.COUNT)
-  @Column({ type: 'int', default: 1 })
-  count: number;
-
+  @PrimaryColumn({ type: 'uuid', name: 'user_id' })
   @Column({ name: 'user_id', type: 'uuid' })
   userId: string;
 
-  @Column({ name: 'product_id', type: 'uuid' })
+  @PrimaryColumn({ type: 'uuid', name: 'product_id' })
   productId: string;
 
   @ApiProperty(CART_API_PROPERTIES.USER)
@@ -33,6 +31,10 @@ export class CartEntity {
   @ManyToOne(() => ProductEntity)
   @JoinColumn({ name: 'product_id' })
   product: ProductEntity;
+
+  @ApiProperty(CART_API_PROPERTIES.COUNT)
+  @Column({ type: 'int', default: 1 })
+  count: number;
 
   @ApiProperty(COMMON_API_PROPERTIES.CREATE_DATE)
   @CreateDateColumn({ name: 'created_at' })
