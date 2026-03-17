@@ -8,7 +8,7 @@ import {
   Max,
   Min,
 } from 'class-validator';
-import { PRODUCT_API_PROPERTIES, PRODUCT_VALIDATION } from '../constants';
+import { PRODUCT_API_PROPERTIES, PRODUCT_VALIDATION } from '../../constants';
 
 export class CreateProductDto {
   @ApiProperty(PRODUCT_API_PROPERTIES.NAME)

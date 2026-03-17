@@ -27,15 +27,16 @@ import {
   ProductDetailsDto,
   ProductDetailsResponseDto,
   ProductListItemDto,
+  ProductListPaginatedResponseDto,
 } from './dto';
+import { PaginationDto } from '@/common/dto';
+
 import {
   PRODUCT_MEDIA_FILES_VALIDATION_OPTIONS,
   PRODUCT_PREVIEW_FILE_VALIDATION_OPTIONS,
 } from './constants';
-import { TProductFiles } from './types';
 import { TApiPaginatedResponse, TApiResponse } from '@/common';
-import { PaginationDto } from '@/common/dto/pagination.dto';
-import { ProductListPaginatedResponseDto } from './dto/product-list-item.dto';
+import { TProductFiles } from './types';
 
 @Controller('products')
 export class ProductController {

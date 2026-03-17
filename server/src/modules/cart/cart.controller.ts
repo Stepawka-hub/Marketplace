@@ -19,13 +19,14 @@ import {
 
 import { Authorizated, Authorization } from '@/modules/auth/decorators';
 import { CartService } from './cart.service';
-import { ApiResponseDto, PaginationDto } from '@/common';
+import { PaginationDto } from '@/common';
 import {
   AddToCartDto,
   UpdateCartItemDto,
   CartPaginatedResponseDto,
   CartActionResponseDto,
   CartCountResponseDto,
+  CartDeleteResponseDto,
 } from './dto';
 
 @ApiTags('cart')
@@ -51,6 +52,20 @@ export class CartController {
     @Query() paginationDto: PaginationDto,
   ) {
     return this.cartService.findAll(userId, paginationDto);
+  }
+
+  @ApiOperation({
+    summary: 'Получение количества уникальных товаров',
+    description: 'Возвращает количество уникальных товаров в корзине',
+  })
+  @ApiOkResponse({
+    description: 'Количество товаров в корзине',
+    type: CartCountResponseDto,
+  })
+  @Authorization()
+  @Get('count')
+  getCount(@Authorizated('id') userId: string) {
+    return this.cartService.getCount(userId);
   }
 
   @ApiOperation({
@@ -97,7 +112,7 @@ export class CartController {
   })
   @ApiOkResponse({
     description: 'Товар успешно удален из корзины',
-    type: ApiResponseDto<null>,
+    type: CartDeleteResponseDto,
   })
   @Authorization()
   @Delete(':productId')
@@ -114,25 +129,11 @@ export class CartController {
   })
   @ApiOkResponse({
     description: 'Корзина успешно очищена',
-    type: ApiResponseDto<null>,
+    type: CartDeleteResponseDto,
   })
   @Authorization()
   @Delete()
   clearCart(@Authorizated('id') userId: string) {
     return this.cartService.clearCart(userId);
-  }
-
-  @ApiOperation({
-    summary: 'Получение количества уникальных товаров',
-    description: 'Возвращает количество уникальных товаров в корзине',
-  })
-  @ApiOkResponse({
-    description: 'Количество товаров в корзине',
-    type: CartCountResponseDto,
-  })
-  @Authorization()
-  @Get('count')
-  getCount(@Authorizated('id') userId: string) {
-    return this.cartService.getCount(userId);
   }
 }

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { PRODUCT_API_PROPERTIES } from '../constants';
+import { PRODUCT_API_PROPERTIES } from '../../constants';
 
 export class BaseProductResponseDto {
   @ApiProperty(PRODUCT_API_PROPERTIES.ID)

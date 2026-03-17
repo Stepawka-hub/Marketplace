@@ -13,7 +13,7 @@ export class ApiResponseDto<T = unknown> implements TApiResponse<T> {
   message?: string;
 
   @ApiProperty({
-    example: '2024-01-20T12:00:00.000Z',
+    example: '2026-01-20T12:00:00.000Z',
     description: 'Временная метка',
   })
   timestamp: string;

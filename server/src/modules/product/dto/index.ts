@@ -1,11 +1,3 @@
-export { CreateProductDto } from './create-product.dto';
-export { BaseProductResponseDto } from './base-product.dto';
-export {
-  ProductDetailsDto,
-  ProductDetailsResponseDto,
-} from './product-details.dto';
-export {
-  ProductListItemDto,
-  ProductListPaginatedResponseDto,
-} from './product-list-item.dto';
-export { ProductMediaDto, ProductSellerDto } from './common.dto';
+export * from './data';
+export * from './request';
+export * from './response';
