@@ -54,6 +54,22 @@ export class CartController {
     return this.cartService.findAll(userId, paginationDto);
   }
 
+  // Todo: поправить dto
+  @ApiOperation({
+    summary: 'Получение списка ID товаров в корзине',
+    description:
+      'Проверяет авторизован ли пользователь и возвращает список ID товаров в корзине',
+  })
+  @ApiOkResponse({
+    description: 'Список ID товаров в корзине',
+    //type: FavoriteIdsResponseDto,
+  })
+  @Authorization()
+  @Get('ids')
+  async getCartItemsIds(@Authorizated('id') userId: string) {
+    return this.cartService.getCartItemsIds(userId);
+  }
+
   @ApiOperation({
     summary: 'Получение количества уникальных товаров',
     description: 'Возвращает количество уникальных товаров в корзине',
@@ -66,7 +82,7 @@ export class CartController {
   @Get('count')
   getCount(
     @Authorizated('id') userId: string,
-    @Body('isSelected') isSelected: boolean,
+    @Query('isSelected') isSelected: boolean,
   ) {
     return this.cartService.getCount(userId, isSelected);
   }
@@ -84,9 +100,28 @@ export class CartController {
   @Get('total-price')
   getTotalPrice(
     @Authorizated('id') userId: string,
-    @Body('isSelected') isSelected: boolean = true,
+    @Query('isSelected') isSelected: boolean = true,
   ) {
     return this.cartService.getTotalPrice(userId, isSelected);
+  }
+
+  // Todo: поменять dto
+  @ApiOperation({
+    summary: 'Добавление/Удаление всех товаров корзины из выбранного',
+    description: 'Добавляет/Удаляет все товары корзины из выбранного',
+  })
+  @ApiOkResponse({
+    description:
+      'Все товары корзины добавлены в выбранные/Все товары корзины убраны из выбранных',
+    type: 'boolean',
+  })
+  @Authorization()
+  @Post('select-all')
+  selectAllCartItems(
+    @Authorizated('id') userId: string,
+    @Body('isSelected') isSelected: boolean,
+  ) {
+    return this.cartService.selectAllCartItems(userId, isSelected);
   }
 
   @ApiOperation({
@@ -168,7 +203,7 @@ export class CartController {
     type: CartDeleteResponseDto,
   })
   @Authorization()
-  @Post('select')
+  @Post('select/:productId')
   toggleSelectedProduct(
     @Authorizated('id') userId: string,
     @Param('productId') productId: string,
@@ -179,24 +214,5 @@ export class CartController {
       productId,
       isSelected,
     );
-  }
-
-  // Todo: поменять dto
-  @ApiOperation({
-    summary: 'Добавление/Удаление всех товаров корзины из выбранного',
-    description: 'Добавляет/Удаляет все товары корзины из выбранного',
-  })
-  @ApiOkResponse({
-    description:
-      'Все товары корзины добавлены в выбранные/Все товары корзины убраны из выбранных',
-    type: CartDeleteResponseDto,
-  })
-  @Authorization()
-  @Post('select-all')
-  selectAllCartItems(
-    @Authorizated('id') userId: string,
-    @Body('isSelected') isSelected: boolean,
-  ) {
-    return this.cartService.selectAllCartItems(userId, isSelected);
   }
 }

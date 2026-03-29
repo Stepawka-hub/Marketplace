@@ -12,3 +12,7 @@ export type TCartActionResponse = TApiResponse<TCartActionData>;
 export type TCartGetCountResponse = TApiResponse<number>;
 
 export type TCartGetTotalItemsResponse = TApiResponse<number>;
+
+export type TCartItemsIdsResponse = TApiResponse<string[]>;
+
+export type TCartTotalPriceResponse = TApiResponse<number>;

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/config/routes";
 import { usePagination } from "@/hooks/usePagination";
 import {
-  useGetCartQuery,
+  useGetCartItemsQuery,
   useRemoveFromCartMutation,
   useToggleSelectedProductMutation,
 } from "@/services/cart";
@@ -18,7 +18,10 @@ export const CartList: FC = () => {
   const { page, limit, defaultPagination, handlePageChange } = usePagination();
 
   // Todo: добавить loader
-  const { data, isLoading: isGettingCart } = useGetCartQuery({ page, limit });
+  const { data, isLoading: isGettingCart } = useGetCartItemsQuery({
+    page,
+    limit,
+  });
 
   const [removeFromCart, { isLoading: isRemoving }] =
     useRemoveFromCartMutation();

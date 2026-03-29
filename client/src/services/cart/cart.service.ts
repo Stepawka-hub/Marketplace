@@ -1,4 +1,9 @@
-import { baseAPI, CART_TAG_TYPE, TPaginationParams } from "../base";
+import {
+  baseAPI,
+  CART_TAG_TYPE,
+  TPaginationParams,
+  TServerResponse,
+} from "../base";
 import { CART_TAGS } from "./constants";
 import {
   TAddToCartPayload,
@@ -16,7 +21,7 @@ import {
 export const cartAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
     // Получить товары в корзине
-    getCart: build.query<TCartResponse["data"], TPaginationParams>({
+    getCartItems: build.query<TCartResponse["data"], TPaginationParams>({
       query: (params: TPaginationParams = { page: 1, limit: 10 }) => ({
         url: "/cart",
         params: {
@@ -36,6 +41,14 @@ export const cartAPI = baseAPI.injectEndpoints({
               CART_TAGS.TOTAL_PRICE,
             ]
           : [CART_TAGS.LIST, CART_TAGS.TOTAL_PRICE],
+    }),
+
+    getCartItemsIds: build.query<string[], void>({
+      query: () => ({
+        url: "/cart/ids",
+      }),
+      transformResponse: (response: TServerResponse<string[]>) => response.data,
+      providesTags: [CART_TAGS.LIST],
     }),
 
     // Добавить товар в корзину
@@ -107,7 +120,7 @@ export const cartAPI = baseAPI.injectEndpoints({
       TSelectAllCartItemsPayload
     >({
       query: ({ isSelected }) => ({
-        url: `/cart/select-all`,
+        url: "/cart/select-all",
         method: "POST",
         body: { isSelected },
       }),
@@ -137,7 +150,7 @@ export const cartAPI = baseAPI.injectEndpoints({
       query: () => ({
         url: "/cart/total-price",
         method: "GET",
-        body: {
+        params: {
           isSelected: true,
         },
       }),
@@ -151,7 +164,7 @@ export const cartAPI = baseAPI.injectEndpoints({
       query: () => ({
         url: "/cart/count",
         method: "GET",
-        body: {
+        params: {
           isSelected: true,
         },
       }),
@@ -165,7 +178,7 @@ export const cartAPI = baseAPI.injectEndpoints({
       query: () => ({
         url: "/cart/count",
         method: "GET",
-        body: {
+        params: {
           isSelected: false,
         },
       }),
@@ -177,7 +190,8 @@ export const cartAPI = baseAPI.injectEndpoints({
 });
 
 export const {
-  useGetCartQuery,
+  useGetCartItemsQuery,
+  useGetCartItemsIdsQuery,
   useAddToCartMutation,
   useUpdateCartItemMutation,
   useRemoveFromCartMutation,

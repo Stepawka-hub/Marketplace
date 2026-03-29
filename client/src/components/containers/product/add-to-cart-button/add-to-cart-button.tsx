@@ -1,19 +1,28 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/config/routes";
+import { useAddToCartMutation, useGetCartItemsIdsQuery } from "@/services/cart";
+import { isInArray } from "@/shared/helpers";
 import { AddToCartButtonUI } from "@/components/elements";
 import { TAddToCartButtonProps } from "./type";
 
 export const AddToCartButton: FC<TAddToCartButtonProps> = ({ productId }) => {
   const navigate = useNavigate();
-  const isInCart = false;
 
-  // const isInCart = useCallback(
-  //   (productId: string) => isInArray(cartItemsIds, productId),
-  //   [cartItemsIds],
-  // );
+  const { data: cartItemsIds = [] } = useGetCartItemsIdsQuery();
 
-  const handleAddToCart = () => {};
+  const [addToCart, { isLoading: isAdding }] = useAddToCartMutation();
+
+  const isInCart = useMemo(
+    () => isInArray(cartItemsIds, productId),
+    [cartItemsIds, productId],
+  );
+
+  console.log(isInCart);
+
+  const handleAddToCart = () => {
+    addToCart({ productId });
+  };
 
   const handleNavigateToCart = () => {
     navigate(ROUTES.CART);
@@ -22,6 +31,7 @@ export const AddToCartButton: FC<TAddToCartButtonProps> = ({ productId }) => {
   return (
     <AddToCartButtonUI
       isInCart={isInCart}
+      disabled={isAdding}
       handleAction={isInCart ? handleNavigateToCart : handleAddToCart}
     />
   );

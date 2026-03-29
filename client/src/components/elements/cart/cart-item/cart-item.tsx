@@ -42,7 +42,7 @@ export const CartItemUI: FC<TCartItemUIProps> = ({
 
   const onSelect = (e: MouseEvent) => {
     e.stopPropagation();
-    handleSelect(id, cartItem.isSelected);
+    handleSelect(id, !cartItem.isSelected);
   };
 
   const onCardClick = () => {

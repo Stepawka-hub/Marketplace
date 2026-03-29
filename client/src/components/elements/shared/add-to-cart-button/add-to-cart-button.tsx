@@ -7,6 +7,7 @@ import { TAddToCartButtonUIProps } from "./type";
 
 export const AddToCartButtonUI: FC<TAddToCartButtonUIProps> = ({
   isInCart,
+  disabled,
   handleAction,
 }) => {
   const { t } = useTranslation();
@@ -18,14 +19,15 @@ export const AddToCartButtonUI: FC<TAddToCartButtonUIProps> = ({
 
   return (
     <Button
-      variant={isInCart ? "contained" : "outlined"}
+      variant={isInCart ? "outlined" : "contained"}
       fullWidth
       startIcon={isInCart ? <CheckCircleIcon /> : <ShoppingBasketIcon />}
+      disabled={disabled}
       onClick={onClick}
     >
       {isInCart
-        ? t("product.buttons.add-to-cart")
-        : t("product.buttons.in-cart")}
+        ? t("product.buttons.in-cart")
+        : t("product.buttons.add-to-cart")}
     </Button>
   );
 };

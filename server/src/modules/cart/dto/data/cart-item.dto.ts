@@ -16,6 +16,12 @@ export class CartItemDto {
   })
   product: ProductListItemDto;
 
+  @ApiProperty({
+    example: false,
+    description: 'Выбран ли товар',
+  })
+  isSelected: boolean;
+
   @ApiProperty(COMMON_API_PROPERTIES.CREATE_DATE)
   createdAt: Date;
 

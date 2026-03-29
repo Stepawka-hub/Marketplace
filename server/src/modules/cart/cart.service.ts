@@ -18,7 +18,9 @@ import {
   TCartActionResponse,
   TCartGetCountResponse,
   TCartGetTotalItemsResponse,
+  TCartItemsIdsResponse,
   TCartPaginatedResponse,
+  TCartTotalPriceResponse,
 } from './types';
 
 @Injectable()
@@ -43,6 +45,7 @@ export class CartService {
       select: {
         productId: true,
         count: true,
+        isSelected: true,
         createdAt: true,
         updatedAt: true,
       },
@@ -65,7 +68,7 @@ export class CartService {
 
     const items = this.mapCartItemsToDto(cartItems, data.items);
 
-    const totalPrice = await this.getTotalPrice(userId);
+    const { data: totalPrice = 0 } = await this.getTotalPrice(userId);
 
     return ApiPaginatedResponse.success(
       items,
@@ -75,6 +78,16 @@ export class CartService {
       'Список товаров в корзине успешно получен',
       { totalPrice },
     );
+  }
+
+  async getCartItemsIds(userId: string): Promise<TCartItemsIdsResponse> {
+    const cartItems = await this.cartRepository.find({
+      where: { userId },
+      select: ['productId'],
+      order: { createdAt: 'DESC' },
+    });
+
+    return ApiResponse.success(cartItems.map((c) => c.productId));
   }
 
   async addToCart(
@@ -248,7 +261,7 @@ export class CartService {
   async getTotalPrice(
     userId: string,
     isSelected: boolean = false,
-  ): Promise<number> {
+  ): Promise<TCartTotalPriceResponse> {
     let cartItems: CartEntity[] = [];
 
     if (isSelected) {
@@ -261,7 +274,9 @@ export class CartService {
       });
     }
 
-    return this.calculateTotalPrice(cartItems);
+    const totalPrice = await this.calculateTotalPrice(cartItems);
+
+    return ApiResponse.success(totalPrice, 'Общая стоимость товаров');
   }
 
   protected mapCartItemsToDto(
@@ -277,6 +292,7 @@ export class CartService {
         items.push({
           count: cartItem.count,
           product,
+          isSelected: cartItem.isSelected,
           createdAt: cartItem.createdAt,
           updatedAt: cartItem.updatedAt,
         });
