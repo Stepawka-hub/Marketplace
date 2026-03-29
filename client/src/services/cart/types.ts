@@ -1,12 +1,5 @@
-import { TProductListItem } from "@/shared/types";
+import { TCartItem } from "@/shared/types";
 import { TPaginatedResponse, TServerResponse } from "../base";
-
-export type TCartItem = {
-  count: number;
-  product: TProductListItem;
-  createdAt: string;
-  updatedAt: string;
-};
 
 export type TCartExtraData = {
   totalPrice: number;
@@ -21,9 +14,13 @@ export type TCartActionData = {
 
 export type TCartActionResponse = TServerResponse<TCartActionData>;
 
+export type TCartTotalPriceResponse = TServerResponse<number>;
+
 export type TCartCountResponse = TServerResponse<number>;
 
 export type TCartDeleteResponse = TServerResponse<null>;
+
+export type TCartSelectResponse = TServerResponse<boolean>;
 
 export type TAddToCartPayload = {
   productId: string;
@@ -33,4 +30,13 @@ export type TAddToCartPayload = {
 export type TUpdateCartItemPayload = {
   productId: string;
   count: number;
+};
+
+export type TSelectCartItemPayload = {
+  productId: string;
+  isSelected: boolean;
+};
+
+export type TSelectAllCartItemsPayload = {
+  isSelected: boolean;
 };

@@ -5,13 +5,11 @@ import {
   TypedUseSelectorHook,
 } from "react-redux";
 import catalogReducer from "@/store/slices/catalog";
-import cartReducer from "@/store/slices/cart";
 import profileReducer from "@/store/slices/profile";
 import { baseAPI } from "@/services/base/base.service";
 
 export const rootReducer = combineReducers({
   catalog: catalogReducer,
-  cart: cartReducer,
   profile: profileReducer,
   [baseAPI.reducerPath]: baseAPI.reducer,
 });

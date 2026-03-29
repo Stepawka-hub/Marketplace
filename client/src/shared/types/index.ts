@@ -4,3 +4,4 @@ export * from "./catalog.types";
 export * from "./common.types";
 export * from "./review.types";
 export * from "./user.types";
+export * from './cart.types';

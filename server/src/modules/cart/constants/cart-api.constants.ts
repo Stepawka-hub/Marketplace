@@ -10,6 +10,11 @@ export const CART_API_PROPERTIES: TApiPropertyOptions = {
     default: 1,
     type: 'integer',
   },
+  IS_SELECTED: {
+    description: 'Выбран ли товар',
+    example: true,
+    type: 'boolean',
+  },
   USER: {
     description: 'Информация о пользователе',
     type: () => UserEntity,

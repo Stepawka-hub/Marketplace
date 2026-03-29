@@ -36,6 +36,10 @@ export class CartEntity {
   @Column({ type: 'int', default: 1 })
   count: number;
 
+  @ApiProperty(CART_API_PROPERTIES.IS_SELECTED)
+  @Column({ type: 'boolean', default: false })
+  isSelected: boolean;
+
   @ApiProperty(COMMON_API_PROPERTIES.CREATE_DATE)
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

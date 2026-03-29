@@ -35,9 +35,3 @@ export type TProductAttribute = {
   name: string;
   value: string;
 };
-
-// Todo: переписать
-export type TCartProduct = Pick<
-  TProductDetails,
-  "id" | "name" | "media" | "price"
->;

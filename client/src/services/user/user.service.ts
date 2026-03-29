@@ -1,5 +1,4 @@
-import { baseAPI } from "../base/base.service";
-import { AUTH_TAG_TYPE } from "../auth";
+import { baseAPI, AUTH_TAG_TYPE } from "../base";
 import { TUserData } from "@/shared/types";
 
 export const userAPI = baseAPI.injectEndpoints({

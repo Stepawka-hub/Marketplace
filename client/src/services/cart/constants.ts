@@ -1,4 +1,4 @@
-export const CART_TAG_TYPE = "Cart" as const;
+import { CART_TAG_TYPE } from "../base/constants";
 
 export const CART_TAGS = {
   LIST: {
@@ -8,6 +8,10 @@ export const CART_TAGS = {
   COUNT: {
     type: CART_TAG_TYPE,
     id: "COUNT",
+  },
+  SELECTED_COUNT: {
+    type: CART_TAG_TYPE,
+    id: "SELECTED_COUNT",
   },
   TOTAL_ITEMS: {
     type: CART_TAG_TYPE,

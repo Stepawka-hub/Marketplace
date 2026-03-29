@@ -1,29 +1,41 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "@/store";
-import {
-  getCartItems,
-  getSelectedIds,
-  toggleSelectedProduct,
-} from "@/store/slices/cart";
 import { ROUTES } from "@/config/routes";
-import { isInArray } from "@/shared/helpers";
+import { usePagination } from "@/hooks/usePagination";
+import {
+  useGetCartQuery,
+  useRemoveFromCartMutation,
+  useToggleSelectedProductMutation,
+} from "@/services/cart";
 
 import { CartListHeader } from "@/components/containers";
-import { CartItemUI } from "@/components/elements";
+import { CartListUI, Pagination } from "@/components/elements";
 import { Grid } from "@mui/material";
 import { gridStyle } from "./styles";
 
 export const CartList: FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const selectedIds = useSelector(getSelectedIds);
-  const cartItems = useSelector(getCartItems);
+  const { page, limit, defaultPagination, handlePageChange } = usePagination();
 
-  const handleDelete = (id: string) => {};
+  // Todo: добавить loader
+  const { data, isLoading: isGettingCart } = useGetCartQuery({ page, limit });
 
-  const handleSelect = (id: string) => {
-    dispatch(toggleSelectedProduct(id));
+  const [removeFromCart, { isLoading: isRemoving }] =
+    useRemoveFromCartMutation();
+
+  const [selectCartItem, { isLoading: isSelecting }] =
+    useToggleSelectedProductMutation();
+
+  if (!data) return;
+
+  const pagination = data.meta || defaultPagination;
+
+  const handleDelete = (id: string) => {
+    removeFromCart(id);
+  };
+
+  const handleSelect = (id: string, isSelected: boolean) => {
+    selectCartItem({ productId: id, isSelected });
   };
 
   const handleCardClick = (id: string) => {
@@ -32,22 +44,21 @@ export const CartList: FC = () => {
 
   return (
     <Grid container sx={gridStyle}>
-      <CartListHeader
-        totalProducts={cartItems.length}
-        totalSelected={selectedIds.length}
+      <CartListHeader />
+      <CartListUI
+        items={data.items}
+        handleDelete={handleDelete}
+        handleCardClick={handleCardClick}
+        handleSelect={handleSelect}
       />
-      <Grid container sx={gridStyle}>
-        {cartItems.map((p) => (
-          <CartItemUI
-            key={p.id}
-            product={p}
-            isSelected={isInArray(selectedIds, p.id)}
-            handleCardClick={handleCardClick}
-            handleDelete={handleDelete}
-            handleSelect={handleSelect}
-          />
-        ))}
-      </Grid>
+      <Pagination
+        count={data.meta.totalPages}
+        page={pagination.page}
+        showFirstButton
+        showLastButton
+        size="large"
+        onChange={handlePageChange}
+      />
     </Grid>
   );
 };

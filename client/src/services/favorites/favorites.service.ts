@@ -1,10 +1,11 @@
 import {
+  baseAPI,
+  FAVORITES_TAG_TYPE,
   TPaginatedResponse,
   TPaginationParams,
   TServerResponse,
 } from "../base";
-import { baseAPI } from "../base/base.service";
-import { FAVORITES_TAG_TYPE, FAVORITES_TAGS } from "./constants";
+import { FAVORITES_TAGS } from "./constants";
 import { TProductListItem } from "@/shared/types";
 import { TFavoritesResponse } from "./types";
 

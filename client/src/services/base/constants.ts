@@ -4,3 +4,7 @@ export const HTTP_STATUS = {
   UNAUTHORIZED: 401,
   NOT_FOUND: 404,
 } as const;
+
+export const AUTH_TAG_TYPE = "Auth" as const;
+export const FAVORITES_TAG_TYPE = "Favorites" as const;
+export const CART_TAG_TYPE = "Cart" as const;

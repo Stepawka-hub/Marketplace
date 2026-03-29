@@ -109,6 +109,7 @@ export class CartService {
       userId,
       productId,
       count: dto.count || 1,
+      isSelected: false,
     });
 
     await this.cartRepository.save(cartItem);
@@ -168,22 +169,71 @@ export class CartService {
     return ApiResponse.deleted('Товар успешно удален из корзины');
   }
 
+  async toggleSelectedProduct(
+    userId: string,
+    productId: string,
+    isSelected: boolean,
+  ) {
+    const cartItem = await this.cartRepository.findOne({
+      where: { userId, productId },
+    });
+
+    if (!cartItem) {
+      throw new NotFoundException('Товар не найден в корзине');
+    }
+
+    cartItem.isSelected = isSelected;
+    await this.cartRepository.save(cartItem);
+
+    return ApiResponse.success(
+      isSelected,
+      isSelected ? 'Товар корзины выбран' : 'Товар корзины убран из выбранных',
+    );
+  }
+
+  async selectAllCartItems(userId: string, isSelected: boolean) {
+    await this.cartRepository.update(
+      { userId },
+      {
+        isSelected,
+      },
+    );
+
+    return ApiResponse.success(
+      isSelected,
+      isSelected
+        ? 'Все товары корзины добавлены в выбранные'
+        : 'Все товары корзины убраны из выбранных',
+    );
+  }
+
   async clearCart(userId: string): Promise<TApiResponse> {
-    await this.cartRepository.delete({ userId });
+    await this.cartRepository.delete({ userId, isSelected: true });
     return ApiResponse.deleted('Корзина успешно очищена');
   }
 
-  async getCount(userId: string): Promise<TCartGetCountResponse> {
-    const count = await this.cartRepository.count({
-      where: { userId },
-    });
+  async getCount(
+    userId: string,
+    isSelected: boolean = false,
+  ): Promise<TCartGetCountResponse> {
+    let count = 0;
+
+    if (isSelected) {
+      count = await this.cartRepository.count({
+        where: { userId, isSelected },
+      });
+    } else {
+      count = await this.cartRepository.count({
+        where: { userId },
+      });
+    }
 
     return ApiResponse.success(count, 'Количество товаров в корзине');
   }
 
   async getTotalItems(userId: string): Promise<TCartGetTotalItemsResponse> {
     const items = await this.cartRepository.find({
-      where: { userId },
+      where: { userId, isSelected: true },
       select: ['count'],
     });
 
@@ -195,10 +245,21 @@ export class CartService {
     );
   }
 
-  async getTotalPrice(userId: string): Promise<number> {
-    const cartItems = await this.cartRepository.find({
-      where: { userId },
-    });
+  async getTotalPrice(
+    userId: string,
+    isSelected: boolean = false,
+  ): Promise<number> {
+    let cartItems: CartEntity[] = [];
+
+    if (isSelected) {
+      cartItems = await this.cartRepository.find({
+        where: { userId, isSelected },
+      });
+    } else {
+      cartItems = await this.cartRepository.find({
+        where: { userId },
+      });
+    }
 
     return this.calculateTotalPrice(cartItems);
   }

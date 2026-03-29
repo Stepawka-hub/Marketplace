@@ -1,7 +1,6 @@
-import { baseAPI } from "../base/base.service";
+import { baseAPI, AUTH_TAG_TYPE } from "../base";
 import { LS_KEYS } from "@/shared/constants";
 import { TAuthResponse, TLoginPayload, TRegisterPayload } from "./types";
-import { AUTH_TAG_TYPE } from "./constants";
 
 export const authAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({

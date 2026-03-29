@@ -64,8 +64,29 @@ export class CartController {
   })
   @Authorization()
   @Get('count')
-  getCount(@Authorizated('id') userId: string) {
-    return this.cartService.getCount(userId);
+  getCount(
+    @Authorizated('id') userId: string,
+    @Body('isSelected') isSelected: boolean,
+  ) {
+    return this.cartService.getCount(userId, isSelected);
+  }
+
+  // Todo: поменять dto
+  @ApiOperation({
+    summary: 'Получение общей стоимости товаров',
+    description: 'Возвращает общую стоимость товаров',
+  })
+  @ApiOkResponse({
+    description: 'Количество товаров в корзине',
+    type: CartCountResponseDto,
+  })
+  @Authorization()
+  @Get('total-price')
+  getTotalPrice(
+    @Authorizated('id') userId: string,
+    @Body('isSelected') isSelected: boolean = true,
+  ) {
+    return this.cartService.getTotalPrice(userId, isSelected);
   }
 
   @ApiOperation({
@@ -135,5 +156,47 @@ export class CartController {
   @Delete()
   clearCart(@Authorizated('id') userId: string) {
     return this.cartService.clearCart(userId);
+  }
+
+  // Todo: поменять dto
+  @ApiOperation({
+    summary: 'Добавление/Удаление товара корзины из выбранного',
+    description: 'Добавляет/Удаляет товар корзины из выбранного',
+  })
+  @ApiOkResponse({
+    description: 'Товар корзины выбран/Товар корзины убран из выбранных',
+    type: CartDeleteResponseDto,
+  })
+  @Authorization()
+  @Post('select')
+  toggleSelectedProduct(
+    @Authorizated('id') userId: string,
+    @Param('productId') productId: string,
+    @Body('isSelected') isSelected: boolean,
+  ) {
+    return this.cartService.toggleSelectedProduct(
+      userId,
+      productId,
+      isSelected,
+    );
+  }
+
+  // Todo: поменять dto
+  @ApiOperation({
+    summary: 'Добавление/Удаление всех товаров корзины из выбранного',
+    description: 'Добавляет/Удаляет все товары корзины из выбранного',
+  })
+  @ApiOkResponse({
+    description:
+      'Все товары корзины добавлены в выбранные/Все товары корзины убраны из выбранных',
+    type: CartDeleteResponseDto,
+  })
+  @Authorization()
+  @Post('select-all')
+  selectAllCartItems(
+    @Authorizated('id') userId: string,
+    @Body('isSelected') isSelected: boolean,
+  ) {
+    return this.cartService.selectAllCartItems(userId, isSelected);
   }
 }

@@ -1,1 +1,0 @@
-export const AUTH_TAG_TYPE = "Auth" as const;

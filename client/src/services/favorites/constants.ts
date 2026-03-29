@@ -1,4 +1,4 @@
-export const FAVORITES_TAG_TYPE = "Favorites" as const;
+import { FAVORITES_TAG_TYPE } from '../base/constants';
 
 export const FAVORITES_TAGS = {
   LIST: {
