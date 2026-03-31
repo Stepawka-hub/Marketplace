@@ -15,7 +15,7 @@ import {
 } from "@/pages";
 import {
   ProfileData,
-  ProfileSettings,
+  SellerPanel,
   ProtectedRoute,
 } from "@/components/containers";
 
@@ -55,8 +55,8 @@ export const router = createBrowserRouter([
                 element: <ProfileData />,
               },
               {
-                path: ROUTES.PROFILE_SETTINGS,
-                element: <ProfileSettings />,
+                path: ROUTES.PROFILE_SELLER_PANEL,
+                element: <SellerPanel />,
               },
             ],
           },

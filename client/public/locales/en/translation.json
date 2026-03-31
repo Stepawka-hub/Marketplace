@@ -166,15 +166,26 @@
     },
     "menu-items": {
       "profile": "Profile",
-      "settings": "Settings",
+      "seller-panel": "Seller panel",
       "log-out": "Log out",
       "logging-out": "Logging out..."
+    },
+    "info-row": {
+      "email": "Email",
+      "phone": "Phone",
+      "role": "Role"
     }
   },
 
   "common": {
-    "buttons": {
-      "back": "Return to catalog"
+    "role": {
+      "vendor": "Vendor",
+      "user": "User"
+    },
+    "actions": {
+      "back": "Return to catalog",
+      "edit": "Edit",
+      "save": "Save"
     }
   },
 

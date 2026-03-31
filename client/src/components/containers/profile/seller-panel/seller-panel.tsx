@@ -1,4 +1,4 @@
 import { FC } from "react";
 import { Box } from "@mui/material";
 
-export const ProfileSettings: FC = () => <Box>Settings</Box>;
+export const SellerPanel: FC = () => <Box>Seller Panel</Box>;

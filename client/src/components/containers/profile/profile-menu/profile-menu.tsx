@@ -4,7 +4,7 @@ import { useLogoutMutation } from "@/services";
 import { ProfileMenuUI, TMenuItem } from "@/components/elements";
 import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
-import SettingsIcon from "@mui/icons-material/Settings";
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import LogoutIcon from "@mui/icons-material/Logout";
 import { logoutButtonStyle } from "./styles";
 import { useTranslation } from "react-i18next";
@@ -24,9 +24,9 @@ export const ProfileMenu: FC = () => {
       to: ROUTES.PROFILE,
     },
     {
-      text: t("profile.menu-items.settings"),
-      icon: <SettingsIcon />,
-      to: ROUTES.PROFILE_SETTINGS,
+      text: t("profile.menu-items.seller-panel"),
+      icon: <MonetizationOnIcon />,
+      to: ROUTES.PROFILE_SELLER_PANEL,
     },
   ];
 

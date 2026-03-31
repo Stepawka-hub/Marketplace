@@ -12,7 +12,6 @@ import {
   Typography,
 } from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
-import Settings from "@mui/icons-material/Settings";
 import { logoutMenuItemStyle, usernameStyle } from "./styles";
 
 export const AccountMenu: FC = () => {
@@ -37,11 +36,6 @@ export const AccountMenu: FC = () => {
     handleClose();
   };
 
-  const navigateToSettings = () => {
-    navigate(ROUTES.PROFILE_SETTINGS);
-    handleClose();
-  };
-
   const handleLogout = async () => {
     await logout().unwrap();
     handleClose();
@@ -60,12 +54,6 @@ export const AccountMenu: FC = () => {
             >{`${data?.firstName} ${data?.lastName}`}</Typography>
           </MenuItem>
           <Divider />
-          <MenuItem onClick={navigateToSettings}>
-            <ListItemIcon>
-              <Settings fontSize="small" />
-            </ListItemIcon>
-            {t("profile.menu-items.settings")}
-          </MenuItem>
           <MenuItem
             disabled={isLoading}
             sx={logoutMenuItemStyle}
