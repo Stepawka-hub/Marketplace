@@ -19,7 +19,7 @@ export const AddToCartButtonUI: FC<TAddToCartButtonUIProps> = ({
 
   return (
     <Button
-      variant={isInCart ? "outlined" : "contained"}
+      variant='contained'
       fullWidth
       startIcon={isInCart ? <CheckCircleIcon /> : <ShoppingBasketIcon />}
       disabled={disabled}

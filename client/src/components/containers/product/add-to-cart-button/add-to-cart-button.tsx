@@ -18,8 +18,6 @@ export const AddToCartButton: FC<TAddToCartButtonProps> = ({ productId }) => {
     [cartItemsIds, productId],
   );
 
-  console.log(isInCart);
-
   const handleAddToCart = () => {
     addToCart({ productId });
   };

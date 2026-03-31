@@ -12,6 +12,7 @@ import { CartListHeader } from "@/components/containers";
 import { CartListUI, Pagination } from "@/components/elements";
 import { Grid } from "@mui/material";
 import { gridStyle } from "./styles";
+import { Loader } from '@/components/ui';
 
 export const CartList: FC = () => {
   const navigate = useNavigate();
@@ -23,13 +24,17 @@ export const CartList: FC = () => {
     limit,
   });
 
-  const [removeFromCart, { isLoading: isRemoving }] =
-    useRemoveFromCartMutation();
+  const [removeFromCart] = useRemoveFromCartMutation();
 
-  const [selectCartItem, { isLoading: isSelecting }] =
-    useToggleSelectedProductMutation();
+  const [selectCartItem] = useToggleSelectedProductMutation();
 
-  if (!data) return;
+  if (!data) {
+    return;
+  }
+
+  if (isGettingCart) {
+    return <Loader />;
+  }
 
   const pagination = data.meta || defaultPagination;
 
