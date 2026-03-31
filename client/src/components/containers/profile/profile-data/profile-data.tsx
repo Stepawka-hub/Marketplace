@@ -39,7 +39,7 @@ export const ProfileData: FC = () => {
         onEditButtonClick={openEditProfileModal}
       />
       <EditProfileModal
-        open={isModalOpen}
+        isOpen={isModalOpen}
         userData={data}
         onClose={closeEditProfileModal}
         onSuccess={refetch}

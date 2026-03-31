@@ -1,53 +1,46 @@
 import { FC, useEffect } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import {
-  Modal,
-  Box,
-  Typography,
-  TextField,
-  Button,
-  Stack,
-  IconButton,
-} from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import { useForm } from "react-hook-form";
+  emailValidation,
+  maxLengthValidation,
+  minLengthValidation,
+  requiredValidation,
+} from "@/shared/helpers";
 
-interface EditProfileModalProps {
-  open: boolean;
-  onClose: () => void;
-  userData: {
-    id: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-  };
-  onSuccess: () => void;
-}
+import { Input, PasswordInput } from "@/components/containers";
+import { EditProfileModalUI, Form } from "@/components/elements";
+import { Button, Stack } from "@mui/material";
+import PersonIcon from "@mui/icons-material/Person";
+import EmailIcon from "@mui/icons-material/Email";
+import PhoneIcon from "@mui/icons-material/Phone";
+import { TEditProfileFormData, TEditProfileModalProps } from "./types";
+import { EDIT_PROFILE_FIELDS } from "./constants";
+import { formStyle } from "./styles";
 
-interface FormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-}
-
-export const EditProfileModal: FC<EditProfileModalProps> = ({
-  open,
+export const EditProfileModal: FC<TEditProfileModalProps> = ({
+  isOpen,
   userData,
   onSuccess,
   onClose,
 }) => {
+  const { t } = useTranslation();
+  const methods = useForm<TEditProfileFormData>();
   const {
     register,
     handleSubmit,
+    setError,
     reset,
     formState: { errors },
-  } = useForm<FormData>();
+  } = methods;
+  const { FIRST_NAME, LAST_NAME, EMAIL, PHONE, PASSWORD, CONFIRM_PASSWORD } =
+    EDIT_PROFILE_FIELDS;
+
   //const [updateProfile, { isLoading }] = useUpdateProfileMutation();
   const isLoading = false;
 
   useEffect(() => {
-    if (open) {
+    if (isOpen) {
       reset({
         firstName: userData.firstName,
         lastName: userData.lastName,
@@ -55,83 +48,87 @@ export const EditProfileModal: FC<EditProfileModalProps> = ({
         phone: userData.phone || "",
       });
     }
-  }, [open, userData, reset]);
+  }, [isOpen, userData, reset]);
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (data: TEditProfileFormData) => {
+    if (data.password !== data.confirmPassword) {
+      setError("confirmPassword", {
+        type: "manual",
+        message: t("form.validation.passwords-not-match"),
+      });
+
+      return;
+    }
+
     try {
       //await updateProfile({ id: userData.id, ...data }).unwrap();
       onSuccess();
       onClose();
     } catch (error) {
-      console.error("Ошибка обновления:", error);
+      console.error("Ошибка обновления: ", error);
     }
   };
 
-  return (
-    <Modal open={open} onClose={onClose} aria-labelledby="edit-profile-modal">
-      <Box
-        sx={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: { xs: "90%", sm: 480 },
-          bgcolor: "background.paper",
-          borderRadius: 2,
-          boxShadow: 24,
-          p: 3,
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            mb: 2,
-          }}
-        >
-          <Typography variant="h6">Редактирование профиля</Typography>
-          <IconButton onClick={onClose} size="small">
-            <CloseIcon />
-          </IconButton>
-        </Box>
+  const getFieldTranslation = (field: string, type: "label" | "placeholder") =>
+    t(`form.fields.${field}.${type}`);
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+  return (
+    <EditProfileModalUI isOpen={isOpen} onClose={onClose}>
+      <FormProvider {...methods}>
+        <Form sx={formStyle} onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={2}>
-            <TextField
-              label="Имя"
-              fullWidth
-              {...register("firstName", { required: "Имя обязательно" })}
+            <Input
+              label={getFieldTranslation(FIRST_NAME, "label")}
+              placeholder={getFieldTranslation(FIRST_NAME, "placeholder")}
               error={!!errors.firstName}
               helperText={errors.firstName?.message}
+              startIcon={<PersonIcon />}
+              {...register(FIRST_NAME, { ...requiredValidation(t) })}
             />
-            <TextField
-              label="Фамилия"
-              fullWidth
-              {...register("lastName", { required: "Фамилия обязательна" })}
+            <Input
+              label={getFieldTranslation(LAST_NAME, "label")}
+              placeholder={getFieldTranslation(LAST_NAME, "placeholder")}
               error={!!errors.lastName}
               helperText={errors.lastName?.message}
+              startIcon={<PersonIcon />}
+              {...register(LAST_NAME, { ...requiredValidation(t) })}
             />
-            <TextField
-              label="Email"
-              fullWidth
-              type="email"
-              {...register("email", {
-                required: "Email обязателен",
-                pattern: {
-                  value: /^\S+@\S+\.\S+$/,
-                  message: "Неверный формат email",
-                },
-              })}
+            <Input
+              label={getFieldTranslation(EMAIL, "label")}
+              placeholder={getFieldTranslation(EMAIL, "placeholder")}
               error={!!errors.email}
               helperText={errors.email?.message}
+              startIcon={<EmailIcon />}
+              {...register(EMAIL, {
+                ...requiredValidation(t),
+                ...emailValidation(t),
+              })}
             />
-            <TextField
-              label="Телефон"
-              fullWidth
-              {...register("phone")}
-              placeholder="+7 XXX XXX-XX-XX"
+            <Input
+              label={getFieldTranslation(PHONE, "label")}
+              placeholder={getFieldTranslation(PHONE, "placeholder")}
               error={!!errors.phone}
+              startIcon={<PhoneIcon />}
+              {...register(PHONE)}
+            />
+            <PasswordInput
+              label={getFieldTranslation(PASSWORD, "label")}
+              placeholder={getFieldTranslation(PASSWORD, "placeholder")}
+              {...register(PASSWORD, {
+                ...requiredValidation(t),
+                ...minLengthValidation(8, t),
+                ...maxLengthValidation(100, t),
+              })}
+            />
+
+            <PasswordInput
+              label={getFieldTranslation(CONFIRM_PASSWORD, "label")}
+              placeholder={getFieldTranslation(CONFIRM_PASSWORD, "placeholder")}
+              {...register(CONFIRM_PASSWORD, {
+                ...requiredValidation(t),
+                ...minLengthValidation(8, t),
+                ...maxLengthValidation(100, t),
+              })}
             />
 
             <Button
@@ -141,11 +138,13 @@ export const EditProfileModal: FC<EditProfileModalProps> = ({
               disabled={isLoading}
               sx={{ mt: 1 }}
             >
-              {isLoading ? "Сохранение..." : "Сохранить"}
+              {isLoading
+                ? t("common.actions.saving")
+                : t("common.actions.save")}
             </Button>
           </Stack>
-        </form>
-      </Box>
-    </Modal>
+        </Form>
+      </FormProvider>
+    </EditProfileModalUI>
   );
 };

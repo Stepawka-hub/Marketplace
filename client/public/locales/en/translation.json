@@ -36,6 +36,18 @@
       "passwords-not-match": "Passwords do not match"
     },
     "fields": {
+      "firstName": {
+        "label": "First name",
+        "placeholder": "Stepan"
+      },
+      "lastName": {
+        "label": "Last name",
+        "placeholder": "Lvov"
+      },
+      "phone": {
+        "label": "Phone",
+        "placeholder": "+1 (XXX) XXX-XX-XX"
+      },
       "email": {
         "label": "Email",
         "placeholder": "email@example.com"
@@ -53,20 +65,6 @@
   "register": {
     "form": {
       "title": "Register",
-      "fields": {
-        "firstName": {
-          "label": "First name",
-          "placeholder": "Stepan"
-        },
-        "lastName": {
-          "label": "Last name",
-          "placeholder": "Lvov"
-        },
-        "phone": {
-          "label": "Phone",
-          "placeholder": "+1 (XXX) XXX-XX-XX"
-        }
-      },
       "submit-button": "Register"
     }
   },
@@ -174,6 +172,9 @@
       "email": "Email",
       "phone": "Phone",
       "role": "Role"
+    },
+    "edit-modal": {
+      "title": "Editing profile"
     }
   },
 
@@ -185,7 +186,8 @@
     "actions": {
       "back": "Return to catalog",
       "edit": "Edit",
-      "save": "Save"
+      "save": "Save",
+      "saving": "Saving..."
     }
   },
 

@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useRegisterMutation } from "@/services";
 import {
   emailValidation,
   maxLengthValidation,
@@ -14,10 +15,8 @@ import { CenteredBox, SubmitButton } from "@/components/ui";
 import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
-import { TRegisterForm } from "./types";
-import { useRegisterMutation } from "@/services";
-
 import { REGISTER_FIELDS } from "./constants";
+import { TRegisterForm } from "./types";
 
 export const RegisterForm: FC = () => {
   const { t } = useTranslation();
@@ -45,10 +44,7 @@ export const RegisterForm: FC = () => {
 
   const getFieldId = (field: string) => `register_${field}`;
 
-  const getRegisterField = (field: string, type: "label" | "placeholder") =>
-    t(`register.form.fields.${field}.${type}`);
-
-  const getCommonField = (field: string, type: "label" | "placeholder") =>
+  const getFieldTranslation = (field: string, type: "label" | "placeholder") =>
     t(`form.fields.${field}.${type}`);
 
   return (
@@ -57,8 +53,8 @@ export const RegisterForm: FC = () => {
         <Form title={t("register.form.title")} onSubmit={onSubmit}>
           <Input
             id={getFieldId(FIRST_NAME)}
-            label={getRegisterField(FIRST_NAME, "label")}
-            placeholder={getRegisterField(FIRST_NAME, "placeholder")}
+            label={getFieldTranslation(FIRST_NAME, "label")}
+            placeholder={getFieldTranslation(FIRST_NAME, "placeholder")}
             startIcon={<PersonIcon />}
             {...register(FIRST_NAME, {
               ...requiredValidation(t),
@@ -69,8 +65,8 @@ export const RegisterForm: FC = () => {
 
           <Input
             id={getFieldId(LAST_NAME)}
-            label={getRegisterField(LAST_NAME, "label")}
-            placeholder={getRegisterField(LAST_NAME, "placeholder")}
+            label={getFieldTranslation(LAST_NAME, "label")}
+            placeholder={getFieldTranslation(LAST_NAME, "placeholder")}
             startIcon={<PersonIcon />}
             {...register(LAST_NAME, {
               ...requiredValidation(t),
@@ -81,8 +77,8 @@ export const RegisterForm: FC = () => {
 
           <Input
             id={getFieldId(EMAIL)}
-            label={getCommonField(EMAIL, "label")}
-            placeholder={getCommonField(EMAIL, "placeholder")}
+            label={getFieldTranslation(EMAIL, "label")}
+            placeholder={getFieldTranslation(EMAIL, "placeholder")}
             startIcon={<EmailIcon />}
             autoComplete="email"
             {...register(EMAIL, {
@@ -93,16 +89,16 @@ export const RegisterForm: FC = () => {
 
           <Input
             id={getFieldId(PHONE)}
-            label={getRegisterField(PHONE, "label")}
-            placeholder={getRegisterField(PHONE, "placeholder")}
+            label={getFieldTranslation(PHONE, "label")}
+            placeholder={getFieldTranslation(PHONE, "placeholder")}
             startIcon={<PhoneIcon />}
             {...register(PHONE)}
           />
 
           <PasswordInput
             id={getFieldId(PASSWORD)}
-            label={getCommonField(PASSWORD, "label")}
-            placeholder={getCommonField(PASSWORD, "placeholder")}
+            label={getFieldTranslation(PASSWORD, "label")}
+            placeholder={getFieldTranslation(PASSWORD, "placeholder")}
             {...register(PASSWORD, {
               ...requiredValidation(t),
               ...minLengthValidation(8, t),
@@ -112,8 +108,8 @@ export const RegisterForm: FC = () => {
 
           <PasswordInput
             id={getFieldId(CONFIRM_PASSWORD)}
-            label={getCommonField(CONFIRM_PASSWORD, "label")}
-            placeholder={getCommonField(CONFIRM_PASSWORD, "placeholder")}
+            label={getFieldTranslation(CONFIRM_PASSWORD, "label")}
+            placeholder={getFieldTranslation(CONFIRM_PASSWORD, "placeholder")}
             {...register(CONFIRM_PASSWORD, {
               ...requiredValidation(t),
               ...minLengthValidation(8, t),

@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useLoginMutation } from "@/services";
 import {
   emailValidation,
   maxLengthValidation,
@@ -13,7 +14,6 @@ import { Form } from "@/components/elements";
 import { CenteredBox, SubmitButton } from "@/components/ui";
 import EmailIcon from "@mui/icons-material/Email";
 import { TLoginForm } from "./types";
-import { useLoginMutation } from "@/services/auth/auth.service";
 
 export const LoginForm: FC = () => {
   const { t } = useTranslation();

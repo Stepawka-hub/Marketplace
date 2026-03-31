@@ -40,6 +40,18 @@
       "passwords-not-match": "Пароли не совпадают"
     },
     "fields": {
+      "firstName": {
+        "label": "Имя",
+        "placeholder": "Степан"
+      },
+      "lastName": {
+        "label": "Фамилия",
+        "placeholder": "Львов"
+      },
+      "phone": {
+        "label": "Телефон",
+        "placeholder": "+7 (XXX) XXX-XX-XX"
+      },
       "email": {
         "label": "Email",
         "placeholder": "email@example.com"
@@ -57,20 +69,6 @@
   "register": {
     "form": {
       "title": "Регистрация",
-      "fields": {
-        "firstName": {
-          "label": "Имя",
-          "placeholder": "Степан"
-        },
-        "lastName": {
-          "label": "Фамилия",
-          "placeholder": "Львов"
-        },
-        "phone": {
-          "label": "Телефон",
-          "placeholder": "+7 (XXX) XXX-XX-XX"
-        }
-      },
       "submit-button": "Зарегистрироваться"
     }
   },
@@ -182,6 +180,9 @@
       "email": "Email",
       "phone": "Телефон",
       "role": "Роль"
+    },
+    "edit-modal": {
+      "title": "Редактирование профиля"
     }
   },
 
@@ -193,7 +194,8 @@
     "actions": {
       "back": "Вернуться в каталог",
       "edit": "Редактировать",
-      "save": "Сохранить"
+      "save": "Сохранить",
+      "saving": "Сохранение..."
     }
   },
 
