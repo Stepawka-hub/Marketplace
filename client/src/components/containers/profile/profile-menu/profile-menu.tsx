@@ -1,13 +1,17 @@
 import { FC } from "react";
+import { useTranslation } from "react-i18next";
 import { ROUTES } from "@/config/routes";
 import { useLogoutMutation } from "@/services";
 import { ProfileMenuUI, TMenuItem } from "@/components/elements";
 import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
-import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { logoutButtonStyle } from "./styles";
-import { useTranslation } from "react-i18next";
+import {
+  listItemIconStyle,
+  listItemTextStyle,
+  logoutButtonStyle,
+} from "./styles";
 
 export const ProfileMenu: FC = () => {
   const { t } = useTranslation();
@@ -39,7 +43,7 @@ export const ProfileMenu: FC = () => {
           sx={logoutButtonStyle}
           onClick={handleLogout}
         >
-          <ListItemIcon sx={{ color: "inherit" }}>
+          <ListItemIcon sx={listItemIconStyle}>
             <LogoutIcon />
           </ListItemIcon>
           <ListItemText
@@ -48,6 +52,7 @@ export const ProfileMenu: FC = () => {
                 ? t("profile.menu-items.logging-out")
                 : t("profile.menu-items.log-out")
             }
+            sx={listItemTextStyle}
           />
         </ListItemButton>
       }

@@ -1,0 +1,1 @@
+export { ProfileAvatarUI } from './profile-avatar';

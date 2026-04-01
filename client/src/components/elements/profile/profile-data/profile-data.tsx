@@ -1,14 +1,10 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { getRoleTranslationKey } from "@/shared/helpers";
+import { ProfileAvatar } from "@/components/containers";
 import { InfoRow } from "@/components/elements";
-import { Box, Paper, Avatar, Typography, Button, Stack } from "@mui/material";
-import {
-  avatarStyle,
-  editButtonStyle,
-  profileBoxStyle,
-  wrapperStyle,
-} from "./styles";
+import { Box, Paper, Typography, Button, Stack } from "@mui/material";
+import { editButtonStyle, profileBoxStyle, wrapperStyle } from "./styles";
 import { TProfileDataUIProps } from "./type";
 
 export const ProfileDataUI: FC<TProfileDataUIProps> = ({
@@ -29,9 +25,7 @@ export const ProfileDataUI: FC<TProfileDataUIProps> = ({
   return (
     <Paper elevation={0} sx={wrapperStyle}>
       <Box sx={profileBoxStyle}>
-        <Avatar src={avatar} sx={avatarStyle}>
-          {initials}
-        </Avatar>
+        <ProfileAvatar avatar={avatar} initials={initials} />
 
         <Box sx={{ flex: 1 }}>
           <Typography variant="h5" fontWeight={500} gutterBottom>

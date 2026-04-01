@@ -1,24 +1,33 @@
 import { SxProps } from "@mui/material";
 
-export const avatarStyle: SxProps = {
-  width: 128,
-  height: 128,
-  bgcolor: "primary.main",
-  fontSize: 48,
-} as const;
-
 export const wrapperStyle: SxProps = {
   p: 3,
   borderRadius: 2,
+  backgroundColor: "custom.primary.main",
 } as const;
 
 export const profileBoxStyle: SxProps = {
   display: "flex",
-  alignItems: "flex-start",
+  alignItems: {
+    xs: "center",
+    sm: "flex-start",
+  },
+  flexDirection: {
+    xs: "column",
+    sm: "row",
+  },
   gap: 3,
   flexWrap: "wrap",
+  textAlign: {
+    xs: "center",
+    sm: "left",
+  },
 } as const;
 
 export const editButtonStyle: SxProps = {
-  alignSelf: "flex-start",
+  alignSelf: {
+    xs: "center",
+    sm: "flex-start",
+  },
+  fontWeight: 600,
 } as const;

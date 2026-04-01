@@ -9,7 +9,13 @@ import {
   ListItemText,
   Paper,
 } from "@mui/material";
-import { listItemButtonStyle, listItemStyle, menuPaperStyle } from "./styles";
+import {
+  listItemButtonStyle,
+  listItemIconStyle,
+  listItemStyle,
+  listItemTextStyle,
+  menuPaperStyle,
+} from "./styles";
 import { TProfileMenuProps } from "./types";
 
 export const ProfileMenuUI: FC<TProfileMenuProps> = ({ menuItems, footer }) => {
@@ -24,8 +30,8 @@ export const ProfileMenuUI: FC<TProfileMenuProps> = ({ menuItems, footer }) => {
               end
               sx={listItemButtonStyle}
             >
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
+              <ListItemIcon sx={listItemIconStyle}>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text} sx={listItemTextStyle} />
             </ListItemButton>
           </ListItem>
         ))}
