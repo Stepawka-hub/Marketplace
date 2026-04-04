@@ -1,8 +1,8 @@
 import { FC, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useUpdateProfileMutation } from "@/services";
 import {
-  emailValidation,
   maxLengthValidation,
   minLengthValidation,
   requiredValidation,
@@ -12,7 +12,6 @@ import { Input, PasswordInput } from "@/components/containers";
 import { EditProfileModalUI, Form } from "@/components/elements";
 import { Button, Stack } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
-import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import { TEditProfileFormData, TEditProfileModalProps } from "./types";
 import { EDIT_PROFILE_FIELDS } from "./constants";
@@ -33,19 +32,19 @@ export const EditProfileModal: FC<TEditProfileModalProps> = ({
     reset,
     formState: { errors },
   } = methods;
-  const { FIRST_NAME, LAST_NAME, EMAIL, PHONE, PASSWORD, CONFIRM_PASSWORD } =
+  const { FIRST_NAME, LAST_NAME, PHONE, PASSWORD, CONFIRM_PASSWORD } =
     EDIT_PROFILE_FIELDS;
 
-  //const [updateProfile, { isLoading }] = useUpdateProfileMutation();
-  const isLoading = false;
+  const [updateProfile, { isLoading }] = useUpdateProfileMutation();
 
   useEffect(() => {
     if (isOpen) {
       reset({
         firstName: userData.firstName,
         lastName: userData.lastName,
-        email: userData.email,
         phone: userData.phone || "",
+        password: "",
+        confirmPassword: "",
       });
     }
   }, [isOpen, userData, reset]);
@@ -61,7 +60,15 @@ export const EditProfileModal: FC<TEditProfileModalProps> = ({
     }
 
     try {
-      //await updateProfile({ id: userData.id, ...data }).unwrap();
+      const { firstName, lastName, phone, password } = data;
+
+      await updateProfile({
+        firstName,
+        lastName,
+        phone,
+        password,
+      }).unwrap();
+
       onSuccess();
       onClose();
     } catch (error) {
@@ -92,17 +99,6 @@ export const EditProfileModal: FC<TEditProfileModalProps> = ({
               helperText={errors.lastName?.message}
               startIcon={<PersonIcon />}
               {...register(LAST_NAME, { ...requiredValidation(t) })}
-            />
-            <Input
-              label={getFieldTranslation(EMAIL, "label")}
-              placeholder={getFieldTranslation(EMAIL, "placeholder")}
-              error={!!errors.email}
-              helperText={errors.email?.message}
-              startIcon={<EmailIcon />}
-              {...register(EMAIL, {
-                ...requiredValidation(t),
-                ...emailValidation(t),
-              })}
             />
             <Input
               label={getFieldTranslation(PHONE, "label")}

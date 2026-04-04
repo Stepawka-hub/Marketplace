@@ -12,6 +12,4 @@ export type TUserData = {
   lastName: string;
   avatar: string;
   role: TUserRole;
-  createdAt: string;
-  updatedAt: string;
 };

@@ -1,4 +1,6 @@
 import { FC, ChangeEvent, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useUploadAvatarMutation } from "@/services";
 import { ProfileAvatarUI } from "@/components/elements";
 import { MAX_AVATAR_SIZE } from "./constants";
 import { TProfileAvatarProps } from "./types";
@@ -7,8 +9,8 @@ export const ProfileAvatar: FC<TProfileAvatarProps> = ({
   avatar,
   initials,
 }) => {
-  const isLoading = false;
-  //const [uploadAvatar, { isLoading }] = useUploadAvatarMutation();
+  const { t } = useTranslation();
+  const [uploadAvatar, { isLoading }] = useUploadAvatarMutation();
   const [error, setError] = useState<string | null>(null);
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -18,12 +20,12 @@ export const ProfileAvatar: FC<TProfileAvatarProps> = ({
     setError(null);
 
     if (!file.type.startsWith("image/")) {
-      setError("Пожалуйста, выберите изображение");
+      setError(t("profile.avatar.errors.incorrect-type"));
       return;
     }
 
     if (file.size > MAX_AVATAR_SIZE) {
-      setError("Размер файла не должен превышать 5MB");
+      setError(t("profile.avatar.errors.max-size"));
       return;
     }
 
@@ -31,9 +33,9 @@ export const ProfileAvatar: FC<TProfileAvatarProps> = ({
       const formData = new FormData();
       formData.append("avatar", file);
 
-      //const result = await uploadAvatar(formData).unwrap();
+      await uploadAvatar(formData).unwrap();
     } catch (err) {
-      setError("Ошибка при загрузке фото");
+      setError(t("profile.avatar.errors.common"));
       console.error(err);
     } finally {
       event.target.value = "";

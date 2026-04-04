@@ -173,6 +173,16 @@
       "phone": "Phone",
       "role": "Role"
     },
+    "avatar": {
+      "errors": {
+        "incorrect-type": "Please select an image",
+        "max-size": "The file size must not exceed 5MB.",
+        "common": "Error uploading photo"
+      }
+    },
+    "errors": {
+      "loading": "Error loading profile"
+    },
     "edit-modal": {
       "title": "Editing profile"
     }

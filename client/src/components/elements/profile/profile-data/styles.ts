@@ -4,6 +4,8 @@ export const wrapperStyle: SxProps = {
   p: 3,
   borderRadius: 2,
   backgroundColor: "custom.primary.main",
+  border: "1px solid",
+  borderColor: "divider",
 } as const;
 
 export const profileBoxStyle: SxProps = {

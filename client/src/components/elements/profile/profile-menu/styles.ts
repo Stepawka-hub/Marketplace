@@ -2,7 +2,10 @@ import { THEMES_MAP } from "@/shared/constants";
 import { SxProps, Theme } from "@mui/material";
 
 export const menuPaperStyle: SxProps<Theme> = {
-  width: { xs: "auto", md: 280 },
+  width: {
+    xs: "auto",
+    md: 280,
+  },
   borderRadius: 2,
   backgroundColor: (theme) =>
     theme.palette.mode === THEMES_MAP.DARK
@@ -36,14 +39,17 @@ export const listItemTextStyle: SxProps = {
 export const listItemButtonStyle: SxProps<Theme> = ({ palette }) =>
   ({
     display: "flex",
-    justifyContent: { xs: "center", md: "flex-start" },
+    justifyContent: {
+      xs: "center",
+      md: "flex-start",
+    },
     "&.active": {
       color: {
         xs:
           palette.mode === THEMES_MAP.DARK
             ? palette.primary.main
             : palette.primary.light,
-        md: "white",
+        md: palette.text.primary,
       },
       borderRight: {
         xs: "none",
