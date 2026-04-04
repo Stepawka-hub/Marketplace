@@ -9,3 +9,7 @@ export const usernameStyle: SxProps = {
 export const logoutMenuItemStyle: SxProps = {
   color: "error.main",
 } as const;
+
+export const avatarStyle: SxProps = {
+  bgcolor: "primary.main",
+} as const;

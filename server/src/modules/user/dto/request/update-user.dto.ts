@@ -33,4 +33,13 @@ export class UpdateUserDto {
   @IsOptional()
   @IsString()
   avatar?: string;
+
+  @ApiPropertyOptional({
+    example: 'testPass123',
+    description: 'Новый пароль пользователя',
+  })
+  @IsOptional()
+  @IsString()
+  @Length(8, 100)
+  password?: string;
 }

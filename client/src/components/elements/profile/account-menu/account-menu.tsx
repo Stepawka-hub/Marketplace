@@ -1,13 +1,15 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Avatar, Box, IconButton, Menu, Tooltip } from "@mui/material";
-import { menuBoxStyle, menuPaperStyle } from "./styles";
+import { avatarStyle, menuBoxStyle, menuPaperStyle } from "./styles";
 import { TAccountMenuProps } from "./type";
 
 export const AccountMenuUI: FC<TAccountMenuProps> = ({
   isOpen,
   anchorEl,
   items,
+  avatar,
+  initials,
   onClick,
   onClose,
 }) => {
@@ -24,7 +26,9 @@ export const AccountMenuUI: FC<TAccountMenuProps> = ({
             aria-expanded={isOpen ? "true" : undefined}
             onClick={onClick}
           >
-            <Avatar />
+            <Avatar sx={avatarStyle} src={avatar}>
+              {!avatar && initials}
+            </Avatar>
           </IconButton>
         </Tooltip>
       </Box>

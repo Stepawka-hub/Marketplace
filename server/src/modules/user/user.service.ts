@@ -7,6 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
 import { StorageService } from '../storage';
 import { Repository } from 'typeorm';
+import { hash } from 'argon2';
 
 import { ApiResponse } from '@/common';
 import { generateFileName } from '@/common/utils';
@@ -75,6 +76,10 @@ export class UserService {
       if (existingUser) {
         throw new ConflictException('User with this phone already exists.');
       }
+    }
+
+    if (updateData.password) {
+      updateData.password = await hash(updateData.password);
     }
 
     Object.assign(user, updateData);

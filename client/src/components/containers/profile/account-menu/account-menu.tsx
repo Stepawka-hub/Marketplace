@@ -1,6 +1,7 @@
 import { FC, MouseEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { getInitials } from "@/shared/helpers";
 import { ROUTES } from "@/config/routes";
 import { useGetMeQuery, useLogoutMutation } from "@/services";
 import { AccountMenuUI } from "@/components/elements";
@@ -12,16 +13,19 @@ import {
   Typography,
 } from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
-import { logoutMenuItemStyle, usernameStyle } from "./styles";
+import { avatarStyle, logoutMenuItemStyle, usernameStyle } from "./styles";
 
 export const AccountMenu: FC = () => {
   const { t } = useTranslation();
   const { data } = useGetMeQuery();
+  const { firstName = "", lastName = "", avatar = "" } = data || {};
   const [logout, { isLoading }] = useLogoutMutation();
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const isOpen = Boolean(anchorEl);
+
+  const initials = getInitials(firstName, lastName);
 
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -48,10 +52,12 @@ export const AccountMenu: FC = () => {
       items={
         <div>
           <MenuItem onClick={navigateToProfile}>
-            <Avatar />
+            <Avatar sx={avatarStyle} src={avatar}>
+              {!avatar && initials}
+            </Avatar>
             <Typography
               sx={usernameStyle}
-            >{`${data?.firstName} ${data?.lastName}`}</Typography>
+            >{`${firstName} ${lastName}`}</Typography>
           </MenuItem>
           <Divider />
           <MenuItem
@@ -68,6 +74,8 @@ export const AccountMenu: FC = () => {
           </MenuItem>
         </div>
       }
+      avatar={avatar}
+      initials={initials}
       onClick={handleClick}
       onClose={handleClose}
     />

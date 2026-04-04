@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { getRoleTranslationKey } from "@/shared/helpers";
+import { getInitials, getRoleTranslationKey } from "@/shared/helpers";
 import { ProfileAvatar } from "@/components/containers";
 import { InfoRow } from "@/components/elements";
 import { Box, Paper, Typography, Button, Stack } from "@mui/material";
@@ -18,7 +18,7 @@ export const ProfileDataUI: FC<TProfileDataUIProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const initials = `${firstName[0]}${lastName[0]}`.toUpperCase();
+  const initials = getInitials(firstName, lastName);
 
   const userRole = t(getRoleTranslationKey(role));
 
