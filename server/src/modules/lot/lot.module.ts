@@ -5,9 +5,14 @@ import { LotController } from './lot.controller';
 import { LotEntity } from './entities';
 import { ProductModule } from '@/modules/product';
 import { UserModule } from '@/modules/user';
+import { BidEntity } from '../bid/entities';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([LotEntity]), ProductModule, UserModule],
+  imports: [
+    TypeOrmModule.forFeature([LotEntity, BidEntity]),
+    ProductModule,
+    UserModule,
+  ],
   controllers: [LotController],
   providers: [LotService],
   exports: [LotService],

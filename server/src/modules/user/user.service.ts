@@ -144,7 +144,7 @@ export class UserService {
     await this.userRepository.save(user);
   }
 
-  private formatAvatarUrl(avatar: string | null): string | null {
+  formatAvatarUrl(avatar: string | null): string | null {
     return avatar ? `${this.avatarBaseUrl}${avatar}` : null;
   }
 

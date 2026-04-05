@@ -14,6 +14,8 @@ import { ApiPaginatedResponse, ApiResponse } from '@/common/helpers';
 import { PaginationDto } from '@/common';
 import { CreateBidDto } from './dto';
 import { TBidActionResponse, TBidPaginatedResponse } from './types';
+import { LOT_STATUSES } from '../lot/constants';
+import { BID_STATUSES } from './constants';
 
 @Injectable()
 export class BidService {
@@ -34,8 +36,34 @@ export class BidService {
 
     const [bids, total] = await this.bidRepository.findAndCount({
       where: { lotId },
-      relations: ['user'],
-      order: { amount: 'DESC', createdAt: 'DESC' },
+      relations: ['user', 'lot', 'lot.product', 'lot.product.media'],
+      select: {
+        id: true,
+        amount: true,
+        status: true,
+        user: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          email: true,
+          avatar: true,
+        },
+        lot: {
+          id: true,
+          currentPrice: true,
+          product: {
+            id: true,
+            name: true,
+            shortDescription: true,
+            media: true,
+          },
+        },
+        createdAt: true,
+      },
+      order: {
+        amount: 'DESC',
+        createdAt: 'DESC',
+      },
       skip,
       take: limit,
     });
@@ -63,7 +91,7 @@ export class BidService {
       throw new NotFoundException('Lot not found');
     }
 
-    if (lot.status !== 'ACTIVE') {
+    if (lot.status !== LOT_STATUSES.ACTIVE) {
       throw new BadRequestException('Auction is not active');
     }
 
@@ -91,19 +119,25 @@ export class BidService {
       userId,
       lotId,
       amount: dto.amount,
-      status: 'ACTIVE',
+      status: BID_STATUSES.ACTIVE,
     });
     await this.bidRepository.save(bid);
 
     // Обновляем предыдущие ставки пользователя
     const previousBids = await this.bidRepository.find({
-      where: { lotId, userId, status: 'ACTIVE' },
-      order: { createdAt: 'DESC' },
+      where: {
+        lotId,
+        userId,
+        status: BID_STATUSES.ACTIVE,
+      },
+      order: {
+        createdAt: 'DESC',
+      },
     });
 
     for (const prevBid of previousBids) {
       if (prevBid.id !== bid.id) {
-        prevBid.status = 'OUTBID';
+        prevBid.status = BID_STATUSES.OUTBID;
         await this.bidRepository.save(prevBid);
         await this.userService.updateFrozenBalance(
           userId,

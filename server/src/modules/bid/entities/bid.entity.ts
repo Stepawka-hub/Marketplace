@@ -11,7 +11,8 @@ import { UserEntity } from '@/modules/user/entities';
 import { LotEntity } from '@/modules/lot/entities';
 import { ApiProperty } from '@nestjs/swagger';
 import { COMMON_API_PROPERTIES } from '@/common';
-import { BID_API_PROPERTIES, BID_VALIDATION } from '../constants';
+import { BID_API_PROPERTIES, BID_STATUSES, BID_VALIDATION } from '../constants';
+import { TBidStatus } from '../types';
 
 @Entity('bids')
 export class BidEntity {
@@ -49,10 +50,10 @@ export class BidEntity {
   @ApiProperty(BID_API_PROPERTIES.STATUS)
   @Column({
     type: 'enum',
-    enum: ['ACTIVE', 'OUTBID', 'WINNING', 'LOST'],
-    default: 'ACTIVE',
+    enum: BID_STATUSES,
+    default: BID_STATUSES.ACTIVE,
   })
-  status: string;
+  status: TBidStatus;
 
   @ApiProperty(COMMON_API_PROPERTIES.CREATE_DATE)
   @CreateDateColumn({ name: 'created_at' })

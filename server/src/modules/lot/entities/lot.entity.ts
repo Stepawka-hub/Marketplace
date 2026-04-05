@@ -13,7 +13,8 @@ import { UserEntity } from '@/modules/user/entities';
 import { ProductEntity } from '@/modules/product/entities';
 import { BidEntity } from '@/modules/bid/entities';
 import { COMMON_API_PROPERTIES } from '@/common';
-import { LOT_API_PROPERTIES, LOT_VALIDATION } from '../constants';
+import { LOT_API_PROPERTIES, LOT_STATUSES, LOT_VALIDATION } from '../constants';
+import { TLotStatus } from '../types';
 
 @Entity('lots')
 export class LotEntity {
@@ -74,15 +75,18 @@ export class LotEntity {
   @ApiProperty(LOT_API_PROPERTIES.STATUS)
   @Column({
     type: 'enum',
-    enum: ['DRAFT', 'ACTIVE', 'COMPLETED', 'CANCELLED', 'EXPIRED'],
-    default: 'DRAFT',
+    enum: LOT_STATUSES,
+    default: LOT_STATUSES.DRAFT,
   })
-  status: string;
+  status: TLotStatus;
 
   @ApiProperty(LOT_API_PROPERTIES.SELLER)
   @ManyToOne(() => UserEntity, (user) => user.lots, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'seller_id' })
   seller: UserEntity;
+
+  @Column({ name: 'seller_id', type: 'uuid' })
+  sellerId: string;
 
   @ApiPropertyOptional(LOT_API_PROPERTIES.BIDS)
   @OneToMany(() => BidEntity, (bid) => bid.lot)

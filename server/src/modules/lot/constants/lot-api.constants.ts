@@ -1,7 +1,13 @@
+import { LOT_STATUSES } from './lot.constants';
+
 export const LOT_API_PROPERTIES = {
   ID: {
     example: '123e4567-e89b-12d3-a456-426614174000',
     description: 'ID лота',
+  },
+  PRODUCT_ID: {
+    example: '123e4567-e89b-12d3-a456-426614174000',
+    description: 'ID товара',
   },
   PRODUCT: {
     description: 'Товар, который продаётся',
@@ -29,7 +35,7 @@ export const LOT_API_PROPERTIES = {
   STATUS: {
     example: 'ACTIVE',
     description: 'Статус лота',
-    enum: ['DRAFT', 'ACTIVE', 'COMPLETED', 'CANCELLED', 'EXPIRED'],
+    enum: Object.values(LOT_STATUSES),
   },
   WINNER: {
     example: '123e4567-e89b-12d3-a456-426614174000',

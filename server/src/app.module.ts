@@ -6,7 +6,7 @@ import { UserModule } from '@/modules/user';
 import { ProductModule } from '@/modules/product';
 import { StorageModule } from '@/modules/storage';
 import { AuthModule } from '@/modules/auth';
-import { CartModule } from './modules/bid/bid.module';
+import { BidModule } from './modules/bid/bid.module';
 import { FavoritesModule } from './modules/favorites/favorites.module';
 import { LotModule } from './modules/lot/lot.module';
 
@@ -24,7 +24,7 @@ import { LotModule } from './modules/lot/lot.module';
     AuthModule,
     ProductModule,
     StorageModule,
-    CartModule,
+    BidModule,
     FavoritesModule,
     LotModule,
   ],

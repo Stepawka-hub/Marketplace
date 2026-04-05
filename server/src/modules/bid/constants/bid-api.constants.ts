@@ -1,3 +1,5 @@
+import { BID_STATUSES } from './bid.constants';
+
 export const BID_API_PROPERTIES = {
   ID: {
     example: '123e4567-e89b-12d3-a456-426614174000',
@@ -22,6 +24,6 @@ export const BID_API_PROPERTIES = {
   STATUS: {
     example: 'ACTIVE',
     description: 'Статус ставки',
-    enum: ['ACTIVE', 'OUTBID', 'WINNING', 'LOST'],
+    enum: Object.values(BID_STATUSES),
   },
 };
