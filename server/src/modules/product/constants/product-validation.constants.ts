@@ -20,19 +20,6 @@ export const PRODUCT_VALIDATION = {
     MIN: 2,
     MAX: 32,
   },
-  PRICE: {
-    PRECISION: 9,
-    SCALE: 2,
-    MIN: 50.0,
-    MAX: 1_000_000.0,
-  },
-  RATING: {
-    PRECISION: 3,
-    SCALE: 2,
-    DEFAULT: 0.0,
-    MIN: 0.0,
-    MAX: 5.0,
-  },
 };
 
 export const PRODUCT_MEDIA_VALIDATION = {

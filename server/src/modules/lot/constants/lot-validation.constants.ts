@@ -1,0 +1,16 @@
+export const LOT_VALIDATION = {
+  PRICE: {
+    PRECISION: 10,
+    SCALE: 2,
+    MIN: 0.01,
+    MAX: 99999999.99,
+  },
+  MIN_BID_INCREMENT: {
+    DEFAULT: 100,
+    MIN: 1,
+    MAX: 100000,
+  },
+  STATUS: {
+    VALID_VALUES: ['DRAFT', 'ACTIVE', 'COMPLETED', 'CANCELLED', 'EXPIRED'],
+  },
+};

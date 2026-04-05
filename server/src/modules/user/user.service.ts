@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   Injectable,
   NotFoundException,
@@ -13,7 +14,11 @@ import { ApiResponse } from '@/common';
 import { generateFileName } from '@/common/utils';
 import { UserEntity } from './entities';
 import { UpdateUserDto } from './dto';
-import { TUploadAvatarResponse, TUserDataResponse } from './types';
+import {
+  TFreezeAction,
+  TUploadAvatarResponse,
+  TUserDataResponse,
+} from './types';
 
 @Injectable()
 export class UserService {
@@ -113,6 +118,30 @@ export class UserService {
       { avatar: this.formatAvatarUrl(key) },
       'Аватар успешно обновлен',
     );
+  }
+
+  async updateFrozenBalance(
+    userId: string,
+    amount: number,
+    action: TFreezeAction,
+  ): Promise<void> {
+    const user = await this.findById(userId);
+
+    if (action === 'freeze') {
+      const availableBalance = user.balance - user.frozenBalance;
+      if (availableBalance < amount) {
+        throw new BadRequestException('Not enough freezing funds');
+      }
+      user.frozenBalance += amount;
+    } else {
+      user.frozenBalance -= amount;
+
+      if (user.frozenBalance < 0) {
+        user.frozenBalance = 0;
+      }
+    }
+
+    await this.userRepository.save(user);
   }
 
   private formatAvatarUrl(avatar: string | null): string | null {

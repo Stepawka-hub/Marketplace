@@ -1,13 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import {
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsString,
-  Length,
-  Max,
-  Min,
-} from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, Length } from 'class-validator';
 import { PRODUCT_API_PROPERTIES, PRODUCT_VALIDATION } from '../../constants';
 
 export class CreateProductDto {
@@ -40,20 +32,6 @@ export class CreateProductDto {
   @IsString()
   @Length(PRODUCT_VALIDATION.CATEGORY.MIN, PRODUCT_VALIDATION.CATEGORY.MAX)
   category: string;
-
-  @ApiProperty(PRODUCT_API_PROPERTIES.PRICE)
-  @IsNotEmpty()
-  @IsNumber({ maxDecimalPlaces: PRODUCT_VALIDATION.PRICE.SCALE })
-  @Min(PRODUCT_VALIDATION.PRICE.MIN)
-  @Max(PRODUCT_VALIDATION.PRICE.MAX)
-  price: number;
-
-  @ApiProperty(PRODUCT_API_PROPERTIES.RATING)
-  @IsNotEmpty()
-  @IsNumber({ maxDecimalPlaces: PRODUCT_VALIDATION.RATING.SCALE })
-  @Min(PRODUCT_VALIDATION.RATING.MIN)
-  @Max(PRODUCT_VALIDATION.RATING.MAX)
-  rating: number;
 
   @ApiProperty({
     type: 'array',

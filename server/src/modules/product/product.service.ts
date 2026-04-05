@@ -126,7 +126,6 @@ export class ProductService {
         name: true,
         shortDescription: true,
         category: true,
-        price: true,
         createdAt: true,
         seller: {
           id: true,
@@ -207,7 +206,6 @@ export class ProductService {
         name: true,
         shortDescription: true,
         category: true,
-        price: true,
         createdAt: true,
         seller: {
           id: true,
