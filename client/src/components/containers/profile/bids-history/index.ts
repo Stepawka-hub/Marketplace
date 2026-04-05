@@ -1,0 +1,1 @@
+export { BidsHistory } from './bids-history';

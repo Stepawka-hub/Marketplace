@@ -103,25 +103,20 @@
     "btn-label": "Return to home"
   },
 
-  "cart": {
-    "title": "Cart",
-    "item": {
-      "remove-btn": "Remove from cart",
-      "choose": "Choose"
-    },
+  "bids": {
+    "title": "My bids",
     "empty": {
-      "title": "Cart is empty",
+      "title": "There are no active bets",
       "text": "You can find the products you need in the",
       "link": "catalog"
     },
     "summary": {
-      "information": "Purchase Information",
-      "checkout": "Proceed to checkout",
+      "information": "General information",
       "products_one": "{{count}} product",
       "products_other": "{{count}} products"
     },
     "badge": {
-      "tool-tip": "Go to cart"
+      "tool-tip": "My bids"
     }
   },
 
@@ -148,8 +143,8 @@
       "label": "Seller"
     },
     "buttons": {
-      "add-to-cart": "Add to cart",
-      "in-cart": "In cart",
+      "place-bid": "Place bid",
+      "bid-placed": "Bid placed",
       "add-to-favorites": "Add to favorites",
       "remove-from-favorites": "Remove from favorites"
     }
@@ -164,6 +159,7 @@
     },
     "menu-items": {
       "profile": "Profile",
+      "bids-history": "Bids history",
       "seller-panel": "Seller panel",
       "log-out": "Log out",
       "logging-out": "Logging out..."

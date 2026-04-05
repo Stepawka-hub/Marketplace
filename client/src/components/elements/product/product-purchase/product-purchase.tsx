@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Box, Paper, Typography } from "@mui/material";
 import { TProductPurchaseProps } from "./type";
 import { contentBoxStyle, priceStyle, wrapperStyle } from "./styles";
-import { AddToCartButton, LikeButton } from "@/components/containers";
+import { PlaceBidButton, LikeButton } from "@/components/containers";
 import { formattedWithSpace } from "@/shared/helpers";
 
 export const ProductPurchase: FC<TProductPurchaseProps> = ({
@@ -19,7 +19,7 @@ export const ProductPurchase: FC<TProductPurchaseProps> = ({
         <Typography sx={priceStyle}>{formattedPrice} ₽</Typography>
         <LikeButton productId={productId} />
       </Box>
-      <AddToCartButton productId={productId} />
+      <PlaceBidButton productId={productId} />
     </Paper>
   );
 };

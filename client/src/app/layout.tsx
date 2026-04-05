@@ -6,7 +6,7 @@ import { useGetMeQuery } from "@/services";
 
 import {
   FavoritesBadge,
-  CartBadge,
+  BidsBadge,
   LanguageSwitcher,
   ThemeSwitcher,
   ProfileBadge,
@@ -34,7 +34,7 @@ export const AppLayout: FC = () => {
       {isAuth && (
         <>
           <FavoritesBadge />
-          <CartBadge />
+          <BidsBadge />
         </>
       )}
       {isAuth ? <AccountMenu /> : <ProfileBadge />}

@@ -6,6 +6,7 @@ import { ProfileMenuUI, TMenuItem } from "@/components/elements";
 import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import HistoryIcon from "@mui/icons-material/History";
 import LogoutIcon from "@mui/icons-material/Logout";
 import {
   listItemIconStyle,
@@ -26,6 +27,11 @@ export const ProfileMenu: FC = () => {
       text: t("profile.menu-items.profile"),
       icon: <PersonIcon />,
       to: ROUTES.PROFILE,
+    },
+    {
+      text: t("profile.menu-items.bids-history"),
+      icon: <HistoryIcon />,
+      to: ROUTES.PROFILE_BIDS_HISTORY,
     },
     {
       text: t("profile.menu-items.seller-panel"),

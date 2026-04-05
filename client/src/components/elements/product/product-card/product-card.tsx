@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-import { AddToCartButton, LikeButton } from "@/components/containers";
+import { PlaceBidButton, LikeButton } from "@/components/containers";
 import { Card } from "@/components/ui";
 import {
   Box,
@@ -63,7 +63,7 @@ export const ProductCard: FC<TProductCardProps> = ({ product }) => {
       </CardContent>
 
       <CardActions>
-        <AddToCartButton productId={id} />
+        <PlaceBidButton productId={id} />
       </CardActions>
     </Card>
   );

@@ -1,1 +1,0 @@
-export { CartBadgeUI } from './cart-badge';

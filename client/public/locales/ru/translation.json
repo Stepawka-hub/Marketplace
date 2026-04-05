@@ -107,27 +107,22 @@
     "btn-label": "Вернуться на главную"
   },
 
-  "cart": {
-    "title": "Корзина",
-    "item": {
-      "remove-btn": "Удалить из корзины",
-      "choose": "Выбрать"
-    },
+  "bids": {
+    "title": "Мои ставки",
     "empty": {
-      "title": "Корзина пуста",
+      "title": "Активных ставок нет",
       "text": "Найти нужные вам товары вы можете в",
       "link": "каталоге"
     },
     "summary": {
-      "information": "Информация о покупке",
-      "checkout": "Перейти к оформлению",
+      "information": "Общая информация",
       "products_zero": "{{count}} товаров",
       "products_one": "{{count}} товар",
       "products_few": "{{count}} товара",
       "products_many": "{{count}} товаров"
     },
     "badge": {
-      "tool-tip": "В корзину"
+      "tool-tip": "Мои ставки"
     }
   },
 
@@ -156,8 +151,8 @@
       "label": "Продавец"
     },
     "buttons": {
-      "add-to-cart": "Добавить в корзину",
-      "in-cart": "В корзине",
+      "place-bid": "Сделать ставку",
+      "bid-placed": "Ставка сделана",
       "add-to-favorites": "Добавить в избранное",
       "remove-from-favorites": "Убрать из избранного"
     }
@@ -172,6 +167,7 @@
     },
     "menu-items": {
       "profile": "Профиль",
+      "bids-history": "История ставок",
       "seller-panel": "Панель продавца",
       "log-out": "Выйти из аккаунта",
       "logging-out": "Выход из аккаунта..."

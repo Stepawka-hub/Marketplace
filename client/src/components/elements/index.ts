@@ -1,4 +1,4 @@
-export * from './cart';
+export * from './bids';
 export * from './favorites';
 export * from './product';
 export * from './not-found';

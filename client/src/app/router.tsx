@@ -2,7 +2,7 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import { ROUTES } from "@/config/routes";
 import { AppLayout } from "./layout";
 import {
-  CartPage,
+  BidsPage,
   CatalogPage,
   NotFoundPage,
   FavoritesPage,
@@ -17,6 +17,7 @@ import {
   ProfileData,
   SellerPanel,
   ProtectedRoute,
+  BidsHistory,
 } from "@/components/containers";
 
 export const router = createBrowserRouter([
@@ -39,8 +40,8 @@ export const router = createBrowserRouter([
             element: <ProductPage />,
           },
           {
-            path: ROUTES.CART,
-            element: <CartPage />,
+            path: ROUTES.MY_BIDS,
+            element: <BidsPage />,
           },
           {
             path: ROUTES.FAVORITES,
@@ -53,6 +54,10 @@ export const router = createBrowserRouter([
               {
                 index: true,
                 element: <ProfileData />,
+              },
+              {
+                path: ROUTES.PROFILE_BIDS_HISTORY,
+                element: <BidsHistory />,
               },
               {
                 path: ROUTES.PROFILE_SELLER_PANEL,
