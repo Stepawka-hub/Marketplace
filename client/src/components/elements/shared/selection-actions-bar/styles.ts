@@ -4,7 +4,7 @@ export const selectAllContainerStyle: SxProps = {
   borderRadius: 2,
   py: 1,
   px: 2,
-  backgroundColor: "custom.primary",
+  backgroundColor: "custom.primary.main",
 } as const;
 
 export const gridContainerStyle: SxProps = {

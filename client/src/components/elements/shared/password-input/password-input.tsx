@@ -1,18 +1,19 @@
+import { FC } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import PasswordIcon from "@mui/icons-material/Lock";
 import {
   FormControl,
   FormHelperText,
   IconButton,
-  Input,
   InputAdornment,
   InputLabel,
+  OutlinedInput,
 } from "@mui/material";
-import { FC } from "react";
 import { TPasswordInputUIProps } from "./type";
+import { passwordInputLabelStyle, passwordInputStyle } from "./styles";
 
 export const PasswordInputUI: FC<TPasswordInputUIProps> = ({
-  name,
   label,
   error,
   helperText,
@@ -20,15 +21,29 @@ export const PasswordInputUI: FC<TPasswordInputUIProps> = ({
   onTogglePassword,
   ...props
 }) => (
-  <FormControl variant="standard" error={error}>
-    <InputLabel htmlFor={name}>{label}</InputLabel>
-    <Input
-      {...props}
+  <FormControl error={error}>
+    <InputLabel
+      htmlFor="outlined-adornment-password"
+      sx={passwordInputLabelStyle}
+    >
+      {label}
+    </InputLabel>
+    <OutlinedInput
+      id="outlined-adornment-password"
+      label={label}
       type={showPassword ? "text" : "password"}
+      autoComplete="current-password"
+      startAdornment={
+        <InputAdornment position="start">
+          <PasswordIcon />
+        </InputAdornment>
+      }
       endAdornment={
         <InputAdornment position="end">
           <IconButton
-            aria-label={showPassword ? "Hide password" : "Show password"}
+            aria-label={
+              showPassword ? "Hide the password" : "Show the password"
+            }
             onClick={onTogglePassword}
             onMouseDown={(e) => e.preventDefault()}
             onMouseUp={(e) => e.preventDefault()}
@@ -37,7 +52,9 @@ export const PasswordInputUI: FC<TPasswordInputUIProps> = ({
           </IconButton>
         </InputAdornment>
       }
+      sx={passwordInputStyle}
+      {...props}
     />
-    <FormHelperText>{helperText}</FormHelperText>
+    <FormHelperText sx={{ ml: 0 }}>{helperText}</FormHelperText>
   </FormControl>
 );

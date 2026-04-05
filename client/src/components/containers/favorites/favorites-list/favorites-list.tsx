@@ -1,24 +1,30 @@
 import { FC, memo } from "react";
-import { useSelector } from "react-redux";
-import { getFavoriteItems, getIsLoading } from "@/store/slices/favorites";
-import { ProductListUI } from "@/components/elements";
-import { useCart } from "@/hooks/useCart";
-import { useFavorites } from "@/hooks/useFavorites";
+import { Pagination, ProductListUI } from "@/components/elements";
+import { useGetFavoritesProductsQuery } from "@/services/favorites";
+import { usePagination } from "@/hooks/usePagination";
 
 export const FavoritesList: FC = memo(() => {
-  const products = useSelector(getFavoriteItems);
-  const isLoading = useSelector(getIsLoading);
-  const { isInCart, addToCart } = useCart();
-  const { isInFavorites, toggleFavorite } = useFavorites();
+  const { page, limit, defaultPagination, handlePageChange } = usePagination();
+
+  const { data, isLoading } = useGetFavoritesProductsQuery({
+    page,
+    limit,
+  });
+  const pagination = data?.meta || defaultPagination;
 
   return (
-    <ProductListUI
-      products={products}
-      isLoading={isLoading}
-      isInCart={isInCart}
-      isInFavorites={isInFavorites}
-      addToCart={addToCart}
-      toggleFavorite={toggleFavorite}
-    />
+    <>
+      <ProductListUI products={data?.items ?? []} isLoading={isLoading} />
+      {data && (
+        <Pagination
+          count={data.meta.totalPages}
+          page={pagination.page}
+          showFirstButton
+          showLastButton
+          size="large"
+          onChange={handlePageChange}
+        />
+      )}
+    </>
   );
 });

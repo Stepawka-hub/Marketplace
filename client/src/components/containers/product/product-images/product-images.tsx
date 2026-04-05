@@ -1,11 +1,11 @@
 import { FC, useState } from "react";
-import { Box, ImageList, useMediaQuery, useTheme } from "@mui/material";
-import { ProductImagesProps } from "./type";
-import { ImageListItem } from "@/components/ui";
 import { ImagePreview, ImageSlider } from "@/components/elements";
+import { ImageListItem } from "@/components/ui";
+import { Box, ImageList, useMediaQuery, useTheme } from "@mui/material";
+import { TProductImagesProps } from "./type";
 
 // Todo: Переписать компонент
-export const ProductImages: FC<ProductImagesProps> = ({ images }) => {
+export const ProductImages: FC<TProductImagesProps> = ({ images }) => {
   const theme = useTheme();
   const isMedium = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -28,10 +28,12 @@ export const ProductImages: FC<ProductImagesProps> = ({ images }) => {
     setPosition((p) => p + 1);
   };
 
+  const imageUrls = images.map((i) => i.url);
+
   return (
     <Box component="section">
       <ImageSlider
-        images={images}
+        images={imageUrls}
         currentPosition={position}
         disableNextButton={isFirst}
         disablePrevButton={isLast}
@@ -41,19 +43,19 @@ export const ProductImages: FC<ProductImagesProps> = ({ images }) => {
       />
 
       <ImageList cols={isMedium ? 4 : 7} gap={7}>
-        {images.map((image, index) => (
+        {imageUrls.map((url, idx) => (
           <ImageListItem
-            key={index}
-            isSelected={position === index}
-            onClick={() => setPosition(index)}
+            key={idx}
+            isSelected={position === idx}
+            onClick={() => setPosition(idx)}
           >
-            <img src={image} alt={`Product thumbnail ${index}`} />
+            <img src={url} alt={`Product thumbnail ${idx}`} />
           </ImageListItem>
         ))}
       </ImageList>
 
       <ImagePreview
-        image={images[position]}
+        image={images[position].url}
         isOpen={isOpen}
         onClose={handleClose}
       />

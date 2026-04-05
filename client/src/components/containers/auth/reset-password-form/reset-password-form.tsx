@@ -1,15 +1,15 @@
-import { Button } from "@mui/material";
+import { FC } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import {
   maxLengthValidation,
   minLengthValidation,
   requiredValidation,
-} from "@shared/helpers/validate";
-import { CenteredGrid } from "@ui/centered-grid";
-import { Form } from "@ui/form";
-import { PasswordInput } from "@ui/form-elements";
-import { FC } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
+} from "@/shared/helpers/validate";
+
+import { PasswordInput } from "@/components/containers";
+import { Form } from "@/components/elements";
+import { CenteredBox, SubmitButton } from "@/components/ui";
 import { TResetPasswordForm } from "./type";
 
 export const ResetPasswordForm: FC = () => {
@@ -44,7 +44,7 @@ export const ResetPasswordForm: FC = () => {
   // }, [navigate]);
 
   return (
-    <CenteredGrid>
+    <CenteredBox>
       <FormProvider {...methods}>
         <Form title={t("reset-password.form.title")} onSubmit={onSubmit}>
           <PasswordInput
@@ -63,11 +63,9 @@ export const ResetPasswordForm: FC = () => {
               ...maxLengthValidation(100, t),
             })}
           />
-          <Button type="submit" variant="contained" sx={{ mt: 2 }}>
-            {t("reset-password.form.submit-button")}
-          </Button>
+          <SubmitButton>{t("reset-password.form.submit-button")}</SubmitButton>
         </Form>
       </FormProvider>
-    </CenteredGrid>
+    </CenteredBox>
   );
 };

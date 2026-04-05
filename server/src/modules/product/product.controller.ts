@@ -2,7 +2,9 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
+  Query,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
@@ -11,18 +13,29 @@ import {
   ApiBearerAuth,
   ApiBody,
   ApiConsumes,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
+  ApiQuery,
 } from '@nestjs/swagger';
 
 import { Authorizated, Authorization } from '@/modules/auth/decorators';
 import { ProductService } from './product.service';
 import { ProductFilesValidationPipe } from './pipes';
-import { BaseProductResponseDto, CreateProductDto } from './dto';
+import {
+  CreateProductDto,
+  ProductDetailsDto,
+  ProductDetailsResponseDto,
+  ProductListItemDto,
+  ProductListPaginatedResponseDto,
+} from './dto';
+import { PaginationDto } from '@/common/dto';
+
 import {
   PRODUCT_MEDIA_FILES_VALIDATION_OPTIONS,
   PRODUCT_PREVIEW_FILE_VALIDATION_OPTIONS,
 } from './constants';
+import { TApiPaginatedResponse, TApiResponse } from '@/common';
 import { TProductFiles } from './types';
 
 @Controller('products')
@@ -30,7 +43,10 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @ApiOperation({ summary: 'Создать товар' })
-  @ApiOkResponse({ description: 'Товар создан' })
+  @ApiOkResponse({
+    description: 'Товар создан',
+    type: ProductDetailsResponseDto,
+  })
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     description: 'Данные товара с превью товара и медиа-файлами',
@@ -58,7 +74,7 @@ export class ProductController {
     )
     files: TProductFiles,
     @Body() data: CreateProductDto,
-  ): Promise<BaseProductResponseDto> {
+  ): Promise<TApiResponse<ProductDetailsDto>> {
     return this.productService.createProduct(
       data,
       files.preview,
@@ -67,9 +83,30 @@ export class ProductController {
     );
   }
 
-  @Get()
+  @ApiOkResponse({
+    description: 'Список товаров',
+    type: ProductListPaginatedResponseDto,
+  })
   @ApiOperation({ summary: 'Получить список товаров' })
-  findProducts(): Promise<BaseProductResponseDto[]> {
-    return this.productService.findProducts();
+  @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
+  @ApiQuery({ name: 'limit', required: false, type: Number, example: 10 })
+  @Get()
+  findProducts(
+    @Query() paginationDto: PaginationDto,
+  ): Promise<TApiPaginatedResponse<ProductListItemDto>> {
+    return this.productService.findProducts(paginationDto);
+  }
+
+  @ApiOperation({ summary: 'Получить товар по ID' })
+  @ApiOkResponse({
+    description: 'Подробная информация о товаре',
+    type: ProductDetailsResponseDto,
+  })
+  @ApiNotFoundResponse({ description: 'Товар не найден' })
+  @Get(':productId')
+  findProductById(
+    @Param('productId') id: string,
+  ): Promise<TApiResponse<ProductDetailsDto>> {
+    return this.productService.findProductById(id);
   }
 }

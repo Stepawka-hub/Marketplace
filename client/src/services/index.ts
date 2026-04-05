@@ -1,2 +1,4 @@
-export { authAPI } from "./auth.service";
-export { productAPI } from "./product.service";
+export * from './base';
+export * from './auth';
+export * from './user';
+export * from './product';

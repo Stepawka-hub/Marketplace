@@ -1,10 +1,10 @@
 export { CatalogPage } from "./catalog-page";
-export { NotFoundPage } from "./not-found-page";
+export { ProductPage } from "./product-page";
 export { CartPage } from "./cart-page";
-// export * from './product-page';
 export { FavoritesPage } from "./favorites-page";
+export { ProfilePage } from "./profile-page";
 export { RegisterPage } from "./register-page";
 export { LoginPage } from "./login-page";
-export { ProductPage } from "./product-page";
-// export * from './reset-password-page';
-// export * from './forgot-password-page';
+export { ResetPasswordPage } from "./reset-password-page";
+export { ForgotPasswordPage } from "./forgot-password-page";
+export { NotFoundPage } from "./not-found-page";

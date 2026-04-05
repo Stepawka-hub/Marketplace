@@ -1,17 +1,22 @@
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { Button } from "@mui/material";
-import { Input, PasswordInput } from "@/components/containers";
-import { Form } from "@/components/elements";
-import { CenteredGrid } from "@/components/ui";
+import { useRegisterMutation } from "@/services";
 import {
   emailValidation,
   maxLengthValidation,
   minLengthValidation,
   requiredValidation,
 } from "@/shared/helpers";
-import { TField, TRegisterForm } from "./types";
+
+import { Input, PasswordInput } from "@/components/containers";
+import { Form } from "@/components/elements";
+import { CenteredBox, SubmitButton } from "@/components/ui";
+import PersonIcon from "@mui/icons-material/Person";
+import EmailIcon from "@mui/icons-material/Email";
+import PhoneIcon from "@mui/icons-material/Phone";
+import { REGISTER_FIELDS } from "./constants";
+import { TRegisterForm } from "./types";
 
 export const RegisterForm: FC = () => {
   const { t } = useTranslation();
@@ -19,6 +24,10 @@ export const RegisterForm: FC = () => {
     mode: "onChange",
   });
   const { register, handleSubmit, setError } = methods;
+  const { FIRST_NAME, LAST_NAME, EMAIL, PHONE, PASSWORD, CONFIRM_PASSWORD } =
+    REGISTER_FIELDS;
+
+  const [registerAsync, { error, isLoading }] = useRegisterMutation();
 
   const onSubmit = handleSubmit((formData) => {
     if (formData.password !== formData.confirmPassword) {
@@ -26,103 +35,93 @@ export const RegisterForm: FC = () => {
         type: "manual",
         message: t("form.validation.passwords-not-match"),
       });
+
       return;
     }
-    console.log(formData);
+
+    registerAsync(formData);
   });
 
-  const fields: TField[] = useMemo(
-    () => [
-      {
-        name: "firstName",
-        translationPath: "register.form.fields",
-        validation: {
-          ...requiredValidation(t),
-          ...minLengthValidation(2, t),
-          ...maxLengthValidation(50, t),
-        },
-      },
-      {
-        name: "lastName",
-        translationPath: "register.form.fields",
-        validation: {
-          ...requiredValidation(t),
-          ...minLengthValidation(2, t),
-          ...maxLengthValidation(50, t),
-        },
-      },
-      {
-        name: "email",
-        translationPath: "form.fields",
-        validation: {
-          ...requiredValidation(t),
-          ...emailValidation(t),
-        },
-      },
-      {
-        name: "phone",
-        type: "phone",
-        translationPath: "register.form.fields",
-        prefix: "register.form",
-      },
-      {
-        name: "password",
-        type: "password",
-        translationPath: "form.fields",
-        validation: {
-          ...requiredValidation(t),
-          ...minLengthValidation(8, t),
-          ...maxLengthValidation(100, t),
-        },
-      },
-      {
-        name: "confirmPassword",
-        type: "password",
-        translationPath: "form.fields",
-        validation: {
-          ...requiredValidation(t),
-          ...minLengthValidation(8, t),
-          ...maxLengthValidation(100, t),
-        },
-      },
-    ],
-    [t]
-  );
+  const getFieldId = (field: string) => `register_${field}`;
+
+  const getFieldTranslation = (field: string, type: "label" | "placeholder") =>
+    t(`form.fields.${field}.${type}`);
 
   return (
-    <CenteredGrid>
+    <CenteredBox>
       <FormProvider {...methods}>
         <Form title={t("register.form.title")} onSubmit={onSubmit}>
-          {fields.map(({ name, type, translationPath, validation }) => {
-            const label = t(`${translationPath}.${name}.label`);
-            const placeholder = t(`${translationPath}.${name}.placeholder`);
+          <Input
+            id={getFieldId(FIRST_NAME)}
+            label={getFieldTranslation(FIRST_NAME, "label")}
+            placeholder={getFieldTranslation(FIRST_NAME, "placeholder")}
+            startIcon={<PersonIcon />}
+            {...register(FIRST_NAME, {
+              ...requiredValidation(t),
+              ...minLengthValidation(2, t),
+              ...maxLengthValidation(50, t),
+            })}
+          />
 
-            if (type === "password") {
-              return (
-                <PasswordInput
-                  key={name}
-                  label={label}
-                  placeholder={placeholder}
-                  {...register(name, validation)}
-                />
-              );
-            }
+          <Input
+            id={getFieldId(LAST_NAME)}
+            label={getFieldTranslation(LAST_NAME, "label")}
+            placeholder={getFieldTranslation(LAST_NAME, "placeholder")}
+            startIcon={<PersonIcon />}
+            {...register(LAST_NAME, {
+              ...requiredValidation(t),
+              ...minLengthValidation(2, t),
+              ...maxLengthValidation(50, t),
+            })}
+          />
 
-            return (
-              <Input
-                key={name}
-                label={label}
-                placeholder={placeholder}
-                {...register(name, validation)}
-              />
-            );
-          })}
+          <Input
+            id={getFieldId(EMAIL)}
+            label={getFieldTranslation(EMAIL, "label")}
+            placeholder={getFieldTranslation(EMAIL, "placeholder")}
+            startIcon={<EmailIcon />}
+            autoComplete="email"
+            {...register(EMAIL, {
+              ...requiredValidation(t),
+              ...emailValidation(t),
+            })}
+          />
 
-          <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+          <Input
+            id={getFieldId(PHONE)}
+            label={getFieldTranslation(PHONE, "label")}
+            placeholder={getFieldTranslation(PHONE, "placeholder")}
+            startIcon={<PhoneIcon />}
+            {...register(PHONE)}
+          />
+
+          <PasswordInput
+            id={getFieldId(PASSWORD)}
+            label={getFieldTranslation(PASSWORD, "label")}
+            placeholder={getFieldTranslation(PASSWORD, "placeholder")}
+            {...register(PASSWORD, {
+              ...requiredValidation(t),
+              ...minLengthValidation(8, t),
+              ...maxLengthValidation(100, t),
+            })}
+          />
+
+          <PasswordInput
+            id={getFieldId(CONFIRM_PASSWORD)}
+            label={getFieldTranslation(CONFIRM_PASSWORD, "label")}
+            placeholder={getFieldTranslation(CONFIRM_PASSWORD, "placeholder")}
+            {...register(CONFIRM_PASSWORD, {
+              ...requiredValidation(t),
+              ...minLengthValidation(8, t),
+              ...maxLengthValidation(100, t),
+            })}
+          />
+
+          <SubmitButton disabled={isLoading}>
             {t("register.form.submit-button")}
-          </Button>
+          </SubmitButton>
         </Form>
       </FormProvider>
-    </CenteredGrid>
+    </CenteredBox>
   );
 };

@@ -6,4 +6,15 @@ export const ThemeSettings = (mode: "light" | "dark") => ({
     ...basePalette,
     ...(mode === "dark" ? darkPalette : lightPalette),
   },
+  typography: {
+    fontFamily: [
+      "Nunito",
+      "Roboto",
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Arial",
+      "sans-serif",
+    ].join(","),
+  },
 });

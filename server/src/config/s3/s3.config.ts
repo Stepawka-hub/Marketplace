@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 
 export const STORAGE_PATHS = {
   PRODUCTS: 'products/media/',
+  AVATARS: 'users/avatars',
 } as const;
 
 export function getStorageConfig(configService: ConfigService): S3ClientConfig {

@@ -1,22 +1,31 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 
 import { STORAGE_PATHS } from '@/config/s3';
 import { StorageService } from '@/modules/storage';
 import { UserService } from '@/modules/user';
+
+import { ProductMapper } from './mappers';
+import { ApiPaginatedResponse, ApiResponse } from '@/common/helpers';
 import { generateFileName, getMediaType } from '@/common/utils';
+import { PaginationDto } from '@/common/dto';
+
 import { ProductEntity, ProductMediaEntity } from './entities';
+import { CreateProductDto } from './dto';
 import {
-  CreateProductDto,
-  ProductMediaDto,
-  BaseProductResponseDto,
-} from './dto';
+  TProductByIdsResponse,
+  TProductCreateResponse,
+  TProductDetailsResponse,
+  TProductListResponse,
+} from './types';
 
 @Injectable()
 export class ProductService {
   private readonly mediaBaseUrl: string;
+  public readonly productMapper: ProductMapper;
+
   constructor(
     @InjectRepository(ProductEntity)
     private readonly productRepository: Repository<ProductEntity>,
@@ -28,6 +37,8 @@ export class ProductService {
   ) {
     const domain = this.configService.getOrThrow<string>('S3_PUBLIC_DOMAIN');
     this.mediaBaseUrl = domain.endsWith('/') ? domain : domain + '/';
+
+    this.productMapper = new ProductMapper(this.mediaBaseUrl);
   }
 
   async createProduct(
@@ -35,7 +46,7 @@ export class ProductService {
     previewFile: Express.Multer.File,
     mediaFiles: Express.Multer.File[],
     userId: string,
-  ) {
+  ): Promise<TProductCreateResponse> {
     // Todo: сделать транзакцией
     const user = await this.userService.findById(userId);
     const product = this.productRepository.create({
@@ -74,7 +85,10 @@ export class ProductService {
       throw new NotFoundException('Созданный товар не найден!');
     }
 
-    return this.mapToBaseProductDto(createdProduct);
+    return ApiResponse.success(
+      this.productMapper.toDetails(createdProduct),
+      'Товар успешно создан!',
+    );
   }
 
   async createProductMedia(
@@ -96,8 +110,56 @@ export class ProductService {
     return await this.productMediaRepository.save(productMedia);
   }
 
-  async findProducts(): Promise<BaseProductResponseDto[]> {
-    const products = await this.productRepository.find({
+  async findProducts(
+    paginationDto: PaginationDto,
+  ): Promise<TProductListResponse> {
+    const { page = 1, limit = 10 } = paginationDto;
+    const skip = (page - 1) * limit;
+
+    const [products, total] = await this.productRepository.findAndCount({
+      relations: {
+        seller: true,
+        media: true,
+      },
+      select: {
+        id: true,
+        name: true,
+        shortDescription: true,
+        category: true,
+        price: true,
+        createdAt: true,
+        seller: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        },
+        media: {
+          id: true,
+          filename: true,
+          isPreview: true,
+        },
+      },
+      order: {
+        createdAt: 'DESC',
+      },
+      skip,
+      take: limit,
+    });
+
+    return ApiPaginatedResponse.success(
+      this.productMapper.toListItemArray(products),
+      total,
+      page,
+      limit,
+      'Список товаров успешно получен',
+    );
+  }
+
+  async findProductById(id: string): Promise<TProductDetailsResponse> {
+    const product = await this.productRepository.findOne({
+      where: {
+        id,
+      },
       relations: {
         seller: true,
         media: true,
@@ -115,22 +177,67 @@ export class ProductService {
       },
     });
 
-    if (!products) {
-      throw new NotFoundException('Products not found!');
+    if (!product) {
+      throw new NotFoundException('Товар не найден!');
     }
 
-    return products.map((product) => this.mapToBaseProductDto(product));
+    return ApiResponse.success(this.productMapper.toDetails(product));
   }
 
-  private mapToBaseProductDto(product: ProductEntity): BaseProductResponseDto {
-    const media: ProductMediaDto[] = product.media.map((m) => ({
-      url: this.mediaBaseUrl + m.filename,
-      isPreview: m.isPreview,
-    }));
+  async findProductsByIds(
+    ids: string[],
+    paginationDto: PaginationDto,
+  ): Promise<TProductByIdsResponse> {
+    const { page = 1, limit = 10 } = paginationDto;
+    const skip = (page - 1) * limit;
 
-    return {
-      ...product,
-      media,
-    };
+    const [products, total] = await this.productRepository.findAndCount({
+      where: {
+        id: In(ids),
+      },
+      order: {
+        createdAt: 'DESC',
+      },
+      relations: {
+        seller: true,
+        media: true,
+      },
+      select: {
+        id: true,
+        name: true,
+        shortDescription: true,
+        category: true,
+        price: true,
+        createdAt: true,
+        seller: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        },
+        media: {
+          id: true,
+          filename: true,
+          isPreview: true,
+        },
+      },
+      skip,
+      take: limit,
+    });
+
+    return ApiPaginatedResponse.success(
+      this.productMapper.toListItemArray(products),
+      total,
+      page,
+      limit,
+      'Товары успешно получены',
+    );
+  }
+
+  async exists(id: string): Promise<boolean> {
+    const count = await this.productRepository.count({
+      where: { id },
+    });
+
+    return count > 0;
   }
 }

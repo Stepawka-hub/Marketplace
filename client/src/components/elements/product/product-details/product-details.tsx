@@ -1,7 +1,4 @@
 import { FC } from "react";
-import { Box, Divider, Grid, Typography } from "@mui/material";
-import { dividerStyle, productContentStyle, productNameStyle } from "./styles";
-import { TProductDetailsUIProps } from "./types";
 import { ProductImages } from "@/components/containers";
 import {
   ProductDescription,
@@ -9,24 +6,13 @@ import {
   ProductPurchase,
   ProductReviews,
 } from "@/components/elements";
+import { Box, Divider, Grid, Typography } from "@mui/material";
+import { dividerStyle, productContentStyle, productNameStyle } from "./styles";
+import { TProductDetailsUIProps } from "./types";
 
-export const ProductDetailsUI: FC<TProductDetailsUIProps> = ({
-  product,
-  isInCart,
-  isInFavorites,
-  addToCart,
-  toggleFavorite,
-}) => {
-  const {
-    name,
-    images,
-    price,
-    attributes,
-    description,
-    rating,
-    numberReviews,
-    seller,
-  } = product;
+export const ProductDetailsUI: FC<TProductDetailsUIProps> = ({ product }) => {
+  const { id, name, media, price, description, rating, seller } = product;
+  const { firstName, lastName } = seller;
 
   return (
     <Box>
@@ -36,23 +22,19 @@ export const ProductDetailsUI: FC<TProductDetailsUIProps> = ({
 
       <Grid container justifyContent="space-between" spacing={4}>
         <Grid size={{ xs: 12, lg: 7, xl: 6 }}>
-          <ProductImages images={images} />
+          <ProductImages images={media} />
         </Grid>
 
         <Grid flexGrow={1}>
           <Box sx={productContentStyle}>
-            <ProductPurchase
-              isInCart={isInCart}
-              isInFavorites={isInFavorites}
-              price={price}
-              addToCart={addToCart}
-              toggleFavorite={toggleFavorite}
-            />
+            <ProductPurchase productId={id} price={price} />
             <ProductMeta
               rating={rating}
-              numberReviews={numberReviews}
-              seller={seller.name}
-              attributes={attributes}
+              // Todo: исправить на корректное число ревью
+              numberReviews={0}
+              seller={`${lastName} ${firstName}`}
+              // Todo: исправить на корректные атрибуты
+              attributes={[]}
             />
           </Box>
         </Grid>

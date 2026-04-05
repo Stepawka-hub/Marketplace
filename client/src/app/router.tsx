@@ -8,8 +8,16 @@ import {
   FavoritesPage,
   RegisterPage,
   LoginPage,
-  ProductPage
+  ProductPage,
+  ForgotPasswordPage,
+  ResetPasswordPage,
+  ProfilePage,
 } from "@/pages";
+import {
+  ProfileData,
+  SellerPanel,
+  ProtectedRoute,
+} from "@/components/containers";
 
 export const router = createBrowserRouter([
   {
@@ -20,37 +28,61 @@ export const router = createBrowserRouter([
         element: <Navigate to={ROUTES.CATALOG} replace />,
       },
       {
-        path: ROUTES.CATALOG,
-        element: <CatalogPage />,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.CATALOG,
+            element: <CatalogPage />,
+          },
+          {
+            path: ROUTES.CATALOG_PRODUCT(":productId"),
+            element: <ProductPage />,
+          },
+          {
+            path: ROUTES.CART,
+            element: <CartPage />,
+          },
+          {
+            path: ROUTES.FAVORITES,
+            element: <FavoritesPage />,
+          },
+          {
+            path: ROUTES.PROFILE,
+            element: <ProfilePage />,
+            children: [
+              {
+                index: true,
+                element: <ProfileData />,
+              },
+              {
+                path: ROUTES.PROFILE_SELLER_PANEL,
+                element: <SellerPanel />,
+              },
+            ],
+          },
+        ],
       },
       {
-        path: ROUTES.CATALOG_PRODUCT(":productId"),
-        element: <ProductPage />,
+        element: <ProtectedRoute onlyUnAuth />,
+        children: [
+          {
+            path: ROUTES.REGISTER,
+            element: <RegisterPage />,
+          },
+          {
+            path: ROUTES.LOGIN,
+            element: <LoginPage />,
+          },
+          {
+            path: ROUTES.FORGOT_PASSWORD,
+            element: <ForgotPasswordPage />,
+          },
+          {
+            path: ROUTES.RESET_PASSWORD,
+            element: <ResetPasswordPage />,
+          },
+        ],
       },
-      {
-        path: ROUTES.CART,
-        element: <CartPage />,
-      },
-      {
-        path: ROUTES.FAVORITES,
-        element: <FavoritesPage />,
-      },
-      {
-        path: ROUTES.REGISTER,
-        element: <RegisterPage />,
-      },
-      {
-        path: ROUTES.LOGIN,
-        element: <LoginPage />,
-      },
-      // {
-      //   path: ROUTES.FORGOT_PASSWORD,
-      //   element: <ForgotPasswordPage />,
-      // },
-      // {
-      //   path: ROUTES.RESET_PASSWORD,
-      //   element: <ResetPasswordPage />,
-      // },
       {
         path: ROUTES.NOT_FOUND,
         element: <NotFoundPage />,

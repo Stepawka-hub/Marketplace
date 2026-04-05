@@ -11,4 +11,9 @@ export const PRODUCT_RESPONSE_API_PROPERTIES: TApiPropertyOptions = {
     type: ProductMediaDto,
     isArray: true,
   },
+  PREVIEW: {
+    description: 'URL главного изображения (превью)',
+    example:
+      'https://storage.example.com/products/media/3c914eccea19fab604902838c363cd1b.jpg',
+  },
 } as const;

@@ -40,6 +40,18 @@
       "passwords-not-match": "Пароли не совпадают"
     },
     "fields": {
+      "firstName": {
+        "label": "Имя",
+        "placeholder": "Степан"
+      },
+      "lastName": {
+        "label": "Фамилия",
+        "placeholder": "Львов"
+      },
+      "phone": {
+        "label": "Телефон",
+        "placeholder": "+7 (XXX) XXX-XX-XX"
+      },
       "email": {
         "label": "Email",
         "placeholder": "email@example.com"
@@ -57,20 +69,6 @@
   "register": {
     "form": {
       "title": "Регистрация",
-      "fields": {
-        "firstName": {
-          "label": "Имя",
-          "placeholder": "Степан"
-        },
-        "lastName": {
-          "label": "Фамилия",
-          "placeholder": "Львов"
-        },
-        "phone": {
-          "label": "Телефон",
-          "placeholder": "+7 (XXX) XXX-XX-XX"
-        }
-      },
       "submit-button": "Зарегистрироваться"
     }
   },
@@ -168,12 +166,46 @@
   "profile": {
     "badge": {
       "tool-tip": "Войти в аккаунт"
+    },
+    "account-menu": {
+      "tool-tip": "Мой аккаунт"
+    },
+    "menu-items": {
+      "profile": "Профиль",
+      "seller-panel": "Панель продавца",
+      "log-out": "Выйти из аккаунта",
+      "logging-out": "Выход из аккаунта..."
+    },
+    "info-row": {
+      "email": "Email",
+      "phone": "Телефон",
+      "role": "Роль"
+    },
+    "avatar": {
+      "errors": {
+        "incorrect-type": "Пожалуйста, выберите изображение",
+        "max-size": "Размер файла не должен превышать 5MB",
+        "common": "Ошибка при загрузке фото"
+      }
+    },
+    "errors": {
+      "loading": "Ошибка загрузки профиля"
+    },
+    "edit-modal": {
+      "title": "Редактирование профиля"
     }
   },
 
   "common": {
-    "buttons": {
-      "back": "Вернуться в каталог"
+    "role": {
+      "vendor": "Продавец",
+      "user": "Пользователь"
+    },
+    "actions": {
+      "back": "Вернуться в каталог",
+      "edit": "Редактировать",
+      "save": "Сохранить",
+      "saving": "Сохранение..."
     }
   },
 

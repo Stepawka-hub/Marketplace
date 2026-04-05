@@ -104,7 +104,6 @@ export class AuthService {
   }
 
   async refresh(res: Response, req: Request) {
-    // Todo: Исправить типизацию
     const refreshToken = req.cookies[REFRESH_TOKEN_COOKIE_KEY] as string;
 
     if (!refreshToken) {
@@ -130,6 +129,8 @@ export class AuthService {
   private auth(res: Response, id: string) {
     const { accessToken, refreshToken } = this.generateTokens(id);
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const expires = new Date(Date.now() + ms(this.JWT_REFRESH_TOKEN_TTL));
     this.setCookie(res, refreshToken, expires);
 
@@ -158,7 +159,7 @@ export class AuthService {
       domain: this.COOKIE_DOMAIN,
       expires,
       secure: !isDevMode,
-      sameSite: isDevMode ? 'none' : 'lax',
+      sameSite: isDevMode ? 'lax' : 'none',
     });
   }
 }

@@ -11,7 +11,7 @@ export const BackButton: FC<BackButtonProps> = ({
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const label = title || t("common.buttons.back");
+  const label = title || t("common.actions.back");
 
   const handleClick = () => navigate(path);
 

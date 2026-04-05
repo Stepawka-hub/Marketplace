@@ -12,6 +12,7 @@ import {
 export const SelectionActionsBar: FC<TSelectionActionsBarProps> = ({
   totalSelected,
   isAllSelected,
+  disabled,
   onSelectAll,
   onDeleteAll,
 }) => {
@@ -26,6 +27,7 @@ export const SelectionActionsBar: FC<TSelectionActionsBarProps> = ({
             <Checkbox
               checked={isAllSelected}
               indeterminate={totalSelected > 0 && !isAllSelected}
+              disabled={disabled}
               onChange={onSelectAll}
             />
           }
@@ -35,6 +37,7 @@ export const SelectionActionsBar: FC<TSelectionActionsBarProps> = ({
           variant="outlined"
           startIcon={<DeleteIcon />}
           sx={removeBtnStyle}
+          disabled={disabled}
           onClick={onDeleteAll}
         >
           {t("selection-actions.remove-all")}

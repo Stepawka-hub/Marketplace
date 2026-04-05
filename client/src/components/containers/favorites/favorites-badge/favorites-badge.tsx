@@ -1,13 +1,12 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "@/store";
-import { getFavoriteTotalItems } from "@/store/slices/favorites";
-import { ROUTES } from "@/config/routes";
+import { useGetCountFavoritesQuery } from "@/services/favorites";
 import { FavoritesBadgeUI } from "@/components/elements";
+import { ROUTES } from "@/config/routes";
 
 export const FavoritesBadge: FC = () => {
+  const { data: count = 0 } = useGetCountFavoritesQuery();
   const navigate = useNavigate();
-  const count = useSelector(getFavoriteTotalItems);
 
   const handleClick = () => {
     navigate(ROUTES.FAVORITES);

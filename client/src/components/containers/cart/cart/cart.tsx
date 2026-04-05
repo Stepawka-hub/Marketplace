@@ -1,15 +1,33 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "@/store";
-import { getCartTotalItems } from "@/store/slices/cart";
+import { useGetCartCountQuery } from "@/services/cart";
+import { CartList, CartSummary } from "@/components/containers";
+import { EmptyCartUI } from "@/components/elements";
+import { Loader } from "@/components/ui";
 import { Box, Grid, Typography } from "@mui/material";
 import { gridContainerStyle, titleStyle } from "./styles";
-import { EmptyCartUI } from "@/components/elements";
-import { CartList, CartSummary } from "@/components/containers";
 
 export const Cart: FC = () => {
   const { t } = useTranslation();
-  const totalCount = useSelector(getCartTotalItems);
+  const { data: totalItems = 0, isLoading } = useGetCartCountQuery();
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  const containerContent =
+    totalItems > 0 ? (
+      <>
+        <Grid size={{ xs: 12, sm: 12, md: 12, lg: 8 }}>
+          <CartList />
+        </Grid>
+        <Grid flexGrow={1}>
+          <CartSummary />
+        </Grid>
+      </>
+    ) : (
+      <EmptyCartUI />
+    );
 
   return (
     <Box>
@@ -18,18 +36,7 @@ export const Cart: FC = () => {
       </Typography>
 
       <Grid container sx={gridContainerStyle}>
-        {totalCount ? (
-          <>
-            <Grid size={{ xs: 12, sm: 12, md: 12, lg: 8 }}>
-              <CartList />
-            </Grid>
-            <Grid flexGrow={1}>
-              <CartSummary />
-            </Grid>
-          </>
-        ) : (
-          <EmptyCartUI />
-        )}
+        {containerContent}
       </Grid>
     </Box>
   );

@@ -1,15 +1,6 @@
 import { FC, MouseEvent } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  cardActionsStyle,
-  cardContentStyle,
-  cardMediaStyle,
-  cardStyle,
-  checkboxStyle,
-  gridContainerStyle,
-  priceStyle,
-  titleStyle,
-} from "./styles";
+import { formattedWithSpace } from "@/shared/helpers";
 import {
   CardActions,
   CardContent,
@@ -21,19 +12,27 @@ import {
   Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { TCartItemUIProps } from "./type";
 import { Card } from "@/components/ui";
-import { formattedWithSpace } from "@/shared/helpers";
+import {
+  cardActionsStyle,
+  cardContentStyle,
+  cardMediaStyle,
+  cardStyle,
+  checkboxStyle,
+  gridContainerStyle,
+  priceStyle,
+  titleStyle,
+} from "./styles";
+import { TCartItemUIProps } from "./type";
 
 export const CartItemUI: FC<TCartItemUIProps> = ({
-  product,
-  isSelected,
+  cartItem,
   handleCardClick,
   handleDelete,
   handleSelect,
 }) => {
   const { t, i18n } = useTranslation();
-  const { id, name, price, image } = product;
+  const { id, name, price, preview } = cartItem.product;
   const formattedPrice = formattedWithSpace(price, i18n.language);
 
   const onDelete = (e: MouseEvent) => {
@@ -43,7 +42,7 @@ export const CartItemUI: FC<TCartItemUIProps> = ({
 
   const onSelect = (e: MouseEvent) => {
     e.stopPropagation();
-    handleSelect(id);
+    handleSelect(id, !cartItem.isSelected);
   };
 
   const onCardClick = () => {
@@ -52,7 +51,7 @@ export const CartItemUI: FC<TCartItemUIProps> = ({
 
   return (
     <Card variant="outlined" sx={cardStyle} onClick={onCardClick}>
-      <CardMedia title={name} image={image} sx={cardMediaStyle} />
+      <CardMedia title={name} image={preview} sx={cardMediaStyle} />
       <CardContent sx={cardContentStyle}>
         <Grid sx={gridContainerStyle}>
           <Typography variant="h4" sx={titleStyle}>
@@ -61,7 +60,7 @@ export const CartItemUI: FC<TCartItemUIProps> = ({
           <CardActions sx={cardActionsStyle} disableSpacing>
             <Tooltip title={t("cart.item.choose")}>
               <Checkbox
-                checked={isSelected}
+                checked={cartItem.isSelected}
                 sx={checkboxStyle}
                 onClick={onSelect}
               />

@@ -2,7 +2,7 @@ export const cardStyle = {
   flexDirection: "row",
   height: "auto",
   borderRadius: "0.75rem",
-  backgroundColor: "custom.primary",
+  backgroundColor: "custom.primary.main",
   p: {
     xs: 1,
     sm: 2,

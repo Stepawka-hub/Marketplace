@@ -36,6 +36,18 @@
       "passwords-not-match": "Passwords do not match"
     },
     "fields": {
+      "firstName": {
+        "label": "First name",
+        "placeholder": "Stepan"
+      },
+      "lastName": {
+        "label": "Last name",
+        "placeholder": "Lvov"
+      },
+      "phone": {
+        "label": "Phone",
+        "placeholder": "+1 (XXX) XXX-XX-XX"
+      },
       "email": {
         "label": "Email",
         "placeholder": "email@example.com"
@@ -53,20 +65,6 @@
   "register": {
     "form": {
       "title": "Register",
-      "fields": {
-        "firstName": {
-          "label": "First name",
-          "placeholder": "Stepan"
-        },
-        "lastName": {
-          "label": "Last name",
-          "placeholder": "Lvov"
-        },
-        "phone": {
-          "label": "Phone",
-          "placeholder": "+1 (XXX) XXX-XX-XX"
-        }
-      },
       "submit-button": "Register"
     }
   },
@@ -160,12 +158,46 @@
   "profile": {
     "badge": {
       "tool-tip": "Login to account"
+    },
+    "account-menu": {
+      "tool-tip": "Account settings"
+    },
+    "menu-items": {
+      "profile": "Profile",
+      "seller-panel": "Seller panel",
+      "log-out": "Log out",
+      "logging-out": "Logging out..."
+    },
+    "info-row": {
+      "email": "Email",
+      "phone": "Phone",
+      "role": "Role"
+    },
+    "avatar": {
+      "errors": {
+        "incorrect-type": "Please select an image",
+        "max-size": "The file size must not exceed 5MB.",
+        "common": "Error uploading photo"
+      }
+    },
+    "errors": {
+      "loading": "Error loading profile"
+    },
+    "edit-modal": {
+      "title": "Editing profile"
     }
   },
 
   "common": {
-    "buttons": {
-      "back": "Return to catalog"
+    "role": {
+      "vendor": "Vendor",
+      "user": "User"
+    },
+    "actions": {
+      "back": "Return to catalog",
+      "edit": "Edit",
+      "save": "Save",
+      "saving": "Saving..."
     }
   },
 

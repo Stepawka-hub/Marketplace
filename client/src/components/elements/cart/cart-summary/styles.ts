@@ -8,7 +8,7 @@ export const containerStyle: SxProps = {
   borderRadius: 3,
   border: "1px solid",
   borderColor: "divider",
-  backgroundColor: "custom.primary",
+  backgroundColor: "custom.primary.main",
 } as const;
 
 export const titleStyle = {
