@@ -40,15 +40,29 @@ export class LotController {
 
   @ApiOperation({ summary: 'Получить список лотов' })
   @ApiOkResponse({ type: LotPaginatedResponseDto })
-  @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
-  @ApiQuery({ name: 'limit', required: false, type: Number, example: 10 })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    type: Number,
+    example: 1,
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    example: 10,
+  })
   @ApiQuery({
     name: 'status',
     required: false,
     enum: [LOT_STATUSES.ACTIVE, LOT_STATUSES.COMPLETED, LOT_STATUSES.EXPIRED],
     description: LOT_API_PROPERTIES.STATUS.description,
   })
-  @ApiQuery({ name: 'category', required: false, type: String })
+  @ApiQuery({
+    name: 'category',
+    required: false,
+    type: String,
+  })
   @Get()
   getLots(
     @Query() paginationDto: PaginationDto,
@@ -58,16 +72,26 @@ export class LotController {
     return this.lotService.getLots(paginationDto, status, category);
   }
 
-  @ApiOperation({ summary: 'Получить лот по ID' })
-  @ApiOkResponse({ type: LotDetailsResponseDto })
-  @ApiNotFoundResponse({ description: 'Лот не найден' })
+  @ApiOperation({
+    summary: 'Получить лот по ID',
+  })
+  @ApiOkResponse({
+    type: LotDetailsResponseDto,
+  })
+  @ApiNotFoundResponse({
+    description: 'Лот не найден',
+  })
   @Get(':id')
   getLotById(@Param('id') id: string) {
     return this.lotService.getLotById(id);
   }
 
-  @ApiOperation({ summary: 'Получить мои лоты (как продавец)' })
-  @ApiOkResponse({ type: LotPaginatedResponseDto })
+  @ApiOperation({
+    summary: 'Получить мои лоты (как продавец)',
+  })
+  @ApiOkResponse({
+    type: LotPaginatedResponseDto,
+  })
   @ApiBearerAuth()
   @Authorization()
   @Get('my/list')
@@ -78,8 +102,12 @@ export class LotController {
     return this.lotService.getMyLots(userId, paginationDto);
   }
 
-  @ApiOperation({ summary: 'Создать лот' })
-  @ApiCreatedResponse({ type: LotActionResponseDto })
+  @ApiOperation({
+    summary: 'Создать лот',
+  })
+  @ApiCreatedResponse({
+    type: LotActionResponseDto,
+  })
   @ApiBearerAuth()
   @Authorization()
   @Post()
@@ -87,8 +115,12 @@ export class LotController {
     return this.lotService.createLot(userId, dto);
   }
 
-  @ApiOperation({ summary: 'Обновить лот' })
-  @ApiOkResponse({ type: LotActionResponseDto })
+  @ApiOperation({
+    summary: 'Обновить лот',
+  })
+  @ApiOkResponse({
+    type: LotActionResponseDto,
+  })
   @ApiBearerAuth()
   @Authorization()
   @Patch(':id')
@@ -100,8 +132,12 @@ export class LotController {
     return this.lotService.updateLot(userId, lotId, dto);
   }
 
-  @ApiOperation({ summary: 'Удалить лот (черновик)' })
-  @ApiOkResponse({ type: LotActionResponseDto })
+  @ApiOperation({
+    summary: 'Удалить лот (черновик)',
+  })
+  @ApiOkResponse({
+    type: LotActionResponseDto,
+  })
   @ApiBearerAuth()
   @Authorization()
   @Delete(':id')
@@ -109,8 +145,12 @@ export class LotController {
     return this.lotService.deleteLot(userId, lotId);
   }
 
-  @ApiOperation({ summary: 'Мои активные лоты (где участвую и аукцион идёт)' })
-  @ApiOkResponse({ type: ActiveBidLotsResponseDto })
+  @ApiOperation({
+    summary: 'Мои активные лоты (где участвую и аукцион идёт)',
+  })
+  @ApiOkResponse({
+    type: ActiveBidLotsResponseDto,
+  })
   @ApiBearerAuth()
   @Authorization()
   @Get('my/active')
@@ -121,8 +161,12 @@ export class LotController {
     return this.lotService.getMyActiveLots(userId, paginationDto);
   }
 
-  @ApiOperation({ summary: 'Количество активных лотов (для бейджа)' })
-  @ApiOkResponse({ type: ActiveBidsCountResponseDto })
+  @ApiOperation({
+    summary: 'Количество активных лотов (для бейджа)',
+  })
+  @ApiOkResponse({
+    type: ActiveBidsCountResponseDto,
+  })
   @ApiBearerAuth()
   @Authorization()
   @Get('my/active/count')
@@ -130,8 +174,12 @@ export class LotController {
     return this.lotService.getMyActiveLotsCount(userId);
   }
 
-  @ApiOperation({ summary: 'История ставок (все лоты, где участвовал)' })
-  @ApiOkResponse({ type: BidHistoryLotsResponseDto })
+  @ApiOperation({
+    summary: 'История ставок (все лоты, где участвовал)',
+  })
+  @ApiOkResponse({
+    type: BidHistoryLotsResponseDto,
+  })
   @ApiBearerAuth()
   @Authorization()
   @Get('my/history')

@@ -11,7 +11,7 @@ import { UserEntity } from '@/modules/user/entities';
 import { LotEntity } from '@/modules/lot/entities';
 import { ApiProperty } from '@nestjs/swagger';
 import { COMMON_API_PROPERTIES } from '@/common';
-import { BID_API_PROPERTIES, BID_STATUSES, BID_VALIDATION } from '../constants';
+import { BID_STATUSES, BID_VALIDATION, BID_API_PROPERTIES } from '../constants';
 import { TBidStatus } from '../types';
 
 @Entity('bids')
@@ -20,7 +20,10 @@ export class BidEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ApiProperty(BID_API_PROPERTIES.USER)
+  @ApiProperty({
+    type: () => UserEntity,
+    description: 'Пользователь, сделавший ставку',
+  })
   @ManyToOne(() => UserEntity, (user) => user.bids, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'user_id' })
   user: UserEntity;

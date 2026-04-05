@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, Min, IsPositive } from 'class-validator';
-import { Type } from 'class-transformer';
 import { BID_API_PROPERTIES } from '../../constants';
 
 export class CreateBidDto {
@@ -12,6 +11,5 @@ export class CreateBidDto {
   @IsNumber()
   @IsPositive()
   @Min(1)
-  @Type(() => Number)
   amount: number;
 }

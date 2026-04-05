@@ -3,17 +3,18 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { BidController } from './bid.controller';
 import { BidService } from './bid.service';
 import { BidEntity } from './entities';
-import { ProductEntity } from '../product/entities';
-import { ProductModule } from '@/modules/product';
-import { ProductMapper } from '@/modules/product/mappers';
+import { LotModule } from '../lot';
+import { UserModule } from '../user';
+import { LotEntity } from '../lot/entities';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([BidEntity, ProductEntity]),
-    ProductModule,
+    TypeOrmModule.forFeature([BidEntity, LotEntity]),
+    LotModule,
+    UserModule,
   ],
   controllers: [BidController],
-  providers: [BidService, ProductMapper],
+  providers: [BidService],
   exports: [BidService],
 })
 export class BidModule {}

@@ -80,7 +80,10 @@ export class LotEntity {
   })
   status: TLotStatus;
 
-  @ApiProperty(LOT_API_PROPERTIES.SELLER)
+  @ApiProperty({
+    type: () => UserEntity,
+    description: 'Продавец',
+  })
   @ManyToOne(() => UserEntity, (user) => user.lots, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'seller_id' })
   seller: UserEntity;
@@ -92,12 +95,18 @@ export class LotEntity {
   @OneToMany(() => BidEntity, (bid) => bid.lot)
   bids: BidEntity[];
 
-  @ApiPropertyOptional(LOT_API_PROPERTIES.WINNER)
+  @ApiPropertyOptional({
+    type: () => UserEntity,
+    description: 'Победитель аукциона',
+  })
   @ManyToOne(() => UserEntity, { nullable: true })
   @JoinColumn({ name: 'winner_id' })
   winner?: UserEntity;
 
-  @ApiPropertyOptional(LOT_API_PROPERTIES.CURRENT_WINNER)
+  @ApiPropertyOptional({
+    type: () => UserEntity,
+    description: 'Текущий лидер (пользователь с максимальной ставкой)',
+  })
   @ManyToOne(() => UserEntity, { nullable: true })
   @JoinColumn({ name: 'current_winner_id' })
   currentWinner?: UserEntity;

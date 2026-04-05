@@ -5,7 +5,6 @@ export const BID_API_PROPERTIES = {
     example: '123e4567-e89b-12d3-a456-426614174000',
     description: 'ID ставки',
   },
-  USER: { description: 'Пользователь, сделавший ставку' },
   USER_ID: {
     example: '123e4567-e89b-12d3-a456-426614174000',
     description: 'ID пользователя',
@@ -24,6 +23,6 @@ export const BID_API_PROPERTIES = {
   STATUS: {
     example: 'ACTIVE',
     description: 'Статус ставки',
-    enum: Object.values(BID_STATUSES),
+    enum: BID_STATUSES,
   },
 };

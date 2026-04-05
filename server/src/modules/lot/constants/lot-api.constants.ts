@@ -25,29 +25,17 @@ export const LOT_API_PROPERTIES = {
     description: 'Минимальный шаг ставки',
   },
   START_TIME: {
-    example: '2024-01-01T10:00:00Z',
+    example: '2026-01-01T10:00:00Z',
     description: 'Время начала',
   },
   END_TIME: {
-    example: '2024-01-07T20:00:00Z',
+    example: '2026-01-07T20:00:00Z',
     description: 'Время окончания',
   },
   STATUS: {
     example: 'ACTIVE',
     description: 'Статус лота',
-    enum: Object.values(LOT_STATUSES),
-  },
-  WINNER: {
-    example: '123e4567-e89b-12d3-a456-426614174000',
-    description: 'Победитель аукциона',
-  },
-  CURRENT_WINNER: {
-    example: '123e4567-e89b-12d3-a456-426614174000',
-    description: 'Текущий лидер (пользователь с максимальной ставкой)',
-  },
-  SELLER: {
-    example: '123e4567-e89b-12d3-a456-426614174000',
-    description: 'Продавец',
+    enum: LOT_STATUSES,
   },
   BIDS: {
     description: 'Список ставок',

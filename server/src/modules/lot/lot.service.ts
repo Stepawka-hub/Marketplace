@@ -6,7 +6,6 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, In, MoreThan } from 'typeorm';
 
-import { UserService } from '@/modules/user/user.service';
 import { ProductService } from '@/modules/product/product.service';
 import { BidEntity } from '@/modules/bid/entities';
 import { LotEntity } from './entities';
@@ -24,7 +23,6 @@ export class LotService {
     private readonly lotRepository: Repository<LotEntity>,
     @InjectRepository(BidEntity)
     private readonly bidRepository: Repository<BidEntity>,
-    private readonly userService: UserService,
     private readonly productService: ProductService,
   ) {}
 
