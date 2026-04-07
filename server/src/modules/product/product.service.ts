@@ -154,6 +154,54 @@ export class ProductService {
     );
   }
 
+  async findProductsBySeller(
+    paginationDto: PaginationDto,
+    sellerId: string,
+  ): Promise<TProductListResponse> {
+    const { page = 1, limit = 10 } = paginationDto;
+    const skip = (page - 1) * limit;
+
+    const [products, total] = await this.productRepository.findAndCount({
+      where: {
+        seller: { id: sellerId },
+      },
+      relations: {
+        seller: true,
+        media: true,
+      },
+      select: {
+        id: true,
+        name: true,
+        shortDescription: true,
+        category: true,
+        createdAt: true,
+        seller: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        },
+        media: {
+          id: true,
+          filename: true,
+          isPreview: true,
+        },
+      },
+      order: {
+        createdAt: 'DESC',
+      },
+      skip,
+      take: limit,
+    });
+
+    return ApiPaginatedResponse.success(
+      this.productMapper.toListItemArray(products),
+      total,
+      page,
+      limit,
+      'Список ваших товаров успешно получен',
+    );
+  }
+
   async findProductById(id: string): Promise<TProductDetailsResponse> {
     const product = await this.productRepository.findOne({
       where: {

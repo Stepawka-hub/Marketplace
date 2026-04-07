@@ -18,7 +18,7 @@ import {
   CreateBidDto,
 } from './dto';
 
-@ApiTags('bids')
+@ApiTags('Bids')
 @ApiBearerAuth()
 @Controller('lots/:lotId/bids')
 export class BidController {

@@ -37,6 +37,7 @@ import {
 } from './constants';
 import { TApiPaginatedResponse, TApiResponse } from '@/common';
 import { TProductFiles } from './types';
+import { UserEntity } from '../user/entities';
 
 @Controller('products')
 export class ProductController {
@@ -88,13 +89,51 @@ export class ProductController {
     type: ProductListPaginatedResponseDto,
   })
   @ApiOperation({ summary: 'Получить список товаров' })
-  @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
-  @ApiQuery({ name: 'limit', required: false, type: Number, example: 10 })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    type: Number,
+    example: 1,
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    example: 10,
+  })
   @Get()
-  findProducts(
+  findAllProducts(
     @Query() paginationDto: PaginationDto,
   ): Promise<TApiPaginatedResponse<ProductListItemDto>> {
     return this.productService.findProducts(paginationDto);
+  }
+
+  @ApiOkResponse({
+    description: 'Список товаров пользователя',
+    type: ProductListPaginatedResponseDto,
+  })
+  @ApiOperation({
+    summary: 'Получить список товаров',
+  })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    type: Number,
+    example: 1,
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    example: 10,
+  })
+  @Authorization()
+  @Get('my-products')
+  findMyProducts(
+    @Authorizated() user: UserEntity,
+    @Query() paginationDto: PaginationDto,
+  ): Promise<TApiPaginatedResponse<ProductListItemDto>> {
+    return this.productService.findProductsBySeller(paginationDto, user.id);
   }
 
   @ApiOperation({ summary: 'Получить товар по ID' })

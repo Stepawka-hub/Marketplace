@@ -1,6 +1,7 @@
 import { SxProps } from "@mui/material";
 
 export const wrapperStyle: SxProps = {
+  maxWidth: "60rem",
   p: 3,
   borderRadius: 2,
   backgroundColor: "custom.primary.main",

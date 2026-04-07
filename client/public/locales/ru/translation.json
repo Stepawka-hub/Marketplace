@@ -189,6 +189,10 @@
     },
     "edit-modal": {
       "title": "Редактирование профиля"
+    },
+    "seller-panel": {
+      "my-products-title": "Мои товары",
+      "create-product": "Создать товар"
     }
   },
 
@@ -203,10 +207,5 @@
       "save": "Сохранить",
       "saving": "Сохранение..."
     }
-  },
-
-  "selection-actions": {
-    "select-all": "Выбрать все",
-    "remove-all": "Удалить выбранное"
   }
 }

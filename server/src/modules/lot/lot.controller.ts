@@ -33,7 +33,7 @@ import {
 } from './dto';
 import { LOT_API_PROPERTIES, LOT_STATUSES } from './constants';
 
-@ApiTags('lots')
+@ApiTags('Lots')
 @Controller('lots')
 export class LotController {
   constructor(private readonly lotService: LotService) {}

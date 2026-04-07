@@ -145,6 +145,7 @@
     "buttons": {
       "place-bid": "Place bid",
       "bid-placed": "Bid placed",
+      "create-product": "Создать товар",
       "add-to-favorites": "Add to favorites",
       "remove-from-favorites": "Remove from favorites"
     }
@@ -181,6 +182,10 @@
     },
     "edit-modal": {
       "title": "Editing profile"
+    },
+    "seller-panel": {
+      "my-products-title": "My products",
+      "create-product": "Create product"
     }
   },
 
@@ -195,10 +200,5 @@
       "save": "Save",
       "saving": "Saving..."
     }
-  },
-
-  "selection-actions": {
-    "select-all": "Select all",
-    "remove-all": "Delete selected"
   }
 }

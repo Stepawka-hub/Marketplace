@@ -6,3 +6,4 @@ export * from "./normalize-sx";
 export * from "./is-tokens";
 export * from "./translations";
 export * from "./get-initials";
+export * from "./user";

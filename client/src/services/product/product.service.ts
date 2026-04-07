@@ -5,16 +5,25 @@ import {
 } from "../base";
 import { baseAPI } from "../base/base.service";
 import { TProductDetails, TProductListItem } from "@/shared/types";
-import { TProductsResponse } from './types';
+import { TProductsResponse } from "./types";
 
 export const productAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
-    getAllProducts: build.query<
-      TProductsResponse,
-      TPaginationParams
-    >({
+    getAllProducts: build.query<TProductsResponse, TPaginationParams>({
       query: (params: TPaginationParams = { page: 1, limit: 10 }) => ({
         url: "/products",
+        params: {
+          page: params.page,
+          limit: params.limit,
+        },
+      }),
+      transformResponse: (response: TPaginatedResponse<TProductListItem>) =>
+        response.data,
+    }),
+
+    getAllMyProducts: build.query<TProductsResponse, TPaginationParams>({
+      query: (params: TPaginationParams = { page: 1, limit: 10 }) => ({
+        url: "/products/my-products",
         params: {
           page: params.page,
           limit: params.limit,
@@ -34,4 +43,8 @@ export const productAPI = baseAPI.injectEndpoints({
   }),
 });
 
-export const { useGetAllProductsQuery, useGetProductByIdQuery } = productAPI;
+export const {
+  useGetAllProductsQuery,
+  useGetAllMyProductsQuery,
+  useGetProductByIdQuery,
+} = productAPI;
