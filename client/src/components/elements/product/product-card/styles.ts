@@ -19,12 +19,6 @@ export const boxLikeButtonStyle: SxProps<Theme> = {
   m: 1,
 } as const;
 
-export const priceTypographyStyle: SxProps<Theme> = {
-  mb: 1,
-  fontSize: "1.25rem",
-  fontWeight: 600,
-} as const;
-
 export const nameTypographyStyle: SxProps<Theme> = {
   fontSize: "1.25rem",
   fontWeight: 500,

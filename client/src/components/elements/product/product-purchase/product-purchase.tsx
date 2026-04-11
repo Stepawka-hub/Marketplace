@@ -8,6 +8,7 @@ import { formattedWithSpace } from "@/shared/helpers";
 
 export const ProductPurchase: FC<TProductPurchaseProps> = ({
   productId,
+  sellerId,
   price,
 }) => {
   const { i18n } = useTranslation();
@@ -19,7 +20,7 @@ export const ProductPurchase: FC<TProductPurchaseProps> = ({
         <Typography sx={priceStyle}>{formattedPrice} ₽</Typography>
         <LikeButton productId={productId} />
       </Box>
-      <PlaceBidButton productId={productId} />
+      <PlaceBidButton productId={productId} sellerId={sellerId} />
     </Paper>
   );
 };

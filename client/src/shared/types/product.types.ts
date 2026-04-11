@@ -3,7 +3,6 @@ export type TBaseProduct = {
   name: string;
   shortDescription: string;
   category: string;
-  price: number;
   createdAt: string;
   updatedAt: string;
 };

@@ -27,7 +27,11 @@ export const ProductDetailsUI: FC<TProductDetailsUIProps> = ({ product }) => {
 
         <Grid flexGrow={1}>
           <Box sx={productContentStyle}>
-            <ProductPurchase productId={id} price={price} />
+            <ProductPurchase
+              productId={id}
+              sellerId={seller.id}
+              price={price}
+            />
             <ProductMeta
               rating={rating}
               // Todo: исправить на корректное число ревью

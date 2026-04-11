@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { checkInRange, includesRow } from "@/shared/helpers";
+import { includesRow } from "@/shared/helpers";
 import { useSelector } from "@/store";
 import { getFilters, getSearchQuery } from "@/store/slices/catalog";
 import { Pagination, ProductListUI } from "@/components/elements";
@@ -13,13 +13,12 @@ export const ProductList: FC = () => {
   const pagination = data?.meta || defaultPagination;
 
   const searchQuery = useSelector(getSearchQuery);
-  const { category, price } = useSelector(getFilters);
+  const { category } = useSelector(getFilters);
 
   const filteredProducts =
     data?.items.filter(
       (p) =>
         (category === "all" || p.category === category) &&
-        checkInRange(p.price, price.max, price.min) &&
         includesRow(searchQuery, [p.name]),
     ) ?? [];
 
