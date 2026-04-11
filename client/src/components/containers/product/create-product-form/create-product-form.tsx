@@ -1,12 +1,14 @@
 import { FC, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { useCreateProductMutation } from "@/services";
 import {
   maxLengthValidation,
   minLengthValidation,
   requiredValidation,
 } from "@/shared/helpers";
+import { ROUTES } from "@/config/routes";
 
 import { Input, FileUpload, MediaPreviewList } from "@/components/containers";
 import { Form } from "@/components/elements";
@@ -19,9 +21,12 @@ import {
 } from "@mui/icons-material";
 import { CREATE_PRODUCT_FIELDS } from "./constants";
 import { TCreateProductForm } from "./type";
+import { centeredBoxStyle } from "./styles";
 
 export const CreateProductForm: FC = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
   const methods = useForm<TCreateProductForm>({ mode: "onChange" });
   const { register, handleSubmit, setValue, setError, clearErrors, formState } =
     methods;
@@ -84,13 +89,14 @@ export const CreateProductForm: FC = () => {
 
     submitData.append(PREVIEW, mediaFiles[mainImageIndex]);
 
-    await createProduct(submitData);
+    await createProduct(submitData).unwrap();
+    navigate(ROUTES.PROFILE_SELLER_PANEL);
   });
 
   const mediaError = formState.errors[MEDIA]?.message;
 
   return (
-    <CenteredBox>
+    <CenteredBox sx={centeredBoxStyle}>
       <FormProvider {...methods}>
         <Form title={t("create-product.form.title")} onSubmit={onSubmit}>
           <Input

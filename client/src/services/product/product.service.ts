@@ -5,7 +5,11 @@ import {
 } from "../base";
 import { baseAPI } from "../base/base.service";
 import { TProductDetails, TProductListItem } from "@/shared/types";
-import { TProductsResponse } from "./types";
+import {
+  TCreateProductRequest,
+  TCreateProductResponse,
+  TProductsResponse,
+} from "./types";
 
 export const productAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
@@ -41,10 +45,14 @@ export const productAPI = baseAPI.injectEndpoints({
         response.data,
     }),
 
-    createProduct: build.mutation({
-      query: () => ({
-        url: "/products/create-product",
+    createProduct: build.mutation<TProductDetails, TCreateProductRequest>({
+      query: (formData) => ({
+        url: "/products",
+        method: "POST",
+        body: formData,
+        formData: true,
       }),
+      transformResponse: (response: TCreateProductResponse) => response.data,
     }),
   }),
 });

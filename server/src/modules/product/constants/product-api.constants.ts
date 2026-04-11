@@ -31,7 +31,6 @@ export const PRODUCT_API_PROPERTIES: TApiPropertyOptions = {
       Они воспроизводят чистый и сбалансированный звук с детальными высокими частотами и насыщенными басами, 
       что позволяет по-новому услышать любимые треки.`,
     required: false,
-    minLength: PRODUCT_VALIDATION.DESCRIPTION.MIN,
     maxLength: PRODUCT_VALIDATION.DESCRIPTION.MAX,
   },
   CATEGORY: {

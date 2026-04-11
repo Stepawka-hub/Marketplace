@@ -203,26 +203,25 @@ export class ProductService {
   }
 
   async findProductById(id: string): Promise<TProductDetailsResponse> {
-    const product = await this.productRepository.findOne({
-      where: {
-        id,
-      },
-      relations: {
-        seller: true,
-        media: true,
-      },
-      select: {
-        seller: {
-          id: true,
-          firstName: true,
-          lastName: true,
-        },
-        media: {
-          filename: true,
-          isPreview: true,
-        },
-      },
-    });
+    const product = await this.productRepository
+      .createQueryBuilder('product')
+      .leftJoinAndSelect('product.seller', 'seller')
+      .leftJoinAndSelect('product.media', 'media')
+      .where('product.id = :id', { id })
+      .select([
+        'product.id',
+        'product.name',
+        'product.shortDescription',
+        'product.description',
+        'product.category',
+        'seller.id',
+        'seller.firstName',
+        'seller.lastName',
+        'media.id',
+        'media.filename',
+        'media.isPreview',
+      ])
+      .getOne();
 
     if (!product) {
       throw new NotFoundException('Товар не найден!');
