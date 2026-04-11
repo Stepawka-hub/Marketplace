@@ -3,8 +3,8 @@ import { FileUploadUI } from "@/components/elements";
 import { TFileUploadProps } from "./type";
 
 export const FileUpload: FC<TFileUploadProps> = ({
-  onFileSelect,
   multiple = false,
+  onFileSelect,
   ...props
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);

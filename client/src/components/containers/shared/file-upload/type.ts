@@ -6,5 +6,7 @@ export type TFileUploadProps = {
   accept?: string;
   startIcon?: ReactNode;
   multiple?: boolean;
+  error?: boolean;
+  helperText?: string;
   onFileSelect: (files: File[]) => void;
 };

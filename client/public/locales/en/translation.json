@@ -183,6 +183,9 @@
           "label": "Main image",
           "placeholder": "Select main image"
         }
+      },
+      "validation": {
+        "required-media": "Please upload at least one image"
       }
     }
   },

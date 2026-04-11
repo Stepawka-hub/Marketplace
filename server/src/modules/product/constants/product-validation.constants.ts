@@ -6,11 +6,10 @@ import {
 export const PRODUCT_VALIDATION = {
   NAME: {
     MIN: 3,
-    MAX: 255,
+    MAX: 128,
   },
   DESCRIPTION: {
-    MIN: 16,
-    MAX: 1024,
+    MAX: 512,
   },
   SHORT_DESCRIPTION: {
     MIN: 10,

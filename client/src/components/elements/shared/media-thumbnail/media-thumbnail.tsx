@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Paper, IconButton, Box } from "@mui/material";
-import { Delete as DeleteIcon, Star as StarIcon } from "@mui/icons-material";
+import ClearIcon from '@mui/icons-material/Clear';
+import StarIcon from "@mui/icons-material/Star";
 import {
   thumbnailStyle,
   imageStyle,
@@ -27,14 +28,13 @@ export const MediaThumbnail: FC<TMediaThumbnailProps> = ({
 
     <IconButton
       size="small"
-      color="error"
       sx={deleteButtonStyle}
       onClick={(e) => {
         e.stopPropagation();
         onRemove();
       }}
     >
-      <DeleteIcon fontSize="small" />
+      <ClearIcon fontSize="small" />
     </IconButton>
 
     {isMain && (

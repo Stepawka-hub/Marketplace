@@ -7,6 +7,8 @@ export type TFileUploadUIProps = {
   accept?: string;
   multiple?: boolean;
   startIcon?: ReactNode;
+  error?: boolean;
+  helperText?: string;
   handleClick: () => void;
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };

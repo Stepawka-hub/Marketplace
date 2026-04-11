@@ -31,8 +31,13 @@ export const imageStyle: CSSProperties = {
 
 export const deleteButtonStyle: SxProps<Theme> = {
   position: "absolute",
-  top: 2,
-  right: 2,
+  top: 1,
+  right: 1,
+  backgroundColor: "custom.primary.main",
+  ":hover": {
+    opacity: 0.9,
+    backgroundColor: "custom.primary.main",
+  },
 } as const;
 
 export const mainBadgeStyle: SxProps<Theme> = {
