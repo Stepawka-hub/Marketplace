@@ -196,6 +196,47 @@
     }
   },
 
+  "create-product": {
+    "actions": {
+      "back-to-profile": "Вернуться в профиль"
+    },
+    "form": {
+      "title": "Создание товара",
+      "fields": {
+        "name": {
+          "label": "Название товара",
+          "placeholder": "Введите название"
+        },
+        "shortDescription": {
+          "label": "Короткое описание",
+          "placeholder": "Кратко о товаре..."
+        },
+        "description": {
+          "label": "Описание",
+          "placeholder": "Полное описание товара..."
+        },
+        "category": {
+          "label": "Категория",
+          "placeholder": "Выберите категорию"
+        },
+        "media": {
+          "label": "Фото/видео товара",
+          "placeholder": "Загрузите медиафайлы"
+        },
+        "preview": {
+          "label": "Главное изображение",
+          "placeholder": "Выберите основное фото"
+        }
+      }
+    }
+  },
+
+  "media-preview": {
+    "title": "Медиафайлы ({{count}})",
+    "title-caption": "(кликните, чтобы сделать главным)",
+    "main-badge": "Главное"
+  },
+
   "common": {
     "role": {
       "vendor": "Продавец",

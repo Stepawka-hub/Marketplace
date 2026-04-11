@@ -151,6 +151,42 @@
     }
   },
 
+  "create-product": {
+    "title": "Product creation",
+    "actions": {
+      "back-to-profile": "Back to profile"
+    },
+    "form": {
+      "title": "Product creation",
+      "fields": {
+        "name": {
+          "label": "Product name",
+          "placeholder": "Enter product name"
+        },
+        "shortDescription": {
+          "label": "Short description",
+          "placeholder": "Brief description of the product..."
+        },
+        "description": {
+          "label": "Description",
+          "placeholder": "Full product description..."
+        },
+        "category": {
+          "label": "Category",
+          "placeholder": "Select category"
+        },
+        "media": {
+          "label": "Product photo/media",
+          "placeholder": "Upload media files"
+        },
+        "preview": {
+          "label": "Main image",
+          "placeholder": "Select main image"
+        }
+      }
+    }
+  },
+
   "profile": {
     "badge": {
       "tool-tip": "Login to account"
@@ -187,6 +223,12 @@
       "my-products-title": "My products",
       "create-product": "Create product"
     }
+  },
+
+  "media-preview": {
+    "title": "Media files ({{count}})",
+    "title-caption": "(click to set as main)",
+    "main-badge": "Main"
   },
 
   "common": {

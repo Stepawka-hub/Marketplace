@@ -40,6 +40,12 @@ export const productAPI = baseAPI.injectEndpoints({
       transformResponse: (response: TServerResponse<TProductDetails>) =>
         response.data,
     }),
+
+    createProduct: build.mutation({
+      query: () => ({
+        url: "/products/create-product",
+      }),
+    }),
   }),
 });
 
@@ -47,4 +53,5 @@ export const {
   useGetAllProductsQuery,
   useGetAllMyProductsQuery,
   useGetProductByIdQuery,
+  useCreateProductMutation,
 } = productAPI;

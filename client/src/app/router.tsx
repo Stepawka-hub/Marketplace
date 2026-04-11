@@ -12,6 +12,7 @@ import {
   ForgotPasswordPage,
   ResetPasswordPage,
   ProfilePage,
+  CreateProductPage,
 } from "@/pages";
 import {
   ProfileData,
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.CATALOG_PRODUCT(":productId"),
             element: <ProductPage />,
+          },
+          {
+            path: ROUTES.CREATE_PRODUCT,
+            element: <CreateProductPage />,
           },
           {
             path: ROUTES.MY_BIDS,
