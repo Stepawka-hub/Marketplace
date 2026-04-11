@@ -3,8 +3,9 @@ import {
   TPaginationParams,
   TServerResponse,
 } from "../base";
-import { baseAPI } from "../base/base.service";
+import { baseAPI } from "../base";
 import { TProductDetails, TProductListItem } from "@/shared/types";
+import { PRODUCT_TAGS } from "./constants";
 import {
   TCreateProductRequest,
   TCreateProductResponse,
@@ -23,6 +24,16 @@ export const productAPI = baseAPI.injectEndpoints({
       }),
       transformResponse: (response: TPaginatedResponse<TProductListItem>) =>
         response.data,
+      providesTags: (result) =>
+        result?.items
+          ? [
+              ...result.items.map(({ id }) => ({
+                type: PRODUCT_TAGS.LIST.type,
+                id,
+              })),
+              PRODUCT_TAGS.LIST,
+            ]
+          : [PRODUCT_TAGS.LIST],
     }),
 
     getAllMyProducts: build.query<TProductsResponse, TPaginationParams>({
@@ -35,6 +46,16 @@ export const productAPI = baseAPI.injectEndpoints({
       }),
       transformResponse: (response: TPaginatedResponse<TProductListItem>) =>
         response.data,
+      providesTags: (result) =>
+        result?.items
+          ? [
+              ...result.items.map(({ id }) => ({
+                type: PRODUCT_TAGS.MY_LIST.type,
+                id,
+              })),
+              PRODUCT_TAGS.MY_LIST,
+            ]
+          : [PRODUCT_TAGS.MY_LIST],
     }),
 
     getProductById: build.query<TProductDetails, string>({
@@ -43,6 +64,9 @@ export const productAPI = baseAPI.injectEndpoints({
       }),
       transformResponse: (response: TServerResponse<TProductDetails>) =>
         response.data,
+      providesTags: (_, __, productId) => [
+        { type: PRODUCT_TAGS.LIST.type, id: productId },
+      ],
     }),
 
     createProduct: build.mutation<TProductDetails, TCreateProductRequest>({
@@ -52,6 +76,7 @@ export const productAPI = baseAPI.injectEndpoints({
         body: formData,
         formData: true,
       }),
+      invalidatesTags: [PRODUCT_TAGS.LIST, PRODUCT_TAGS.MY_LIST],
       transformResponse: (response: TCreateProductResponse) => response.data,
     }),
   }),

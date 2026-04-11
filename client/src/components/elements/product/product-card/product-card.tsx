@@ -17,7 +17,10 @@ import {
 import { TProductCardProps } from "./type";
 import { ROUTES } from "@/config/routes";
 
-export const ProductCard: FC<TProductCardProps> = ({ product }) => {
+export const ProductCard: FC<TProductCardProps> = ({
+  product,
+  isShowLikeButton = false,
+}) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -30,9 +33,11 @@ export const ProductCard: FC<TProductCardProps> = ({ product }) => {
   return (
     <Card variant="outlined" sx={cardStyle} onClick={handleNavigateToProduct}>
       <CardMedia title={name} image={preview} sx={cardMediaStyle}>
-        <Box sx={boxLikeButtonStyle}>
-          <LikeButton productId={id} />
-        </Box>
+        {isShowLikeButton && (
+          <Box sx={boxLikeButtonStyle}>
+            <LikeButton productId={id} />
+          </Box>
+        )}
       </CardMedia>
 
       <CardContent sx={cardContentStyle}>

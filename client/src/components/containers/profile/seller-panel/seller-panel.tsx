@@ -11,6 +11,7 @@ import { SellerRegistrationForm } from "@/components/containers";
 import { SellerPanelUI } from "@/components/elements";
 import { Loader } from "@/components/ui";
 import { Button } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 
 export const SellerPanel: FC = () => {
   const { t } = useTranslation();
@@ -33,7 +34,12 @@ export const SellerPanel: FC = () => {
   return (
     <SellerPanelUI
       headerElement={
-        <Button color="success" variant="contained" onClick={handleClick}>
+        <Button
+          startIcon={<AddIcon />}
+          color="success"
+          variant="contained"
+          onClick={handleClick}
+        >
           {t("profile.seller-panel.create-product")}
         </Button>
       }

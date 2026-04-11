@@ -9,7 +9,7 @@ import {
 import { cardContainerStyle } from "./styles";
 
 export const ProductListUI: FC<TProductListUIProps> = memo(
-  ({ products, isLoading, minCardWidth = 300 }) => {
+  ({ products, isLoading, isShowLikeButton = false, minCardWidth = 300 }) => {
     if (isLoading) {
       return <ProductSkeletonList />;
     }
@@ -21,7 +21,11 @@ export const ProductListUI: FC<TProductListUIProps> = memo(
     return (
       <Box sx={cardContainerStyle(minCardWidth)}>
         {products.map((p) => (
-          <ProductCard key={p.id} product={p} />
+          <ProductCard
+            key={p.id}
+            product={p}
+            isShowLikeButton={isShowLikeButton}
+          />
         ))}
       </Box>
     );
