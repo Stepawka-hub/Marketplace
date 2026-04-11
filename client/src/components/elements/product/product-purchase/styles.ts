@@ -1,4 +1,5 @@
 import { SxProps } from "@mui/material";
+import { green } from "@mui/material/colors";
 
 export const wrapperStyle: SxProps = {
   p: 2,
@@ -13,6 +14,11 @@ export const contentBoxStyle: SxProps = {
 } as const;
 
 export const priceStyle: SxProps = {
-  fontSize: "2rem",
+  fontSize: {
+    xs: "1.5rem",
+    sm: "1.75rem",
+    md: "2rem",
+  },
+  color: green[500],
   fontWeight: 600,
 };

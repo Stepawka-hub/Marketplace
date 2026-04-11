@@ -2,12 +2,12 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-import { LikeButton } from "@/components/containers";
+import { CreateLotButton, LikeButton } from "@/components/containers";
 import { Card } from "@/components/ui";
 import { Box, CardContent, CardMedia, Typography } from "@mui/material";
 
 import {
-  boxLikeButtonStyle,
+  cardMediaButtonStyle,
   cardContentStyle,
   cardMediaStyle,
   cardStyle,
@@ -20,6 +20,7 @@ import { ROUTES } from "@/config/routes";
 export const ProductCard: FC<TProductCardProps> = ({
   product,
   isShowLikeButton = false,
+  isShowCreateLotButton = false,
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -34,8 +35,13 @@ export const ProductCard: FC<TProductCardProps> = ({
     <Card variant="outlined" sx={cardStyle} onClick={handleNavigateToProduct}>
       <CardMedia title={name} image={preview} sx={cardMediaStyle}>
         {isShowLikeButton && (
-          <Box sx={boxLikeButtonStyle}>
+          <Box sx={cardMediaButtonStyle}>
             <LikeButton productId={id} />
+          </Box>
+        )}
+        {isShowCreateLotButton && (
+          <Box sx={cardMediaButtonStyle}>
+            <CreateLotButton />
           </Box>
         )}
       </CardMedia>

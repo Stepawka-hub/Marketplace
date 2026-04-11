@@ -26,8 +26,12 @@ export const productContentStyle: SxProps = {
 } as const;
 
 export const productNameStyle: SxProps = {
-  mb: 2,
-  fontSize: "2rem",
+  mb: 3,
+  fontSize: {
+    xs: "1.5rem",
+    sm: "1.75rem",
+    md: "2rem",
+  },
   fontWeight: 600,
 } as const;
 

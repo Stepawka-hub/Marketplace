@@ -226,6 +226,12 @@
     }
   },
 
+  "lot": {
+    "actions": {
+      "create-lot": "Создать лот"
+    }
+  },
+
   "media-preview": {
     "title": "Медиафайлы ({{count}})",
     "title-caption": "(кликните, чтобы сделать главным)",

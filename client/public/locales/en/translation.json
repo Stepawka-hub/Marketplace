@@ -184,6 +184,12 @@
     }
   },
 
+  "lot": {
+    "actions": {
+      "create-lot": "Create a lot"
+    }
+  },
+
   "profile": {
     "badge": {
       "tool-tip": "Login to account"

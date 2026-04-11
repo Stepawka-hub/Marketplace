@@ -4,5 +4,6 @@ export type TProductListUIProps = {
   products: TProductListItem[];
   isLoading: boolean;
   isShowLikeButton?: boolean;
+  isShowCreateLotButton?: boolean;
   minCardWidth?: number;
 };

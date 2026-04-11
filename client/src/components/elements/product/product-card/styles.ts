@@ -13,7 +13,7 @@ export const cardContentStyle: SxProps<Theme> = {
   flexGrow: 1,
 } as const;
 
-export const boxLikeButtonStyle: SxProps<Theme> = {
+export const cardMediaButtonStyle: SxProps<Theme> = {
   display: "flex",
   justifyContent: "flex-end",
   m: 1,

@@ -3,4 +3,5 @@ import { TProductListItem } from "@/shared/types";
 export type TProductCardProps = {
   product: TProductListItem;
   isShowLikeButton?: boolean;
+  isShowCreateLotButton?: boolean;
 };
