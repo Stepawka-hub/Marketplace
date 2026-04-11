@@ -42,7 +42,7 @@ export const ProductImages: FC<TProductImagesProps> = ({ images }) => {
         onImageClick={onImageClick}
       />
 
-      <ImageList cols={isMedium ? 4 : 7} gap={7}>
+      <ImageList cols={isMedium ? 4 : 5} gap={7}>
         {imageUrls.map((url, idx) => (
           <ImageListItem
             key={idx}

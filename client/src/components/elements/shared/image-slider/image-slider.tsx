@@ -3,7 +3,7 @@ import { TImageSliderProps } from "./types";
 import { SliderBox, SliderButton, SliderImage } from "@/components/ui";
 import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
-import { leftBtnStyle, rightBtnStyle } from "./styles";
+import { leftBtnStyle, rightBtnStyle, sliderStyle } from "./styles";
 
 export const ImageSlider: FC<TImageSliderProps> = ({
   images,
@@ -14,7 +14,7 @@ export const ImageSlider: FC<TImageSliderProps> = ({
   handleNext,
   onImageClick,
 }) => (
-  <SliderBox>
+  <SliderBox sx={sliderStyle}>
     <SliderButton
       disabled={disablePrevButton}
       sx={leftBtnStyle}
