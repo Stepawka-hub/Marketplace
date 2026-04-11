@@ -128,16 +128,10 @@
   },
 
   "product": {
-    "rating": {
-      "label": "Rating",
-      "reviews_one": "{{count}} review",
-      "reviews_other": "{{count}} reviews"
-    },
     "details": {
       "label": "About product",
       "description": "Description",
-      "no-description": "No description",
-      "reviews": "Reviews"
+      "no-description": "No description"
     },
     "seller": {
       "label": "Seller"

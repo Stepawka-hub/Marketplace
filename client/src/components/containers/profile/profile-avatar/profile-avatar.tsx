@@ -7,7 +7,8 @@ import { TProfileAvatarProps } from "./types";
 
 export const ProfileAvatar: FC<TProfileAvatarProps> = ({
   avatar,
-  initials,
+  firstName = 'User',
+  lastName = '',
 }) => {
   const { t } = useTranslation();
   const [uploadAvatar, { isLoading }] = useUploadAvatarMutation();
@@ -45,7 +46,8 @@ export const ProfileAvatar: FC<TProfileAvatarProps> = ({
   return (
     <ProfileAvatarUI
       avatar={avatar}
-      initials={initials}
+      firstName={firstName}
+      lastName={lastName}
       isLoading={isLoading}
       error={error}
       handleFileChange={handleFileChange}

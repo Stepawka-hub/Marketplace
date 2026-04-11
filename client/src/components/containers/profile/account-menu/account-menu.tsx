@@ -1,19 +1,12 @@
 import { FC, MouseEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { getInitials } from "@/shared/helpers";
 import { ROUTES } from "@/config/routes";
 import { useGetMeQuery, useLogoutMutation } from "@/services";
-import { AccountMenuUI } from "@/components/elements";
-import {
-  Avatar,
-  Divider,
-  ListItemIcon,
-  MenuItem,
-  Typography,
-} from "@mui/material";
+import { AccountMenuUI, UserAvatar } from "@/components/elements";
+import { Divider, ListItemIcon, MenuItem, Typography } from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
-import { avatarStyle, logoutMenuItemStyle, usernameStyle } from "./styles";
+import { logoutMenuItemStyle, usernameStyle } from "./styles";
 
 export const AccountMenu: FC = () => {
   const { t } = useTranslation();
@@ -24,8 +17,6 @@ export const AccountMenu: FC = () => {
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const isOpen = Boolean(anchorEl);
-
-  const initials = getInitials(firstName, lastName);
 
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -52,9 +43,11 @@ export const AccountMenu: FC = () => {
       items={
         <div>
           <MenuItem onClick={navigateToProfile}>
-            <Avatar sx={avatarStyle} src={avatar}>
-              {!avatar && initials}
-            </Avatar>
+            <UserAvatar
+              firstName={firstName}
+              lastName={lastName}
+              avatar={avatar}
+            />
             <Typography
               sx={usernameStyle}
             >{`${firstName} ${lastName}`}</Typography>
@@ -74,8 +67,9 @@ export const AccountMenu: FC = () => {
           </MenuItem>
         </div>
       }
-      avatar={avatar}
-      initials={initials}
+      avatar={
+        <UserAvatar firstName={firstName} lastName={lastName} avatar={avatar} />
+      }
       onClick={handleClick}
       onClose={handleClose}
     />

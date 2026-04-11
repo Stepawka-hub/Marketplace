@@ -11,7 +11,7 @@ import { Repository } from 'typeorm';
 import { hash } from 'argon2';
 
 import { ApiResponse } from '@/common';
-import { generateFileName } from '@/common/utils';
+import { formatMediaUrl, generateFileName } from '@/common/utils';
 import { UserEntity } from './entities';
 import { UpdateUserDto } from './dto';
 import {
@@ -115,7 +115,7 @@ export class UserService {
     await this.userRepository.save(user);
 
     return ApiResponse.success(
-      { avatar: this.formatAvatarUrl(key) },
+      { avatar: formatMediaUrl(key, this.avatarBaseUrl) },
       'Аватар успешно обновлен',
     );
   }
@@ -144,10 +144,6 @@ export class UserService {
     await this.userRepository.save(user);
   }
 
-  formatAvatarUrl(avatar: string | null): string | null {
-    return avatar ? `${this.avatarBaseUrl}${avatar}` : null;
-  }
-
   private formatUserResponse(user: UserEntity) {
     return {
       id: user.id,
@@ -155,7 +151,7 @@ export class UserService {
       phone: user.phone,
       firstName: user.firstName,
       lastName: user.lastName,
-      avatar: this.formatAvatarUrl(user.avatar),
+      avatar: formatMediaUrl(user.avatar, this.avatarBaseUrl),
       role: user.role,
     };
   }

@@ -1,31 +1,44 @@
+import { formatMediaUrl } from '@/common/utils';
+import { ProductEntity } from '@/modules/product/entities';
 import {
   ProductDetailsDto,
   ProductListItemDto,
   ProductMediaDto,
 } from '@/modules/product/dto';
-import { ProductEntity } from '@/modules/product/entities';
 
 export class ProductMapper {
-  constructor(private readonly mediaBaseUrl: string) {}
+  constructor(private readonly baseUrl: string) {}
 
   toListItem(product: ProductEntity): ProductListItemDto {
     const previewMedia = product.media.find((m) => m.isPreview);
-    const preview = this.mediaBaseUrl + previewMedia?.filename;
+    const preview = this.baseUrl + previewMedia?.filename;
+
+    const { seller } = product;
 
     return {
       ...product,
+      seller: {
+        ...seller,
+        avatar: formatMediaUrl(seller.avatar, this.baseUrl),
+      },
       preview,
     };
   }
 
   toDetails(product: ProductEntity): ProductDetailsDto {
     const media: ProductMediaDto[] = product.media.map((m) => ({
-      url: this.mediaBaseUrl + m.filename,
+      url: this.baseUrl + m.filename,
       isPreview: m.isPreview,
     }));
 
+    const { seller } = product;
+
     return {
       ...product,
+      seller: {
+        ...seller,
+        avatar: formatMediaUrl(seller.avatar, this.baseUrl),
+      },
       media,
     };
   }

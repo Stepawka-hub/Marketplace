@@ -4,8 +4,7 @@ export type TAccountMenuProps = {
   isOpen: boolean;
   anchorEl: HTMLElement | null;
   items: ReactElement;
-  avatar?: string;
-  initials?: string;
+  avatar: ReactElement;
   onClick: (e: MouseEvent<HTMLElement>) => void;
   onClose: () => void;
 };

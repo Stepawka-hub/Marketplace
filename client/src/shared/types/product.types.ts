@@ -22,6 +22,7 @@ export type TProductSeller = {
   id: string;
   firstName: string;
   lastName: string;
+  avatar: string;
 };
 
 export type TProductMedia = {

@@ -1,8 +1,12 @@
-import { TAttribute } from "@types";
+import { TProductSeller } from '@/shared/types';
 
-export type ProductMetaProps = {
-  rating: number;
-  numberReviews: number;
-  seller: string;
+export type TAttribute = {
+  name: string;
+  value: string;
+};
+
+export type TProductMetaProps = {
+  seller: TProductSeller;
   attributes: TAttribute[];
+  description?: string;
 };

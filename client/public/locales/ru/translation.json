@@ -134,18 +134,10 @@
   },
 
   "product": {
-    "rating": {
-      "label": "Рейтинг",
-      "reviews_zero": "{{count}} отзывов",
-      "reviews_one": "{{count}} отзыв",
-      "reviews_few": "{{count}} отзыва",
-      "reviews_many": "{{count}} отзывов"
-    },
     "details": {
       "label": "О товаре",
       "description": "Описание",
-      "no-description": "Описания нет",
-      "reviews": "Отзывы"
+      "no-description": "Описания нет"
     },
     "seller": {
       "label": "Продавец"

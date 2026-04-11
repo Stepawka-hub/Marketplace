@@ -1,6 +1,11 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Avatar, Box, Grid, List, Paper, Typography } from "@mui/material";
+import {
+  AttributeItem,
+  ProductDescription,
+  UserAvatar,
+} from "@/components/elements";
+import { Box, Grid, List, Paper, Typography } from "@mui/material";
 import {
   listStyle,
   mainContainerStyle,
@@ -8,34 +13,30 @@ import {
   titleStyle,
   wrapperStyle,
 } from "./styles";
-import { ProductMetaProps } from "./type";
-import { RatingScore, AttributeItem } from "@/components/elements";
+import { TProductMetaProps } from "./type";
 
-export const ProductMeta: FC<ProductMetaProps> = ({
-  rating,
-  numberReviews,
+export const ProductMeta: FC<TProductMetaProps> = ({
   seller,
+  description = "",
   attributes,
 }) => {
   const { t } = useTranslation();
+  const { firstName, lastName, avatar } = seller;
 
   return (
     <Paper variant="outlined" sx={wrapperStyle}>
       <Box sx={mainContainerStyle}>
         <Box>
           <Typography variant="h3" sx={titleStyle}>
-            {t("product.rating.label")}
-          </Typography>
-          <RatingScore ratingScore={rating} numberReviews={numberReviews} />
-        </Box>
-
-        <Box>
-          <Typography variant="h3" sx={titleStyle}>
             {t("product.seller.label")}
           </Typography>
           <Grid container alignItems="center" spacing={1}>
-            <Avatar>{seller[0]}</Avatar>
-            <Typography>{seller}</Typography>
+            <UserAvatar
+              firstName={firstName}
+              lastName={lastName}
+              avatar={avatar}
+            />
+            <Typography>{`${seller.firstName} ${seller.lastName}`}</Typography>
           </Grid>
         </Box>
 
@@ -55,6 +56,8 @@ export const ProductMeta: FC<ProductMetaProps> = ({
             ))}
           </List>
         </Box>
+
+        <ProductDescription description={description} />
       </Box>
     </Paper>
   );

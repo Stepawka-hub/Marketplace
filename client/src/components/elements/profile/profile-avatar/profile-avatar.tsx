@@ -1,11 +1,6 @@
 import { FC, useRef } from "react";
-import {
-  Avatar,
-  Box,
-  CircularProgress,
-  IconButton,
-  Tooltip,
-} from "@mui/material";
+import { UserAvatar } from "@/components/elements";
+import { Box, CircularProgress, IconButton, Tooltip } from "@mui/material";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import {
   avatarContainerStyle,
@@ -17,7 +12,8 @@ import { TProfileAvatarUIProps } from "./type";
 
 export const ProfileAvatarUI: FC<TProfileAvatarUIProps> = ({
   avatar,
-  initials = "U",
+  firstName,
+  lastName,
   acceptedTypes = "image/jpeg,image/png,image/webp",
   isLoading,
   error,
@@ -31,9 +27,12 @@ export const ProfileAvatarUI: FC<TProfileAvatarUIProps> = ({
 
   return (
     <Box sx={avatarContainerStyle}>
-      <Avatar src={avatar} sx={avatarStyle}>
-        {!avatar && initials}
-      </Avatar>
+      <UserAvatar
+        firstName={firstName}
+        lastName={lastName}
+        avatar={avatar}
+        sx={avatarStyle}
+      />
 
       {isLoading && <CircularProgress size={32} sx={loaderStyle} />}
 

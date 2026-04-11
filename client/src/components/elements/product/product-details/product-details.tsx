@@ -1,18 +1,12 @@
 import { FC } from "react";
 import { ProductImages } from "@/components/containers";
-import {
-  ProductDescription,
-  ProductMeta,
-  ProductPurchase,
-  ProductReviews,
-} from "@/components/elements";
+import { ProductMeta, ProductPurchase } from "@/components/elements";
 import { Box, Divider, Grid, Typography } from "@mui/material";
 import { dividerStyle, productContentStyle, productNameStyle } from "./styles";
 import { TProductDetailsUIProps } from "./types";
 
 export const ProductDetailsUI: FC<TProductDetailsUIProps> = ({ product }) => {
-  const { id, name, media, price, description, rating, seller } = product;
-  const { firstName, lastName } = seller;
+  const { id, name, media, description, seller } = product;
 
   return (
     <Box>
@@ -30,27 +24,18 @@ export const ProductDetailsUI: FC<TProductDetailsUIProps> = ({ product }) => {
             <ProductPurchase
               productId={id}
               sellerId={seller.id}
-              price={price}
+              price={10000}
             />
             <ProductMeta
-              rating={rating}
-              // Todo: исправить на корректное число ревью
-              numberReviews={0}
-              seller={`${lastName} ${firstName}`}
-              // Todo: исправить на корректные атрибуты
+              seller={seller}
               attributes={[]}
+              description={description}
             />
           </Box>
         </Grid>
       </Grid>
 
       <Divider sx={dividerStyle} />
-
-      <Grid container flexDirection="column">
-        <ProductDescription description={description} />
-        <Divider sx={dividerStyle} />
-        <ProductReviews />
-      </Grid>
     </Box>
   );
 };

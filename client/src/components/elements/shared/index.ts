@@ -18,3 +18,4 @@ export * from "./like-button";
 export * from "./language-switcher";
 export * from "./theme-switcher";
 export * from "./info-row";
+export * from './user-avatar';

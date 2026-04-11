@@ -29,7 +29,3 @@ export const menuPaperStyle: SxProps = {
     zIndex: 0,
   },
 } as const;
-
-export const avatarStyle: SxProps = {
-  bgcolor: "primary.main",
-} as const;

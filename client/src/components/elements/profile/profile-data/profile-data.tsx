@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { getInitials, getRoleTranslationKey } from "@/shared/helpers";
+import { getRoleTranslationKey } from "@/shared/helpers";
 import { ProfileAvatar } from "@/components/containers";
 import { InfoRow } from "@/components/elements";
 import { Box, Paper, Typography, Button, Stack } from "@mui/material";
@@ -18,14 +18,16 @@ export const ProfileDataUI: FC<TProfileDataUIProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const initials = getInitials(firstName, lastName);
-
   const userRole = t(getRoleTranslationKey(role));
 
   return (
     <Paper elevation={0} sx={wrapperStyle}>
       <Box sx={profileBoxStyle}>
-        <ProfileAvatar avatar={avatar} initials={initials} />
+        <ProfileAvatar
+          avatar={avatar}
+          firstName={firstName}
+          lastName={lastName}
+        />
 
         <Box sx={{ flex: 1 }}>
           <Typography variant="h5" fontWeight={500} gutterBottom>

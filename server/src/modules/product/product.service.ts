@@ -23,7 +23,7 @@ import {
 
 @Injectable()
 export class ProductService {
-  private readonly mediaBaseUrl: string;
+  private readonly baseUrl: string;
   public readonly productMapper: ProductMapper;
 
   constructor(
@@ -36,9 +36,9 @@ export class ProductService {
     private readonly configService: ConfigService,
   ) {
     const domain = this.configService.getOrThrow<string>('S3_PUBLIC_DOMAIN');
-    this.mediaBaseUrl = domain.endsWith('/') ? domain : domain + '/';
+    this.baseUrl = domain.endsWith('/') ? domain : domain + '/';
 
-    this.productMapper = new ProductMapper(this.mediaBaseUrl);
+    this.productMapper = new ProductMapper(this.baseUrl);
   }
 
   async createProduct(
@@ -77,6 +77,7 @@ export class ProductService {
           id: true,
           firstName: true,
           lastName: true,
+          avatar: true,
         },
       },
     });
@@ -217,6 +218,7 @@ export class ProductService {
         'seller.id',
         'seller.firstName',
         'seller.lastName',
+        'seller.avatar',
         'media.id',
         'media.filename',
         'media.isPreview',
