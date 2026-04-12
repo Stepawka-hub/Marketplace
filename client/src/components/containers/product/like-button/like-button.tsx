@@ -8,7 +8,7 @@ import { LikeButtonUI } from "@/components/elements";
 import { isInArray } from "@/shared/helpers";
 import { TLikeButtonProps } from "./type";
 
-export const LikeButton: FC<TLikeButtonProps> = ({ productId }) => {
+export const LikeButton: FC<TLikeButtonProps> = ({ lotId }) => {
   const { data: favoriteIds = [] } = useGetFavoriteIdsQuery();
 
   const [addProductToFavorite, { isLoading: isAdding }] =
@@ -18,16 +18,16 @@ export const LikeButton: FC<TLikeButtonProps> = ({ productId }) => {
     useRemoveProductFromFavoritesMutation();
 
   const isInFavorites = useMemo(
-    () => isInArray(favoriteIds, productId),
-    [favoriteIds, productId],
+    () => isInArray(favoriteIds, lotId),
+    [favoriteIds, lotId],
   );
 
   const addToFavorite = () => {
-    addProductToFavorite(productId);
+    addProductToFavorite(lotId);
   };
 
   const removeFromFavorite = () => {
-    removeProductFromFavorite(productId);
+    removeProductFromFavorite(lotId);
   };
 
   return (

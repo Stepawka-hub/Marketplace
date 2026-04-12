@@ -1,3 +1,3 @@
 export type TLikeButtonProps = {
-  productId: string;
+  lotId: string;
 };

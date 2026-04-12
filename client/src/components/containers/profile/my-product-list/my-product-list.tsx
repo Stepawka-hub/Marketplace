@@ -11,11 +11,7 @@ export const MyProductList: FC = () => {
 
   return (
     <>
-      <ProductListUI
-        isLoading={isLoading}
-        products={data?.items ?? []}
-        isShowCreateLotButton
-      />
+      <ProductListUI isLoading={isLoading} products={data?.items ?? []} />
       {data && (
         <Pagination
           count={data.meta.totalPages}

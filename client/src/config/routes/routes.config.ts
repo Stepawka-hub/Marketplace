@@ -1,7 +1,7 @@
 export const ROUTES = {
   HOME: "/",
   CATALOG: "/catalog",
-  CATALOG_PRODUCT: (productId: string) => `/catalog/${productId}`,
+  CATALOG_LOT: (lotId: string) => `/catalog/${lotId}`,
   MY_BIDS: "/my-bids",
   FAVORITES: "/favorites",
   PROFILE: "/profile",

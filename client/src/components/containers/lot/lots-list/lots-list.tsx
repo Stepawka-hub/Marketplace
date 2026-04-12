@@ -24,7 +24,7 @@ export const LotsList: FC = () => {
 
   return (
     <>
-      <LotsListUI isLoading={isLoading} lots={filteredLots} isShowLikeButton />
+      <LotsListUI isLoading={isLoading} lots={filteredLots} />
       {data && (
         <Pagination
           count={data.meta.totalPages}

@@ -46,7 +46,7 @@ export const BidsList: FC = () => {
   };
 
   const handleCardClick = (id: string) => {
-    navigate(ROUTES.CATALOG_PRODUCT(id));
+    navigate(ROUTES.CATALOG_LOT(id));
   };
 
   return (

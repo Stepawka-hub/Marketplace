@@ -12,8 +12,7 @@ export const ProductListUI: FC<TProductListUIProps> = memo(
   ({
     products,
     isLoading,
-    isShowLikeButton = false,
-    isShowCreateLotButton = false,
+    isShowCreateLotButton = true,
     minCardWidth = 300,
   }) => {
     if (isLoading) {
@@ -30,7 +29,6 @@ export const ProductListUI: FC<TProductListUIProps> = memo(
           <ProductCard
             key={p.id}
             product={p}
-            isShowLikeButton={isShowLikeButton}
             isShowCreateLotButton={isShowCreateLotButton}
           />
         ))}

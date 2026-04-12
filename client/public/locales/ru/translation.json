@@ -242,6 +242,16 @@
   },
 
   "lot": {
+    "current-price": "Текущая цена",
+    "min-bid-increment": "Мин. шаг ставки",
+    "time-left": "Осталось времени",
+    "status": {
+      "active": "Активен",
+      "draft": "Черновик",
+      "completed": "Завершён",
+      "cancelled": "Отменён",
+      "expired": "Истёк"
+    },
     "actions": {
       "create-lot": "Создать лот"
     }

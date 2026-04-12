@@ -1,68 +1,33 @@
 import { FC } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-
-import { CreateLotButton, LikeButton } from "@/components/containers";
-import { Card } from "@/components/ui";
-import { Box, CardContent, CardMedia, Typography } from "@mui/material";
-
-import {
-  cardMediaButtonStyle,
-  cardContentStyle,
-  cardMediaStyle,
-  cardStyle,
-  descTypographyStyle,
-  nameTypographyStyle,
-} from "./styles";
+import { CreateLotButton } from "@/components/containers";
+import { BaseProductCard } from "@/components/elements";
 import { TProductCardProps } from "./type";
-import { ROUTES } from "@/config/routes";
 
 export const ProductCard: FC<TProductCardProps> = ({
   product,
-  isShowLikeButton = false,
   isShowCreateLotButton = false,
 }) => {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-
   const { id, name, shortDescription, preview, seller } = product;
 
-  const handleNavigateToProduct = () => {
-    navigate(ROUTES.CATALOG_PRODUCT(id));
-  };
+  const actions = (
+    <>
+      {isShowCreateLotButton && (
+        <CreateLotButton
+          productId={id}
+          productName={name}
+          productPreview={preview}
+        />
+      )}
+    </>
+  );
 
   return (
-    <Card variant="outlined" sx={cardStyle} onClick={handleNavigateToProduct}>
-      <CardMedia title={name} image={preview} sx={cardMediaStyle}>
-        {isShowLikeButton && (
-          <Box sx={cardMediaButtonStyle}>
-            <LikeButton productId={id} />
-          </Box>
-        )}
-        {isShowCreateLotButton && (
-          <Box sx={cardMediaButtonStyle}>
-            <CreateLotButton
-              productId={id}
-              productName={name}
-              productPreview={preview}
-            />
-          </Box>
-        )}
-      </CardMedia>
-
-      <CardContent sx={cardContentStyle}>
-        <Typography variant="h5" sx={nameTypographyStyle}>
-          {name}
-        </Typography>
-
-        <Typography sx={descTypographyStyle} color="textSecondary">
-          {shortDescription}
-        </Typography>
-
-        <Typography>{`${t(
-          "product.seller.label",
-        )}: ${`${seller.firstName} ${seller.lastName}`}`}</Typography>
-      </CardContent>
-    </Card>
+    <BaseProductCard
+      name={name}
+      shortDescription={shortDescription}
+      preview={preview}
+      seller={seller}
+      actions={actions}
+    />
   );
 };

@@ -197,6 +197,16 @@
   },
 
   "lot": {
+    "current-price": "Current price",
+    "min-bid-increment": "Min bid increment",
+    "time-left": "Time left",
+    "status": {
+      "active": "Active",
+      "draft": "Draft",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "expired": "Expired"
+    },
     "actions": {
       "create-lot": "Create a lot"
     }
