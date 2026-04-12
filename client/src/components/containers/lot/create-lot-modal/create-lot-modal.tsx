@@ -10,19 +10,27 @@ import {
   getLotCreationProductData,
 } from "@/store/slices/lot";
 import { ROUTES } from "@/config/routes";
-import { CREATE_LOT_FIELDS } from "./constants";
+import { CREATE_LOT_FIELDS, LOT_VALIDATION } from "./constants";
 import {
   requiredValidation,
-  positiveNumberValidation,
+  priceValidation,
+  minValidation,
   futureDateValidation,
-  dateAfterValidation,
+  maxValidation,
+  endTimeRangeValidation,
 } from "@/shared/helpers";
+import { useCreateLotMutation } from "@/services/lot";
 
 import { Input } from "@/components/containers";
-import { Form, Modal, SelectedProductCard } from "@/components/elements";
-import { SubmitButton } from "@/components/ui";
 import {
-  AttachMoney as MoneyIcon,
+  Form,
+  Modal,
+  NotFound,
+  SelectedProductCard,
+} from "@/components/elements";
+import { SubmitButton } from "@/components/ui";
+import CurrencyRubleIcon from "@mui/icons-material/CurrencyRuble";
+import {
   TrendingUp as TrendingUpIcon,
   Schedule as ScheduleIcon,
 } from "@mui/icons-material";
@@ -39,30 +47,49 @@ export const CreateLotModal: FC = () => {
     getLotCreationProductData,
   );
 
-  const { START_PRICE, MIN_BID_INCREMENT, START_TIME, END_TIME } =
-    CREATE_LOT_FIELDS;
+  const [createLot, { isLoading }] = useCreateLotMutation();
 
-  // const [createLot, { isLoading }] = useCreateLotMutation();
-  const isLoading = false;
+  const methods = useForm<TCreateLotForm>({
+    mode: "onChange",
+    defaultValues: {
+      startPrice: 1000,
+      minBidIncrement: 100,
+      endTime: "",
+    },
+  });
+  const { register, handleSubmit, reset } = methods;
 
-  const methods = useForm<TCreateLotForm>({ mode: "onChange" });
-  const { register, handleSubmit } = methods;
-
-  const getFieldTranslation = (field: string, type: "label" | "placeholder") =>
-    t(`create-lot.form.fields.${field}.${type}`);
+  if (!productId) {
+    return <NotFound />;
+  }
 
   const onModalClose = () => {
+    reset();
     dispatch(closeLotCreationModal());
   };
 
   const onSubmit = handleSubmit(async (formData) => {
-    // await createLot({
-    //   productId,
-    //   ...formData,
-    // });
+    const { startPrice, minBidIncrement, endTime } = formData;
+    const endTimeISO = new Date(endTime).toISOString();
+
+    await createLot({
+      productId,
+      startPrice,
+      minBidIncrement,
+      endTime: endTimeISO,
+    });
+    reset();
     onModalClose();
     navigate(ROUTES.PROFILE_MY_LOTS);
   });
+
+  const getFieldTranslation = (
+    field: string,
+    type: "label" | "placeholder" | "helper-text",
+    options?: Record<string, string | number>,
+  ) => t(`create-lot.form.fields.${field}.${type}`, options);
+
+  const { START_PRICE, MIN_BID_INCREMENT, END_TIME } = CREATE_LOT_FIELDS;
 
   return (
     <Modal
@@ -78,45 +105,58 @@ export const CreateLotModal: FC = () => {
           />
 
           <Input
+            type="number"
+            step="1"
             label={getFieldTranslation(START_PRICE, "label")}
             placeholder={getFieldTranslation(START_PRICE, "placeholder")}
-            type="number"
+            helperText={getFieldTranslation(START_PRICE, "helper-text", {
+              min: LOT_VALIDATION.PRICE.MIN,
+              max: LOT_VALIDATION.PRICE.MAX,
+            })}
             {...register(START_PRICE, {
               ...requiredValidation(t),
-              ...positiveNumberValidation(t),
+              ...priceValidation(
+                LOT_VALIDATION.PRICE.MIN,
+                LOT_VALIDATION.PRICE.MAX,
+                t,
+              ),
             })}
-            startIcon={<MoneyIcon />}
+            startIcon={<CurrencyRubleIcon />}
           />
 
           <Input
+            type="number"
+            step="1"
             label={getFieldTranslation(MIN_BID_INCREMENT, "label")}
             placeholder={getFieldTranslation(MIN_BID_INCREMENT, "placeholder")}
-            type="number"
+            helperText={getFieldTranslation(MIN_BID_INCREMENT, "helper-text", {
+              min: LOT_VALIDATION.MIN_BID_INCREMENT.MIN,
+              max: LOT_VALIDATION.MIN_BID_INCREMENT.MAX,
+            })}
             {...register(MIN_BID_INCREMENT, {
               ...requiredValidation(t),
-              ...positiveNumberValidation(t),
+              ...minValidation(LOT_VALIDATION.MIN_BID_INCREMENT.MIN, t),
+              ...maxValidation(LOT_VALIDATION.MIN_BID_INCREMENT.MAX, t),
             })}
             startIcon={<TrendingUpIcon />}
           />
 
           <Input
-            label={getFieldTranslation(START_TIME, "label")}
-            placeholder={getFieldTranslation(START_TIME, "placeholder")}
             type="datetime-local"
-            {...register(START_TIME, {
-              ...requiredValidation(t),
-              ...futureDateValidation(t),
-            })}
-            startIcon={<ScheduleIcon />}
-          />
-
-          <Input
             label={getFieldTranslation(END_TIME, "label")}
             placeholder={getFieldTranslation(END_TIME, "placeholder")}
-            type="datetime-local"
             {...register(END_TIME, {
               ...requiredValidation(t),
-              ...dateAfterValidation(START_TIME, t),
+              ...futureDateValidation(t),
+              ...endTimeRangeValidation(
+                LOT_VALIDATION.END_TIME.MIN_DAYS,
+                LOT_VALIDATION.END_TIME.MAX_DAYS,
+                t,
+                {
+                  min: "create-lot.form.validation.end-time-min",
+                  max: "create-lot.form.validation.end-time-max",
+                },
+              ),
             })}
             startIcon={<ScheduleIcon />}
           />

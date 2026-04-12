@@ -110,18 +110,36 @@ export class LotService {
     userId: string,
     dto: CreateLotDto,
   ): Promise<TApiResponse<LotEntity>> {
-    // Используем exists вместо findProductById, чтобы не загружать весь продукт
-    const productExists = await this.productService.exists(dto.productId);
+    const { productId, endTime } = dto;
+    const productExists = await this.productService.exists(productId);
 
     if (!productExists) {
-      throw new NotFoundException('Товар не найден');
+      throw new NotFoundException('Product not found');
+    }
+
+    const now = new Date();
+    const startTime = new Date();
+
+    if (endTime <= now) {
+      throw new BadRequestException('End time must be in the future');
+    }
+
+    const minEndTime = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+    if (endTime < minEndTime) {
+      throw new BadRequestException('Auction must last at least 24 hours');
+    }
+
+    const maxEndTime = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+    if (endTime > maxEndTime) {
+      throw new BadRequestException('Auction cannot last more than 7 days');
     }
 
     const lot = this.lotRepository.create({
       ...dto,
       sellerId: userId,
+      startTime,
       currentPrice: dto.startPrice,
-      status: LOT_STATUSES.DRAFT,
+      status: LOT_STATUSES.ACTIVE,
     });
 
     await this.lotRepository.save(lot);

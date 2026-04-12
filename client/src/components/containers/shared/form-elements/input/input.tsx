@@ -5,7 +5,13 @@ import { InputProps } from "./type";
 import { inputStyle } from "./styles";
 
 // Todo: Исправить цвет input`а на тёмной теме при подстановке значений
-export const Input: FC<InputProps> = ({ name, startIcon, ...props }) => {
+export const Input: FC<InputProps> = ({
+  name,
+  startIcon,
+  helperText,
+  step,
+  ...props
+}) => {
   const { control } = useFormContext();
   const { field, fieldState } = useController({
     name,
@@ -19,12 +25,15 @@ export const Input: FC<InputProps> = ({ name, startIcon, ...props }) => {
       name={name}
       value={field.value || ""}
       error={fieldState.invalid}
-      helperText={fieldState.error?.message}
+      helperText={fieldState.error?.message || helperText}
       slotProps={{
         input: {
           startAdornment: startIcon && (
             <InputAdornment position="start">{startIcon}</InputAdornment>
           ),
+        },
+        htmlInput: {
+          step,
         },
         formHelperText: {
           sx: {

@@ -25,6 +25,7 @@
       "already-have-account": "Уже есть аккаунт?"
     }
   },
+
   "form": {
     "validation": {
       "required": "Обязательное поле",
@@ -37,7 +38,14 @@
       "maxLength_few": "Максимальная длина поля: {{count}} символа",
       "maxLength_many": "Максимальная длина поля: {{count}} символов",
       "email-invalid": "Некорректный адрес почты",
-      "passwords-not-match": "Пароли не совпадают"
+      "passwords-not-match": "Пароли не совпадают",
+      "positive-number": "Значение должно быть больше 0",
+      "future-date": "Дата должна быть в будущем",
+      "min": "Значение должно быть не менее {{value}}",
+      "max": "Значение должно быть не более {{value}}",
+      "price-format": "Цена должна быть в формате 0.00",
+      "date-min": "Дата должна быть не менее чем через {{days}} дня",
+      "date-max": "Дата должна быть не более чем через {{days}} дней"
     },
     "fields": {
       "firstName": {
@@ -66,24 +74,28 @@
       }
     }
   },
+
   "register": {
     "form": {
       "title": "Регистрация",
       "submit-button": "Зарегистрироваться"
     }
   },
+
   "login": {
     "form": {
       "title": "Вход",
       "submit-button": "Войти"
     }
   },
+
   "forgot-password": {
     "form": {
       "title": "Восстановление пароля",
       "submit-button": "Восстановить"
     }
   },
+
   "reset-password": {
     "form": {
       "title": "Сброс пароля",
@@ -95,9 +107,11 @@
     "label": "Категория",
     "all": "Все"
   },
+
   "filter": {
     "submit-btn-label": "Применить изменения"
   },
+
   "catalog-search": {
     "placeholder": "Введите название товара..."
   },
@@ -240,15 +254,13 @@
       "fields": {
         "startPrice": {
           "label": "Начальная цена",
-          "placeholder": "Введите начальную цену"
+          "placeholder": "Введите начальную цену",
+          "helper-text": "От {{min}} до {{max}} ₽"
         },
         "minBidIncrement": {
-          "label": "Минимальный шаг ставки",
-          "placeholder": "Введите минимальный шаг ставки"
-        },
-        "startTime": {
-          "label": "Время начала торгов",
-          "placeholder": "Выберите дату и время начала"
+          "label": "Мин. шаг ставки",
+          "placeholder": "Введите мин. шаг ставки",
+          "helper-text": "От {{min}} до {{max}} ₽"
         },
         "endTime": {
           "label": "Время окончания торгов",
@@ -256,11 +268,8 @@
         }
       },
       "validation": {
-        "start-price-min": "Начальная цена должна быть не менее {{min}}",
-        "min-bid-increment-min": "Минимальный шаг ставки должен быть не менее {{min}}",
-        "start-time-future": "Время начала должно быть в будущем",
-        "end-time-after-start": "Время окончания должно быть позже времени начала",
-        "required": "Это поле обязательно для заполнения"
+        "end-time-min": "Аукцион должен длиться минимум {{days}} день",
+        "end-time-max": "Аукцион не может длиться более {{days}} дней"
       }
     },
     "messages": {

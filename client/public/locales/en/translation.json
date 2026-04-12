@@ -33,7 +33,14 @@
       "maxLength_one": "Maximum field length: {{count}} symbol",
       "maxLength_other": "Maximum field length: {{count}} symbols",
       "email-invalid": "Invalid email address",
-      "passwords-not-match": "Passwords do not match"
+      "passwords-not-match": "Passwords do not match",
+      "positive-number": "Value must be greater than 0",
+      "future-date": "Date must be in the future",
+      "min": "Value must be at least {{value}}",
+      "max": "Value must be at most {{value}}",
+      "price-format": "Price must be in format 0.00",
+      "date-min": "Date must be at least {{days}} day from now",
+      "date-max": "Date must be at most {{days}} days from now"
     },
     "fields": {
       "firstName": {
@@ -62,24 +69,28 @@
       }
     }
   },
+
   "register": {
     "form": {
       "title": "Register",
       "submit-button": "Register"
     }
   },
+
   "login": {
     "form": {
       "title": "Login",
       "submit-button": "Login"
     }
   },
+
   "forgot-password": {
     "form": {
       "title": "Password recovery",
       "submit-button": "Restore"
     }
   },
+
   "reset-password": {
     "form": {
       "title": "Password reset",
@@ -91,9 +102,11 @@
     "label": "Category",
     "all": "All"
   },
+
   "filter": {
     "submit-btn-label": "Apply changes"
   },
+
   "catalog-search": {
     "placeholder": "Enter product name..."
   },
@@ -196,15 +209,13 @@
       "fields": {
         "startPrice": {
           "label": "Start price",
-          "placeholder": "Enter start price"
+          "placeholder": "Enter start price",
+          "helper-text": "From {{min}} to {{max}} ₽"
         },
         "minBidIncrement": {
-          "label": "Minimum bid increment",
-          "placeholder": "Enter minimum bid increment"
-        },
-        "startTime": {
-          "label": "Auction start time",
-          "placeholder": "Select start date and time"
+          "label": "Min bid increment",
+          "placeholder": "Enter min bid increment",
+          "helper-text": "From {{min}} to {{max}} ₽"
         },
         "endTime": {
           "label": "Auction end time",
@@ -212,11 +223,8 @@
         }
       },
       "validation": {
-        "start-price-min": "Start price must be at least {{min}}",
-        "min-bid-increment-min": "Minimum bid increment must be at least {{min}}",
-        "start-time-future": "Start time must be in the future",
-        "end-time-after-start": "End time must be after start time",
-        "required": "This field is required"
+        "end-time-min": "Auction must last at least {{days}} day",
+        "end-time-max": "Auction cannot last more than {{days}} days"
       }
     },
     "messages": {
