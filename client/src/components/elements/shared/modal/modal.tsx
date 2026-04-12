@@ -1,7 +1,11 @@
 import { FC } from "react";
 import { Modal as BaseModal, Box, Typography, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { modalHeaderContainerStyle, modalInnerWrapperStyle } from "./styles";
+import {
+  modalHeaderContainerStyle,
+  modalInnerWrapperStyle,
+  modalTitleStyle,
+} from "./styles";
 import { TModalProps } from "./types";
 
 export const Modal: FC<TModalProps> = ({
@@ -14,7 +18,9 @@ export const Modal: FC<TModalProps> = ({
     <BaseModal open={isOpen} onClose={onClose}>
       <Box sx={modalInnerWrapperStyle}>
         <Box sx={modalHeaderContainerStyle}>
-          <Typography variant="h6">{title}</Typography>
+          <Typography variant="h6" sx={modalTitleStyle}>
+            {title}
+          </Typography>
           <IconButton size="small" onClick={onClose}>
             <CloseIcon />
           </IconButton>

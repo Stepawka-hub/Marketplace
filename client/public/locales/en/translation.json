@@ -146,7 +146,6 @@
   },
 
   "create-product": {
-    "title": "Product creation",
     "actions": {
       "back-to-profile": "Back to profile"
     },
@@ -187,6 +186,42 @@
   "lot": {
     "actions": {
       "create-lot": "Create a lot"
+    }
+  },
+
+  "create-lot": {
+    "selected-product": "Selected product",
+    "form": {
+      "title": "Create New Lot",
+      "fields": {
+        "startPrice": {
+          "label": "Start price",
+          "placeholder": "Enter start price"
+        },
+        "minBidIncrement": {
+          "label": "Minimum bid increment",
+          "placeholder": "Enter minimum bid increment"
+        },
+        "startTime": {
+          "label": "Auction start time",
+          "placeholder": "Select start date and time"
+        },
+        "endTime": {
+          "label": "Auction end time",
+          "placeholder": "Select end date and time"
+        }
+      },
+      "validation": {
+        "start-price-min": "Start price must be at least {{min}}",
+        "min-bid-increment-min": "Minimum bid increment must be at least {{min}}",
+        "start-time-future": "Start time must be in the future",
+        "end-time-after-start": "End time must be after start time",
+        "required": "This field is required"
+      }
+    },
+    "messages": {
+      "success": "Lot created successfully",
+      "error": "Failed to create lot"
     }
   },
 
@@ -244,7 +279,8 @@
       "back": "Return to catalog",
       "edit": "Edit",
       "save": "Save",
-      "saving": "Saving..."
+      "saving": "Saving...",
+      "create": "Create"
     }
   }
 }

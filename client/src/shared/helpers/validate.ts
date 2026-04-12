@@ -31,3 +31,32 @@ export const emailValidation = (t: TFunction) => ({
 
 export const isValidLanguage = (value: string): value is TLanguage =>
   LANGUAGES.includes(value as TLanguage);
+
+export const positiveNumberValidation = (t: TFunction) => ({
+  min: {
+    value: 1,
+    message: t("form.validation.positive-number"),
+  },
+  validate: (value: number) => {
+    return value > 0 || t("form.validation.positive-number");
+  },
+});
+
+export const futureDateValidation = (t: TFunction) => ({
+  validate: (value: string) => {
+    const date = new Date(value);
+    const now = new Date();
+    return date > now || t("form.validation.future-date");
+  },
+});
+
+export const dateAfterValidation = (compareTo: string, t: TFunction) => ({
+  validate: (value: string, formValues: any) => {
+    const startDate = new Date(formValues[compareTo]);
+    const endDate = new Date(value);
+    return (
+      endDate > startDate ||
+      t("form.validation.date-after", { field: compareTo })
+    );
+  },
+});

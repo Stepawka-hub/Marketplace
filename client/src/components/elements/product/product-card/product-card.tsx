@@ -41,7 +41,11 @@ export const ProductCard: FC<TProductCardProps> = ({
         )}
         {isShowCreateLotButton && (
           <Box sx={cardMediaButtonStyle}>
-            <CreateLotButton />
+            <CreateLotButton
+              productId={id}
+              productName={name}
+              productPreview={preview}
+            />
           </Box>
         )}
       </CardMedia>

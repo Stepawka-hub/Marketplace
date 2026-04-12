@@ -1,0 +1,1 @@
+export { SelectedProductCard } from './selected-product-card';
