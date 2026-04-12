@@ -6,12 +6,12 @@ import {
   TServerResponse,
 } from "../base";
 import { FAVORITES_TAGS } from "./constants";
-import { TProductListItem } from "@/shared/types";
+import { TLotListItem } from "@/shared/types";
 import { TFavoritesResponse } from "./types";
 
 export const favoritesAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
-    getFavoritesProducts: build.query<TFavoritesResponse, TPaginationParams>({
+    getFavoritesLots: build.query<TFavoritesResponse, TPaginationParams>({
       query: (params: TPaginationParams = { page: 1, limit: 10 }) => ({
         url: "/favorites",
         params: {
@@ -19,7 +19,7 @@ export const favoritesAPI = baseAPI.injectEndpoints({
           limit: params.limit,
         },
       }),
-      transformResponse: (response: TPaginatedResponse<TProductListItem>) =>
+      transformResponse: (response: TPaginatedResponse<TLotListItem>) =>
         response.data,
       providesTags: (result) =>
         result?.items
@@ -33,9 +33,9 @@ export const favoritesAPI = baseAPI.injectEndpoints({
           : [FAVORITES_TAGS.LIST],
     }),
 
-    addProductToFavorites: build.mutation<string, string>({
-      query: (productId: string) => ({
-        url: `/favorites/${productId}`,
+    addLotToFavorites: build.mutation<string, string>({
+      query: (lotId: string) => ({
+        url: `/favorites/${lotId}`,
         method: "POST",
       }),
       transformResponse: (response: TServerResponse<string>) => response.data,
@@ -46,9 +46,9 @@ export const favoritesAPI = baseAPI.injectEndpoints({
       ],
     }),
 
-    removeProductFromFavorites: build.mutation<TServerResponse, string>({
-      query: (productId: string) => ({
-        url: `/favorites/${productId}`,
+    removeLotFromFavorites: build.mutation<TServerResponse, string>({
+      query: (lotId: string) => ({
+        url: `/favorites/${lotId}`,
         method: "DELETE",
       }),
       invalidatesTags: [
@@ -80,9 +80,9 @@ export const favoritesAPI = baseAPI.injectEndpoints({
 });
 
 export const {
-  useGetFavoritesProductsQuery,
-  useAddProductToFavoritesMutation,
-  useRemoveProductFromFavoritesMutation,
+  useGetFavoritesLotsQuery,
+  useAddLotToFavoritesMutation,
+  useRemoveLotFromFavoritesMutation,
   useGetCountFavoritesQuery,
   useGetFavoriteIdsQuery,
 } = favoritesAPI;

@@ -8,7 +8,7 @@ import {
   FavoritesPage,
   RegisterPage,
   LoginPage,
-  ProductPage,
+  LotPage,
   ForgotPasswordPage,
   ResetPasswordPage,
   ProfilePage,
@@ -40,7 +40,7 @@ export const router = createBrowserRouter([
           },
           {
             path: ROUTES.CATALOG_LOT(":lotId"),
-            element: <ProductPage />,
+            element: <LotPage />,
           },
           {
             path: ROUTES.CREATE_PRODUCT,

@@ -12,7 +12,12 @@ import { StorageService } from '@/modules/storage';
 import { BidEntity } from '@/modules/bid/entities';
 import { LotMapper } from './mappers';
 import { LotEntity } from './entities';
-import { CreateLotDto, LotListItemDto, UpdateLotDto } from './dto';
+import {
+  CreateLotDto,
+  LotDetailsDto,
+  LotListItemDto,
+  UpdateLotDto,
+} from './dto';
 
 import { ApiPaginatedResponse, ApiResponse } from '@/common/helpers';
 import { PaginationDto, TApiPaginatedResponse, TApiResponse } from '@/common';
@@ -101,24 +106,82 @@ export class LotService {
     );
   }
 
-  async getLotById(id: string): Promise<TApiResponse<LotEntity>> {
+  async getLotById(id: string): Promise<TApiResponse<LotDetailsDto>> {
     const lot = await this.lotRepository.findOne({
       where: { id },
-      relations: [
-        'product',
-        'product.media',
-        'seller',
-        'currentWinner',
-        'bids',
-        'bids.user',
-      ],
+      relations: {
+        product: {
+          media: true,
+          seller: true,
+        },
+        seller: true,
+        currentWinner: true,
+        bids: {
+          user: true,
+        },
+      },
+      select: {
+        id: true,
+        startPrice: true,
+        minBidIncrement: true,
+        startTime: true,
+        endTime: true,
+        status: true,
+        currentPrice: true,
+        createdAt: true,
+        updatedAt: true,
+        product: {
+          id: true,
+          name: true,
+          shortDescription: true,
+          description: true,
+          category: true,
+          createdAt: true,
+          updatedAt: true,
+          media: {
+            id: true,
+            filename: true,
+            isPreview: true,
+          },
+          seller: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            avatar: true,
+          },
+        },
+        seller: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          avatar: true,
+        },
+        currentWinner: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          avatar: true,
+        },
+        bids: {
+          id: true,
+          amount: true,
+          createdAt: true,
+          user: {
+            id: true,
+            firstName: true,
+            lastName: true,
+          },
+        },
+      },
     });
 
     if (!lot) {
-      throw new NotFoundException('Лот не найден');
+      throw new NotFoundException('Lot not found');
     }
 
-    return ApiResponse.success(lot, 'Лот успешно получен');
+    const lotDto = this.lotMapper.toDetails(lot);
+
+    return ApiResponse.success(lotDto, 'Лот успешно получен');
   }
 
   async getMyLots(
@@ -179,6 +242,67 @@ export class LotService {
       page,
       limit,
       'Мои лоты успешно получены',
+    );
+  }
+
+  async findLotsByIds(
+    lotIds: string[],
+    paginationDto: PaginationDto,
+  ): Promise<TApiPaginatedResponse<LotListItemDto>> {
+    const { page = 1, limit = 10 } = paginationDto;
+    const skip = (page - 1) * limit;
+
+    const [lots, total] = await this.lotRepository.findAndCount({
+      where: { id: In(lotIds) },
+      relations: {
+        product: {
+          media: true,
+          seller: true,
+        },
+      },
+      select: {
+        id: true,
+        startPrice: true,
+        minBidIncrement: true,
+        startTime: true,
+        endTime: true,
+        status: true,
+        currentPrice: true,
+        createdAt: true,
+        updatedAt: true,
+        product: {
+          id: true,
+          name: true,
+          shortDescription: true,
+          category: true,
+          createdAt: true,
+          updatedAt: true,
+          media: {
+            id: true,
+            filename: true,
+            isPreview: true,
+          },
+          seller: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            avatar: true,
+          },
+        },
+      },
+      order: { createdAt: 'DESC' },
+      skip,
+      take: limit,
+    });
+
+    const lotDtos = this.lotMapper.toListItemArray(lots);
+
+    return ApiPaginatedResponse.success(
+      lotDtos,
+      total,
+      page,
+      limit,
+      'Лоты успешно получены',
     );
   }
 

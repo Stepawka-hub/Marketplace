@@ -1,21 +1,21 @@
 import { FC, useMemo } from "react";
 import {
-  useAddProductToFavoritesMutation,
+  useAddLotToFavoritesMutation,
   useGetFavoriteIdsQuery,
-  useRemoveProductFromFavoritesMutation,
+  useRemoveLotFromFavoritesMutation,
 } from "@/services/favorites";
-import { LikeButtonUI } from "@/components/elements";
 import { isInArray } from "@/shared/helpers";
+import { LikeButtonUI } from "@/components/elements";
 import { TLikeButtonProps } from "./type";
 
 export const LikeButton: FC<TLikeButtonProps> = ({ lotId }) => {
   const { data: favoriteIds = [] } = useGetFavoriteIdsQuery();
 
-  const [addProductToFavorite, { isLoading: isAdding }] =
-    useAddProductToFavoritesMutation();
+  const [addLotToFavorite, { isLoading: isAdding }] =
+    useAddLotToFavoritesMutation();
 
-  const [removeProductFromFavorite, { isLoading: isRemoving }] =
-    useRemoveProductFromFavoritesMutation();
+  const [removeLotFromFavorite, { isLoading: isRemoving }] =
+    useRemoveLotFromFavoritesMutation();
 
   const isInFavorites = useMemo(
     () => isInArray(favoriteIds, lotId),
@@ -23,11 +23,11 @@ export const LikeButton: FC<TLikeButtonProps> = ({ lotId }) => {
   );
 
   const addToFavorite = () => {
-    addProductToFavorite(lotId);
+    addLotToFavorite(lotId);
   };
 
   const removeFromFavorite = () => {
-    removeProductFromFavorite(lotId);
+    removeLotFromFavorite(lotId);
   };
 
   return (

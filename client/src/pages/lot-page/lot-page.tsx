@@ -1,12 +1,12 @@
 import { FC } from "react";
-import { BackButton, ProductDetails } from "@/components/containers";
+import { BackButton, LotDetails } from "@/components/containers";
 import { PageContainer } from "@/components/ui";
 
-export const ProductPage: FC = () => {
+export const LotPage: FC = () => {
   return (
     <PageContainer>
       <BackButton />
-      <ProductDetails />
+      <LotDetails />
     </PageContainer>
   );
 };

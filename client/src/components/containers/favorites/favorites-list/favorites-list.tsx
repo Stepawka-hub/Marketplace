@@ -1,12 +1,12 @@
 import { FC, memo } from "react";
-import { Pagination, ProductListUI } from "@/components/elements";
-import { useGetFavoritesProductsQuery } from "@/services/favorites";
+import { useGetFavoritesLotsQuery } from "@/services/favorites";
 import { usePagination } from "@/hooks/usePagination";
+import { LotsListUI, Pagination } from "@/components/elements";
 
 export const FavoritesList: FC = memo(() => {
   const { page, limit, defaultPagination, handlePageChange } = usePagination();
 
-  const { data, isLoading } = useGetFavoritesProductsQuery({
+  const { data, isLoading } = useGetFavoritesLotsQuery({
     page,
     limit,
   });
@@ -14,7 +14,7 @@ export const FavoritesList: FC = memo(() => {
 
   return (
     <>
-      <ProductListUI products={data?.items ?? []} isLoading={isLoading} />
+      <LotsListUI lots={data?.items ?? []} isLoading={isLoading} />
       {data && (
         <Pagination
           count={data.meta.totalPages}

@@ -6,4 +6,3 @@ export * from "./base-product-card";
 export * from "./selected-product-card";
 export * from "./product-description";
 export * from "./product-skeleton-list";
-export * from "./product-details";

@@ -1,5 +1,5 @@
 export { CatalogPage } from "./catalog-page";
-export { ProductPage } from "./product-page";
+export { LotPage } from "./lot-page";
 export { CreateProductPage } from './create-product-page';
 export { BidsPage } from "./bids-page";
 export { FavoritesPage } from "./favorites-page";

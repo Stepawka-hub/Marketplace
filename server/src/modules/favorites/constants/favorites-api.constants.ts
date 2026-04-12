@@ -1,5 +1,5 @@
 import { TApiPropertyOptions } from '@/common';
-import { ProductEntity } from '@/modules/product/entities';
+import { LotEntity } from '@/modules/lot/entities';
 import { UserEntity } from '@/modules/user/entities';
 
 export const FAVORITES_API_PROPERTIES: TApiPropertyOptions = {
@@ -7,8 +7,8 @@ export const FAVORITES_API_PROPERTIES: TApiPropertyOptions = {
     description: 'Пользователь',
     type: () => UserEntity,
   },
-  PRODUCT: {
-    description: 'Товар',
-    type: () => ProductEntity,
+  LOT: {
+    description: 'Лот',
+    type: () => LotEntity,
   },
 } as const;

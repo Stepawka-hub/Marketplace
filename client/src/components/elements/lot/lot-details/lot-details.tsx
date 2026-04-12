@@ -9,10 +9,10 @@ import {
   productImagesStyle,
   productNameStyle,
 } from "./styles";
-import { TProductDetailsUIProps } from "./types";
+import { TLotDetailsUIProps } from "./types";
 
-export const ProductDetailsUI: FC<TProductDetailsUIProps> = ({ product }) => {
-  const { id, name, media, description, seller } = product;
+export const LotDetailsUI: FC<TLotDetailsUIProps> = ({ lot }) => {
+  const { id, name, media, description, seller } = lot.product;
 
   return (
     <Box>

@@ -1,4 +1,4 @@
-import { TProductListItem } from '@/shared/types';
-import { TPaginatedResponse } from '../base';
+import { TLotListItem } from "@/shared/types";
+import { TPaginatedResponse } from "../base";
 
-export type TFavoritesResponse = TPaginatedResponse<TProductListItem>['data'];
+export type TFavoritesResponse = TPaginatedResponse<TLotListItem>["data"];
