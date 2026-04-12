@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { MyProductList } from "@/components/containers";
+import { CreateLotModal, MyProductList } from "@/components/containers";
 import { Box, Typography } from "@mui/material";
 import { headerStyle, titleStyle } from "./styles";
 import { TSellerPanelUIProps } from "./type";
@@ -17,6 +17,7 @@ export const SellerPanelUI: FC<TSellerPanelUIProps> = ({ headerElement }) => {
         {headerElement}
       </Box>
       <MyProductList />
+      <CreateLotModal />
     </Box>
   );
 };

@@ -1,2 +1,2 @@
 export { CreateLotButton } from "./create-lot-button";
-export { CreateLotForm } from "./create-lot-form";
+export { CreateLotModal } from "./create-lot-modal";

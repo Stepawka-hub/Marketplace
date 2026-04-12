@@ -1,6 +1,7 @@
 import { PropsWithChildren } from "react";
 
-export type TEditProfileModalUIProps = PropsWithChildren<{
+export type TModalProps = PropsWithChildren<{
   isOpen: boolean;
+  title?: string;
   onClose: () => void;
 }>;

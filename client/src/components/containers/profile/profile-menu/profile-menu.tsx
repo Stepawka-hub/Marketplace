@@ -1,11 +1,16 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { ROUTES } from "@/config/routes";
-import { useLogoutMutation } from "@/services";
+import { useGetMeQuery, useLogoutMutation } from "@/services";
+import { isVendor } from "@/shared/helpers";
+import { USER_ROLES } from "@/shared/constants";
+
 import { ProfileMenuUI, TMenuItem } from "@/components/elements";
+import { Loader } from "@/components/ui";
 import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import GavelIcon from "@mui/icons-material/Gavel";
 import HistoryIcon from "@mui/icons-material/History";
 import LogoutIcon from "@mui/icons-material/Logout";
 import {
@@ -16,7 +21,12 @@ import {
 
 export const ProfileMenu: FC = () => {
   const { t } = useTranslation();
+  const { data, isLoading: isProfileLoading } = useGetMeQuery();
   const [logout, { isLoading }] = useLogoutMutation();
+
+  if (isProfileLoading) {
+    return <Loader />;
+  }
 
   const handleLogout = () => {
     logout();
@@ -39,6 +49,14 @@ export const ProfileMenu: FC = () => {
       to: ROUTES.PROFILE_SELLER_PANEL,
     },
   ];
+
+  if (isVendor(data?.role || USER_ROLES.USER)) {
+    menuItems.push({
+      text: t("profile.menu-items.my-lots"),
+      icon: <GavelIcon />,
+      to: ROUTES.PROFILE_MY_LOTS,
+    });
+  }
 
   return (
     <ProfileMenuUI

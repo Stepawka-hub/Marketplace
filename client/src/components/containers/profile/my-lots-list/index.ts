@@ -1,0 +1,1 @@
+export { MyLotsList } from './my-lots-list';

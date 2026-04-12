@@ -9,7 +9,7 @@ import {
 } from "@/shared/helpers";
 
 import { Input, PasswordInput } from "@/components/containers";
-import { EditProfileModalUI, Form } from "@/components/elements";
+import { Modal, Form } from "@/components/elements";
 import { Button, Stack } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import PhoneIcon from "@mui/icons-material/Phone";
@@ -80,7 +80,11 @@ export const EditProfileModal: FC<TEditProfileModalProps> = ({
     t(`form.fields.${field}.${type}`);
 
   return (
-    <EditProfileModalUI isOpen={isOpen} onClose={onClose}>
+    <Modal
+      title={t("profile.edit-modal.title")}
+      isOpen={isOpen}
+      onClose={onClose}
+    >
       <FormProvider {...methods}>
         <Form sx={formStyle} onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={2}>
@@ -141,6 +145,6 @@ export const EditProfileModal: FC<TEditProfileModalProps> = ({
           </Stack>
         </Form>
       </FormProvider>
-    </EditProfileModalUI>
+    </Modal>
   );
 };

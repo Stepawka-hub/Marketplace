@@ -1,1 +1,0 @@
-export { EditProfileModalUI } from './edit-profile-modal';

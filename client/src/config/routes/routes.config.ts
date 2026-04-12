@@ -7,6 +7,7 @@ export const ROUTES = {
   PROFILE: "/profile",
   PROFILE_SELLER_PANEL: "/profile/seller-panel",
   PROFILE_BIDS_HISTORY: "/profile/bids-history",
+  PROFILE_MY_LOTS: "/profile/my-lots",
   CREATE_PRODUCT: "/create-product",
   REGISTER: "/register",
   LOGIN: "/login",

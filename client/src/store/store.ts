@@ -6,10 +6,12 @@ import {
 } from "react-redux";
 import catalogReducer from "@/store/slices/catalog";
 import profileReducer from "@/store/slices/profile";
+import lotReducer from "@/store/slices/lot";
 import { baseAPI } from "@/services/base/base.service";
 
 export const rootReducer = combineReducers({
   catalog: catalogReducer,
+  lot: lotReducer,
   profile: profileReducer,
   [baseAPI.reducerPath]: baseAPI.reducer,
 });

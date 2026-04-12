@@ -8,3 +8,4 @@ export { EditProfileModal } from "./edit-profile-modal";
 export { BidsHistory } from "./bids-history";
 export { SellerRegistrationForm } from "./seller-registration-form";
 export { MyProductList } from "./my-product-list";
+export { MyLotsList } from "./my-lots-list";
