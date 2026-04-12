@@ -1,9 +1,5 @@
 import { FC, useCallback, useState } from "react";
-import {
-  CatalogSearch,
-  FilterPanel,
-  ProductList,
-} from "@/components/containers";
+import { CatalogSearch, FilterPanel, LotsList } from "@/components/containers";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { Grid, IconButton } from "@mui/material";
 
@@ -36,7 +32,7 @@ export const CatalogPage: FC = () => {
           <FilterPanel isOpen={isSidebarOpen} onClose={handleCloseSidebar} />
         </Grid>
         <Grid size="grow">
-          <ProductList />
+          <LotsList />
         </Grid>
       </Grid>
     </Grid>

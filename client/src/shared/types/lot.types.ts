@@ -42,7 +42,5 @@ export type TLotDetails = TLotBase & {
 };
 
 export type TLotListItem = TLotBase & {
-  product: Pick<TProductListItem, "id" | "name" | "preview"> & {
-    preview?: string;
-  };
+  product: TProductListItem;
 };

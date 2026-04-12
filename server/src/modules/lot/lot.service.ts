@@ -9,52 +9,92 @@ import { Repository, In, MoreThan } from 'typeorm';
 import { ProductService } from '@/modules/product/product.service';
 import { BidEntity } from '@/modules/bid/entities';
 import { LotEntity } from './entities';
-import { CreateLotDto, UpdateLotDto } from './dto';
+import { CreateLotDto, LotListItemDto, UpdateLotDto } from './dto';
 
 import { ApiPaginatedResponse, ApiResponse } from '@/common/helpers';
 import { PaginationDto } from '@/common';
 import { TApiPaginatedResponse, TApiResponse } from '@/common';
 import { LOT_STATUSES } from './constants';
+import { LotMapper } from './mappers';
+import { StorageService } from '../storage';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class LotService {
+  private readonly baseUrl: string;
+  public readonly lotMapper: LotMapper;
+
   constructor(
     @InjectRepository(LotEntity)
     private readonly lotRepository: Repository<LotEntity>,
     @InjectRepository(BidEntity)
     private readonly bidRepository: Repository<BidEntity>,
     private readonly productService: ProductService,
-  ) {}
+    private readonly storageService: StorageService,
+    private readonly configService: ConfigService,
+  ) {
+    const domain = this.configService.getOrThrow<string>('S3_PUBLIC_DOMAIN');
+    this.baseUrl = domain.endsWith('/') ? domain : domain + '/';
+
+    this.lotMapper = new LotMapper(this.baseUrl);
+  }
 
   async getLots(
     paginationDto: PaginationDto,
     status?: string,
     category?: string,
-  ): Promise<TApiPaginatedResponse<LotEntity>> {
+  ): Promise<TApiPaginatedResponse<LotListItemDto>> {
     const { page = 1, limit = 10 } = paginationDto;
     const skip = (page - 1) * limit;
 
-    const queryBuilder = this.lotRepository
-      .createQueryBuilder('lot')
-      .leftJoinAndSelect('lot.product', 'product')
-      .leftJoinAndSelect('product.media', 'media')
-      .leftJoinAndSelect('lot.seller', 'seller')
-      .leftJoinAndSelect('lot.currentWinner', 'currentWinner');
+    const [lots, total] = await this.lotRepository.findAndCount({
+      relations: {
+        product: {
+          media: true,
+          seller: true,
+        },
+      },
+      select: {
+        id: true,
+        startPrice: true,
+        minBidIncrement: true,
+        startTime: true,
+        endTime: true,
+        status: true,
+        currentPrice: true,
+        createdAt: true,
+        updatedAt: true,
+        product: {
+          id: true,
+          name: true,
+          shortDescription: true,
+          category: true,
+          createdAt: true,
+          updatedAt: true,
+          media: {
+            id: true,
+            filename: true,
+            isPreview: true,
+          },
+          seller: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            avatar: true,
+          },
+        },
+      },
+      order: {
+        endTime: 'ASC',
+      },
+      skip,
+      take: limit,
+    });
 
-    if (status) {
-      queryBuilder.andWhere('lot.status = :status', { status });
-    }
-
-    if (category) {
-      queryBuilder.andWhere('product.category = :category', { category });
-    }
-
-    queryBuilder.orderBy('lot.endTime', 'ASC').skip(skip).take(limit);
-
-    const [lots, total] = await queryBuilder.getManyAndCount();
+    const lotDtos = this.lotMapper.toListItemArray(lots);
 
     return ApiPaginatedResponse.success(
-      lots,
+      lotDtos,
       total,
       page,
       limit,

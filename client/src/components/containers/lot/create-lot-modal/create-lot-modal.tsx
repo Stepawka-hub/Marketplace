@@ -60,7 +60,7 @@ export const CreateLotModal: FC = () => {
   const { register, handleSubmit, reset } = methods;
 
   if (!productId) {
-    return <NotFound />;
+    return null;
   }
 
   const onModalClose = () => {

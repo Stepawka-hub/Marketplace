@@ -1,5 +1,14 @@
 import { SxProps } from "@mui/material";
 
+export const skeletonItemContainerStyle = (minCardWidth: number): SxProps => ({
+  display: "grid",
+  gridTemplateColumns: `repeat(auto-fill, minmax(${minCardWidth}px, 1fr))`,
+  gap: {
+    xs: 2,
+    md: 3,
+  },
+});
+
 export const skeletonItemStyle: SxProps = {
-  height: "40vh",
-} as const;
+  height: "34.5rem",
+};

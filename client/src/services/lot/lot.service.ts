@@ -1,10 +1,37 @@
-import { TLotDetails } from "@/shared/types";
-import { baseAPI, TPaginationParams, TServerResponse } from "../base";
+import { TLotDetails, TLotListItem } from "@/shared/types";
+import {
+  baseAPI,
+  TPaginatedResponse,
+  TPaginationParams,
+  TServerResponse,
+} from "../base";
 import { LOT_TAGS } from "./constants";
 import { TCreateLotRequest, TCreateLotResponse, TLotsResponse } from "./types";
 
 export const lotAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
+    getAllLots: build.query<TLotsResponse, TPaginationParams>({
+      query: (params: TPaginationParams = { page: 1, limit: 10 }) => ({
+        url: "/lots",
+        params: {
+          page: params.page,
+          limit: params.limit,
+        },
+      }),
+      transformResponse: (response: TPaginatedResponse<TLotListItem>) =>
+        response.data,
+      providesTags: (result) =>
+        result?.items
+          ? [
+              ...result.items.map(({ id }) => ({
+                type: LOT_TAGS.LIST.type,
+                id,
+              })),
+              LOT_TAGS.LIST,
+            ]
+          : [LOT_TAGS.LIST],
+    }),
+
     createLot: build.mutation<TLotDetails, TCreateLotRequest>({
       query: (formData) => ({
         url: "/lots",
@@ -45,27 +72,6 @@ export const lotAPI = baseAPI.injectEndpoints({
       providesTags: (_, __, lotId) => [
         { type: LOT_TAGS.DETAIL.type, id: lotId },
       ],
-    }),
-
-    getAllLots: build.query<TLotsResponse, TPaginationParams>({
-      query: (params: TPaginationParams = { page: 1, limit: 10 }) => ({
-        url: "/lots",
-        params: {
-          page: params.page,
-          limit: params.limit,
-        },
-      }),
-      transformResponse: (response: TLotsResponse) => response,
-      providesTags: (result) =>
-        result?.items
-          ? [
-              ...result.items.map(({ id }) => ({
-                type: LOT_TAGS.LIST.type,
-                id,
-              })),
-              LOT_TAGS.LIST,
-            ]
-          : [LOT_TAGS.LIST],
     }),
 
     cancelLot: build.mutation<TLotDetails, string>({

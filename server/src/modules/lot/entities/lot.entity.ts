@@ -22,11 +22,6 @@ export class LotEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ApiProperty(LOT_API_PROPERTIES.PRODUCT)
-  @ManyToOne(() => ProductEntity, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'product_id' })
-  product: ProductEntity;
-
   @ApiProperty(LOT_API_PROPERTIES.START_PRICE)
   @Column({
     name: 'start_price',
@@ -79,6 +74,14 @@ export class LotEntity {
     default: LOT_STATUSES.DRAFT,
   })
   status: TLotStatus;
+
+  @ApiProperty(LOT_API_PROPERTIES.PRODUCT)
+  @ManyToOne(() => ProductEntity, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'product_id' })
+  product: ProductEntity;
+
+  @Column({ name: 'product_id', type: 'uuid' })
+  productId: string;
 
   @ApiProperty({
     type: () => UserEntity,
