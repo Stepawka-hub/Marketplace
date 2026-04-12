@@ -14,28 +14,6 @@ import {
 
 export const productAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
-    getAllProducts: build.query<TProductsResponse, TPaginationParams>({
-      query: (params: TPaginationParams = { page: 1, limit: 10 }) => ({
-        url: "/products",
-        params: {
-          page: params.page,
-          limit: params.limit,
-        },
-      }),
-      transformResponse: (response: TPaginatedResponse<TProductListItem>) =>
-        response.data,
-      providesTags: (result) =>
-        result?.items
-          ? [
-              ...result.items.map(({ id }) => ({
-                type: PRODUCT_TAGS.LIST.type,
-                id,
-              })),
-              PRODUCT_TAGS.LIST,
-            ]
-          : [PRODUCT_TAGS.LIST],
-    }),
-
     getAllMyProducts: build.query<TProductsResponse, TPaginationParams>({
       query: (params: TPaginationParams = { page: 1, limit: 10 }) => ({
         url: "/products/my-products",
@@ -76,14 +54,13 @@ export const productAPI = baseAPI.injectEndpoints({
         body: formData,
         formData: true,
       }),
-      invalidatesTags: [PRODUCT_TAGS.LIST, PRODUCT_TAGS.MY_LIST],
+      invalidatesTags: [PRODUCT_TAGS.MY_LIST],
       transformResponse: (response: TCreateProductResponse) => response.data,
     }),
   }),
 });
 
 export const {
-  useGetAllProductsQuery,
   useGetAllMyProductsQuery,
   useGetProductByIdQuery,
   useCreateProductMutation,

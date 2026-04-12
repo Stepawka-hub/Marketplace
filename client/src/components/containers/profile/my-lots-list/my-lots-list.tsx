@@ -1,11 +1,12 @@
 import { FC } from "react";
 import { useGetMyLotsQuery } from "@/services/lot";
 import { usePagination } from "@/hooks/usePagination";
-import { LotsListUI } from "@/components/elements";
-import { Pagination } from "@mui/material";
+import { LotsListUI, Pagination } from "@/components/elements";
 
 export const MyLotsList: FC = () => {
-  const { page, limit, defaultPagination, handlePageChange } = usePagination();
+  const { page, limit, defaultPagination, handlePageChange } = usePagination({
+    limit: 8,
+  });
 
   const { data, isLoading } = useGetMyLotsQuery({ page, limit });
   const pagination = data?.meta || defaultPagination;

@@ -5,19 +5,18 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, In, MoreThan } from 'typeorm';
+import { ConfigService } from '@nestjs/config';
 
 import { ProductService } from '@/modules/product/product.service';
+import { StorageService } from '@/modules/storage';
 import { BidEntity } from '@/modules/bid/entities';
+import { LotMapper } from './mappers';
 import { LotEntity } from './entities';
 import { CreateLotDto, LotListItemDto, UpdateLotDto } from './dto';
 
 import { ApiPaginatedResponse, ApiResponse } from '@/common/helpers';
-import { PaginationDto } from '@/common';
-import { TApiPaginatedResponse, TApiResponse } from '@/common';
+import { PaginationDto, TApiPaginatedResponse, TApiResponse } from '@/common';
 import { LOT_STATUSES } from './constants';
-import { LotMapper } from './mappers';
-import { StorageService } from '../storage';
-import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class LotService {
@@ -125,20 +124,57 @@ export class LotService {
   async getMyLots(
     userId: string,
     paginationDto: PaginationDto,
-  ): Promise<TApiPaginatedResponse<LotEntity>> {
+  ): Promise<TApiPaginatedResponse<LotListItemDto>> {
     const { page = 1, limit = 10 } = paginationDto;
     const skip = (page - 1) * limit;
 
     const [lots, total] = await this.lotRepository.findAndCount({
       where: { sellerId: userId },
-      relations: ['product', 'product.media'],
+      relations: {
+        product: {
+          media: true,
+          seller: true,
+        },
+      },
+      select: {
+        id: true,
+        startPrice: true,
+        minBidIncrement: true,
+        startTime: true,
+        endTime: true,
+        status: true,
+        currentPrice: true,
+        createdAt: true,
+        updatedAt: true,
+        product: {
+          id: true,
+          name: true,
+          shortDescription: true,
+          category: true,
+          createdAt: true,
+          updatedAt: true,
+          media: {
+            id: true,
+            filename: true,
+            isPreview: true,
+          },
+          seller: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            avatar: true,
+          },
+        },
+      },
       order: { createdAt: 'DESC' },
       skip,
       take: limit,
     });
 
+    const lotDtos = this.lotMapper.toListItemArray(lots);
+
     return ApiPaginatedResponse.success(
-      lots,
+      lotDtos,
       total,
       page,
       limit,

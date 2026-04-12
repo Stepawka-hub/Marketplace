@@ -4,7 +4,9 @@ import { usePagination } from "@/hooks/usePagination";
 import { Pagination, ProductListUI } from "@/components/elements";
 
 export const MyProductList: FC = () => {
-  const { page, limit, defaultPagination, handlePageChange } = usePagination();
+  const { page, limit, defaultPagination, handlePageChange } = usePagination({
+    limit: 8,
+  });
 
   const { data, isLoading } = useGetAllMyProductsQuery({ page, limit });
   const pagination = data?.meta || defaultPagination;

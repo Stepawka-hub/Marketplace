@@ -73,6 +73,22 @@ export class LotController {
   }
 
   @ApiOperation({
+    summary: 'Получить мои лоты (как продавец)',
+  })
+  @ApiOkResponse({
+    type: LotPaginatedResponseDto,
+  })
+  @ApiBearerAuth()
+  @Authorization()
+  @Get('my-lots')
+  getMyLots(
+    @Authorizated('id') userId: string,
+    @Query() paginationDto: PaginationDto,
+  ) {
+    return this.lotService.getMyLots(userId, paginationDto);
+  }
+
+  @ApiOperation({
     summary: 'Получить лот по ID',
   })
   @ApiOkResponse({
@@ -84,22 +100,6 @@ export class LotController {
   @Get(':id')
   getLotById(@Param('id') id: string) {
     return this.lotService.getLotById(id);
-  }
-
-  @ApiOperation({
-    summary: 'Получить мои лоты (как продавец)',
-  })
-  @ApiOkResponse({
-    type: LotPaginatedResponseDto,
-  })
-  @ApiBearerAuth()
-  @Authorization()
-  @Get('my/list')
-  getMyLots(
-    @Authorizated('id') userId: string,
-    @Query() paginationDto: PaginationDto,
-  ) {
-    return this.lotService.getMyLots(userId, paginationDto);
   }
 
   @ApiOperation({

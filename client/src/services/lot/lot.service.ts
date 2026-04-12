@@ -50,7 +50,8 @@ export const lotAPI = baseAPI.injectEndpoints({
           limit: params.limit,
         },
       }),
-      transformResponse: (response: TLotsResponse) => response,
+      transformResponse: (response: TPaginatedResponse<TLotListItem>) =>
+        response.data,
       providesTags: (result) =>
         result?.items
           ? [
