@@ -279,6 +279,9 @@
     "seller-panel": {
       "my-products-title": "My products",
       "create-product": "Create product"
+    },
+    "my-lots": {
+      "title": "My lots"
     }
   },
 

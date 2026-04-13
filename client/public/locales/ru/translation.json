@@ -200,6 +200,9 @@
     "seller-panel": {
       "my-products-title": "Мои товары",
       "create-product": "Создать товар"
+    },
+    "my-lots": {
+      "title": "Мои лоты"
     }
   },
 

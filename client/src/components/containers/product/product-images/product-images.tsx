@@ -19,12 +19,18 @@ export const ProductImages: FC<TProductImagesProps> = ({ images }) => {
   const handleClose = () => setIsOpen(false);
 
   const handlePrev = () => {
-    if (isFirst) return;
+    if (isFirst) {
+      return;
+    }
+    
     setPosition((p) => p - 1);
   };
 
   const handleNext = () => {
-    if (isLast) return;
+    if (isLast) {
+      return;
+    }
+
     setPosition((p) => p + 1);
   };
 
@@ -35,8 +41,8 @@ export const ProductImages: FC<TProductImagesProps> = ({ images }) => {
       <ImageSlider
         images={imageUrls}
         currentPosition={position}
-        disableNextButton={isFirst}
-        disablePrevButton={isLast}
+        disableNextButton={isLast}
+        disablePrevButton={isFirst}
         handlePrev={handlePrev}
         handleNext={handleNext}
         onImageClick={onImageClick}
