@@ -6,7 +6,7 @@ import { BaseProductCard } from "@/components/elements";
 import { Box, Typography, Chip, Divider } from "@mui/material";
 import { ROUTES } from "@/config/routes";
 import { LOT_STATUSES } from "@/shared/constants";
-import { formatTimeLeft } from "@/shared/helpers";
+import { formatTimeLeft, getStatusColor } from "@/shared/helpers";
 import {
   chipStyle,
   dividerStyle,
@@ -33,29 +33,12 @@ export const LotCard: FC<TLotCardProps> = ({
     navigate(ROUTES.CATALOG_LOT(id));
   };
 
-  const getStatusColor = () => {
-    switch (status) {
-      case LOT_STATUSES.ACTIVE:
-        return "success";
-      case LOT_STATUSES.DRAFT:
-        return "default";
-      case LOT_STATUSES.COMPLETED:
-        return "info";
-      case LOT_STATUSES.CANCELLED:
-        return "error";
-      case LOT_STATUSES.EXPIRED:
-        return "warning";
-      default:
-        return "default";
-    }
-  };
-
   const actions = (
     <>
       {isShowLikeButton && <LikeButton lotId={id} />}
       <Chip
         label={t(`lot.status.${status.toLowerCase()}`)}
-        color={getStatusColor()}
+        color={getStatusColor(status)}
         size="small"
         sx={chipStyle}
       />

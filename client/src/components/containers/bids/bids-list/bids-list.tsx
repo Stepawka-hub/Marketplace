@@ -9,15 +9,14 @@ import {
 } from "@/services/cart";
 
 import { BidsListUI, Pagination } from "@/components/elements";
+import { Loader } from '@/components/ui';
 import { Grid } from "@mui/material";
 import { gridStyle } from "./styles";
-import { Loader } from '@/components/ui';
 
 export const BidsList: FC = () => {
   const navigate = useNavigate();
   const { page, limit, defaultPagination, handlePageChange } = usePagination();
 
-  // Todo: добавить loader
   const { data, isLoading: isGettingCart } = useGetCartItemsQuery({
     page,
     limit,

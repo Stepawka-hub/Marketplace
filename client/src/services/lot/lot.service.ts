@@ -32,16 +32,6 @@ export const lotAPI = baseAPI.injectEndpoints({
           : [LOT_TAGS.LIST],
     }),
 
-    createLot: build.mutation<TLotDetails, TCreateLotRequest>({
-      query: (formData) => ({
-        url: "/lots",
-        method: "POST",
-        body: formData,
-      }),
-      invalidatesTags: [LOT_TAGS.MY_LOTS, LOT_TAGS.LIST],
-      transformResponse: (response: TCreateLotResponse) => response.data,
-    }),
-
     getMyLots: build.query<TLotsResponse, TPaginationParams>({
       query: (params: TPaginationParams = { page: 1, limit: 10 }) => ({
         url: "/lots/my-lots",
@@ -62,6 +52,16 @@ export const lotAPI = baseAPI.injectEndpoints({
               LOT_TAGS.MY_LOTS,
             ]
           : [LOT_TAGS.MY_LOTS],
+    }),
+
+    createLot: build.mutation<TLotDetails, TCreateLotRequest>({
+      query: (formData) => ({
+        url: "/lots",
+        method: "POST",
+        body: formData,
+      }),
+      invalidatesTags: [LOT_TAGS.MY_LOTS, LOT_TAGS.LIST],
+      transformResponse: (response: TCreateLotResponse) => response.data,
     }),
 
     getLotById: build.query<TLotDetails, string>({

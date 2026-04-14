@@ -2,7 +2,6 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import { ROUTES } from "@/config/routes";
 import { AppLayout } from "./layout";
 import {
-  BidsPage,
   CatalogPage,
   NotFoundPage,
   FavoritesPage,
@@ -13,6 +12,7 @@ import {
   ResetPasswordPage,
   ProfilePage,
   CreateProductPage,
+  MyBidsPage,
 } from "@/pages";
 import {
   ProfileData,
@@ -48,7 +48,7 @@ export const router = createBrowserRouter([
           },
           {
             path: ROUTES.MY_BIDS,
-            element: <BidsPage />,
+            element: <MyBidsPage />,
           },
           {
             path: ROUTES.FAVORITES,

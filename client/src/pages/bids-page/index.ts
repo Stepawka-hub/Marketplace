@@ -1,1 +1,0 @@
-export { BidsPage } from './bids-page';
