@@ -8,6 +8,7 @@ import {
   cardStyle,
   descTypographyStyle,
   nameTypographyStyle,
+  sellerInfoStyle,
 } from "./styles";
 import { TBaseProductCardProps } from "./type";
 
@@ -35,7 +36,7 @@ export const BaseProductCard: FC<TBaseProductCardProps> = ({
           {shortDescription}
         </Typography>
 
-        <Typography>
+        <Typography sx={sellerInfoStyle}>
           {`Продавец: ${seller.firstName} ${seller.lastName}`}
         </Typography>
 

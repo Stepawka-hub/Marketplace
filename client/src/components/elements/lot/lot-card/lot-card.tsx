@@ -3,12 +3,20 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { LikeButton } from "@/components/containers";
 import { BaseProductCard } from "@/components/elements";
-import { Box, Typography, Chip } from "@mui/material";
+import { Box, Typography, Chip, Divider } from "@mui/material";
 import { ROUTES } from "@/config/routes";
 import { LOT_STATUSES } from "@/shared/constants";
-//import { formatTimeLeft } from "./helpers";
+import { formatTimeLeft } from "@/shared/helpers";
+import {
+  chipStyle,
+  dividerStyle,
+  footerContainerStyle,
+  priceRowStyle,
+  priceTypographyStyle,
+  statusRowStyle,
+  timeTypographyStyle,
+} from "./styles";
 import { TLotCardProps } from "./type";
-import { footerContainerStyle, priceRowStyle, statusRowStyle } from "./styles";
 
 export const LotCard: FC<TLotCardProps> = ({
   lot,
@@ -16,17 +24,9 @@ export const LotCard: FC<TLotCardProps> = ({
 }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const {
-    id,
-    startPrice,
-    currentPrice,
-    minBidIncrement,
-    endTime,
-    status,
-    product,
-  } = lot;
+  const { id, startPrice, currentPrice, endTime, status, product } = lot;
 
-  const timeLeft = endTime; // formatTimeLeft
+  const timeLeft = formatTimeLeft(endTime);
   const displayPrice = currentPrice || startPrice;
 
   const handleNavigateToLotPage = () => {
@@ -50,39 +50,41 @@ export const LotCard: FC<TLotCardProps> = ({
     }
   };
 
-  const actions = <>{isShowLikeButton && <LikeButton lotId={id} />}</>;
+  const actions = (
+    <>
+      {isShowLikeButton && <LikeButton lotId={id} />}
+      <Chip
+        label={t(`lot.status.${status.toLowerCase()}`)}
+        color={getStatusColor()}
+        size="small"
+        sx={chipStyle}
+      />
+    </>
+  );
 
   const footer = (
-    <Box sx={footerContainerStyle}>
-      <Box sx={priceRowStyle}>
-        <Typography variant="body2" color="text.secondary">
-          {t("lot.current-price")}:
-        </Typography>
-        <Typography variant="body1" fontWeight="bold">
-          {displayPrice} ₽
-        </Typography>
-      </Box>
-
-      <Box sx={priceRowStyle}>
-        <Typography variant="body2" color="text.secondary">
-          {t("lot.min-bid-increment")}:
-        </Typography>
-        <Typography variant="body2">{minBidIncrement} ₽</Typography>
-      </Box>
-
-      <Box sx={statusRowStyle}>
-        <Chip
-          label={t(`lot.status.${status.toLowerCase()}`)}
-          color={getStatusColor()}
-          size="small"
-        />
-        {status === LOT_STATUSES.ACTIVE && (
-          <Typography variant="caption" color="text.secondary">
-            {t("lot.time-left")}: {timeLeft}
+    <>
+      <Box sx={footerContainerStyle}>
+        <Divider sx={dividerStyle} />
+        <Box sx={priceRowStyle}>
+          <Typography variant="body2" color="text.secondary">
+            {t("lot.current-price")}:
           </Typography>
-        )}
+          <Typography sx={priceTypographyStyle}>{displayPrice} ₽</Typography>
+        </Box>
+
+        <Box sx={statusRowStyle}>
+          {status === LOT_STATUSES.ACTIVE && (
+            <>
+              <Typography variant="body2" color="text.secondary">
+                {t("lot.time-left")}:
+              </Typography>
+              <Typography sx={timeTypographyStyle}>{timeLeft}</Typography>
+            </>
+          )}
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 
   return (
