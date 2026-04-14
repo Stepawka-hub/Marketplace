@@ -62,9 +62,15 @@ export const compactNameStyle: SxProps<Theme> = {
   fontWeight: 500,
 } as const;
 
+export const chipContainer: SxProps = {
+  display: "flex",
+  alignItems: "center",
+  gap: 1,
+  flexShrink: 0,
+} as const;
+
 export const compactChipStyle: SxProps = {
   p: 0.5,
-  flexShrink: 0,
   fontSize: "0.9rem",
   fontWeight: 600,
 } as const;
@@ -98,4 +104,8 @@ export const priceStyle: SxProps = {
     md: "1.1rem",
   },
   fontWeight: 600,
+} as const;
+
+export const winnerIconStyle: SxProps = {
+  color: yellow[700],
 } as const;

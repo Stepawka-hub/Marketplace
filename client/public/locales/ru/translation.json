@@ -128,13 +128,6 @@
       "text": "Найти нужные вам товары вы можете в",
       "link": "каталоге"
     },
-    "summary": {
-      "information": "Общая информация",
-      "products_zero": "{{count}} товаров",
-      "products_one": "{{count}} товар",
-      "products_few": "{{count}} товара",
-      "products_many": "{{count}} товаров"
-    },
     "badge": {
       "tool-tip": "Мои ставки"
     }

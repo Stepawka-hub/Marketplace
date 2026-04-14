@@ -9,4 +9,3 @@ export const AUTH_TAG_TYPE = "Auth" as const;
 export const PRODUCT_TAG_TYPE = "Product" as const;
 export const FAVORITES_TAG_TYPE = "Favorites" as const;
 export const LOT_TAG_TYPE = "Lot" as const;
-export const CART_TAG_TYPE = "Cart" as const;

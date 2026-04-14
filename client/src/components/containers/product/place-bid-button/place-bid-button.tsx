@@ -1,7 +1,4 @@
 import { FC, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
-import { ROUTES } from "@/config/routes";
-import { useAddToCartMutation, useGetCartItemsIdsQuery } from "@/services/cart";
 import { isInArray } from "@/shared/helpers";
 import { PlaceBidButtonUI } from "@/components/elements";
 import { TPlaceBidButtonProps } from "./type";
@@ -11,12 +8,9 @@ export const PlaceBidButton: FC<TPlaceBidButtonProps> = ({
   productId,
   sellerId,
 }) => {
-  const navigate = useNavigate();
-
   const { data: userData } = useGetMeQuery();
-  const { data: bidIds = [] } = useGetCartItemsIdsQuery();
-
-  const [addToCart, { isLoading: isAdding }] = useAddToCartMutation();
+  const bidIds: string[] = [];
+  const disabled = false;
 
   const isPlaced = useMemo(
     () => isInArray(bidIds, productId),
@@ -27,18 +21,14 @@ export const PlaceBidButton: FC<TPlaceBidButtonProps> = ({
     return null;
   }
 
-  const handlePlaceBid = () => {
-    addToCart({ productId });
-  };
+  const handlePlaceBid = () => {};
 
-  const handleNavigateToMyBids = () => {
-    navigate(ROUTES.MY_BIDS);
-  };
+  const handleNavigateToMyBids = () => {};
 
   return (
     <PlaceBidButtonUI
       isPlaced={isPlaced}
-      disabled={isAdding}
+      disabled={disabled}
       handleAction={isPlaced ? handleNavigateToMyBids : handlePlaceBid}
     />
   );

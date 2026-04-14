@@ -2,11 +2,6 @@ import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/config/routes";
 import { usePagination } from "@/hooks/usePagination";
-import {
-  useGetCartItemsQuery,
-  useRemoveFromCartMutation,
-  useToggleSelectedProductMutation,
-} from "@/services/cart";
 
 import { BidsListUI, Pagination } from "@/components/elements";
 import { Loader } from '@/components/ui';
@@ -14,34 +9,22 @@ import { Grid } from "@mui/material";
 import { gridStyle } from "./styles";
 
 export const BidsList: FC = () => {
+  return null;
   const navigate = useNavigate();
   const { page, limit, defaultPagination, handlePageChange } = usePagination();
 
-  const { data, isLoading: isGettingCart } = useGetCartItemsQuery({
-    page,
-    limit,
-  });
-
-  const [removeFromCart] = useRemoveFromCartMutation();
-
-  const [selectCartItem] = useToggleSelectedProductMutation();
-
+  
   if (!data) {
     return;
   }
 
-  if (isGettingCart) {
+  if (isLoading) {
     return <Loader />;
   }
 
   const pagination = data.meta || defaultPagination;
 
   const handleDelete = (id: string) => {
-    removeFromCart(id);
-  };
-
-  const handleSelect = (id: string, isSelected: boolean) => {
-    selectCartItem({ productId: id, isSelected });
   };
 
   const handleCardClick = (id: string) => {
@@ -54,7 +37,6 @@ export const BidsList: FC = () => {
         items={data.items}
         handleDelete={handleDelete}
         handleCardClick={handleCardClick}
-        handleSelect={handleSelect}
       />
       <Pagination
         count={data.meta.totalPages}

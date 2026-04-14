@@ -1,7 +1,15 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { Box, Typography, Chip, Divider, CardMedia } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Chip,
+  Divider,
+  CardMedia,
+  Tooltip,
+} from "@mui/material";
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { formatTimeLeft, getStatusColor } from "@/shared/helpers";
 import { ROUTES } from "@/config/routes";
 import { LOT_STATUSES } from "@/shared/constants";
@@ -16,6 +24,8 @@ import {
   compactNameStyle,
   timeStyle,
   priceStyle,
+  winnerIconStyle,
+  chipContainer,
 } from "./styles";
 import { TCompactLotCard } from "./type";
 
@@ -29,6 +39,8 @@ export const CompactLotCard: FC<TCompactLotCard> = ({ lot }) => {
   const handleNavigateToLotPage = () => {
     navigate(ROUTES.CATALOG_LOT(id));
   };
+
+  const isLeading = true;
 
   return (
     <Box sx={compactCardStyle} onClick={handleNavigateToLotPage}>
@@ -46,12 +58,19 @@ export const CompactLotCard: FC<TCompactLotCard> = ({ lot }) => {
               {product.name}
             </Typography>
 
-            <Chip
-              label={t(`lot.status.${status.toLowerCase()}`)}
-              size="small"
-              color={getStatusColor(status)}
-              sx={compactChipStyle}
-            />
+            <Box sx={chipContainer}>
+              {isLeading && (
+                <Tooltip title="Вы лидируете">
+                  <EmojiEventsIcon sx={winnerIconStyle} />
+                </Tooltip>
+              )}
+              <Chip
+                label={t(`lot.status.${status.toLowerCase()}`)}
+                size="small"
+                color={getStatusColor(status)}
+                sx={compactChipStyle}
+              />
+            </Box>
           </Box>
 
           <Divider />

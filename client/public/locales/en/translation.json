@@ -123,11 +123,6 @@
       "text": "You can find the products you need in the",
       "link": "catalog"
     },
-    "summary": {
-      "information": "General information",
-      "products_one": "{{count}} product",
-      "products_other": "{{count}} products"
-    },
     "badge": {
       "tool-tip": "My bids"
     }
