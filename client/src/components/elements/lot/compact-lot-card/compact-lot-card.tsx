@@ -1,7 +1,9 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { Box, Typography, Chip, Divider, CardMedia } from "@mui/material";
 import { formatTimeLeft, getStatusColor } from "@/shared/helpers";
+import { ROUTES } from "@/config/routes";
 import { LOT_STATUSES } from "@/shared/constants";
 import {
   compactCardContainer,
@@ -12,17 +14,24 @@ import {
   compactCardStyle,
   compactChipStyle,
   compactNameStyle,
+  timeStyle,
+  priceStyle,
 } from "./styles";
 import { TCompactLotCard } from "./type";
 
 export const CompactLotCard: FC<TCompactLotCard> = ({ lot }) => {
   const { t } = useTranslation();
-  const { product, startPrice, currentPrice, endTime, status } = lot;
+  const navigate = useNavigate();
 
+  const { id, product, startPrice, currentPrice, endTime, status } = lot;
   const displayPrice = currentPrice || startPrice;
 
+  const handleNavigateToLotPage = () => {
+    navigate(ROUTES.CATALOG_LOT(id));
+  };
+
   return (
-    <Box sx={compactCardStyle}>
+    <Box sx={compactCardStyle} onClick={handleNavigateToLotPage}>
       <Box sx={compactCardContainer}>
         <CardMedia
           component="img"
@@ -50,15 +59,13 @@ export const CompactLotCard: FC<TCompactLotCard> = ({ lot }) => {
           <Box sx={compactCardFooter}>
             <Box>
               <Typography variant="caption" color="text.secondary">
-                Текущая цена:
+                {t("lot.current-price")}:
               </Typography>
-              <Typography variant="body2">{displayPrice} ₽</Typography>
+              <Typography sx={priceStyle}>{displayPrice} ₽</Typography>
             </Box>
 
             {status === LOT_STATUSES.ACTIVE && (
-              <Typography variant="caption" color="warning.main">
-                {formatTimeLeft(endTime)}
-              </Typography>
+              <Typography sx={timeStyle}>{formatTimeLeft(endTime)}</Typography>
             )}
           </Box>
         </Box>

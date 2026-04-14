@@ -201,6 +201,9 @@
       "my-products-title": "Мои товары",
       "create-product": "Создать товар"
     },
+    "bids-history": {
+      "title": "История ставок"
+    },
     "my-lots": {
       "title": "Мои лоты"
     }

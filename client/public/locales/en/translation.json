@@ -280,6 +280,9 @@
       "my-products-title": "My products",
       "create-product": "Create product"
     },
+    "bids-history": {
+      "title": "Bids history"
+    },
     "my-lots": {
       "title": "My lots"
     }

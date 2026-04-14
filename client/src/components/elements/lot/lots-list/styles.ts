@@ -8,3 +8,4 @@ export const cardContainerStyle = (minCardWidth: number): SxProps => ({
     md: 3,
   },
 });
+
