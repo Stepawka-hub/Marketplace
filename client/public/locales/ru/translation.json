@@ -130,6 +130,9 @@
     },
     "badge": {
       "tool-tip": "Мои ставки"
+    },
+    "winner-badge": {
+      "tool-tip": "Вы лидируете"
     }
   },
 

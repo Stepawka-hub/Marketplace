@@ -9,8 +9,8 @@ import {
   CardMedia,
   Tooltip,
 } from "@mui/material";
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import { formatTimeLeft, getStatusColor } from "@/shared/helpers";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+import { getStatusColor } from "@/shared/helpers";
 import { ROUTES } from "@/config/routes";
 import { LOT_STATUSES } from "@/shared/constants";
 import {
@@ -28,6 +28,7 @@ import {
   chipContainer,
 } from "./styles";
 import { TCompactLotCard } from "./type";
+import { CountdownTimer } from "@/components/containers";
 
 export const CompactLotCard: FC<TCompactLotCard> = ({ lot }) => {
   const { t } = useTranslation();
@@ -60,7 +61,7 @@ export const CompactLotCard: FC<TCompactLotCard> = ({ lot }) => {
 
             <Box sx={chipContainer}>
               {isLeading && (
-                <Tooltip title="Вы лидируете">
+                <Tooltip title={t("bids.winner-badge.tool-tip")}>
                   <EmojiEventsIcon sx={winnerIconStyle} />
                 </Tooltip>
               )}
@@ -84,7 +85,9 @@ export const CompactLotCard: FC<TCompactLotCard> = ({ lot }) => {
             </Box>
 
             {status === LOT_STATUSES.ACTIVE && (
-              <Typography sx={timeStyle}>{formatTimeLeft(endTime)}</Typography>
+              <Typography sx={timeStyle}>
+                <CountdownTimer targetDate={endTime} />
+              </Typography>
             )}
           </Box>
         </Box>

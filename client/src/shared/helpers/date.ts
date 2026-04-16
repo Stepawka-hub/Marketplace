@@ -5,7 +5,7 @@ export const formatTimeLeft = (endTime: string): string => {
   const now = new Date();
 
   if (isBefore(end, now)) {
-    return "00:00:00";
+    return "Завершён";
   }
 
   const duration = intervalToDuration({ start: now, end });

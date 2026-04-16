@@ -1,12 +1,12 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { LikeButton } from "@/components/containers";
+import { CountdownTimer, LikeButton } from "@/components/containers";
 import { BaseProductCard } from "@/components/elements";
 import { Box, Typography, Chip, Divider } from "@mui/material";
 import { ROUTES } from "@/config/routes";
 import { LOT_STATUSES } from "@/shared/constants";
-import { formatTimeLeft, getStatusColor } from "@/shared/helpers";
+import { getStatusColor } from "@/shared/helpers";
 import {
   chipStyle,
   dividerStyle,
@@ -26,7 +26,6 @@ export const LotCard: FC<TLotCardProps> = ({
   const { t } = useTranslation();
   const { id, startPrice, currentPrice, endTime, status, product } = lot;
 
-  const timeLeft = formatTimeLeft(endTime);
   const displayPrice = currentPrice || startPrice;
 
   const handleNavigateToLotPage = () => {
@@ -62,7 +61,9 @@ export const LotCard: FC<TLotCardProps> = ({
               <Typography variant="body2" color="text.secondary">
                 {t("lot.time-left")}:
               </Typography>
-              <Typography sx={timeTypographyStyle}>{timeLeft}</Typography>
+              <Typography sx={timeTypographyStyle}>
+                <CountdownTimer targetDate={endTime} />
+              </Typography>
             </>
           )}
         </Box>
