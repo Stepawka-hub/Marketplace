@@ -14,12 +14,6 @@ export class LotDetailsDto {
   @ApiProperty()
   minBidIncrement: number;
 
-  @ApiProperty()
-  startTime: Date;
-
-  @ApiProperty()
-  endTime: Date;
-
   @ApiProperty({ enum: LOT_STATUSES })
   status: TLotStatus;
 
@@ -31,6 +25,12 @@ export class LotDetailsDto {
 
   @ApiProperty({ nullable: true, type: () => CurrentWinnerDto })
   currentWinner: CurrentWinnerDto | null;
+
+  @ApiProperty()
+  startTime: Date;
+
+  @ApiProperty()
+  endTime: Date;
 
   @ApiProperty()
   createdAt: Date;

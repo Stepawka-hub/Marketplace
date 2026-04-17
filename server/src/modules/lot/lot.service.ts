@@ -12,16 +12,12 @@ import { StorageService } from '@/modules/storage';
 import { BidEntity } from '@/modules/bid/entities';
 import { LotMapper } from './mappers';
 import { LotEntity } from './entities';
-import {
-  CreateLotDto,
-  LotDetailsDto,
-  LotListItemDto,
-  UpdateLotDto,
-} from './dto';
+import { CreateLotDto, LotDetailsDto, LotListItemDto } from './dto';
 
 import { ApiPaginatedResponse, ApiResponse } from '@/common/helpers';
 import { PaginationDto, TApiPaginatedResponse, TApiResponse } from '@/common';
 import { LOT_STATUSES } from './constants';
+import { TBidLotItem } from './types';
 
 @Injectable()
 export class LotService {
@@ -45,8 +41,6 @@ export class LotService {
 
   async getLots(
     paginationDto: PaginationDto,
-    status?: string,
-    category?: string,
   ): Promise<TApiPaginatedResponse<LotListItemDto>> {
     const { page = 1, limit = 10 } = paginationDto;
     const skip = (page - 1) * limit;
@@ -306,6 +300,107 @@ export class LotService {
     );
   }
 
+  async getMyActiveLots(
+    userId: string,
+    paginationDto: PaginationDto,
+  ): Promise<TApiPaginatedResponse<TBidLotItem>> {
+    const { page = 1, limit = 10 } = paginationDto;
+    const skip = (page - 1) * limit;
+
+    const lotIds = await this.getUserLotIds(userId);
+
+    if (lotIds.length === 0) {
+      return ApiPaginatedResponse.success(
+        [],
+        0,
+        page,
+        limit,
+        'Нет активных ставок',
+      );
+    }
+
+    const [lots, total] = await this.lotRepository.findAndCount({
+      where: {
+        id: In(lotIds),
+        status: LOT_STATUSES.ACTIVE,
+        endTime: MoreThan(new Date()),
+      },
+      relations: ['product', 'product.media', 'bids'],
+      order: { endTime: 'ASC' },
+      skip,
+      take: limit,
+    });
+
+    const items = lots.map((lot) => this.lotMapper.toBidLotItem(lot, userId));
+
+    return ApiPaginatedResponse.success(
+      items,
+      total,
+      page,
+      limit,
+      'Активные лоты успешно получены',
+    );
+  }
+
+  async getMyActiveLotsCount(userId: string): Promise<TApiResponse<number>> {
+    const lotIds = await this.getUserLotIds(userId);
+
+    if (lotIds.length === 0) {
+      return ApiResponse.success(0, 'Количество активных ставок получено');
+    }
+
+    const count = await this.lotRepository.count({
+      where: {
+        id: In(lotIds),
+        status: LOT_STATUSES.ACTIVE,
+        endTime: MoreThan(new Date()),
+      },
+    });
+
+    return ApiResponse.success(count, 'Количество активных ставок получено');
+  }
+
+  async getMyBidsHistory(
+    userId: string,
+    paginationDto: PaginationDto,
+  ): Promise<TApiPaginatedResponse<TBidLotItem>> {
+    const { page = 1, limit = 10 } = paginationDto;
+    const skip = (page - 1) * limit;
+
+    const lotIds = await this.getUserLotIds(userId);
+
+    if (lotIds.length === 0) {
+      return ApiPaginatedResponse.success(
+        [],
+        0,
+        page,
+        limit,
+        'История ставок пуста',
+      );
+    }
+
+    const [lots, total] = await this.lotRepository.findAndCount({
+      where: {
+        id: In(lotIds),
+        status: In([LOT_STATUSES.COMPLETED, LOT_STATUSES.EXPIRED]),
+      },
+      relations: ['product', 'product.media', 'bids'],
+      order: { updatedAt: 'DESC' },
+      skip,
+      take: limit,
+    });
+
+    const items = lots.map((lot) => this.lotMapper.toBidLotItem(lot, userId));
+
+    return ApiPaginatedResponse.success(
+      items,
+      total,
+      page,
+      limit,
+      'История ставок успешно получена',
+    );
+  }
+
   async createLot(
     userId: string,
     dto: CreateLotDto,
@@ -347,226 +442,12 @@ export class LotService {
     return ApiResponse.success(lot, 'Лот успешно создан');
   }
 
-  async updateLot(
-    userId: string,
-    lotId: string,
-    dto: UpdateLotDto,
-  ): Promise<TApiResponse<LotEntity>> {
-    const lot = await this.lotRepository.findOne({
-      where: { id: lotId, sellerId: userId },
-    });
-
-    if (!lot) {
-      throw new NotFoundException('Лот не найден');
-    }
-
-    if (lot.status !== LOT_STATUSES.DRAFT) {
-      throw new BadRequestException('Нельзя редактировать активный лот');
-    }
-
-    Object.assign(lot, dto);
-
-    if (dto.startPrice !== undefined) {
-      lot.currentPrice = dto.startPrice;
-    }
-
-    await this.lotRepository.save(lot);
-
-    return ApiResponse.success(lot, 'Лот успешно обновлён');
-  }
-
-  async deleteLot(userId: string, lotId: string): Promise<TApiResponse<null>> {
-    const lot = await this.lotRepository.findOne({
-      where: { id: lotId, sellerId: userId },
-    });
-
-    if (!lot) {
-      throw new NotFoundException('Лот не найден');
-    }
-
-    if (lot.status !== LOT_STATUSES.DRAFT) {
-      throw new BadRequestException('Нельзя удалить активный лот');
-    }
-
-    await this.lotRepository.remove(lot);
-
-    return ApiResponse.success(null, 'Лот успешно удалён');
-  }
-
-  async getMyActiveLots(
-    userId: string,
-    paginationDto: PaginationDto,
-  ): Promise<TApiPaginatedResponse<any>> {
-    const { page = 1, limit = 10 } = paginationDto;
-    const skip = (page - 1) * limit;
-
+  private async getUserLotIds(userId: string): Promise<string[]> {
     const userBids = await this.bidRepository.find({
       where: { userId },
       select: ['lotId'],
     });
 
-    const lotIds = [...new Set(userBids.map((b) => b.lotId))];
-
-    if (lotIds.length === 0) {
-      return ApiPaginatedResponse.success(
-        [],
-        0,
-        page,
-        limit,
-        'Нет активных ставок',
-      );
-    }
-
-    const [lots, total] = await this.lotRepository.findAndCount({
-      where: {
-        id: In(lotIds),
-        status: LOT_STATUSES.ACTIVE,
-        endTime: MoreThan(new Date()),
-      },
-      relations: ['product', 'product.media', 'bids'],
-      order: { endTime: 'ASC' },
-      skip,
-      take: limit,
-    });
-
-    const items = lots.map((lot) => {
-      const userBidsOnLot = lot.bids?.filter((b) => b.userId === userId) || [];
-      const yourMaxBid = userBidsOnLot.reduce(
-        (max, b) => Math.max(max, b.amount),
-        0,
-      );
-      const highestBid =
-        lot.bids?.reduce((max, b) => Math.max(max, b.amount), 0) ||
-        lot.currentPrice;
-
-      return {
-        id: lot.id,
-        product: lot.product,
-        currentPrice: lot.currentPrice,
-        yourBid: yourMaxBid,
-        endTime: lot.endTime,
-        isLeading: yourMaxBid === highestBid,
-        yourBidsCount: userBidsOnLot.length,
-      };
-    });
-
-    return ApiPaginatedResponse.success(
-      items,
-      total,
-      page,
-      limit,
-      'Активные лоты успешно получены',
-    );
-  }
-
-  async getMyActiveLotsCount(userId: string): Promise<TApiResponse<number>> {
-    const userBids = await this.bidRepository.find({
-      where: { userId },
-      select: ['lotId'],
-    });
-
-    const lotIds = [...new Set(userBids.map((b) => b.lotId))];
-
-    if (lotIds.length === 0) {
-      return ApiResponse.success(0, 'Количество активных ставок получено');
-    }
-
-    const count = await this.lotRepository.count({
-      where: {
-        id: In(lotIds),
-        status: LOT_STATUSES.ACTIVE,
-        endTime: MoreThan(new Date()),
-      },
-    });
-
-    return ApiResponse.success(count, 'Количество активных ставок получено');
-  }
-
-  async getMyBidsHistory(
-    userId: string,
-    paginationDto: PaginationDto,
-  ): Promise<TApiPaginatedResponse<any>> {
-    const { page = 1, limit = 10 } = paginationDto;
-    const skip = (page - 1) * limit;
-
-    const userBids = await this.bidRepository.find({
-      where: { userId },
-      select: ['lotId'],
-    });
-
-    const lotIds = [...new Set(userBids.map((b) => b.lotId))];
-
-    if (lotIds.length === 0) {
-      return ApiPaginatedResponse.success(
-        [],
-        0,
-        page,
-        limit,
-        'История ставок пуста',
-      );
-    }
-
-    const [lots, total] = await this.lotRepository.findAndCount({
-      where: {
-        id: In(lotIds),
-        status: In([
-          LOT_STATUSES.COMPLETED,
-          LOT_STATUSES.EXPIRED,
-          LOT_STATUSES.CANCELLED,
-        ]),
-      },
-      relations: ['product', 'product.media', 'bids', 'winner'],
-      order: { updatedAt: 'DESC' },
-      skip,
-      take: limit,
-    });
-
-    const items = lots.map((lot) => {
-      const userBidsOnLot = lot.bids?.filter((b) => b.userId === userId) || [];
-      const yourLastBid =
-        userBidsOnLot.sort(
-          (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
-        )[0]?.amount || 0;
-
-      const isWinner = lot.winner?.id === userId;
-      let result: 'WINNING' | 'LOST' | 'EXPIRED' = 'LOST';
-
-      if (isWinner) {
-        result = 'WINNING';
-      } else if (lot.status === LOT_STATUSES.EXPIRED) {
-        result = 'EXPIRED';
-      }
-
-      return {
-        id: lot.id,
-        product: lot.product,
-        finalPrice: lot.currentPrice,
-        yourLastBid,
-        result,
-        endedAt: lot.updatedAt,
-        yourBidsCount: userBidsOnLot.length,
-      };
-    });
-
-    return ApiPaginatedResponse.success(
-      items,
-      total,
-      page,
-      limit,
-      'История ставок успешно получена',
-    );
-  }
-
-  async findById(id: string): Promise<LotEntity> {
-    const lot = await this.lotRepository.findOne({
-      where: { id },
-      relations: ['bids'],
-    });
-
-    if (!lot) {
-      throw new NotFoundException('Лот не найден');
-    }
-
-    return lot;
+    return [...new Set(userBids.map((b) => b.lotId))];
   }
 }

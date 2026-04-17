@@ -1,13 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Patch,
-  Delete,
-  Param,
-  Body,
-  Query,
-} from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, Query } from '@nestjs/common';
 import {
   ApiTags,
   ApiBearerAuth,
@@ -23,13 +14,11 @@ import { LotService } from './lot.service';
 import { PaginationDto } from '@/common';
 import {
   CreateLotDto,
-  UpdateLotDto,
   LotPaginatedResponseDto,
   LotDetailsResponseDto,
   LotActionResponseDto,
-  ActiveBidLotsResponseDto,
   ActiveBidsCountResponseDto,
-  BidHistoryLotsResponseDto,
+  BidLotItemsResponseDto,
 } from './dto';
 import { LOT_API_PROPERTIES, LOT_STATUSES } from './constants';
 
@@ -64,12 +53,8 @@ export class LotController {
     type: String,
   })
   @Get()
-  getLots(
-    @Query() paginationDto: PaginationDto,
-    @Query('status') status?: string,
-    @Query('category') category?: string,
-  ) {
-    return this.lotService.getLots(paginationDto, status, category);
+  getLots(@Query() paginationDto: PaginationDto) {
+    return this.lotService.getLots(paginationDto);
   }
 
   @ApiOperation({
@@ -80,12 +65,57 @@ export class LotController {
   })
   @ApiBearerAuth()
   @Authorization()
-  @Get('my-lots')
+  @Get('me')
   getMyLots(
     @Authorizated('id') userId: string,
     @Query() paginationDto: PaginationDto,
   ) {
     return this.lotService.getMyLots(userId, paginationDto);
+  }
+
+  @ApiOperation({
+    summary: 'Мои активные лоты (где участвую и аукцион идёт)',
+  })
+  @ApiOkResponse({
+    type: BidLotItemsResponseDto,
+  })
+  @ApiBearerAuth()
+  @Authorization()
+  @Get('me/bids/active')
+  getMyActiveLots(
+    @Authorizated('id') userId: string,
+    @Query() paginationDto: PaginationDto,
+  ) {
+    return this.lotService.getMyActiveLots(userId, paginationDto);
+  }
+
+  @ApiOperation({
+    summary: 'Количество активных лотов (для бейджа)',
+  })
+  @ApiOkResponse({
+    type: ActiveBidsCountResponseDto,
+  })
+  @ApiBearerAuth()
+  @Authorization()
+  @Get('me/bids/active/count')
+  getMyActiveLotsCount(@Authorizated('id') userId: string) {
+    return this.lotService.getMyActiveLotsCount(userId);
+  }
+
+  @ApiOperation({
+    summary: 'История ставок (все лоты, где участвовал)',
+  })
+  @ApiOkResponse({
+    type: BidLotItemsResponseDto,
+  })
+  @ApiBearerAuth()
+  @Authorization()
+  @Get('me/bids/history')
+  getMyBidsHistory(
+    @Authorizated('id') userId: string,
+    @Query() paginationDto: PaginationDto,
+  ) {
+    return this.lotService.getMyBidsHistory(userId, paginationDto);
   }
 
   @ApiOperation({
@@ -113,80 +143,5 @@ export class LotController {
   @Post()
   createLot(@Authorizated('id') userId: string, @Body() dto: CreateLotDto) {
     return this.lotService.createLot(userId, dto);
-  }
-
-  @ApiOperation({
-    summary: 'Обновить лот',
-  })
-  @ApiOkResponse({
-    type: LotActionResponseDto,
-  })
-  @ApiBearerAuth()
-  @Authorization()
-  @Patch(':id')
-  updateLot(
-    @Authorizated('id') userId: string,
-    @Param('id') lotId: string,
-    @Body() dto: UpdateLotDto,
-  ) {
-    return this.lotService.updateLot(userId, lotId, dto);
-  }
-
-  @ApiOperation({
-    summary: 'Удалить лот (черновик)',
-  })
-  @ApiOkResponse({
-    type: LotActionResponseDto,
-  })
-  @ApiBearerAuth()
-  @Authorization()
-  @Delete(':id')
-  deleteLot(@Authorizated('id') userId: string, @Param('id') lotId: string) {
-    return this.lotService.deleteLot(userId, lotId);
-  }
-
-  @ApiOperation({
-    summary: 'Мои активные лоты (где участвую и аукцион идёт)',
-  })
-  @ApiOkResponse({
-    type: ActiveBidLotsResponseDto,
-  })
-  @ApiBearerAuth()
-  @Authorization()
-  @Get('my/active')
-  getMyActiveLots(
-    @Authorizated('id') userId: string,
-    @Query() paginationDto: PaginationDto,
-  ) {
-    return this.lotService.getMyActiveLots(userId, paginationDto);
-  }
-
-  @ApiOperation({
-    summary: 'Количество активных лотов (для бейджа)',
-  })
-  @ApiOkResponse({
-    type: ActiveBidsCountResponseDto,
-  })
-  @ApiBearerAuth()
-  @Authorization()
-  @Get('my/active/count')
-  getMyActiveLotsCount(@Authorizated('id') userId: string) {
-    return this.lotService.getMyActiveLotsCount(userId);
-  }
-
-  @ApiOperation({
-    summary: 'История ставок (все лоты, где участвовал)',
-  })
-  @ApiOkResponse({
-    type: BidHistoryLotsResponseDto,
-  })
-  @ApiBearerAuth()
-  @Authorization()
-  @Get('my/history')
-  getMyBidsHistory(
-    @Authorizated('id') userId: string,
-    @Query() paginationDto: PaginationDto,
-  ) {
-    return this.lotService.getMyBidsHistory(userId, paginationDto);
   }
 }

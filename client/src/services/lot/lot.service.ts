@@ -34,7 +34,7 @@ export const lotAPI = baseAPI.injectEndpoints({
 
     getMyLots: build.query<TLotsResponse, TPaginationParams>({
       query: (params: TPaginationParams = { page: 1, limit: 10 }) => ({
-        url: "/lots/my-lots",
+        url: "/lots/me",
         params: {
           page: params.page,
           limit: params.limit,
@@ -74,32 +74,6 @@ export const lotAPI = baseAPI.injectEndpoints({
         { type: LOT_TAGS.DETAIL.type, id: lotId },
       ],
     }),
-
-    cancelLot: build.mutation<TLotDetails, string>({
-      query: (lotId: string) => ({
-        url: `/lots/${lotId}/cancel`,
-        method: "PATCH",
-      }),
-      invalidatesTags: (_, __, lotId) => [
-        LOT_TAGS.MY_LOTS,
-        { type: LOT_TAGS.DETAIL.type, id: lotId },
-      ],
-      transformResponse: (response: TServerResponse<TLotDetails>) =>
-        response.data,
-    }),
-
-    activateLot: build.mutation<TLotDetails, string>({
-      query: (lotId: string) => ({
-        url: `/lots/${lotId}/activate`,
-        method: "PATCH",
-      }),
-      invalidatesTags: (_, __, lotId) => [
-        LOT_TAGS.MY_LOTS,
-        { type: LOT_TAGS.DETAIL.type, id: lotId },
-      ],
-      transformResponse: (response: TServerResponse<TLotDetails>) =>
-        response.data,
-    }),
   }),
 });
 
@@ -108,6 +82,4 @@ export const {
   useGetMyLotsQuery,
   useGetLotByIdQuery,
   useGetAllLotsQuery,
-  useCancelLotMutation,
-  useActivateLotMutation,
 } = lotAPI;

@@ -13,12 +13,6 @@ export class LotListItemDto {
   @ApiProperty()
   minBidIncrement: number;
 
-  @ApiProperty()
-  startTime: Date;
-
-  @ApiProperty()
-  endTime: Date;
-
   @ApiProperty({ enum: LOT_STATUSES })
   status: TLotStatus;
 
@@ -27,6 +21,12 @@ export class LotListItemDto {
 
   @ApiProperty()
   product: ProductListItemDto;
+
+  @ApiProperty()
+  startTime: Date;
+
+  @ApiProperty()
+  endTime: Date;
 
   @ApiProperty()
   createdAt: Date;

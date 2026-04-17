@@ -32,9 +32,22 @@ export class BidController {
     description: 'Ставки лота успешно получены',
     type: BidPaginatedResponseDto,
   })
-  @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
-  @ApiQuery({ name: 'limit', required: false, type: Number, example: 10 })
-  @ApiParam({ name: 'lotId', description: 'ID лота' })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    type: Number,
+    example: 1,
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    example: 10,
+  })
+  @ApiParam({
+    name: 'lotId',
+    description: 'ID лота',
+  })
   @Authorization()
   @Get()
   getLotBids(

@@ -2,6 +2,7 @@ import { formatMediaUrl } from '@/common/utils';
 import { ProductMapper } from '@/modules/product/mappers';
 import { LotEntity } from '../entities';
 import { LotListItemDto, LotDetailsDto } from '../dto';
+import { TBidLotItem } from '../types';
 
 export class LotMapper {
   public readonly productMapper: ProductMapper;
@@ -50,5 +51,25 @@ export class LotMapper {
 
   toListItemArray(lots: LotEntity[]): LotListItemDto[] {
     return lots.map((lot) => this.toListItem(lot));
+  }
+
+  toBidLotItem(lot: LotEntity, userId: string): TBidLotItem {
+    const userBidsOnLot = lot.bids?.filter((b) => b.userId === userId) || [];
+    const yourMaxBid = userBidsOnLot.reduce(
+      (max, b) => Math.max(max, b.amount),
+      0,
+    );
+    const highestBid =
+      lot.bids?.reduce((max, b) => Math.max(max, b.amount), 0) ||
+      lot.currentPrice;
+
+    return {
+      id: lot.id,
+      status: lot.status,
+      product: this.productMapper.toListItem(lot.product),
+      currentPrice: lot.currentPrice,
+      endTime: lot.endTime,
+      isLeading: yourMaxBid === highestBid,
+    };
   }
 }
