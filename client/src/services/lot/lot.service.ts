@@ -1,4 +1,4 @@
-import { TLotDetails, TLotListItem } from "@/shared/types";
+import { TBidLotItem, TLotDetails, TLotListItem } from "@/shared/types";
 import {
   baseAPI,
   TPaginatedResponse,
@@ -6,7 +6,13 @@ import {
   TServerResponse,
 } from "../base";
 import { LOT_TAGS } from "./constants";
-import { TCreateLotRequest, TCreateLotResponse, TLotsResponse } from "./types";
+import {
+  TCreateLotRequest,
+  TCreateLotResponse,
+  TLotsResponse,
+  TBidLotsResponse,
+  TActiveBidsCountResponse,
+} from "./types";
 
 export const lotAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
@@ -54,6 +60,58 @@ export const lotAPI = baseAPI.injectEndpoints({
           : [LOT_TAGS.MY_LOTS],
     }),
 
+    getMyActiveBids: build.query<TBidLotsResponse, TPaginationParams>({
+      query: (params: TPaginationParams = { page: 1, limit: 10 }) => ({
+        url: "/lots/me/bids/active",
+        params: {
+          page: params.page,
+          limit: params.limit,
+        },
+      }),
+      transformResponse: (response: TPaginatedResponse<TBidLotItem>) =>
+        response.data,
+      providesTags: (result) =>
+        result?.items
+          ? [
+              ...result.items.map(({ id }) => ({
+                type: LOT_TAGS.MY_ACTIVE_BIDS.type,
+                id,
+              })),
+              LOT_TAGS.MY_ACTIVE_BIDS,
+            ]
+          : [LOT_TAGS.MY_ACTIVE_BIDS],
+    }),
+
+    getMyActiveBidsCount: build.query<number, void>({
+      query: () => ({
+        url: "/lots/me/bids/active/count",
+      }),
+      transformResponse: (response: TActiveBidsCountResponse) => response.data,
+      providesTags: [LOT_TAGS.MY_ACTIVE_BIDS_COUNT],
+    }),
+
+    getMyBidsHistory: build.query<TBidLotsResponse, TPaginationParams>({
+      query: (params: TPaginationParams = { page: 1, limit: 10 }) => ({
+        url: "/lots/me/bids/history",
+        params: {
+          page: params.page,
+          limit: params.limit,
+        },
+      }),
+      transformResponse: (response: TPaginatedResponse<TBidLotItem>) =>
+        response.data,
+      providesTags: (result) =>
+        result?.items
+          ? [
+              ...result.items.map(({ id }) => ({
+                type: LOT_TAGS.MY_BIDS_HISTORY.type,
+                id,
+              })),
+              LOT_TAGS.MY_BIDS_HISTORY,
+            ]
+          : [LOT_TAGS.MY_BIDS_HISTORY],
+    }),
+
     createLot: build.mutation<TLotDetails, TCreateLotRequest>({
       query: (formData) => ({
         url: "/lots",
@@ -82,4 +140,7 @@ export const {
   useGetMyLotsQuery,
   useGetLotByIdQuery,
   useGetAllLotsQuery,
+  useGetMyActiveBidsQuery,
+  useGetMyActiveBidsCountQuery,
+  useGetMyBidsHistoryQuery,
 } = lotAPI;

@@ -1,18 +1,18 @@
 import { FC } from "react";
-import { useGetMyLotsQuery } from "@/services";
+import { useGetMyActiveBidsQuery } from "@/services";
 import { usePagination } from "@/hooks/usePagination";
-import { Pagination, UserLotsUI } from "@/components/elements";
+import { Pagination, BidLotsListUI } from "@/components/elements";
 
-export const UserLots: FC = () => {
+export const ActiveBidLotsList: FC = () => {
   const { page, limit, defaultPagination, handlePageChange } = usePagination();
 
-  const { data, isLoading } = useGetMyLotsQuery({ page, limit });
+  const { data, isLoading } = useGetMyActiveBidsQuery({ page, limit });
   const pagination = data?.meta || defaultPagination;
 
   return (
     <>
-      <UserLotsUI isLoading={isLoading} lots={data?.items ?? []} />
-      {data && (
+      <BidLotsListUI isLoading={isLoading} lots={data?.items ?? []} />
+      {data && !!data.items.length && (
         <Pagination
           count={data.meta.totalPages}
           page={pagination.page}

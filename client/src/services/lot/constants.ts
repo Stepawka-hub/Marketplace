@@ -13,4 +13,16 @@ export const LOT_TAGS = {
     type: LOT_TAG_TYPE,
     id: "DETAIL",
   },
+  MY_ACTIVE_BIDS: {
+    type: LOT_TAG_TYPE,
+    id: "MY_ACTIVE_BIDS",
+  },
+  MY_BIDS_HISTORY: {
+    type: LOT_TAG_TYPE,
+    id: "MY_BIDS_HISTORY",
+  },
+  MY_ACTIVE_BIDS_COUNT: {
+    type: LOT_TAG_TYPE,
+    id: "MY_ACTIVE_BIDS_COUNT",
+  },
 } as const;

@@ -1,6 +1,6 @@
 import { SxProps } from "@mui/material";
 
-export const lotsContainer: SxProps = {
+export const containerStyle: SxProps = {
   display: "grid",
   gridTemplateColumns: {
     xs: "1fr",

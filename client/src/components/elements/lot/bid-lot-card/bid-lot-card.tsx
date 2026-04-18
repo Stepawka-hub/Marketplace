@@ -1,6 +1,11 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { getStatusColor } from "@/shared/helpers";
+import { ROUTES } from "@/config/routes";
+import { LOT_STATUSES } from "@/shared/constants";
+
+import { CountdownTimer } from "@/components/containers";
 import {
   Box,
   Typography,
@@ -10,9 +15,6 @@ import {
   Tooltip,
 } from "@mui/material";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
-import { getStatusColor } from "@/shared/helpers";
-import { ROUTES } from "@/config/routes";
-import { LOT_STATUSES } from "@/shared/constants";
 import {
   compactCardContainer,
   compactCardImage,
@@ -27,15 +29,13 @@ import {
   winnerIconStyle,
   chipContainer,
 } from "./styles";
-import { TCompactLotCard } from "./type";
-import { CountdownTimer } from "@/components/containers";
+import { TBidLotCard } from "./type";
 
-export const CompactLotCard: FC<TCompactLotCard> = ({ lot }) => {
+export const BidLotCard: FC<TBidLotCard> = ({ lot }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const { id, product, startPrice, currentPrice, endTime, status } = lot;
-  const displayPrice = currentPrice || startPrice;
+  const { id, product, currentPrice, endTime, status } = lot;
 
   const handleNavigateToLotPage = () => {
     navigate(ROUTES.CATALOG_LOT(id));
@@ -81,7 +81,7 @@ export const CompactLotCard: FC<TCompactLotCard> = ({ lot }) => {
               <Typography variant="caption" color="text.secondary">
                 {t("lot.current-price")}:
               </Typography>
-              <Typography sx={priceStyle}>{displayPrice} ₽</Typography>
+              <Typography sx={priceStyle}>{currentPrice} ₽</Typography>
             </Box>
 
             {status === LOT_STATUSES.ACTIVE && (

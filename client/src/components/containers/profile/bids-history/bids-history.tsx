@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Typography } from "@mui/material";
-import { UserLots } from "@/components/containers";
+import { BidHistoryLotsList } from "@/components/containers";
 import { titleStyle } from "./styles";
 
 export const BidsHistory: FC = () => {
@@ -10,7 +10,7 @@ export const BidsHistory: FC = () => {
   return (
     <>
       <Typography sx={titleStyle}>{t("profile.bids-history.title")}</Typography>
-      <UserLots />
+      <BidHistoryLotsList />
     </>
   );
 };

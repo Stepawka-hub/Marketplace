@@ -71,7 +71,7 @@ export class LotEntity {
   @Column({
     type: 'enum',
     enum: LOT_STATUSES,
-    default: LOT_STATUSES.DRAFT,
+    default: LOT_STATUSES.ACTIVE,
   })
   status: TLotStatus;
 

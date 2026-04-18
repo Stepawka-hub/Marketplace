@@ -23,3 +23,12 @@ export type TLotDetails = TLotBase & {
 export type TLotListItem = TLotBase & {
   product: TProductListItem;
 };
+
+export type TBidLotItem = {
+  id: string;
+  status: TLotStatus;
+  product: TProductListItem;
+  currentPrice: number;
+  endTime: string;
+  isLeading: boolean;
+};
