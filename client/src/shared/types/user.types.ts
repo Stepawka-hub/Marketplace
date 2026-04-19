@@ -13,3 +13,10 @@ export type TUserData = {
   avatar: string;
   role: TUserRole;
 };
+
+export type TShortUserData = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  avatar: string;
+};

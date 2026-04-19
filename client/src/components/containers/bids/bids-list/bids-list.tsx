@@ -1,21 +1,22 @@
 import { FC } from "react";
-import { useNavigate } from "react-router-dom";
-import { ROUTES } from "@/config/routes";
 import { usePagination } from "@/hooks/usePagination";
+import { useGetLotBidsQuery } from "@/services/bid";
 
-import { BidsListUI, Pagination } from "@/components/elements";
-import { Loader } from '@/components/ui';
+import { BidsListUI, NotFound, Pagination } from "@/components/elements";
+import { Loader } from "@/components/ui";
 import { Grid } from "@mui/material";
 import { gridStyle } from "./styles";
+import { TBidsListProps } from "./type";
 
-export const BidsList: FC = () => {
-  return null;
-  const navigate = useNavigate();
+export const BidsList: FC<TBidsListProps> = ({ lotId }) => {
   const { page, limit, defaultPagination, handlePageChange } = usePagination();
+  const { data, isLoading } = useGetLotBidsQuery({
+    lotId,
+    params: { page, limit },
+  });
 
-  
   if (!data) {
-    return;
+    return <NotFound />;
   }
 
   if (isLoading) {
@@ -24,22 +25,11 @@ export const BidsList: FC = () => {
 
   const pagination = data.meta || defaultPagination;
 
-  const handleDelete = (id: string) => {
-  };
-
-  const handleCardClick = (id: string) => {
-    navigate(ROUTES.CATALOG_LOT(id));
-  };
-
   return (
     <Grid container sx={gridStyle}>
-      <BidsListUI
-        items={data.items}
-        handleDelete={handleDelete}
-        handleCardClick={handleCardClick}
-      />
+      <BidsListUI items={data.items} />
       <Pagination
-        count={data.meta.totalPages}
+        count={pagination.totalPages}
         page={pagination.page}
         showFirstButton
         showLastButton

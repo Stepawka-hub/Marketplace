@@ -1,12 +1,21 @@
 import { FC } from "react";
-import { BackButton, LotDetails } from "@/components/containers";
+import { useParams } from "react-router-dom";
+import { BackButton, BidsList, LotDetails } from "@/components/containers";
+import { NotFound } from "@/components/elements";
 import { PageContainer } from "@/components/ui";
 
 export const LotPage: FC = () => {
+  const { lotId } = useParams<"lotId">();
+
+  if (!lotId) {
+    return <NotFound />;
+  }
+
   return (
     <PageContainer>
       <BackButton />
-      <LotDetails />
+      <LotDetails lotId={lotId} />
+      <BidsList lotId={lotId} />
     </PageContainer>
   );
 };

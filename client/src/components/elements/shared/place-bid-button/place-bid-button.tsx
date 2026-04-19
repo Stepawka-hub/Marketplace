@@ -2,12 +2,10 @@ import { FC, MouseEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@mui/material";
 import GavelIcon from "@mui/icons-material/Gavel";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { TPlaceBidButtonUIProps } from "./type";
 
 export const PlaceBidButtonUI: FC<TPlaceBidButtonUIProps> = ({
-  isPlaced,
-  disabled,
+  isPlacing = false,
   handleAction,
 }) => {
   const { t } = useTranslation();
@@ -21,13 +19,11 @@ export const PlaceBidButtonUI: FC<TPlaceBidButtonUIProps> = ({
     <Button
       variant="contained"
       fullWidth
-      startIcon={isPlaced ? <CheckCircleIcon /> : <GavelIcon />}
-      disabled={disabled}
+      startIcon={<GavelIcon />}
+      disabled={isPlacing}
       onClick={onClick}
     >
-      {isPlaced
-        ? t("product.buttons.bid-placed")
-        : t("product.buttons.place-bid")}
+      {t(isPlacing ? "bid.actions.placing-bid" : "bid.actions.place-bid")}
     </Button>
   );
 };

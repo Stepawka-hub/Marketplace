@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { UserEntity } from '@/modules/user/entities';
 import { BID_API_PROPERTIES } from '../../constants';
 import { COMMON_API_PROPERTIES } from '@/common';
+import { ShortUserDataDto } from '@/modules/user/dto';
 
 export class BidDetailsDto {
   @ApiProperty(BID_API_PROPERTIES.ID)
@@ -17,5 +18,5 @@ export class BidDetailsDto {
   createdAt: Date;
 
   @ApiProperty({ type: () => UserEntity })
-  user: Pick<UserEntity, 'id' | 'firstName' | 'lastName'>;
+  user: ShortUserDataDto;
 }

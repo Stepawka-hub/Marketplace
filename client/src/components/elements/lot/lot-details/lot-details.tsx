@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { ProductImages } from "@/components/containers";
-import { ProductMeta, ProductPurchase } from "@/components/elements";
+import { ProductMeta, LotPurchase } from "@/components/elements";
 import { Box, Divider, Grid, Typography } from "@mui/material";
 import {
   dividerStyle,
@@ -27,11 +27,7 @@ export const LotDetailsUI: FC<TLotDetailsUIProps> = ({ lot }) => {
         </Grid>
 
         <Grid sx={productContentStyle}>
-          <ProductPurchase
-            productId={id}
-            sellerId={seller.id}
-            price={currentPrice}
-          />
+          <LotPurchase lotId={id} sellerId={seller.id} price={currentPrice} />
           <ProductMeta
             seller={seller}
             attributes={[]}

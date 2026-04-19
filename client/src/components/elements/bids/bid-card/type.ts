@@ -1,6 +1,5 @@
-import { TBid } from '@/shared/types';
+import { TBid } from "@/shared/types";
 
 export type TBidCardProps = {
   bid: TBid;
-  handleCardClick: (id: string) => void;
 };

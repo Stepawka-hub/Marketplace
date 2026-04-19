@@ -1,13 +1,13 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Box, Paper, Typography } from "@mui/material";
-import { TProductPurchaseProps } from "./type";
-import { contentBoxStyle, priceStyle, wrapperStyle } from "./styles";
-import { PlaceBidButton, LikeButton } from "@/components/containers";
 import { formattedWithSpace } from "@/shared/helpers";
+import { PlaceBidButton, LikeButton } from "@/components/containers";
+import { Box, Paper, Typography } from "@mui/material";
+import { contentBoxStyle, priceStyle, wrapperStyle } from "./styles";
+import { TLotPurchaseProps } from "./type";
 
-export const ProductPurchase: FC<TProductPurchaseProps> = ({
-  productId,
+export const LotPurchase: FC<TLotPurchaseProps> = ({
+  lotId,
   sellerId,
   price,
 }) => {
@@ -18,9 +18,9 @@ export const ProductPurchase: FC<TProductPurchaseProps> = ({
     <Paper variant="outlined" sx={wrapperStyle}>
       <Box sx={contentBoxStyle}>
         <Typography sx={priceStyle}>{formattedPrice} ₽</Typography>
-        <LikeButton productId={productId} />
+        <LikeButton lotId={lotId} />
       </Box>
-      <PlaceBidButton productId={productId} sellerId={sellerId} />
+      <PlaceBidButton lotId={lotId} sellerId={sellerId} />
     </Paper>
   );
 };

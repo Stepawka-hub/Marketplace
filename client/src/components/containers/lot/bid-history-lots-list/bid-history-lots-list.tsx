@@ -1,8 +1,7 @@
 import { FC } from "react";
 import { usePagination } from "@/hooks/usePagination";
 import { useGetMyBidsHistoryQuery } from "@/services";
-import { BidLotsListUI } from "@/components/elements";
-import { Pagination } from "@mui/material";
+import { BidLotsListUI, Pagination } from "@/components/elements";
 
 export const BidHistoryLotsList: FC = () => {
   const { page, limit, defaultPagination, handlePageChange } = usePagination();

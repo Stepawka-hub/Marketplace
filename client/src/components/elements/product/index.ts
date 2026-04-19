@@ -1,4 +1,3 @@
-export * from "./product-purchase";
 export * from "./product-meta";
 export * from "./product-list";
 export * from "./product-card";

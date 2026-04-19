@@ -5,6 +5,7 @@ import { BidService } from './bid.service';
 import { BidEntity } from './entities';
 import { LotModule } from '../lot';
 import { UserModule } from '../user';
+import { StorageModule } from '../storage';
 import { LotEntity } from '../lot/entities';
 
 @Module({
@@ -12,6 +13,7 @@ import { LotEntity } from '../lot/entities';
     TypeOrmModule.forFeature([BidEntity, LotEntity]),
     LotModule,
     UserModule,
+    StorageModule,
   ],
   controllers: [BidController],
   providers: [BidService],

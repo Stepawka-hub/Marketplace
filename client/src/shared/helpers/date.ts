@@ -1,4 +1,10 @@
-import { intervalToDuration, isBefore } from "date-fns";
+import {
+  formatDistanceToNowStrict,
+  intervalToDuration,
+  isBefore,
+  parseISO,
+} from "date-fns";
+import { ru, enUS } from "date-fns/locale";
 
 export const formatTimeLeft = (endTime: string): string => {
   const end = new Date(endTime);
@@ -18,4 +24,15 @@ export const formatTimeLeft = (endTime: string): string => {
   }
 
   return `${formatNumber(hours)}:${formatNumber(minutes)}:${formatNumber(seconds)}`;
+};
+export const formatRelativeTime = (
+  date: Date | string,
+  locale: "ru" | "en" = "ru",
+): string => {
+  const targetDate = typeof date === "string" ? parseISO(date) : date;
+
+  return formatDistanceToNowStrict(targetDate, {
+    addSuffix: true,
+    locale: locale === "ru" ? ru : enUS,
+  });
 };

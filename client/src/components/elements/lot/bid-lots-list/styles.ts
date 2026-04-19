@@ -4,7 +4,7 @@ export const containerStyle: SxProps = {
   display: "grid",
   gridTemplateColumns: {
     xs: "1fr",
-    lg: "repeat(2, 1fr)",
+    xl: "repeat(2, 1fr)",
   },
   gap: {
     xs: 1,

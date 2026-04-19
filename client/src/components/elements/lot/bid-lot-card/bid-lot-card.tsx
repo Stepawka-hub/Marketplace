@@ -35,13 +35,11 @@ export const BidLotCard: FC<TBidLotCard> = ({ lot }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const { id, product, currentPrice, endTime, status } = lot;
+  const { id, product, currentPrice, endTime, status, isLeading } = lot;
 
   const handleNavigateToLotPage = () => {
     navigate(ROUTES.CATALOG_LOT(id));
   };
-
-  const isLeading = true;
 
   return (
     <Box sx={compactCardStyle} onClick={handleNavigateToLotPage}>

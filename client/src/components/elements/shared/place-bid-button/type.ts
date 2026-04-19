@@ -1,5 +1,4 @@
 export type TPlaceBidButtonUIProps = {
-  isPlaced: boolean;
-  disabled: boolean;
+  isPlacing?: boolean;
   handleAction: () => void;
 };

@@ -1,4 +1,4 @@
 export type TPlaceBidButtonProps = {
-  productId: string;
+  lotId: string;
   sellerId: string;
 };

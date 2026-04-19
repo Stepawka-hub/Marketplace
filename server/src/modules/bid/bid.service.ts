@@ -5,27 +5,40 @@ import {
   BadRequestException,
   NotFoundException,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
 import { UserService } from '@/modules/user/user.service';
 import { LotEntity } from '@/modules/lot/entities';
 import { BidEntity } from './entities';
+import { StorageService } from '../storage';
 
 import { ApiPaginatedResponse, ApiResponse } from '@/common/helpers';
 import { PaginationDto } from '@/common';
 import { CreateBidDto } from './dto';
-import { TBidActionResponse, TBidPaginatedResponse } from './types';
 import { LOT_STATUSES } from '../lot/constants';
 import { BID_STATUSES } from './constants';
+import { TBidActionResponse, TBidPaginatedResponse } from './types';
+import { BidMapper } from './mappers';
 
 @Injectable()
 export class BidService {
+  private readonly baseUrl: string;
+  private readonly bidMapper: BidMapper;
+
   constructor(
     @InjectRepository(BidEntity)
     private readonly bidRepository: Repository<BidEntity>,
     @InjectRepository(LotEntity)
     private readonly lotRepository: Repository<LotEntity>,
     private readonly userService: UserService,
-  ) {}
+    private readonly storageService: StorageService,
+    private readonly configService: ConfigService,
+  ) {
+    const domain = this.configService.getOrThrow<string>('S3_PUBLIC_DOMAIN');
+    this.baseUrl = domain.endsWith('/') ? domain : domain + '/';
+
+    this.bidMapper = new BidMapper(this.baseUrl);
+  }
 
   async getLotBids(
     lotId: string,
@@ -36,7 +49,7 @@ export class BidService {
 
     const [bids, total] = await this.bidRepository.findAndCount({
       where: { lotId },
-      relations: ['user', 'lot', 'lot.product', 'lot.product.media'],
+      relations: ['user'],
       select: {
         id: true,
         amount: true,
@@ -45,18 +58,7 @@ export class BidService {
           id: true,
           firstName: true,
           lastName: true,
-          email: true,
           avatar: true,
-        },
-        lot: {
-          id: true,
-          currentPrice: true,
-          product: {
-            id: true,
-            name: true,
-            shortDescription: true,
-            media: true,
-          },
         },
         createdAt: true,
       },
@@ -69,7 +71,7 @@ export class BidService {
     });
 
     return ApiPaginatedResponse.success(
-      bids,
+      this.bidMapper.toDetailsArray(bids),
       total,
       page,
       limit,
@@ -148,9 +150,10 @@ export class BidService {
     }
 
     // Обновляем лот
-    lot.currentPrice = dto.amount;
-    lot.currentWinnerId = userId;
-    await this.lotRepository.save(lot);
+    await this.lotRepository.update(lotId, {
+      currentPrice: dto.amount,
+      currentWinnerId: userId,
+    });
 
     return ApiResponse.success(
       {

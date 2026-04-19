@@ -133,6 +133,10 @@
     },
     "winner-badge": {
       "tool-tip": "Вы лидируете"
+    },
+    "actions": {
+      "place-bid": "Сделать ставку",
+      "placing-bid": "Размещение ставки..."
     }
   },
 
@@ -153,8 +157,6 @@
       "label": "Продавец"
     },
     "buttons": {
-      "place-bid": "Сделать ставку",
-      "bid-placed": "Ставка сделана",
       "add-to-favorites": "Добавить в избранное",
       "remove-from-favorites": "Убрать из избранного"
     }

@@ -4,3 +4,4 @@ export * from "./bid-lots-list";
 export * from "./lot-card";
 export * from "./bid-lot-card";
 export * from "./lot-details";
+export * from "./lot-purchase";
