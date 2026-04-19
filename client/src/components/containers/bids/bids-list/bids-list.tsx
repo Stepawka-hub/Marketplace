@@ -1,33 +1,27 @@
 import { FC } from "react";
+import { useTranslation } from "react-i18next";
 import { usePagination } from "@/hooks/usePagination";
 import { useGetLotBidsQuery } from "@/services/bid";
 
-import { BidsListUI, NotFound, Pagination } from "@/components/elements";
-import { Loader } from "@/components/ui";
-import { Grid } from "@mui/material";
-import { gridStyle } from "./styles";
+import { BidsListUI, Pagination } from "@/components/elements";
+import { Grid, Typography } from "@mui/material";
+import { gridStyle, titleStyle } from "./styles";
 import { TBidsListProps } from "./type";
 
 export const BidsList: FC<TBidsListProps> = ({ lotId }) => {
+  const { t } = useTranslation();
   const { page, limit, defaultPagination, handlePageChange } = usePagination();
   const { data, isLoading } = useGetLotBidsQuery({
     lotId,
     params: { page, limit },
   });
 
-  if (isLoading) {
-    return <Loader />;
-  }
-
-  if (!data) {
-    return <NotFound />;
-  }
-
-  const pagination = data.meta || defaultPagination;
+  const pagination = data?.meta || defaultPagination;
 
   return (
     <Grid container sx={gridStyle}>
-      <BidsListUI items={data.items} />
+      <Typography sx={titleStyle}>{t("bids.list.title")}</Typography>
+      <BidsListUI items={data?.items ?? []} isLoading={isLoading} />
       <Pagination
         count={pagination.totalPages}
         page={pagination.page}

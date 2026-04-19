@@ -1,24 +1,13 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  AttributeItem,
-  ProductDescription,
-  UserAvatar,
-} from "@/components/elements";
-import { Box, Grid, List, Paper, Typography } from "@mui/material";
-import {
-  listStyle,
-  mainContainerStyle,
-  productDetailsStyle,
-  titleStyle,
-  wrapperStyle,
-} from "./styles";
+import { ProductDescription, UserAvatar } from "@/components/elements";
+import { Box, Grid, Paper, Typography } from "@mui/material";
+import { mainContainerStyle, titleStyle, wrapperStyle } from "./styles";
 import { TProductMetaProps } from "./type";
 
 export const ProductMeta: FC<TProductMetaProps> = ({
   seller,
   description = "",
-  attributes,
 }) => {
   const { t } = useTranslation();
   const { firstName, lastName, avatar } = seller;
@@ -36,25 +25,8 @@ export const ProductMeta: FC<TProductMetaProps> = ({
               lastName={lastName}
               avatar={avatar}
             />
-            <Typography>{`${seller.firstName} ${seller.lastName}`}</Typography>
+            <Typography>{`${firstName} ${lastName}`}</Typography>
           </Grid>
-        </Box>
-
-        <Box>
-          <Typography variant="h3" sx={productDetailsStyle}>
-            {t("product.details.label")}
-          </Typography>
-
-          <List sx={listStyle}>
-            {attributes.map((attr, index) => (
-              <AttributeItem
-                key={index}
-                name={attr.name}
-                value={attr.value}
-                showDivider={index + 1 !== attributes.length}
-              />
-            ))}
-          </List>
         </Box>
 
         <ProductDescription description={description} />

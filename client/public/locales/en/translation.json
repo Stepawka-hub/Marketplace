@@ -118,6 +118,10 @@
 
   "bids": {
     "title": "My bids",
+    "list": {
+      "title": "Bids list",
+      "no-bids-label": "No bids yet. Be the first! 🚀"
+    },
     "empty": {
       "title": "There are no active bets",
       "text": "You can find the products you need in the",

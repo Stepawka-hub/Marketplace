@@ -16,12 +16,3 @@ export const titleStyle: SxProps = {
   fontWeight: "600",
   mb: 1.5,
 } as const;
-
-export const productDetailsStyle: SxProps = {
-  ...titleStyle,
-  mb: 0,
-};
-
-export const listStyle: SxProps = {
-  py: 0,
-} as const;

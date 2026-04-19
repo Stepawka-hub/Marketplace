@@ -32,11 +32,7 @@ export const LotDetailsUI: FC<TLotDetailsUIProps> = ({ lot }) => {
             sellerId={seller.id}
             price={currentPrice}
           />
-          <ProductMeta
-            seller={seller}
-            attributes={[]}
-            description={description}
-          />
+          <ProductMeta seller={seller} description={description} />
         </Grid>
       </Grid>
 
