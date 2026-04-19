@@ -247,6 +247,7 @@
 
   "lot": {
     "current-price": "Текущая цена",
+    "final-price": "Финальная цена",
     "min-bid-increment": "Мин. шаг ставки",
     "time-left": "Осталось времени",
     "status": {

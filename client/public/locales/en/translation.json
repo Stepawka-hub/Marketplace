@@ -197,6 +197,7 @@
 
   "lot": {
     "current-price": "Current price",
+    "final-price": "Final price",
     "min-bid-increment": "Min bid increment",
     "time-left": "Time left",
     "status": {

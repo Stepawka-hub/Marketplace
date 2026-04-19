@@ -15,12 +15,12 @@ export const BidsList: FC<TBidsListProps> = ({ lotId }) => {
     params: { page, limit },
   });
 
-  if (!data) {
-    return <NotFound />;
-  }
-
   if (isLoading) {
     return <Loader />;
+  }
+
+  if (!data) {
+    return <NotFound />;
   }
 
   const pagination = data.meta || defaultPagination;

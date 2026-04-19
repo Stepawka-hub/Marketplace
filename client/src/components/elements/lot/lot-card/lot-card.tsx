@@ -6,7 +6,7 @@ import { BaseProductCard } from "@/components/elements";
 import { Box, Typography, Chip, Divider } from "@mui/material";
 import { ROUTES } from "@/config/routes";
 import { LOT_STATUSES } from "@/shared/constants";
-import { getStatusColor } from "@/shared/helpers";
+import { formattedWithSpace, getStatusColor } from "@/shared/helpers";
 import {
   chipStyle,
   dividerStyle,
@@ -23,10 +23,13 @@ export const LotCard: FC<TLotCardProps> = ({
   isShowLikeButton = true,
 }) => {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { id, startPrice, currentPrice, endTime, status, product } = lot;
 
-  const displayPrice = currentPrice || startPrice;
+  const displayPrice = formattedWithSpace(
+    currentPrice || startPrice,
+    i18n.language,
+  );
 
   const handleNavigateToLotPage = () => {
     navigate(ROUTES.CATALOG_LOT(id));
@@ -50,7 +53,12 @@ export const LotCard: FC<TLotCardProps> = ({
         <Divider sx={dividerStyle} />
         <Box sx={priceRowStyle}>
           <Typography variant="body2" color="text.secondary">
-            {t("lot.current-price")}:
+            {t(
+              status === LOT_STATUSES.COMPLETED
+                ? "lot.final-price"
+                : "lot.current-price",
+            )}
+            :
           </Typography>
           <Typography sx={priceTypographyStyle}>{displayPrice} ₽</Typography>
         </Box>

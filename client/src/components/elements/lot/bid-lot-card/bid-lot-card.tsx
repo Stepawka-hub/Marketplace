@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { getStatusColor } from "@/shared/helpers";
+import { formattedWithSpace, getStatusColor } from "@/shared/helpers";
 import { ROUTES } from "@/config/routes";
 import { LOT_STATUSES } from "@/shared/constants";
 
@@ -32,10 +32,12 @@ import {
 import { TBidLotCard } from "./type";
 
 export const BidLotCard: FC<TBidLotCard> = ({ lot }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
   const { id, product, currentPrice, endTime, status, isLeading } = lot;
+
+  const formattedPrice = formattedWithSpace(currentPrice, i18n.language);
 
   const handleNavigateToLotPage = () => {
     navigate(ROUTES.CATALOG_LOT(id));
@@ -79,7 +81,7 @@ export const BidLotCard: FC<TBidLotCard> = ({ lot }) => {
               <Typography variant="caption" color="text.secondary">
                 {t("lot.current-price")}:
               </Typography>
-              <Typography sx={priceStyle}>{currentPrice} ₽</Typography>
+              <Typography sx={priceStyle}>{formattedPrice} ₽</Typography>
             </Box>
 
             {status === LOT_STATUSES.ACTIVE && (

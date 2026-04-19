@@ -12,7 +12,7 @@ import {
 import { TLotDetailsUIProps } from "./types";
 
 export const LotDetailsUI: FC<TLotDetailsUIProps> = ({ lot }) => {
-  const { id, name, media, description, seller } = lot.product;
+  const { name, media, description, seller } = lot.product;
   const { currentPrice = 0 } = lot;
 
   return (
@@ -27,7 +27,11 @@ export const LotDetailsUI: FC<TLotDetailsUIProps> = ({ lot }) => {
         </Grid>
 
         <Grid sx={productContentStyle}>
-          <LotPurchase lotId={id} sellerId={seller.id} price={currentPrice} />
+          <LotPurchase
+            lotId={lot.id}
+            sellerId={seller.id}
+            price={currentPrice}
+          />
           <ProductMeta
             seller={seller}
             attributes={[]}

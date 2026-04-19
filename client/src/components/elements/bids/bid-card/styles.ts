@@ -41,7 +41,7 @@ export const leaderIconStyle: SxProps = {
 export const priceStyle = (isLeading: boolean): SxProps => ({
   fontWeight: "600",
   fontSize: isLeading ? "1.05rem" : "1rem",
-  color: isLeading ? green[600] : "primary.text.main",
+  color: isLeading ? green[500] : "primary.text.main",
   whiteSpace: "nowrap",
 });
 
