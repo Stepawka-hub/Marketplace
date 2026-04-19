@@ -7,5 +7,7 @@ export type TProfileDataUIProps = {
   email: string;
   phone?: string;
   role: TUserRole;
+  balance: number;
+  frozenBalance: number;
   onEditButtonClick: () => void;
 };

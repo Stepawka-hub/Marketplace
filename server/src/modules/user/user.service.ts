@@ -153,6 +153,8 @@ export class UserService {
       lastName: user.lastName,
       avatar: formatMediaUrl(user.avatar, this.avatarBaseUrl),
       role: user.role,
+      balance: user.balance,
+      frozenBalance: user.frozenBalance,
     };
   }
 }

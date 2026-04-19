@@ -12,6 +12,8 @@ export type TUserData = {
   lastName: string;
   avatar: string;
   role: TUserRole;
+  balance: number;
+  frozenBalance: number;
 };
 
 export type TShortUserData = {

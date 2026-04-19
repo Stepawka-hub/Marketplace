@@ -40,6 +40,7 @@ export const ThemeSwitcherUI: FC<TThemeSwitcherUIProps> = ({
           <MenuItem
             key={themeItem}
             selected={themeItem === value}
+            sx={{ minWidth: "10rem" }}
             onClick={() => handleClick(themeItem)}
           >
             <ListItemIcon>{THEME_ICONS[themeItem]}</ListItemIcon>

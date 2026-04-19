@@ -1,4 +1,5 @@
 import { SxProps } from "@mui/material";
+import { blue, green } from "@mui/material/colors";
 
 export const wrapperStyle: SxProps = {
   maxWidth: "60rem",
@@ -32,5 +33,15 @@ export const editButtonStyle: SxProps = {
     xs: "center",
     sm: "flex-start",
   },
+  fontWeight: 600,
+} as const;
+
+export const balanceValueStyle: SxProps = {
+  color: green[500],
+  fontWeight: 600,
+} as const;
+
+export const frozenBalanceValueStyle: SxProps = {
+  color: blue[500],
   fontWeight: 600,
 } as const;

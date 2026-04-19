@@ -172,7 +172,11 @@
       "tool-tip": "Войти в аккаунт"
     },
     "account-menu": {
-      "tool-tip": "Мой аккаунт"
+      "tool-tip": "Мой аккаунт",
+      "list-items": {
+        "balance": "Баланс",
+        "frozen-balance": "Замороженный баланс"
+      }
     },
     "menu-items": {
       "profile": "Профиль",
@@ -185,7 +189,9 @@
     "info-row": {
       "email": "Email",
       "phone": "Телефон",
-      "role": "Роль"
+      "role": "Роль",
+      "balance": "Баланс",
+      "frozen-balance": "Замороженный баланс"
     },
     "avatar": {
       "errors": {

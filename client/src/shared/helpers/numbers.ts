@@ -7,8 +7,10 @@ export const formattedWithSpace = (number: number, locale = "ru") =>
 
 export const calculateTotalPrice = <T extends { id: K; price: number }, K>(
   products: T[],
-  selectedIds: K[]
+  selectedIds: K[],
 ) =>
   products
     .filter((p) => selectedIds.includes(p.id))
     .reduce((sum, p) => sum + p.price, 0);
+
+export const formatBalance = (amount: number) => Math.floor(amount);

@@ -3,15 +3,30 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/config/routes";
 import { useGetMeQuery, useLogoutMutation } from "@/services";
+import { formatBalance, formattedWithSpace } from "@/shared/helpers";
 import { AccountMenuUI, UserAvatar } from "@/components/elements";
-import { Divider, ListItemIcon, MenuItem, Typography } from "@mui/material";
+import {
+  Box,
+  Divider,
+  ListItemIcon,
+  MenuItem,
+  Typography,
+} from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
-import { logoutMenuItemStyle, usernameStyle } from "./styles";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import LockIcon from "@mui/icons-material/Lock";
+import { lockIconStyle, logoutMenuItemStyle, usernameStyle } from "./styles";
 
 export const AccountMenu: FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data } = useGetMeQuery();
-  const { firstName = "", lastName = "", avatar = "" } = data || {};
+  const {
+    firstName = "",
+    lastName = "",
+    avatar = "",
+    balance = 0,
+    frozenBalance = 0,
+  } = data || {};
   const [logout, { isLoading }] = useLogoutMutation();
   const navigate = useNavigate();
 
@@ -52,7 +67,43 @@ export const AccountMenu: FC = () => {
               sx={usernameStyle}
             >{`${firstName} ${lastName}`}</Typography>
           </MenuItem>
+
           <Divider />
+
+          <MenuItem onClick={navigateToProfile}>
+            <ListItemIcon>
+              <AccountBalanceWalletIcon fontSize="small" color="success" />
+            </ListItemIcon>
+            <Box>
+              <Typography variant="caption" color="text.secondary">
+                {t("profile.account-menu.list-items.balance")}
+              </Typography>
+              <Typography fontWeight="medium">
+                {formattedWithSpace(formatBalance(balance), i18n.language)} ₽
+              </Typography>
+            </Box>
+          </MenuItem>
+
+          <MenuItem onClick={navigateToProfile}>
+            <ListItemIcon>
+              <LockIcon fontSize="small" sx={lockIconStyle} />
+            </ListItemIcon>
+            <Box>
+              <Typography variant="caption" color="text.secondary">
+                {t("profile.account-menu.list-items.frozen-balance")}
+              </Typography>
+              <Typography fontWeight="medium">
+                {formattedWithSpace(
+                  formatBalance(frozenBalance),
+                  i18n.language,
+                )}{" "}
+                ₽
+              </Typography>
+            </Box>
+          </MenuItem>
+
+          <Divider />
+
           <MenuItem
             disabled={isLoading}
             sx={logoutMenuItemStyle}
