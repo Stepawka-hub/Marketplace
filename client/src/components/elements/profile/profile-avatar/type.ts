@@ -2,7 +2,8 @@ import { ChangeEvent } from "react";
 
 export type TProfileAvatarUIProps = {
   avatar?: string;
-  initials?: string;
+  firstName?: string;
+  lastName?: string;
   acceptedTypes?: string;
   isLoading: boolean;
   error?: string | null;

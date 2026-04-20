@@ -11,6 +11,8 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { COMMON_API_PROPERTIES } from '@/common';
 import { USER_API_PROPERTIES, USER_ROLES, USER_VALIDATION } from '../constants';
 import { TUserRole } from '../types';
+import { LotEntity } from '@/modules/lot/entities';
+import { BidEntity } from '@/modules/bid/entities';
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -50,9 +52,40 @@ export class UserEntity {
   })
   role: TUserRole;
 
+  @ApiProperty(USER_API_PROPERTIES.BALANCE)
+  @Column({
+    type: 'decimal',
+    precision: USER_VALIDATION.BALANCE.PRECISION,
+    scale: USER_VALIDATION.BALANCE.SCALE,
+    default: USER_VALIDATION.BALANCE.DEFAULT,
+  })
+  balance: number;
+
+  @ApiProperty(USER_API_PROPERTIES.FROZEN_BALANCE)
+  @Column({
+    name: 'frozen_balance',
+    type: 'decimal',
+    precision: USER_VALIDATION.FROZEN_BALANCE.PRECISION,
+    scale: USER_VALIDATION.FROZEN_BALANCE.SCALE,
+    default: USER_VALIDATION.FROZEN_BALANCE.DEFAULT,
+  })
+  frozenBalance: number;
+
   @ApiProperty(USER_API_PROPERTIES.PRODUCTS)
   @OneToMany(() => ProductEntity, (product) => product.seller)
   products: ProductEntity[];
+
+  @ApiProperty(USER_API_PROPERTIES.LOTS)
+  @OneToMany(() => LotEntity, (lot) => lot.seller)
+  lots: LotEntity[];
+
+  @ApiProperty(USER_API_PROPERTIES.BIDS)
+  @OneToMany(() => BidEntity, (bid) => bid.user)
+  bids: BidEntity[];
+
+  @ApiProperty(USER_API_PROPERTIES.WON_LOTS)
+  @OneToMany(() => LotEntity, (lot) => lot.winner)
+  wonLots: LotEntity[];
 
   @ApiProperty(COMMON_API_PROPERTIES.CREATE_DATE)
   @CreateDateColumn({ name: 'created_at' })

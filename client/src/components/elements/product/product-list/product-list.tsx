@@ -1,14 +1,20 @@
 import { FC, memo } from "react";
-import { Grid } from "@mui/material";
+import { Box } from "@mui/material";
 import { TProductListUIProps } from "./type";
 import {
   NotFound,
   ProductCard,
   ProductSkeletonList,
 } from "@/components/elements";
+import { cardContainerStyle } from "./styles";
 
 export const ProductListUI: FC<TProductListUIProps> = memo(
-  ({ products, isLoading }) => {
+  ({
+    products,
+    isLoading,
+    isShowCreateLotButton = true,
+    minCardWidth = 300,
+  }) => {
     if (isLoading) {
       return <ProductSkeletonList />;
     }
@@ -18,22 +24,15 @@ export const ProductListUI: FC<TProductListUIProps> = memo(
     }
 
     return (
-      <Grid container columnSpacing={{ xs: 2, md: 2, lg: 2 }} rowSpacing={4}>
+      <Box sx={cardContainerStyle(minCardWidth)}>
         {products.map((p) => (
-          <Grid
+          <ProductCard
             key={p.id}
-            size={{
-              xs: 12,
-              sm: 6,
-              md: 4,
-              lg: 3,
-              xl: 2.4,
-            }}
-          >
-            <ProductCard product={p} />
-          </Grid>
+            product={p}
+            isShowCreateLotButton={isShowCreateLotButton}
+          />
         ))}
-      </Grid>
+      </Box>
     );
   },
 );

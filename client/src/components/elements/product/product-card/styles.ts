@@ -13,16 +13,10 @@ export const cardContentStyle: SxProps<Theme> = {
   flexGrow: 1,
 } as const;
 
-export const boxLikeButtonStyle: SxProps<Theme> = {
+export const cardMediaButtonStyle: SxProps<Theme> = {
   display: "flex",
   justifyContent: "flex-end",
   m: 1,
-} as const;
-
-export const priceTypographyStyle: SxProps<Theme> = {
-  mb: 1,
-  fontSize: "1.25rem",
-  fontWeight: 600,
 } as const;
 
 export const nameTypographyStyle: SxProps<Theme> = {

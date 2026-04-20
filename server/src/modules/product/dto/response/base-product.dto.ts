@@ -14,9 +14,6 @@ export class BaseProductResponseDto {
   @ApiProperty(PRODUCT_API_PROPERTIES.CATEGORY)
   category: string;
 
-  @ApiProperty(PRODUCT_API_PROPERTIES.PRICE)
-  price: number;
-
   @ApiProperty(PRODUCT_API_PROPERTIES.CREATE_DATE)
   createdAt: Date;
 

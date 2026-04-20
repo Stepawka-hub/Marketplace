@@ -10,4 +10,7 @@ export class ProductSellerDto {
 
   @ApiProperty(USER_API_PROPERTIES.LAST_NAME)
   lastName: string;
+
+  @ApiProperty(USER_API_PROPERTIES.AVATAR)
+  avatar: string;
 }

@@ -40,25 +40,6 @@ export class ProductEntity {
   @Column({ length: PRODUCT_VALIDATION.CATEGORY.MAX })
   category: string;
 
-  @ApiProperty(PRODUCT_API_PROPERTIES.PRICE)
-  @Column({
-    type: 'decimal',
-    precision: PRODUCT_VALIDATION.PRICE.PRECISION,
-    scale: PRODUCT_VALIDATION.PRICE.SCALE,
-    unsigned: true,
-  })
-  price: number;
-
-  @ApiProperty(PRODUCT_API_PROPERTIES.RATING)
-  @Column({
-    type: 'decimal',
-    precision: PRODUCT_VALIDATION.RATING.PRECISION,
-    scale: PRODUCT_VALIDATION.RATING.SCALE,
-    default: PRODUCT_VALIDATION.RATING.DEFAULT,
-    unsigned: true,
-  })
-  rating: number;
-
   @ApiPropertyOptional(PRODUCT_API_PROPERTIES.MEDIA)
   @OneToMany(() => ProductMediaEntity, (media) => media.product)
   media: ProductMediaEntity[];

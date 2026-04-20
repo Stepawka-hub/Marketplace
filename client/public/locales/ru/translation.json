@@ -4,6 +4,7 @@
     "ru": "Русский",
     "en": "Английский"
   },
+
   "theme-switcher": {
     "tool-tip": "Сменить тему",
     "label-group": "Тема",
@@ -25,6 +26,7 @@
       "already-have-account": "Уже есть аккаунт?"
     }
   },
+
   "form": {
     "validation": {
       "required": "Обязательное поле",
@@ -37,7 +39,14 @@
       "maxLength_few": "Максимальная длина поля: {{count}} символа",
       "maxLength_many": "Максимальная длина поля: {{count}} символов",
       "email-invalid": "Некорректный адрес почты",
-      "passwords-not-match": "Пароли не совпадают"
+      "passwords-not-match": "Пароли не совпадают",
+      "positive-number": "Значение должно быть больше 0",
+      "future-date": "Дата должна быть в будущем",
+      "min": "Значение должно быть не менее {{value}}",
+      "max": "Значение должно быть не более {{value}}",
+      "price-format": "Цена должна быть в формате 0.00",
+      "date-min": "Дата должна быть не менее чем через {{days}} дня",
+      "date-max": "Дата должна быть не более чем через {{days}} дней"
     },
     "fields": {
       "firstName": {
@@ -66,24 +75,28 @@
       }
     }
   },
+
   "register": {
     "form": {
       "title": "Регистрация",
       "submit-button": "Зарегистрироваться"
     }
   },
+
   "login": {
     "form": {
       "title": "Вход",
       "submit-button": "Войти"
     }
   },
+
   "forgot-password": {
     "form": {
       "title": "Восстановление пароля",
       "submit-button": "Восстановить"
     }
   },
+
   "reset-password": {
     "form": {
       "title": "Сброс пароля",
@@ -91,13 +104,25 @@
     }
   },
 
-  "category-select": {
-    "label": "Категория",
-    "all": "Все"
-  },
   "filter": {
-    "submit-btn-label": "Применить изменения"
+    "submit-btn-label": "Применить изменения",
+    "status-filter": {
+      "title": "Статус лота",
+      "select-all": "Выбрать все",
+      "clear-all": "Сбросить все",
+      "statuses": {
+        "active": "Активные",
+        "completed": "Завершённые",
+        "expired": "Истёкшие"
+      }
+    },
+    "price-filter": {
+      "title": "Цена",
+      "from": "От",
+      "to": "До"
+    }
   },
+
   "catalog-search": {
     "placeholder": "Введите название товара..."
   },
@@ -107,27 +132,26 @@
     "btn-label": "Вернуться на главную"
   },
 
-  "cart": {
-    "title": "Корзина",
-    "item": {
-      "remove-btn": "Удалить из корзины",
-      "choose": "Выбрать"
+  "bids": {
+    "title": "Мои ставки",
+    "list": {
+      "title": "Список ставок",
+      "no-items-label": "Ставок пока нет. Будьте первым! 🚀"
     },
     "empty": {
-      "title": "Корзина пуста",
+      "title": "Активных ставок нет",
       "text": "Найти нужные вам товары вы можете в",
       "link": "каталоге"
     },
-    "summary": {
-      "information": "Информация о покупке",
-      "checkout": "Перейти к оформлению",
-      "products_zero": "{{count}} товаров",
-      "products_one": "{{count}} товар",
-      "products_few": "{{count}} товара",
-      "products_many": "{{count}} товаров"
-    },
     "badge": {
-      "tool-tip": "В корзину"
+      "tool-tip": "Мои ставки"
+    },
+    "winner-badge": {
+      "tool-tip": "Вы лидируете"
+    },
+    "actions": {
+      "place-bid": "Сделать ставку",
+      "placing-bid": "Размещение ставки..."
     }
   },
 
@@ -139,25 +163,15 @@
   },
 
   "product": {
-    "rating": {
-      "label": "Рейтинг",
-      "reviews_zero": "{{count}} отзывов",
-      "reviews_one": "{{count}} отзыв",
-      "reviews_few": "{{count}} отзыва",
-      "reviews_many": "{{count}} отзывов"
-    },
     "details": {
       "label": "О товаре",
       "description": "Описание",
-      "no-description": "Описания нет",
-      "reviews": "Отзывы"
+      "no-description": "Описания нет"
     },
     "seller": {
       "label": "Продавец"
     },
     "buttons": {
-      "add-to-cart": "Добавить в корзину",
-      "in-cart": "В корзине",
       "add-to-favorites": "Добавить в избранное",
       "remove-from-favorites": "Убрать из избранного"
     }
@@ -168,18 +182,26 @@
       "tool-tip": "Войти в аккаунт"
     },
     "account-menu": {
-      "tool-tip": "Мой аккаунт"
+      "tool-tip": "Мой аккаунт",
+      "list-items": {
+        "balance": "Баланс",
+        "frozen-balance": "Замороженный баланс"
+      }
     },
     "menu-items": {
       "profile": "Профиль",
+      "bids-history": "История ставок",
       "seller-panel": "Панель продавца",
+      "my-lots": "Мои лоты",
       "log-out": "Выйти из аккаунта",
       "logging-out": "Выход из аккаунта..."
     },
     "info-row": {
       "email": "Email",
       "phone": "Телефон",
-      "role": "Роль"
+      "role": "Роль",
+      "balance": "Баланс",
+      "frozen-balance": "Замороженный баланс"
     },
     "avatar": {
       "errors": {
@@ -193,7 +215,109 @@
     },
     "edit-modal": {
       "title": "Редактирование профиля"
+    },
+    "seller-panel": {
+      "my-products-title": "Мои товары",
+      "create-product": "Создать товар"
+    },
+    "bids-history": {
+      "title": "История ставок"
+    },
+    "my-lots": {
+      "title": "Мои лоты"
     }
+  },
+
+  "create-product": {
+    "actions": {
+      "back-to-profile": "Вернуться в профиль"
+    },
+    "form": {
+      "title": "Создание товара",
+      "fields": {
+        "name": {
+          "label": "Название товара",
+          "placeholder": "Введите название"
+        },
+        "shortDescription": {
+          "label": "Короткое описание",
+          "placeholder": "Кратко о товаре..."
+        },
+        "description": {
+          "label": "Описание",
+          "placeholder": "Полное описание товара..."
+        },
+        "category": {
+          "label": "Категория",
+          "placeholder": "Выберите категорию"
+        },
+        "media": {
+          "label": "Фото/видео товара",
+          "placeholder": "Загрузите медиафайлы"
+        },
+        "preview": {
+          "label": "Главное изображение",
+          "placeholder": "Выберите основное фото"
+        }
+      },
+      "validation": {
+        "required-media": "Загрузите хотя бы одно изображение"
+      }
+    }
+  },
+
+  "lot": {
+    "current-price": "Текущая цена",
+    "final-price": "Финальная цена",
+    "min-bid-increment": "Мин. шаг ставки",
+    "time-left": "Осталось времени",
+    "status": {
+      "active": "Активен",
+      "draft": "Черновик",
+      "completed": "Завершён",
+      "cancelled": "Отменён",
+      "expired": "Истёк"
+    },
+    "actions": {
+      "create-lot": "Создать лот"
+    }
+  },
+
+  "create-lot": {
+    "selected-product": "Выбранный товар",
+    "form": {
+      "title": "Создание лота",
+      "fields": {
+        "startPrice": {
+          "label": "Начальная цена",
+          "placeholder": "Введите начальную цену",
+          "helper-text": "От {{min}} до {{max}} ₽"
+        },
+        "minBidIncrement": {
+          "label": "Мин. шаг ставки",
+          "placeholder": "Введите мин. шаг ставки",
+          "helper-text": "От {{min}} до {{max}} ₽"
+        },
+        "endTime": {
+          "label": "Время окончания торгов",
+          "placeholder": "Выберите дату и время окончания"
+        }
+      },
+      "validation": {
+        "end-time-min": "Аукцион должен длиться минимум {{days}} день",
+        "end-time-max": "Аукцион не может длиться более {{days}} дней"
+      }
+    },
+    "messages": {
+      "success": "Лот успешно создан",
+      "error": "Не удалось создать лот"
+    }
+  },
+
+  "media-preview": {
+    "title": "Медиафайлы ({{count}})",
+    "title-caption": "(кликните, чтобы сделать главным)",
+    "main-badge": "Главное"
   },
 
   "common": {
@@ -205,12 +329,8 @@
       "back": "Вернуться в каталог",
       "edit": "Редактировать",
       "save": "Сохранить",
-      "saving": "Сохранение..."
+      "saving": "Сохранение...",
+      "create": "Создать"
     }
-  },
-
-  "selection-actions": {
-    "select-all": "Выбрать все",
-    "remove-all": "Удалить выбранное"
   }
 }

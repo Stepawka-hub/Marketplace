@@ -23,7 +23,7 @@ import {
 
 @Injectable()
 export class ProductService {
-  private readonly mediaBaseUrl: string;
+  private readonly baseUrl: string;
   public readonly productMapper: ProductMapper;
 
   constructor(
@@ -36,9 +36,9 @@ export class ProductService {
     private readonly configService: ConfigService,
   ) {
     const domain = this.configService.getOrThrow<string>('S3_PUBLIC_DOMAIN');
-    this.mediaBaseUrl = domain.endsWith('/') ? domain : domain + '/';
+    this.baseUrl = domain.endsWith('/') ? domain : domain + '/';
 
-    this.productMapper = new ProductMapper(this.mediaBaseUrl);
+    this.productMapper = new ProductMapper(this.baseUrl);
   }
 
   async createProduct(
@@ -77,6 +77,7 @@ export class ProductService {
           id: true,
           firstName: true,
           lastName: true,
+          avatar: true,
         },
       },
     });
@@ -126,7 +127,6 @@ export class ProductService {
         name: true,
         shortDescription: true,
         category: true,
-        price: true,
         createdAt: true,
         seller: {
           id: true,
@@ -155,27 +155,75 @@ export class ProductService {
     );
   }
 
-  async findProductById(id: string): Promise<TProductDetailsResponse> {
-    const product = await this.productRepository.findOne({
+  async findProductsBySeller(
+    paginationDto: PaginationDto,
+    sellerId: string,
+  ): Promise<TProductListResponse> {
+    const { page = 1, limit = 10 } = paginationDto;
+    const skip = (page - 1) * limit;
+
+    const [products, total] = await this.productRepository.findAndCount({
       where: {
-        id,
+        seller: { id: sellerId },
       },
       relations: {
         seller: true,
         media: true,
       },
       select: {
+        id: true,
+        name: true,
+        shortDescription: true,
+        category: true,
+        createdAt: true,
         seller: {
           id: true,
           firstName: true,
           lastName: true,
         },
         media: {
+          id: true,
           filename: true,
           isPreview: true,
         },
       },
+      order: {
+        createdAt: 'DESC',
+      },
+      skip,
+      take: limit,
     });
+
+    return ApiPaginatedResponse.success(
+      this.productMapper.toListItemArray(products),
+      total,
+      page,
+      limit,
+      'Список ваших товаров успешно получен',
+    );
+  }
+
+  async findProductById(id: string): Promise<TProductDetailsResponse> {
+    const product = await this.productRepository
+      .createQueryBuilder('product')
+      .leftJoinAndSelect('product.seller', 'seller')
+      .leftJoinAndSelect('product.media', 'media')
+      .where('product.id = :id', { id })
+      .select([
+        'product.id',
+        'product.name',
+        'product.shortDescription',
+        'product.description',
+        'product.category',
+        'seller.id',
+        'seller.firstName',
+        'seller.lastName',
+        'seller.avatar',
+        'media.id',
+        'media.filename',
+        'media.isPreview',
+      ])
+      .getOne();
 
     if (!product) {
       throw new NotFoundException('Товар не найден!');
@@ -207,7 +255,6 @@ export class ProductService {
         name: true,
         shortDescription: true,
         category: true,
-        price: true,
         createdAt: true,
         seller: {
           id: true,

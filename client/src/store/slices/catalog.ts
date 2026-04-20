@@ -1,21 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TCatalogState } from "./types";
 import { TFilter } from "@/shared/types";
+import { LOT_STATUSES, MAX_LOT_PRICE, MIN_LOT_PRICE } from "@/shared/constants";
+import { TCatalogState } from "./types";
 
 const initialState: TCatalogState = {
-  categories: ["category 1", "category 2"],
-  priceRange: {
-    min: 0,
-    max: 100000,
-  },
-
   searchQuery: "",
   filters: {
     price: {
-      min: 0,
-      max: 100000,
+      min: MIN_LOT_PRICE,
+      max: MAX_LOT_PRICE,
     },
-    category: "all",
+    status: [LOT_STATUSES.ACTIVE, LOT_STATUSES.COMPLETED, LOT_STATUSES.EXPIRED],
   },
 };
 
@@ -33,12 +28,9 @@ const catalogSlice = createSlice({
   selectors: {
     getSearchQuery: (state) => state.searchQuery,
     getFilters: (state) => state.filters,
-    getCategories: (state) => state.categories,
-    getPriceRange: (state) => state.priceRange,
   },
 });
 
 export default catalogSlice.reducer;
 export const { setSearchQuery, setFilters } = catalogSlice.actions;
-export const { getSearchQuery, getFilters, getCategories, getPriceRange } =
-  catalogSlice.selectors;
+export const { getSearchQuery, getFilters } = catalogSlice.selectors;

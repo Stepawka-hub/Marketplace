@@ -1,5 +1,2 @@
-export * from "./product-list";
+export * from "./create-product-form";
 export * from "./product-images";
-export * from "./product-details";
-export * from "./add-to-cart-button";
-export * from './like-button';

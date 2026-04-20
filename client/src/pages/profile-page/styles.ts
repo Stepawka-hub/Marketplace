@@ -7,5 +7,4 @@ export const gridContainerStyle: SxProps = {
 
 export const contentGridStyle: SxProps = {
   flex: 1,
-  maxWidth: "60rem",
 } as const;

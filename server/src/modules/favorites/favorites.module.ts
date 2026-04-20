@@ -3,10 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { FavoritesService } from './favorites.service';
 import { FavoritesController } from './favorites.controller';
 import { FavoriteEntity } from './entities';
-import { ProductModule } from '../product';
+import { LotModule } from '../lot';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([FavoriteEntity]), ProductModule],
+  imports: [TypeOrmModule.forFeature([FavoriteEntity]), LotModule],
   controllers: [FavoritesController],
   providers: [FavoritesService],
 })

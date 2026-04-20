@@ -1,0 +1,1 @@
+export { BidsBadge } from './bids-badge';

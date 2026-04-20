@@ -2,22 +2,26 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import { ROUTES } from "@/config/routes";
 import { AppLayout } from "./layout";
 import {
-  CartPage,
   CatalogPage,
   NotFoundPage,
   FavoritesPage,
   RegisterPage,
   LoginPage,
-  ProductPage,
+  LotPage,
   ForgotPasswordPage,
   ResetPasswordPage,
   ProfilePage,
+  CreateProductPage,
+  MyBidsPage,
 } from "@/pages";
 import {
   ProfileData,
   SellerPanel,
   ProtectedRoute,
+  BidsHistory,
+  MyLotsList,
 } from "@/components/containers";
+import { USER_ROLES } from "@/shared/constants";
 
 export const router = createBrowserRouter([
   {
@@ -35,12 +39,16 @@ export const router = createBrowserRouter([
             element: <CatalogPage />,
           },
           {
-            path: ROUTES.CATALOG_PRODUCT(":productId"),
-            element: <ProductPage />,
+            path: ROUTES.CATALOG_LOT(":lotId"),
+            element: <LotPage />,
           },
           {
-            path: ROUTES.CART,
-            element: <CartPage />,
+            path: ROUTES.CREATE_PRODUCT,
+            element: <CreateProductPage />,
+          },
+          {
+            path: ROUTES.MY_BIDS,
+            element: <MyBidsPage />,
           },
           {
             path: ROUTES.FAVORITES,
@@ -55,8 +63,26 @@ export const router = createBrowserRouter([
                 element: <ProfileData />,
               },
               {
+                path: ROUTES.PROFILE_BIDS_HISTORY,
+                element: <BidsHistory />,
+              },
+              {
                 path: ROUTES.PROFILE_SELLER_PANEL,
                 element: <SellerPanel />,
+              },
+              {
+                element: (
+                  <ProtectedRoute
+                    allowedRoles={[USER_ROLES.VENDOR, USER_ROLES.ADMIN]}
+                    redirectTo={ROUTES.PROFILE}
+                  />
+                ),
+                children: [
+                  {
+                    path: ROUTES.PROFILE_MY_LOTS,
+                    element: <MyLotsList />,
+                  },
+                ],
               },
             ],
           },

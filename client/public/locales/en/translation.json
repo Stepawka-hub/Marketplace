@@ -33,7 +33,14 @@
       "maxLength_one": "Maximum field length: {{count}} symbol",
       "maxLength_other": "Maximum field length: {{count}} symbols",
       "email-invalid": "Invalid email address",
-      "passwords-not-match": "Passwords do not match"
+      "passwords-not-match": "Passwords do not match",
+      "positive-number": "Value must be greater than 0",
+      "future-date": "Date must be in the future",
+      "min": "Value must be at least {{value}}",
+      "max": "Value must be at most {{value}}",
+      "price-format": "Price must be in format 0.00",
+      "date-min": "Date must be at least {{days}} day from now",
+      "date-max": "Date must be at most {{days}} days from now"
     },
     "fields": {
       "firstName": {
@@ -62,24 +69,28 @@
       }
     }
   },
+
   "register": {
     "form": {
       "title": "Register",
       "submit-button": "Register"
     }
   },
+
   "login": {
     "form": {
       "title": "Login",
       "submit-button": "Login"
     }
   },
+
   "forgot-password": {
     "form": {
       "title": "Password recovery",
       "submit-button": "Restore"
     }
   },
+
   "reset-password": {
     "form": {
       "title": "Password reset",
@@ -87,13 +98,25 @@
     }
   },
 
-  "category-select": {
-    "label": "Category",
-    "all": "All"
-  },
   "filter": {
-    "submit-btn-label": "Apply changes"
+    "submit-btn-label": "Apply changes",
+    "status-filter": {
+      "title": "Lot status",
+      "select-all": "Select all",
+      "clear-all": "Clear all",
+      "statuses": {
+        "active": "Active",
+        "completed": "Completed",
+        "expired": "Expired"
+      }
+    },
+    "price-filter": {
+      "title": "Price",
+      "from": "From",
+      "to": "To"
+    }
   },
+
   "catalog-search": {
     "placeholder": "Enter product name..."
   },
@@ -103,25 +126,26 @@
     "btn-label": "Return to home"
   },
 
-  "cart": {
-    "title": "Cart",
-    "item": {
-      "remove-btn": "Remove from cart",
-      "choose": "Choose"
+  "bids": {
+    "title": "My bids",
+    "list": {
+      "title": "Bids list",
+      "no-bids-label": "No bids yet. Be the first! 🚀"
     },
     "empty": {
-      "title": "Cart is empty",
+      "title": "There are no active bets",
       "text": "You can find the products you need in the",
       "link": "catalog"
     },
-    "summary": {
-      "information": "Purchase Information",
-      "checkout": "Proceed to checkout",
-      "products_one": "{{count}} product",
-      "products_other": "{{count}} products"
-    },
     "badge": {
-      "tool-tip": "Go to cart"
+      "tool-tip": "My bids"
+    },
+    "winner-badge": {
+      "tool-tip": "You are in the lead"
+    },
+    "actions": {
+      "place-bid": "Place bid",
+      "placing-bid": "Placing bid..."
     }
   },
 
@@ -133,25 +157,103 @@
   },
 
   "product": {
-    "rating": {
-      "label": "Rating",
-      "reviews_one": "{{count}} review",
-      "reviews_other": "{{count}} reviews"
-    },
     "details": {
       "label": "About product",
       "description": "Description",
-      "no-description": "No description",
-      "reviews": "Reviews"
+      "no-description": "No description"
     },
     "seller": {
       "label": "Seller"
     },
     "buttons": {
-      "add-to-cart": "Add to cart",
-      "in-cart": "In cart",
       "add-to-favorites": "Add to favorites",
       "remove-from-favorites": "Remove from favorites"
+    }
+  },
+
+  "create-product": {
+    "actions": {
+      "back-to-profile": "Back to profile"
+    },
+    "form": {
+      "title": "Product creation",
+      "fields": {
+        "name": {
+          "label": "Product name",
+          "placeholder": "Enter product name"
+        },
+        "shortDescription": {
+          "label": "Short description",
+          "placeholder": "Brief description of the product..."
+        },
+        "description": {
+          "label": "Description",
+          "placeholder": "Full product description..."
+        },
+        "category": {
+          "label": "Category",
+          "placeholder": "Select category"
+        },
+        "media": {
+          "label": "Product photo/media",
+          "placeholder": "Upload media files"
+        },
+        "preview": {
+          "label": "Main image",
+          "placeholder": "Select main image"
+        }
+      },
+      "validation": {
+        "required-media": "Please upload at least one image"
+      }
+    }
+  },
+
+  "lot": {
+    "current-price": "Current price",
+    "final-price": "Final price",
+    "min-bid-increment": "Min bid increment",
+    "time-left": "Time left",
+    "status": {
+      "active": "Active",
+      "draft": "Draft",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "expired": "Expired"
+    },
+    "actions": {
+      "create-lot": "Create a lot"
+    }
+  },
+
+  "create-lot": {
+    "selected-product": "Selected product",
+    "form": {
+      "title": "Create New Lot",
+      "fields": {
+        "startPrice": {
+          "label": "Start price",
+          "placeholder": "Enter start price",
+          "helper-text": "From {{min}} to {{max}} ₽"
+        },
+        "minBidIncrement": {
+          "label": "Min bid increment",
+          "placeholder": "Enter min bid increment",
+          "helper-text": "From {{min}} to {{max}} ₽"
+        },
+        "endTime": {
+          "label": "Auction end time",
+          "placeholder": "Select end date and time"
+        }
+      },
+      "validation": {
+        "end-time-min": "Auction must last at least {{days}} day",
+        "end-time-max": "Auction cannot last more than {{days}} days"
+      }
+    },
+    "messages": {
+      "success": "Lot created successfully",
+      "error": "Failed to create lot"
     }
   },
 
@@ -160,18 +262,26 @@
       "tool-tip": "Login to account"
     },
     "account-menu": {
-      "tool-tip": "Account settings"
+      "tool-tip": "Account settings",
+      "list-items": {
+        "balance": "Balance",
+        "frozen-balance": "Frozen"
+      }
     },
     "menu-items": {
       "profile": "Profile",
+      "bids-history": "Bids history",
       "seller-panel": "Seller panel",
+      "my-lots": "My lots",
       "log-out": "Log out",
       "logging-out": "Logging out..."
     },
     "info-row": {
       "email": "Email",
       "phone": "Phone",
-      "role": "Role"
+      "role": "Role",
+      "balance": "Balance",
+      "frozen-balance": "Frozen balance"
     },
     "avatar": {
       "errors": {
@@ -185,7 +295,23 @@
     },
     "edit-modal": {
       "title": "Editing profile"
+    },
+    "seller-panel": {
+      "my-products-title": "My products",
+      "create-product": "Create product"
+    },
+    "bids-history": {
+      "title": "Bids history"
+    },
+    "my-lots": {
+      "title": "My lots"
     }
+  },
+
+  "media-preview": {
+    "title": "Media files ({{count}})",
+    "title-caption": "(click to set as main)",
+    "main-badge": "Main"
   },
 
   "common": {
@@ -197,12 +323,8 @@
       "back": "Return to catalog",
       "edit": "Edit",
       "save": "Save",
-      "saving": "Saving..."
+      "saving": "Saving...",
+      "create": "Create"
     }
-  },
-
-  "selection-actions": {
-    "select-all": "Select all",
-    "remove-all": "Delete selected"
   }
 }

@@ -20,8 +20,6 @@ export const ProfileData: FC = () => {
     return <Typography>{t("profile.errors.loading")}</Typography>;
   }
 
-  const { firstName, lastName, avatar, email, phone, role } = data;
-
   const openEditProfileModal = () => {
     setIsModalOpen(true);
   };
@@ -32,15 +30,7 @@ export const ProfileData: FC = () => {
 
   return (
     <>
-      <ProfileDataUI
-        firstName={firstName}
-        lastName={lastName}
-        avatar={avatar}
-        email={email}
-        phone={phone}
-        role={role}
-        onEditButtonClick={openEditProfileModal}
-      />
+      <ProfileDataUI {...data} onEditButtonClick={openEditProfileModal} />
       <EditProfileModal
         isOpen={isModalOpen}
         userData={data}

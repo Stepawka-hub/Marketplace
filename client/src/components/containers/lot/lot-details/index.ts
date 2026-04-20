@@ -1,0 +1,1 @@
+export { LotDetails } from './lot-details';

@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   Injectable,
   NotFoundException,
@@ -10,10 +11,14 @@ import { Repository } from 'typeorm';
 import { hash } from 'argon2';
 
 import { ApiResponse } from '@/common';
-import { generateFileName } from '@/common/utils';
+import { formatMediaUrl, generateFileName } from '@/common/utils';
 import { UserEntity } from './entities';
 import { UpdateUserDto } from './dto';
-import { TUploadAvatarResponse, TUserDataResponse } from './types';
+import {
+  TFreezeAction,
+  TUploadAvatarResponse,
+  TUserDataResponse,
+} from './types';
 
 @Injectable()
 export class UserService {
@@ -110,13 +115,33 @@ export class UserService {
     await this.userRepository.save(user);
 
     return ApiResponse.success(
-      { avatar: this.formatAvatarUrl(key) },
+      { avatar: formatMediaUrl(key, this.avatarBaseUrl) },
       'Аватар успешно обновлен',
     );
   }
 
-  private formatAvatarUrl(avatar: string | null): string | null {
-    return avatar ? `${this.avatarBaseUrl}${avatar}` : null;
+  async updateFrozenBalance(
+    userId: string,
+    amount: number,
+    action: TFreezeAction,
+  ): Promise<void> {
+    const user = await this.findById(userId);
+
+    if (action === 'freeze') {
+      const availableBalance = user.balance - user.frozenBalance;
+      if (availableBalance < amount) {
+        throw new BadRequestException('Not enough freezing funds');
+      }
+      user.frozenBalance += amount;
+    } else {
+      user.frozenBalance -= amount;
+
+      if (user.frozenBalance < 0) {
+        user.frozenBalance = 0;
+      }
+    }
+
+    await this.userRepository.save(user);
   }
 
   private formatUserResponse(user: UserEntity) {
@@ -126,8 +151,10 @@ export class UserService {
       phone: user.phone,
       firstName: user.firstName,
       lastName: user.lastName,
-      avatar: this.formatAvatarUrl(user.avatar),
+      avatar: formatMediaUrl(user.avatar, this.avatarBaseUrl),
       role: user.role,
+      balance: user.balance,
+      frozenBalance: user.frozenBalance,
     };
   }
 }

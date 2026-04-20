@@ -4,7 +4,7 @@ import { ApiResponseDto } from '@/common';
 export class FavoritesCountResponseDto extends ApiResponseDto<number> {
   @ApiProperty({
     type: Number,
-    description: 'Количество товаров в избранном',
+    description: 'Количество лотов в избранном',
     example: 5,
   })
   declare data: number;

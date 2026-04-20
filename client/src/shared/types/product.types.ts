@@ -3,7 +3,6 @@ export type TBaseProduct = {
   name: string;
   shortDescription: string;
   category: string;
-  price: number;
   createdAt: string;
   updatedAt: string;
 };
@@ -15,7 +14,6 @@ export type TProductListItem = TBaseProduct & {
 
 export type TProductDetails = TBaseProduct & {
   description?: string;
-  rating: number;
   media: TProductMedia[];
   seller: TProductSeller;
 };
@@ -24,14 +22,10 @@ export type TProductSeller = {
   id: string;
   firstName: string;
   lastName: string;
+  avatar: string;
 };
 
 export type TProductMedia = {
   url: string;
   isPreview: boolean;
-};
-
-export type TProductAttribute = {
-  name: string;
-  value: string;
 };

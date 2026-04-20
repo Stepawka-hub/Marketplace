@@ -1,0 +1,1 @@
+export { BidsBadgeUI } from './bids-badge';

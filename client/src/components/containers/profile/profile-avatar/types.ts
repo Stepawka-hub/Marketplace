@@ -1,4 +1,5 @@
 export type TProfileAvatarProps = {
   avatar?: string;
-  initials: string;
+  firstName?: string;
+  lastName?: string;
 };

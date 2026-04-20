@@ -31,7 +31,6 @@ export const PRODUCT_API_PROPERTIES: TApiPropertyOptions = {
       Они воспроизводят чистый и сбалансированный звук с детальными высокими частотами и насыщенными басами, 
       что позволяет по-новому услышать любимые треки.`,
     required: false,
-    minLength: PRODUCT_VALIDATION.DESCRIPTION.MIN,
     maxLength: PRODUCT_VALIDATION.DESCRIPTION.MAX,
   },
   CATEGORY: {
@@ -39,25 +38,6 @@ export const PRODUCT_API_PROPERTIES: TApiPropertyOptions = {
     example: 'Наушники',
     minLength: PRODUCT_VALIDATION.CATEGORY.MIN,
     maxLength: PRODUCT_VALIDATION.CATEGORY.MAX,
-  },
-  PRICE: {
-    description: 'Цена',
-    example: 10000.0,
-    type: 'number',
-    format: 'float',
-    minimum: PRODUCT_VALIDATION.PRICE.MIN,
-    maximum: PRODUCT_VALIDATION.PRICE.MAX,
-    multipleOf: 0.01,
-  },
-  RATING: {
-    description: 'Рейтинг',
-    example: 4.65,
-    type: 'number',
-    format: 'float',
-    default: PRODUCT_VALIDATION.RATING.DEFAULT,
-    minimum: PRODUCT_VALIDATION.RATING.MIN,
-    maximum: PRODUCT_VALIDATION.RATING.MAX,
-    multipleOf: 0.01,
   },
   MEDIA: {
     description: 'Фото/видео товара',

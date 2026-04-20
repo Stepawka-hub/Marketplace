@@ -15,6 +15,20 @@ export const USER_VALIDATION = {
     MIN: 5,
     MAX: 20,
   },
+  BALANCE: {
+    MIN: 0,
+    MAX: 99999999.99,
+    PRECISION: 10,
+    SCALE: 2,
+    DEFAULT: 0,
+  },
+  FROZEN_BALANCE: {
+    MIN: 0,
+    MAX: 99999999.99,
+    PRECISION: 10,
+    SCALE: 2,
+    DEFAULT: 0,
+  },
 } as const;
 
 export const USER_VALIDAION_MESSAGES = {

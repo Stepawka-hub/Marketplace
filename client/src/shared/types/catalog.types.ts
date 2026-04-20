@@ -1,14 +1,11 @@
+import { TLotStatus } from "./lot.types";
+
 export type TFilter = {
   price: TPrice;
-  category: string;
+  status?: TLotStatus[];
 };
 
 export type TPrice = {
   min: number;
-  max: number;
-};
-
-export type TRange = {
-  min: number,
   max: number;
 };

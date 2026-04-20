@@ -1,4 +1,7 @@
 import { ProductEntity } from '@/modules/product/entities';
+import { BidEntity } from '@/modules/bid/entities';
+import { LotEntity } from '@/modules/lot/entities';
+
 import { USER_ROLES } from './user.constants';
 import { USER_VALIDATION } from './user-validation.constants';
 import { TApiPropertyOptions } from '@/common';
@@ -46,9 +49,36 @@ export const USER_API_PROPERTIES: TApiPropertyOptions = {
     description: 'Роль пользователя',
     example: USER_ROLES.USER,
   },
+  BALANCE: {
+    description: 'Баланс пользователя',
+    example: 10000,
+    minimum: USER_VALIDATION.BALANCE.MIN,
+    maximum: USER_VALIDATION.BALANCE.MAX,
+  },
+  FROZEN_BALANCE: {
+    description: 'Замороженные средства (активные ставки)',
+    example: 2500,
+    minimum: USER_VALIDATION.FROZEN_BALANCE.MIN,
+    maximum: USER_VALIDATION.FROZEN_BALANCE.MAX,
+  },
   PRODUCTS: {
     description: 'Список товаров',
     type: () => ProductEntity,
+    isArray: true,
+  },
+  LOTS: {
+    description: 'Список лотов продавца',
+    type: () => LotEntity,
+    isArray: true,
+  },
+  BIDS: {
+    description: 'Список ставок пользователя',
+    type: () => BidEntity,
+    isArray: true,
+  },
+  WON_LOTS: {
+    description: 'Выигранные лоты',
+    type: () => LotEntity,
     isArray: true,
   },
 } as const;

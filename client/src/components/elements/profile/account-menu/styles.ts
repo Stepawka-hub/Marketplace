@@ -7,6 +7,7 @@ export const menuBoxStyle: SxProps = {
 } as const;
 
 export const menuPaperStyle: SxProps = {
+  minWidth: "13.5rem",
   overflow: "visible",
   filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
   mt: 1.5,
@@ -28,8 +29,4 @@ export const menuPaperStyle: SxProps = {
     transform: "translateY(-50%) rotate(45deg)",
     zIndex: 0,
   },
-} as const;
-
-export const avatarStyle: SxProps = {
-  bgcolor: "primary.main",
 } as const;
