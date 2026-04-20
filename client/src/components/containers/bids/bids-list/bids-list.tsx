@@ -22,14 +22,16 @@ export const BidsList: FC<TBidsListProps> = ({ lotId }) => {
     <Grid container sx={gridStyle}>
       <Typography sx={titleStyle}>{t("bids.list.title")}</Typography>
       <BidsListUI items={data?.items ?? []} isLoading={isLoading} />
-      <Pagination
-        count={pagination.totalPages}
-        page={pagination.page}
-        showFirstButton
-        showLastButton
-        size="large"
-        onChange={handlePageChange}
-      />
+      {data && (
+        <Pagination
+          count={pagination.totalPages}
+          page={pagination.page}
+          showFirstButton
+          showLastButton
+          size="large"
+          onChange={handlePageChange}
+        />
+      )}
     </Grid>
   );
 };

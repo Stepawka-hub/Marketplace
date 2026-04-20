@@ -12,17 +12,29 @@ import {
   TLotsResponse,
   TBidLotsResponse,
   TActiveBidsCountResponse,
+  TGetLotsParams,
 } from "./types";
+import { LOT_STATUSES } from "@/shared/constants";
 
 export const lotAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
-    getAllLots: build.query<TLotsResponse, TPaginationParams>({
-      query: (params: TPaginationParams = { page: 1, limit: 10 }) => ({
-        url: "/lots",
-        params: {
-          page: params.page,
-          limit: params.limit,
+    getAllLots: build.query<TLotsResponse, TGetLotsParams>({
+      query: (
+        params: TGetLotsParams = {
+          page: 1,
+          limit: 10,
+          search: "",
+          status: [
+            LOT_STATUSES.ACTIVE,
+            LOT_STATUSES.COMPLETED,
+            LOT_STATUSES.EXPIRED,
+          ],
+          minPrice: 0,
+          maxPrice: 10_000_000,
         },
+      ) => ({
+        url: "/lots",
+        params,
       }),
       transformResponse: (response: TPaginatedResponse<TLotListItem>) =>
         response.data,

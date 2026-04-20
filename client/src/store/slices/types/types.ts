@@ -1,4 +1,4 @@
-import { TFilter, TRange, TUserRole } from "@/shared/types";
+import { TFilter, TUserRole } from "@/shared/types";
 
 export type TLotState = {
   isCreationModalOpen: boolean;
@@ -12,8 +12,6 @@ export type TProductPreviewData = {
 };
 
 export type TCatalogState = {
-  categories: string[];
-  priceRange: TRange;
   searchQuery: string;
   filters: TFilter;
 };

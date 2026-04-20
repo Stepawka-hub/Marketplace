@@ -104,13 +104,18 @@
     }
   },
 
-  "category-select": {
-    "label": "Категория",
-    "all": "Все"
-  },
-
   "filter": {
-    "submit-btn-label": "Применить изменения"
+    "submit-btn-label": "Применить изменения",
+    "status-filter": {
+      "title": "Статус лота",
+      "select-all": "Выбрать все",
+      "clear-all": "Сбросить все",
+      "statuses": {
+        "active": "Активные",
+        "completed": "Завершённые",
+        "expired": "Истёкшие"
+      }
+    }
   },
 
   "catalog-search": {

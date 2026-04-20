@@ -18,10 +18,6 @@ export const filterBoxStyle: SxProps = {
   mb: 1,
 } as const;
 
-export const categoryMenuBoxStyle: SxProps = {
-  mb: 1,
-} as const;
-
 export const priceSliderBoxStyle: SxProps = {
   px: 4,
 } as const;
@@ -35,6 +31,7 @@ export const applyBtnBoxStyle: SxProps = {
 } as const;
 
 export const applyBtnStyle: SxProps = {
+  flexGrow: 1,
   whiteSpace: "nowrap",
   overflow: "hidden",
 } as const;

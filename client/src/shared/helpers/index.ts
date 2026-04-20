@@ -1,5 +1,4 @@
 export * from "./array-helper";
-export * from "./filter";
 export * from "./numbers";
 export * from "./validate";
 export * from "./normalize-sx";

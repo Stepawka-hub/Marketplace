@@ -4,7 +4,15 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, In, MoreThan } from 'typeorm';
+import {
+  Repository,
+  In,
+  MoreThan,
+  ILike,
+  Between,
+  MoreThanOrEqual,
+  LessThanOrEqual,
+} from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 
 import { ProductService } from '@/modules/product/product.service';
@@ -12,12 +20,17 @@ import { StorageService } from '@/modules/storage';
 import { BidEntity } from '@/modules/bid/entities';
 import { LotMapper } from './mappers';
 import { LotEntity } from './entities';
-import { CreateLotDto, LotDetailsDto, LotListItemDto } from './dto';
+import {
+  CreateLotDto,
+  GetLotsParamsDto,
+  LotDetailsDto,
+  LotListItemDto,
+} from './dto';
 
 import { ApiPaginatedResponse, ApiResponse } from '@/common/helpers';
 import { PaginationDto, TApiPaginatedResponse, TApiResponse } from '@/common';
 import { LOT_STATUSES } from './constants';
-import { TBidLotItem } from './types';
+import { TBidLotItem, TLotStatus } from './types';
 
 @Injectable()
 export class LotService {
@@ -40,12 +53,55 @@ export class LotService {
   }
 
   async getLots(
-    paginationDto: PaginationDto,
+    paramsDto: GetLotsParamsDto,
   ): Promise<TApiPaginatedResponse<LotListItemDto>> {
-    const { page = 1, limit = 10 } = paginationDto;
+    const {
+      page = 1,
+      limit = 10,
+      search,
+      status,
+      minPrice,
+      maxPrice,
+    } = paramsDto;
     const skip = (page - 1) * limit;
 
+    const where: Record<string, unknown> = {};
+
+    if (status) {
+      const statusArray = status.split(',');
+
+      const validStatuses = statusArray.filter((s) =>
+        Object.values(LOT_STATUSES).includes(s as TLotStatus),
+      );
+
+      if (validStatuses.length === 0) {
+        throw new BadRequestException('Некорректные статусы лотов');
+      }
+
+      where.status = In(validStatuses);
+    }
+
+    if (minPrice !== undefined && maxPrice !== undefined) {
+      where.currentPrice = Between(minPrice, maxPrice);
+    } else if (minPrice !== undefined) {
+      where.currentPrice = MoreThanOrEqual(minPrice);
+    } else if (maxPrice !== undefined) {
+      where.currentPrice = LessThanOrEqual(maxPrice);
+    }
+
+    const productWhere = search
+      ? {
+          product: {
+            name: ILike(`%${search}%`),
+          },
+        }
+      : {};
+
     const [lots, total] = await this.lotRepository.findAndCount({
+      where: {
+        ...where,
+        ...productWhere,
+      },
       relations: {
         product: {
           media: true,

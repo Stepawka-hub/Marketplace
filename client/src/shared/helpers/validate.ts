@@ -1,6 +1,6 @@
 import { TFunction } from "i18next";
-import { TLanguage } from "../types";
-import { LANGUAGES } from "../constants";
+import { LANGUAGES, LOT_STATUSES } from "../constants";
+import { TLanguage, TLotStatus } from "../types";
 
 const FORM_VALIDATION_KEY = "form.validation";
 
@@ -9,6 +9,9 @@ export const PRICE_REGEX = /^\d+(\.\d{1,2})?$/;
 
 export const isValidLanguage = (value: string): value is TLanguage =>
   LANGUAGES.includes(value as TLanguage);
+
+export const isLotStatus = (status: string): status is TLotStatus =>
+  Object.values(LOT_STATUSES).includes(status as TLotStatus);
 
 export const minLengthValidation = (minLength: number, t: TFunction) => ({
   minLength: {

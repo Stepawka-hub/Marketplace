@@ -1,5 +1,21 @@
-import { TPaginatedResponse, TServerResponse } from "../base";
-import { TBidLotItem, TLotDetails, TLotListItem } from "@/shared/types";
+import {
+  TPaginatedResponse,
+  TPaginationParams,
+  TServerResponse,
+} from "../base";
+import {
+  TBidLotItem,
+  TLotDetails,
+  TLotListItem,
+  TLotStatus,
+} from "@/shared/types";
+
+export type TGetLotsParams = TPaginationParams & {
+  search?: string;
+  status?: TLotStatus[];
+  minPrice?: number;
+  maxPrice?: number;
+};
 
 export type TCreateLotRequest = {
   productId: string;

@@ -19,8 +19,9 @@ import {
   LotActionResponseDto,
   ActiveBidsCountResponseDto,
   BidLotItemsResponseDto,
+  GetLotsParamsDto,
 } from './dto';
-import { LOT_API_PROPERTIES, LOT_STATUSES } from './constants';
+import { LOT_API_PROPERTIES } from './constants';
 
 @ApiTags('Lots')
 @Controller('lots')
@@ -44,17 +45,30 @@ export class LotController {
   @ApiQuery({
     name: 'status',
     required: false,
-    enum: [LOT_STATUSES.ACTIVE, LOT_STATUSES.COMPLETED, LOT_STATUSES.EXPIRED],
+    type: String,
     description: LOT_API_PROPERTIES.STATUS.description,
   })
   @ApiQuery({
-    name: 'category',
+    name: 'search',
     required: false,
     type: String,
+    description: 'Поиск по названию',
+  })
+  @ApiQuery({
+    name: 'minPrice',
+    required: false,
+    type: Number,
+    description: 'Минимальная цена',
+  })
+  @ApiQuery({
+    name: 'maxPrice',
+    required: false,
+    type: Number,
+    description: 'Максимальная цена',
   })
   @Get()
-  getLots(@Query() paginationDto: PaginationDto) {
-    return this.lotService.getLots(paginationDto);
+  getLots(@Query() getLotsParamsDto: GetLotsParamsDto) {
+    return this.lotService.getLots(getLotsParamsDto);
   }
 
   @ApiOperation({

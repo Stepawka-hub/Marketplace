@@ -98,13 +98,18 @@
     }
   },
 
-  "category-select": {
-    "label": "Category",
-    "all": "All"
-  },
-
   "filter": {
-    "submit-btn-label": "Apply changes"
+    "submit-btn-label": "Apply changes",
+    "status-filter": {
+      "title": "Lot status",
+      "select-all": "Select all",
+      "clear-all": "Clear all",
+      "statuses": {
+        "active": "Active",
+        "completed": "Completed",
+        "expired": "Expired"
+      }
+    }
   },
 
   "catalog-search": {

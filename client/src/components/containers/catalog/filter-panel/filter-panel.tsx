@@ -1,6 +1,10 @@
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import { useDispatch, useSelector } from "@/store";
+import { getFilters, setFilters } from "@/store/slices/catalog";
+import { StatusFilter } from "@/components/containers";
+import { PriceSlider } from "@/components/elements";
+import { Drawer, DrawerHeader } from "@/components/ui";
 import {
   Box,
   Button,
@@ -11,45 +15,49 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { FilterPanelProps } from "./type";
-import { useDispatch, useSelector } from "@/store";
-import {
-  getCategories,
-  getFilters,
-  getPriceRange,
-  setFilters,
-} from "@/store/slices/catalog";
-import { Drawer, DrawerHeader } from "@/components/ui";
-import { CategoryMenu, PriceSlider } from "@/components/elements";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import {
   applyBtnBoxStyle,
   applyBtnStyle,
-  categoryMenuBoxStyle,
   dividerStyle,
   drawerStyle,
   filterBoxStyle,
   priceSliderBoxStyle,
 } from "./styles";
+import { LOT_STATUSES } from "@/shared/constants";
+import { TLotStatus } from "@/shared/types";
+import { FilterPanelProps } from "./type";
 
-// Todo: Переписать компонент
 export const FilterPanel: FC<FilterPanelProps> = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("md"));
-
-  const categories = useSelector(getCategories);
-  const priceRange = useSelector(getPriceRange);
   const filters = useSelector(getFilters);
   const { max, min } = filters.price;
 
-  const [category, setCategory] = useState(filters.category);
   const [priceValue, setPriceValue] = useState([min, max]);
+  const [selectedStatuses, setSelectedStatuses] = useState<TLotStatus[]>(
+    filters.status || [
+      LOT_STATUSES.ACTIVE,
+      LOT_STATUSES.COMPLETED,
+      LOT_STATUSES.EXPIRED,
+    ],
+  );
+
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleApplyFilters = () => {
     const [min, max] = priceValue;
-    dispatch(setFilters({ category, price: { min, max } }));
+    dispatch(
+      setFilters({
+        price: {
+          min,
+          max,
+        },
+        status: selectedStatuses,
+      }),
+    );
     onClose();
   };
 
@@ -72,17 +80,24 @@ export const FilterPanel: FC<FilterPanelProps> = ({ isOpen, onClose }) => {
 
           <Box sx={filterBoxStyle}>
             <List>
-              <ListItem sx={categoryMenuBoxStyle}>
-                <CategoryMenu
-                  categories={categories}
-                  selectedCategory={category}
-                  onChange={setCategory}
+              <ListItem sx={priceSliderBoxStyle}>
+                <StatusFilter
+                  selectedStatuses={selectedStatuses}
+                  onChange={setSelectedStatuses}
                 />
               </ListItem>
+            </List>
+
+            <Divider sx={dividerStyle} />
+
+            <List>
               <ListItem sx={priceSliderBoxStyle}>
                 <PriceSlider
                   priceValue={priceValue}
-                  priceRange={priceRange}
+                  priceRange={{
+                    min: 100,
+                    max: 10_000_000,
+                  }}
                   setPriceValue={setPriceValue}
                 />
               </ListItem>
