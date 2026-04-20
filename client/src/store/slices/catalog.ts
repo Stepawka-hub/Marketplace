@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TFilter } from "@/shared/types";
+import { LOT_STATUSES, MAX_LOT_PRICE, MIN_LOT_PRICE } from "@/shared/constants";
 import { TCatalogState } from "./types";
-import { LOT_STATUSES } from "@/shared/constants";
 
 const initialState: TCatalogState = {
   searchQuery: "",
   filters: {
     price: {
-      min: 0,
-      max: 10_000_000,
+      min: MIN_LOT_PRICE,
+      max: MAX_LOT_PRICE,
     },
     status: [LOT_STATUSES.ACTIVE, LOT_STATUSES.COMPLETED, LOT_STATUSES.EXPIRED],
   },

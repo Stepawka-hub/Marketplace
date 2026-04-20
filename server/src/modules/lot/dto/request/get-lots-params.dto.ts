@@ -25,6 +25,6 @@ export class GetLotsParamsDto extends PaginationDto {
   @ApiPropertyOptional({ description: 'Максимальная цена' })
   @IsOptional()
   @Type(() => Number)
-  @Max(10_000_000)
+  @Max(1_000_000)
   maxPrice?: number;
 }

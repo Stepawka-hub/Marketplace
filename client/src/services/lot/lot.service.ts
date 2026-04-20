@@ -14,7 +14,7 @@ import {
   TActiveBidsCountResponse,
   TGetLotsParams,
 } from "./types";
-import { LOT_STATUSES } from "@/shared/constants";
+import { LOT_STATUSES, MAX_LOT_PRICE, MIN_LOT_PRICE } from "@/shared/constants";
 
 export const lotAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
@@ -29,8 +29,8 @@ export const lotAPI = baseAPI.injectEndpoints({
             LOT_STATUSES.COMPLETED,
             LOT_STATUSES.EXPIRED,
           ],
-          minPrice: 0,
-          maxPrice: 10_000_000,
+          minPrice: MIN_LOT_PRICE,
+          maxPrice: MAX_LOT_PRICE,
         },
       ) => ({
         url: "/lots",

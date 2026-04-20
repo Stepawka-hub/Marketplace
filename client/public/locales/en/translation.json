@@ -109,6 +109,11 @@
         "completed": "Completed",
         "expired": "Expired"
       }
+    },
+    "price-filter": {
+      "title": "Price",
+      "from": "From",
+      "to": "To"
     }
   },
 

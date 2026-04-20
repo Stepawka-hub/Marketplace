@@ -1,3 +1,5 @@
+import { MAX_LOT_PRICE, MIN_LOT_PRICE } from "@/shared/constants";
+
 export const CREATE_LOT_FIELDS = {
   START_PRICE: "startPrice",
   MIN_BID_INCREMENT: "minBidIncrement",
@@ -6,8 +8,8 @@ export const CREATE_LOT_FIELDS = {
 
 export const LOT_VALIDATION = {
   PRICE: {
-    MIN: 10,
-    MAX: 10_000_000,
+    MIN: MIN_LOT_PRICE,
+    MAX: MAX_LOT_PRICE,
   },
   MIN_BID_INCREMENT: {
     MIN: 10,

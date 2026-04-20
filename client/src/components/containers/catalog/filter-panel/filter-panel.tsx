@@ -2,6 +2,8 @@ import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "@/store";
 import { getFilters, setFilters } from "@/store/slices/catalog";
+import { LOT_STATUSES, MAX_LOT_PRICE, MIN_LOT_PRICE } from "@/shared/constants";
+
 import { StatusFilter } from "@/components/containers";
 import { PriceSlider } from "@/components/elements";
 import { Drawer, DrawerHeader } from "@/components/ui";
@@ -12,10 +14,9 @@ import {
   IconButton,
   List,
   ListItem,
-  useMediaQuery,
-  useTheme,
 } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+
 import {
   applyBtnBoxStyle,
   applyBtnStyle,
@@ -24,7 +25,6 @@ import {
   filterBoxStyle,
   priceSliderBoxStyle,
 } from "./styles";
-import { LOT_STATUSES } from "@/shared/constants";
 import { TLotStatus } from "@/shared/types";
 import { FilterPanelProps } from "./type";
 
@@ -43,10 +43,6 @@ export const FilterPanel: FC<FilterPanelProps> = ({ isOpen, onClose }) => {
       LOT_STATUSES.EXPIRED,
     ],
   );
-
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("md"));
-
   const handleApplyFilters = () => {
     const [min, max] = priceValue;
     dispatch(
@@ -64,7 +60,7 @@ export const FilterPanel: FC<FilterPanelProps> = ({ isOpen, onClose }) => {
   return (
     <Drawer
       open={isOpen}
-      variant={matches ? "temporary" : "persistent"}
+      variant="temporary"
       sx={isOpen ? drawerStyle.active : drawerStyle.base}
       onClose={onClose}
     >
@@ -95,8 +91,8 @@ export const FilterPanel: FC<FilterPanelProps> = ({ isOpen, onClose }) => {
                 <PriceSlider
                   priceValue={priceValue}
                   priceRange={{
-                    min: 100,
-                    max: 10_000_000,
+                    min: MIN_LOT_PRICE,
+                    max: MAX_LOT_PRICE,
                   }}
                   setPriceValue={setPriceValue}
                 />
