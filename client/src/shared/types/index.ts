@@ -5,3 +5,4 @@ export * from "./common.types";
 export * from "./user.types";
 export * from "./bid.types";
 export * from "./lot.types";
+export * from './seller-registration.types';

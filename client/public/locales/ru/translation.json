@@ -46,7 +46,8 @@
       "max": "Значение должно быть не более {{value}}",
       "price-format": "Цена должна быть в формате 0.00",
       "date-min": "Дата должна быть не менее чем через {{days}} дня",
-      "date-max": "Дата должна быть не более чем через {{days}} дней"
+      "date-max": "Дата должна быть не более чем через {{days}} дней",
+      "inn": "ИНН должен содержать {{count}} цифр"
     },
     "fields": {
       "firstName": {
@@ -177,57 +178,6 @@
     }
   },
 
-  "profile": {
-    "badge": {
-      "tool-tip": "Войти в аккаунт"
-    },
-    "account-menu": {
-      "tool-tip": "Мой аккаунт",
-      "list-items": {
-        "balance": "Баланс",
-        "frozen-balance": "Замороженный баланс"
-      }
-    },
-    "menu-items": {
-      "profile": "Профиль",
-      "bids-history": "История ставок",
-      "seller-panel": "Панель продавца",
-      "my-lots": "Мои лоты",
-      "log-out": "Выйти из аккаунта",
-      "logging-out": "Выход из аккаунта..."
-    },
-    "info-row": {
-      "email": "Email",
-      "phone": "Телефон",
-      "role": "Роль",
-      "balance": "Баланс",
-      "frozen-balance": "Замороженный баланс"
-    },
-    "avatar": {
-      "errors": {
-        "incorrect-type": "Пожалуйста, выберите изображение",
-        "max-size": "Размер файла не должен превышать 5MB",
-        "common": "Ошибка при загрузке фото"
-      }
-    },
-    "errors": {
-      "loading": "Ошибка загрузки профиля"
-    },
-    "edit-modal": {
-      "title": "Редактирование профиля"
-    },
-    "seller-panel": {
-      "my-products-title": "Мои товары",
-      "create-product": "Создать товар"
-    },
-    "bids-history": {
-      "title": "История ставок"
-    },
-    "my-lots": {
-      "title": "Мои лоты"
-    }
-  },
-
   "create-product": {
     "actions": {
       "back-to-profile": "Вернуться в профиль"
@@ -318,6 +268,103 @@
     "title": "Медиафайлы ({{count}})",
     "title-caption": "(кликните, чтобы сделать главным)",
     "main-badge": "Главное"
+  },
+
+  "profile": {
+    "badge": {
+      "tool-tip": "Войти в аккаунт"
+    },
+    "account-menu": {
+      "tool-tip": "Мой аккаунт",
+      "list-items": {
+        "balance": "Баланс",
+        "frozen-balance": "Замороженный баланс"
+      }
+    },
+    "menu-items": {
+      "profile": "Профиль",
+      "bids-history": "История ставок",
+      "seller-panel": "Панель продавца",
+      "my-lots": "Мои лоты",
+      "log-out": "Выйти из аккаунта",
+      "logging-out": "Выход из аккаунта..."
+    },
+    "info-row": {
+      "email": "Email",
+      "phone": "Телефон",
+      "role": "Роль",
+      "balance": "Баланс",
+      "frozen-balance": "Замороженный баланс"
+    },
+    "avatar": {
+      "errors": {
+        "incorrect-type": "Пожалуйста, выберите изображение",
+        "max-size": "Размер файла не должен превышать 5MB",
+        "common": "Ошибка при загрузке фото"
+      }
+    },
+    "errors": {
+      "loading": "Ошибка загрузки профиля"
+    },
+    "edit-modal": {
+      "title": "Редактирование профиля"
+    },
+    "seller-panel": {
+      "my-products-title": "Мои товары",
+      "create-product": "Создать товар"
+    },
+    "bids-history": {
+      "title": "История ставок"
+    },
+    "my-lots": {
+      "title": "Мои лоты"
+    }
+  },
+
+  "seller-registration": {
+    "title": "Регистрация продавца",
+    "submit-button": "Отправить заявку",
+    "types": {
+      "IP": "Индивидуальный предприниматель (ИП)",
+      "LEGAL": "Юридическое лицо (ООО, АО и др.)",
+      "SELF": "Самозанятый"
+    },
+    "inn-hint": {
+      "IP": "ИНН ИП — 12 цифр",
+      "SELF": "ИНН самозанятого — 12 цифр",
+      "LEGAL": "ИНН юридического лица — 10 цифр"
+    },
+    "fields": {
+      "registrationType": {
+        "label": "Тип регистрации"
+      },
+      "companyName": {
+        "label": "Название компании / ИП",
+        "placeholder": "ИП Иванов или ООО 'Ромашка'"
+      },
+      "inn": {
+        "label": "ИНН",
+        "placeholder": "1234567890"
+      },
+      "phone": {
+        "label": "Телефон",
+        "placeholder": "+7 (999) 123-45-67"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "shop@example.com"
+      },
+      "description": {
+        "label": "О компании",
+        "placeholder": "Расскажите о вашей компании..."
+      }
+    },
+    "agreement": {
+      "part1": "Я принимаю",
+      "terms": "условия использования",
+      "privacy": "политику конфиденциальности",
+      "part2": "и подтверждаю достоверность предоставленных данных"
+    }
   },
 
   "common": {

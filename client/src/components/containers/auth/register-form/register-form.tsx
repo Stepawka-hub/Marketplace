@@ -27,7 +27,7 @@ export const RegisterForm: FC = () => {
   const { FIRST_NAME, LAST_NAME, EMAIL, PHONE, PASSWORD, CONFIRM_PASSWORD } =
     REGISTER_FIELDS;
 
-  const [registerAsync, { error, isLoading }] = useRegisterMutation();
+  const [registerAsync, { isLoading }] = useRegisterMutation();
 
   const onSubmit = handleSubmit((formData) => {
     if (formData.password !== formData.confirmPassword) {
