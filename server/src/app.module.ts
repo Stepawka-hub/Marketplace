@@ -9,6 +9,7 @@ import { AuthModule } from '@/modules/auth';
 import { BidModule } from './modules/bid/bid.module';
 import { FavoritesModule } from './modules/favorites/favorites.module';
 import { LotModule } from './modules/lot/lot.module';
+import { SellerRequestsModule } from './modules/seller-requests/seller-requests.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { LotModule } from './modules/lot/lot.module';
     BidModule,
     FavoritesModule,
     LotModule,
+    SellerRequestsModule,
   ],
 })
 export class AppModule {}

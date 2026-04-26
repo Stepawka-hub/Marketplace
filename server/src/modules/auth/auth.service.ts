@@ -14,11 +14,16 @@ import { hash, verify } from 'argon2';
 import * as ms from 'ms';
 import type { StringValue } from 'ms';
 
-import { UserEntity } from '@/modules/user/entities';
+import {
+  RoleEntity,
+  UserEntity,
+  UserRoleEntity,
+} from '@/modules/user/entities';
 import { LoginRequestDto, RegisterRequestDto } from './dto';
 import { JwtPayload } from './types';
 import { isDev } from '@/utils';
 import { REFRESH_TOKEN_COOKIE_KEY } from './constants';
+import { USER_ROLES } from '../user/constants';
 
 @Injectable()
 export class AuthService {
@@ -29,6 +34,10 @@ export class AuthService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+    @InjectRepository(RoleEntity)
+    private readonly roleRepository: Repository<RoleEntity>,
+    @InjectRepository(UserRoleEntity)
+    private readonly userRoleRepository: Repository<UserRoleEntity>,
     private readonly configService: ConfigService,
     private readonly jwtService: JwtService,
   ) {
@@ -64,6 +73,21 @@ export class AuthService {
 
     await this.userRepository.save(user);
 
+    const userRole = await this.roleRepository.findOne({
+      where: { name: USER_ROLES.USER },
+    });
+
+    if (!userRole) {
+      throw new NotFoundException(
+        `Роль ${USER_ROLES.USER} не найдена в системе`,
+      );
+    }
+
+    await this.userRoleRepository.save({
+      userId: user.id,
+      roleId: userRole.id,
+    });
+
     return this.auth(res, user.id);
   }
 
@@ -73,6 +97,7 @@ export class AuthService {
     const user = await this.userRepository.findOne({
       where: { email },
       select: { id: true, password: true },
+      relations: ['userRoles', 'userRoles.role'],
     });
 
     if (!user) {

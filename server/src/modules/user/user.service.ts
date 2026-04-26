@@ -37,10 +37,11 @@ export class UserService {
   async findById(id: string): Promise<UserEntity> {
     const user = await this.userRepository.findOne({
       where: { id },
+      relations: ['userRoles', 'userRoles.role'],
     });
 
     if (!user) {
-      throw new NotFoundException('User not found!');
+      throw new NotFoundException('Пользователь не найден!');
     }
 
     return user;
@@ -49,10 +50,11 @@ export class UserService {
   async getCurrentUser(id: string): Promise<TUserDataResponse> {
     const user = await this.userRepository.findOne({
       where: { id },
+      relations: ['userRoles', 'userRoles.role'],
     });
 
     if (!user) {
-      throw new NotFoundException('User not found!');
+      throw new NotFoundException('Пользователь не найден!');
     }
 
     return ApiResponse.success(
@@ -67,10 +69,11 @@ export class UserService {
   ): Promise<TUserDataResponse> {
     const user = await this.userRepository.findOne({
       where: { id },
+      relations: ['userRoles', 'userRoles.role'],
     });
 
     if (!user) {
-      throw new NotFoundException('User not found!');
+      throw new NotFoundException('Пользователь не найден!');
     }
 
     if (updateData.phone && updateData.phone !== user.phone) {
@@ -105,7 +108,7 @@ export class UserService {
     });
 
     if (!user) {
-      throw new NotFoundException('User not found!');
+      throw new NotFoundException('Пользователь не найден!');
     }
 
     const key = generateFileName(file, 'avatars/');
@@ -145,6 +148,8 @@ export class UserService {
   }
 
   private formatUserResponse(user: UserEntity) {
+    const roles = user.userRoles?.map((ur) => ur.role.name) || [];
+
     return {
       id: user.id,
       email: user.email,
@@ -152,7 +157,7 @@ export class UserService {
       firstName: user.firstName,
       lastName: user.lastName,
       avatar: formatMediaUrl(user.avatar, this.avatarBaseUrl),
-      role: user.role,
+      roles,
       balance: user.balance,
       frozenBalance: user.frozenBalance,
     };

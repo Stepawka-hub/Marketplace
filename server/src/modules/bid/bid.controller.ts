@@ -9,7 +9,7 @@ import {
   ApiParam,
 } from '@nestjs/swagger';
 
-import { Authorizated, Authorization } from '@/modules/auth/decorators';
+import { Authorizated, Auth } from '@/modules/auth/decorators';
 import { BidService } from './bid.service';
 import { PaginationDto } from '@/common';
 import {
@@ -48,7 +48,7 @@ export class BidController {
     name: 'lotId',
     description: 'ID лота',
   })
-  @Authorization()
+  @Auth()
   @Get()
   getLotBids(
     @Param('lotId') lotId: string,
@@ -66,7 +66,7 @@ export class BidController {
     type: BidActionResponseDto,
   })
   @ApiParam({ name: 'lotId', description: 'ID лота' })
-  @Authorization()
+  @Auth()
   @Post()
   placeBid(
     @Authorizated('id') userId: string,

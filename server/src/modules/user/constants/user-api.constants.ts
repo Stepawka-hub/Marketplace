@@ -2,7 +2,6 @@ import { ProductEntity } from '@/modules/product/entities';
 import { BidEntity } from '@/modules/bid/entities';
 import { LotEntity } from '@/modules/lot/entities';
 
-import { USER_ROLES } from './user.constants';
 import { USER_VALIDATION } from './user-validation.constants';
 import { TApiPropertyOptions } from '@/common';
 
@@ -44,10 +43,6 @@ export const USER_API_PROPERTIES: TApiPropertyOptions = {
   AVATAR: {
     description: 'Аватар',
     example: 'https://storage.example.com/avatars/123456',
-  },
-  ROLE: {
-    description: 'Роль пользователя',
-    example: USER_ROLES.USER,
   },
   BALANCE: {
     description: 'Баланс пользователя',

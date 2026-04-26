@@ -9,7 +9,7 @@ import {
   ApiQuery,
 } from '@nestjs/swagger';
 
-import { Authorizated, Authorization } from '@/modules/auth/decorators';
+import { Authorizated, Auth } from '@/modules/auth/decorators';
 import { LotService } from './lot.service';
 import { PaginationDto } from '@/common';
 import {
@@ -22,6 +22,7 @@ import {
   GetLotsParamsDto,
 } from './dto';
 import { LOT_API_PROPERTIES } from './constants';
+import { USER_ROLES } from '../user/constants';
 
 @ApiTags('Lots')
 @Controller('lots')
@@ -78,7 +79,7 @@ export class LotController {
     type: LotPaginatedResponseDto,
   })
   @ApiBearerAuth()
-  @Authorization()
+  @Auth(USER_ROLES.VENDOR)
   @Get('me')
   getMyLots(
     @Authorizated('id') userId: string,
@@ -94,7 +95,7 @@ export class LotController {
     type: BidLotItemsResponseDto,
   })
   @ApiBearerAuth()
-  @Authorization()
+  @Auth()
   @Get('me/bids/active')
   getMyActiveLots(
     @Authorizated('id') userId: string,
@@ -110,7 +111,7 @@ export class LotController {
     type: ActiveBidsCountResponseDto,
   })
   @ApiBearerAuth()
-  @Authorization()
+  @Auth()
   @Get('me/bids/active/count')
   getMyActiveLotsCount(@Authorizated('id') userId: string) {
     return this.lotService.getMyActiveLotsCount(userId);
@@ -123,7 +124,7 @@ export class LotController {
     type: BidLotItemsResponseDto,
   })
   @ApiBearerAuth()
-  @Authorization()
+  @Auth()
   @Get('me/bids/history')
   getMyBidsHistory(
     @Authorizated('id') userId: string,
@@ -153,7 +154,7 @@ export class LotController {
     type: LotActionResponseDto,
   })
   @ApiBearerAuth()
-  @Authorization()
+  @Auth(USER_ROLES.VENDOR)
   @Post()
   createLot(@Authorizated('id') userId: string, @Body() dto: CreateLotDto) {
     return this.lotService.createLot(userId, dto);

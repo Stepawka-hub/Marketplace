@@ -8,7 +8,9 @@ export const Authorizated = createParamDecorator(
 
     const user = request.user as UserEntity | undefined;
 
-    if (!user) return null;
+    if (!user) {
+      return null;
+    }
 
     return data ? user[data] : user;
   },

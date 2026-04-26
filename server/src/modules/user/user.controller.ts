@@ -22,7 +22,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UserService } from './user.service';
 import { UserEntity } from './entities';
-import { Authorization, Authorizated } from '@/modules/auth/decorators';
+import { Auth, Authorizated } from '@/modules/auth/decorators';
 import { UpdateUserDto } from './dto';
 import { TUserDataResponse } from './types';
 
@@ -37,7 +37,7 @@ export class UserController {
   })
   @ApiOkResponse({ type: UserEntity })
   @ApiNotFoundResponse({ description: 'Пользователь не найден' })
-  @Authorization()
+  @Auth()
   @Get('profile')
   @HttpCode(HttpStatus.OK)
   me(@Authorizated() user: UserEntity) {
@@ -55,7 +55,7 @@ export class UserController {
   })
   @ApiNotFoundResponse({ description: 'Пользователь не найден' })
   @ApiConflictResponse({ description: 'Email или телефон уже занят' })
-  @Authorization()
+  @Auth()
   @Patch('profile')
   @HttpCode(HttpStatus.OK)
   updateProfile(
@@ -80,7 +80,7 @@ export class UserController {
       },
     },
   })
-  @Authorization()
+  @Auth()
   @Patch('profile-avatar')
   @UseInterceptors(FileInterceptor('avatar'))
   updateAvatar(

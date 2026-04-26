@@ -1,4 +1,5 @@
 import { TApiResponse } from '@/common';
+import { TUserRole } from './user.types';
 
 export type TUserDataResponse = TApiResponse<{
   id: string;
@@ -7,7 +8,7 @@ export type TUserDataResponse = TApiResponse<{
   firstName: string;
   lastName: string;
   avatar: string | null;
-  role: string;
+  roles: TUserRole[];
 }>;
 
 export type TUploadAvatarResponse = TApiResponse<{

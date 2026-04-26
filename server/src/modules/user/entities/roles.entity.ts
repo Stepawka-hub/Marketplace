@@ -1,0 +1,18 @@
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { UserRoleEntity } from './user-roles.entity';
+import { TUserRole } from '../types';
+
+@Entity('roles')
+export class RoleEntity {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column({ unique: true })
+  name: TUserRole;
+
+  @Column({ nullable: true })
+  description: string;
+
+  @OneToMany(() => UserRoleEntity, (userRole) => userRole.role)
+  userRoles: UserRoleEntity[];
+}

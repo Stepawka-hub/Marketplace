@@ -19,7 +19,7 @@ import {
   ApiQuery,
 } from '@nestjs/swagger';
 
-import { Authorizated, Authorization } from '@/modules/auth/decorators';
+import { Authorizated, Auth } from '@/modules/auth/decorators';
 import { ProductService } from './product.service';
 import { ProductFilesValidationPipe } from './pipes';
 import {
@@ -38,6 +38,7 @@ import {
 import { TApiPaginatedResponse, TApiResponse } from '@/common';
 import { TProductFiles } from './types';
 import { UserEntity } from '../user/entities';
+import { USER_ROLES } from '../user/constants';
 
 @Controller('products')
 export class ProductController {
@@ -63,7 +64,7 @@ export class ProductController {
       },
     ]),
   )
-  @Authorization()
+  @Auth(USER_ROLES.VENDOR)
   @Post()
   createProduct(
     @Authorizated('id') userId: string,
@@ -127,7 +128,7 @@ export class ProductController {
     type: Number,
     example: 10,
   })
-  @Authorization()
+  @Auth(USER_ROLES.VENDOR)
   @Get('my-products')
   findMyProducts(
     @Authorizated() user: UserEntity,

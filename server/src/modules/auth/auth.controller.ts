@@ -7,6 +7,7 @@ import {
   Req,
   Res,
 } from '@nestjs/common';
+import { Request, Response } from 'express';
 import {
   ApiBadRequestResponse,
   ApiConflictResponse,
@@ -17,7 +18,6 @@ import {
 } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { AuthResponseDto, LoginRequestDto, RegisterRequestDto } from './dto';
-import { Request, Response } from 'express';
 
 @Controller('auth')
 export class AuthController {

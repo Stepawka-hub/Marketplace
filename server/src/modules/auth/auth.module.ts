@@ -10,7 +10,11 @@ import { JwtStrategy } from './strategies';
 import { getJwtConfig } from '@/config/jwt';
 
 import { UserModule } from '@/modules/user';
-import { UserEntity } from '@/modules/user/entities';
+import {
+  RoleEntity,
+  UserEntity,
+  UserRoleEntity,
+} from '@/modules/user/entities';
 
 @Module({
   imports: [
@@ -20,7 +24,7 @@ import { UserEntity } from '@/modules/user/entities';
       useFactory: getJwtConfig,
       inject: [ConfigService],
     }),
-    TypeOrmModule.forFeature([UserEntity]),
+    TypeOrmModule.forFeature([UserEntity, RoleEntity, UserRoleEntity]),
     UserModule,
   ],
   controllers: [AuthController],
