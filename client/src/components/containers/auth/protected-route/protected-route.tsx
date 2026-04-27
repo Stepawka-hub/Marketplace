@@ -6,7 +6,7 @@ import { useSelector } from "@/store";
 import {
   getIsAuth,
   getIsAuthChecked,
-  getUserRole,
+  getUserRoles,
 } from "@/store/slices/profile";
 import { USER_ROLES } from "@/shared/constants";
 
@@ -20,7 +20,7 @@ export const ProtectedRoute: FC<TProtectedRouteProps> = ({
 }) => {
   const isAuth = useSelector(getIsAuth);
   const isAuthChecked = useSelector(getIsAuthChecked);
-  const userRole = useSelector(getUserRole);
+  const userRoles = useSelector(getUserRoles) || [USER_ROLES.USER];
 
   if (!isAuthChecked) {
     return <Loader />;
@@ -37,7 +37,9 @@ export const ProtectedRoute: FC<TProtectedRouteProps> = ({
     return <Navigate replace to={ROUTES.CATALOG} />;
   }
 
-  if (allowedRoles && !allowedRoles.includes(userRole || USER_ROLES.USER)) {
+  const hasAllowedRole = allowedRoles?.some((role) => userRoles.includes(role));
+
+  if (allowedRoles && !hasAllowedRole) {
     return <Navigate to={redirectTo} replace />;
   }
 

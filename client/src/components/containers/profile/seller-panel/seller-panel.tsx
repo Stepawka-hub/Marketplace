@@ -17,7 +17,7 @@ export const SellerPanel: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { data, isLoading } = useGetMeQuery();
-  const isSeller = isVendor(data?.role || USER_ROLES.USER);
+  const isSeller = isVendor(data?.roles || [USER_ROLES.USER]);
 
   if (isLoading) {
     return <Loader />;

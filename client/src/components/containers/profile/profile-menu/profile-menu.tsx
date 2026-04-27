@@ -50,7 +50,7 @@ export const ProfileMenu: FC = () => {
     },
   ];
 
-  if (isVendor(data?.role || USER_ROLES.USER)) {
+  if (isVendor(data?.roles || [USER_ROLES.USER])) {
     menuItems.push({
       text: t("profile.menu-items.my-lots"),
       icon: <GavelIcon />,

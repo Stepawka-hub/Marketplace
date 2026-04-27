@@ -6,7 +6,7 @@ import { TProfileState } from "./types";
 const initialState: TProfileState = {
   isAuthChecked: false,
   isAuth: false,
-  userRole: USER_ROLES.USER,
+  userRoles: [USER_ROLES.USER],
 };
 
 const profileSlice = createSlice({
@@ -16,14 +16,14 @@ const profileSlice = createSlice({
   selectors: {
     getIsAuthChecked: (state) => state.isAuthChecked,
     getIsAuth: (state) => state.isAuth,
-    getUserRole: (state) => state.userRole,
+    getUserRoles: (state) => state.userRoles,
   },
   extraReducers: (builder) => {
     builder
       .addMatcher(userAPI.endpoints.getMe.matchFulfilled, (state, action) => {
         state.isAuthChecked = true;
         state.isAuth = true;
-        state.userRole = action.payload.role;
+        state.userRoles = action.payload.roles;
       })
       .addMatcher(userAPI.endpoints.getMe.matchRejected, (state) => {
         state.isAuth = false;
@@ -33,5 +33,5 @@ const profileSlice = createSlice({
 });
 
 export default profileSlice.reducer;
-export const { getIsAuth, getIsAuthChecked, getUserRole } =
+export const { getIsAuth, getIsAuthChecked, getUserRoles } =
   profileSlice.selectors;

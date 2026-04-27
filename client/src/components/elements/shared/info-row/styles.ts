@@ -4,11 +4,13 @@ export const containerStyle: SxProps = {
   display: "flex",
   alignItems: "center",
   gap: 3,
-  width: "30rem",
+  width: {
+    xs: "100%",
+    md: "30rem",
+  },
 } as const;
 
 export const labelStyle: SxProps = {
-  minWidth: 60,
   textWrap: "nowrap",
   textAlign: "left",
 } as const;

@@ -286,7 +286,6 @@
     "info-row": {
       "email": "Email",
       "phone": "Phone",
-      "role": "Role",
       "balance": "Balance",
       "frozen-balance": "Frozen balance"
     },
@@ -363,8 +362,10 @@
 
   "common": {
     "role": {
+      "user": "User",
       "vendor": "Vendor",
-      "user": "User"
+      "moderator": "Moderator",
+      "admin": "Admin"
     },
     "actions": {
       "back": "Return to catalog",

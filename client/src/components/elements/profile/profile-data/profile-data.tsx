@@ -1,18 +1,16 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  formatBalance,
-  formattedWithSpace,
-  getRoleTranslationKey,
-} from "@/shared/helpers";
+import { formatBalance, formattedWithSpace } from "@/shared/helpers";
 import { ProfileAvatar } from "@/components/containers";
 import { InfoRow } from "@/components/elements";
-import { Box, Paper, Typography, Button, Stack } from "@mui/material";
+import { Box, Paper, Typography, Button, Stack, Chip } from "@mui/material";
 import {
   balanceValueStyle,
   editButtonStyle,
   frozenBalanceValueStyle,
   profileBoxStyle,
+  rolesContainerStyle,
+  userInfoWrapperStyle,
   wrapperStyle,
 } from "./styles";
 import { TProfileDataUIProps } from "./type";
@@ -23,14 +21,12 @@ export const ProfileDataUI: FC<TProfileDataUIProps> = ({
   avatar,
   email,
   phone = "",
-  role,
+  roles,
   balance,
   frozenBalance,
   onEditButtonClick,
 }) => {
   const { t, i18n } = useTranslation();
-
-  const userRole = t(getRoleTranslationKey(role));
 
   return (
     <Paper elevation={0} sx={wrapperStyle}>
@@ -41,15 +37,20 @@ export const ProfileDataUI: FC<TProfileDataUIProps> = ({
           lastName={lastName}
         />
 
-        <Box sx={{ flex: 1 }}>
+        <Box sx={userInfoWrapperStyle}>
           <Typography variant="h5" fontWeight={500} gutterBottom>
             {firstName} {lastName}
           </Typography>
 
+          <Box sx={rolesContainerStyle}>
+            {roles.map((role) => (
+              <Chip key={role} label={t(`common.role.${role}`)} size="small" />
+            ))}
+          </Box>
+
           <Stack spacing={1} sx={{ mt: 1 }}>
             <InfoRow label={t("profile.info-row.email")} value={email} />
             <InfoRow label={t("profile.info-row.phone")} value={phone} />
-            <InfoRow label={t("profile.info-row.role")} value={userRole} />
             <InfoRow
               label={t("profile.info-row.balance")}
               value={`${formattedWithSpace(formatBalance(balance), i18n.language)} ₽`}

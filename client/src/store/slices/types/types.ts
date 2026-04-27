@@ -19,5 +19,5 @@ export type TCatalogState = {
 export type TProfileState = {
   isAuthChecked: boolean;
   isAuth: boolean;
-  userRole: TUserRole;
+  userRoles: TUserRole[];
 };

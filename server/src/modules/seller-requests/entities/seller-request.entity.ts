@@ -70,7 +70,6 @@ export class SellerRequestEntity {
   @Column({
     nullable: true,
     type: 'text',
-    length: SELLER_REQUEST_VALIDATION.DESCRIPTION.MAX,
   })
   description: string;
 

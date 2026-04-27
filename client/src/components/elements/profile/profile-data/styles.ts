@@ -14,18 +14,32 @@ export const profileBoxStyle: SxProps = {
   display: "flex",
   alignItems: {
     xs: "center",
-    sm: "flex-start",
+    md: "flex-start",
   },
   flexDirection: {
     xs: "column",
-    sm: "row",
+    md: "row",
   },
   gap: 3,
   flexWrap: "wrap",
   textAlign: {
     xs: "center",
-    sm: "left",
+    md: "left",
   },
+} as const;
+
+export const userInfoWrapperStyle: SxProps = {
+  flex: 1,
+  width: "100%",
+} as const;
+
+export const rolesContainerStyle: SxProps = {
+  display: "flex",
+  justifyContent: {
+    xs: "center",
+    md: "flex-start",
+  },
+  gap: "0.25rem",
 } as const;
 
 export const editButtonStyle: SxProps = {
