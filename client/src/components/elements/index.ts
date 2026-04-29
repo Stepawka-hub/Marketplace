@@ -5,5 +5,5 @@ export * from "./lot";
 export * from "./not-found";
 export * from "./catalog";
 export * from "./profile";
-export * from "./admin";
+export * from "./admin-panel";
 export * from "./shared";

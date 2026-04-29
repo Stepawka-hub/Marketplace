@@ -6,6 +6,7 @@ import {
   FAVORITES_TAG_TYPE,
   LOT_TAG_TYPE,
   PRODUCT_TAG_TYPE,
+  SELLER_REQUEST_TAG_TYPE,
 } from "./constants";
 
 export const baseAPI = createApi({
@@ -16,6 +17,7 @@ export const baseAPI = createApi({
     FAVORITES_TAG_TYPE,
     LOT_TAG_TYPE,
     BID_TAG_TYPE,
+    SELLER_REQUEST_TAG_TYPE,
   ],
   baseQuery: baseQueryWithReauth,
   endpoints: () => ({}),

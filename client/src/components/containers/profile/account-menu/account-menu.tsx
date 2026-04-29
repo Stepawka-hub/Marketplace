@@ -42,7 +42,7 @@ export const AccountMenu: FC = () => {
   };
 
   const navigateToProfile = () => {
-    navigate(ROUTES.PROFILE);
+    navigate(ROUTES.PROFILE.ROOT);
     handleClose();
   };
 

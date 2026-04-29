@@ -90,7 +90,7 @@ export const CreateProductForm: FC = () => {
     submitData.append(PREVIEW, mediaFiles[mainImageIndex]);
 
     await createProduct(submitData).unwrap();
-    navigate(ROUTES.PROFILE_SELLER_PANEL);
+    navigate(ROUTES.PROFILE.SELLER_PANEL);
   });
 
   const mediaError = formState.errors[MEDIA]?.message;

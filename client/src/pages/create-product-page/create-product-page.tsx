@@ -11,7 +11,7 @@ export const CreateProductPage: FC = () => {
     <PageContainer>
       <BackButton
         title={t("create-product.actions.back-to-profile")}
-        path={ROUTES.PROFILE_SELLER_PANEL}
+        path={ROUTES.PROFILE.SELLER_PANEL}
       />
       <CreateProductForm />
     </PageContainer>

@@ -79,7 +79,7 @@ export const CreateLotModal: FC = () => {
     });
     reset();
     onModalClose();
-    navigate(ROUTES.PROFILE_MY_LOTS);
+    navigate(ROUTES.PROFILE.MY_LOTS);
   });
 
   const getFieldTranslation = (

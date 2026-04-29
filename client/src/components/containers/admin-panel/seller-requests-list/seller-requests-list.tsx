@@ -1,15 +1,15 @@
 import { FC } from "react";
 import {
   useGetAllSellerRequestsQuery,
-  useUpdateSellerRequestMutation,
-} from "@/services/admin";
+  useUpdateSellerRequestStatusMutation,
+} from "@/services";
 import { SellerRequestsListUI } from "@/components/elements";
 import { TSellerRequestStatus } from "@/shared/types";
 
 export const SellerRequestsList: FC = () => {
   const { data: requests = [], isLoading } = useGetAllSellerRequestsQuery();
   const [updateRequest, { isLoading: isUpdating }] =
-    useUpdateSellerRequestMutation();
+    useUpdateSellerRequestStatusMutation();
 
   const handleUpdateStatus = async (
     id: string,

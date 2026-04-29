@@ -21,9 +21,11 @@ import {
   ProtectedRoute,
   BidsHistory,
   MyLotsList,
+  SellerRequestsList,
+  UsersList,
+  Dashboard,
 } from "@/components/containers";
 import { USER_ROLES } from "@/shared/constants";
-import { Box } from "@mui/material";
 
 export const router = createBrowserRouter([
   {
@@ -57,7 +59,7 @@ export const router = createBrowserRouter([
             element: <FavoritesPage />,
           },
           {
-            path: ROUTES.PROFILE,
+            path: ROUTES.PROFILE.ROOT,
             element: <ProfilePage />,
             children: [
               {
@@ -65,23 +67,23 @@ export const router = createBrowserRouter([
                 element: <ProfileData />,
               },
               {
-                path: ROUTES.PROFILE_BIDS_HISTORY,
+                path: ROUTES.PROFILE.BIDS_HISTORY,
                 element: <BidsHistory />,
               },
               {
-                path: ROUTES.PROFILE_SELLER_PANEL,
+                path: ROUTES.PROFILE.SELLER_PANEL,
                 element: <SellerPanel />,
               },
               {
                 element: (
                   <ProtectedRoute
                     allowedRoles={[USER_ROLES.VENDOR, USER_ROLES.ADMIN]}
-                    redirectTo={ROUTES.PROFILE}
+                    redirectTo={ROUTES.PROFILE.ROOT}
                   />
                 ),
                 children: [
                   {
-                    path: ROUTES.PROFILE_MY_LOTS,
+                    path: ROUTES.PROFILE.MY_LOTS,
                     element: <MyLotsList />,
                   },
                 ],
@@ -89,7 +91,7 @@ export const router = createBrowserRouter([
             ],
           },
           {
-            path: ROUTES.ADMIN_PANEL,
+            path: ROUTES.ADMIN_PANEL.ROOT,
             element: (
               <ProtectedRoute
                 allowedRoles={[USER_ROLES.MODERATOR, USER_ROLES.ADMIN]}
@@ -102,15 +104,21 @@ export const router = createBrowserRouter([
                 children: [
                   {
                     index: true,
-                    element: <Box>Dashboard</Box>, //<AdminDashboard />,
+                    element: (
+                      <Navigate to={ROUTES.ADMIN_PANEL.DASHBOARD} replace />
+                    ),
                   },
                   {
-                    path: "seller-requests",
-                    element: <Box>Seller rqeuest</Box>, //<AdminSellerRequests />,
+                    path: ROUTES.ADMIN_PANEL.DASHBOARD,
+                    element: <Dashboard />,
                   },
                   {
-                    path: "users",
-                    element: <Box>Users</Box>, //<AdminUsers />,
+                    path: ROUTES.ADMIN_PANEL.SELLER_REQUESTS,
+                    element: <SellerRequestsList />,
+                  },
+                  {
+                    path: ROUTES.ADMIN_PANEL.USERS,
+                    element: <UsersList />,
                   },
                 ],
               },
