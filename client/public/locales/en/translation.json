@@ -360,6 +360,34 @@
     }
   },
 
+  "seller-requests": {
+    "title": "Seller Requests",
+    "loading": "Loading...",
+    "status": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "types": {
+      "ip": "Individual Entrepreneur",
+      "legal": "Legal Entity",
+      "self": "Self-Employed"
+    },
+    "table": {
+      "company": "Company",
+      "inn": "TIN",
+      "email": "Email",
+      "phone": "Phone",
+      "type": "Type",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "actions": {
+      "approve": "Approve",
+      "reject": "Reject"
+    }
+  },
+
   "common": {
     "role": {
       "user": "User",

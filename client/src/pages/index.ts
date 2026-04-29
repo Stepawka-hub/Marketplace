@@ -1,3 +1,4 @@
+export { AdminPanelPage } from "./admin-panel-page";
 export { CatalogPage } from "./catalog-page";
 export { LotPage } from "./lot-page";
 export { CreateProductPage } from "./create-product-page";

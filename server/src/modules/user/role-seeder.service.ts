@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RoleEntity, UserEntity } from './entities';
+import { RoleEntity } from './entities';
 import { USER_ROLES } from './constants';
 
 @Injectable()
@@ -9,7 +9,6 @@ export class RoleSeederService implements OnModuleInit {
   constructor(
     @InjectRepository(RoleEntity)
     private readonly roleRepository: Repository<RoleEntity>,
-    @InjectRepository(UserEntity)
   ) {}
 
   async onModuleInit() {

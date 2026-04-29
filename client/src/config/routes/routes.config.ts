@@ -9,6 +9,7 @@ export const ROUTES = {
   PROFILE_BIDS_HISTORY: "/profile/bids-history",
   PROFILE_MY_LOTS: "/profile/my-lots",
   CREATE_PRODUCT: "/create-product",
+  ADMIN_PANEL: "/admin-panel",
   REGISTER: "/register",
   LOGIN: "/login",
   FORGOT_PASSWORD: "/forgot-password",

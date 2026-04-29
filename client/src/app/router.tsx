@@ -13,6 +13,7 @@ import {
   ProfilePage,
   CreateProductPage,
   MyBidsPage,
+  AdminPanelPage,
 } from "@/pages";
 import {
   ProfileData,
@@ -22,6 +23,7 @@ import {
   MyLotsList,
 } from "@/components/containers";
 import { USER_ROLES } from "@/shared/constants";
+import { Box } from "@mui/material";
 
 export const router = createBrowserRouter([
   {
@@ -81,6 +83,34 @@ export const router = createBrowserRouter([
                   {
                     path: ROUTES.PROFILE_MY_LOTS,
                     element: <MyLotsList />,
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            path: ROUTES.ADMIN_PANEL,
+            element: (
+              <ProtectedRoute
+                allowedRoles={[USER_ROLES.MODERATOR, USER_ROLES.ADMIN]}
+                redirectTo={ROUTES.CATALOG}
+              />
+            ),
+            children: [
+              {
+                element: <AdminPanelPage />,
+                children: [
+                  {
+                    index: true,
+                    element: <Box>Dashboard</Box>, //<AdminDashboard />,
+                  },
+                  {
+                    path: "seller-requests",
+                    element: <Box>Seller rqeuest</Box>, //<AdminSellerRequests />,
+                  },
+                  {
+                    path: "users",
+                    element: <Box>Users</Box>, //<AdminUsers />,
                   },
                 ],
               },

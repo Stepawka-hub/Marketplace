@@ -366,6 +366,34 @@
     }
   },
 
+  "seller-requests": {
+    "title": "Заявки на статус продавца",
+    "loading": "Загрузка...",
+    "status": {
+      "pending": "В ожидании",
+      "approved": "Одобрена",
+      "rejected": "Отклонена"
+    },
+    "types": {
+      "ip": "ИП",
+      "legal": "Юридическое лицо",
+      "self": "Самозанятый"
+    },
+    "table": {
+      "company": "Компания",
+      "inn": "ИНН",
+      "email": "Email",
+      "phone": "Телефон",
+      "type": "Тип",
+      "status": "Статус",
+      "actions": "Действия"
+    },
+    "actions": {
+      "approve": "Одобрить",
+      "reject": "Отклонить"
+    }
+  },
+
   "common": {
     "role": {
       "user": "Пользователь",
