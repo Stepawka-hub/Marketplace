@@ -415,9 +415,8 @@
     "title": "Dashboard",
     "stats": {
       "users": "Users",
-      "lots": "Lots",
-      "seller_requests": "Seller Requests",
-      "active_bids": "Active Bids"
+      "active-lots": "Active Lots",
+      "pending-requests": "Pending Requests"
     }
   },
 

@@ -11,3 +11,4 @@ export const FAVORITES_TAG_TYPE = "Favorites" as const;
 export const LOT_TAG_TYPE = "Lot" as const;
 export const BID_TAG_TYPE = "Bid" as const;
 export const SELLER_REQUEST_TAG_TYPE = "SellerRequest" as const;
+export const STATS_TAG_TYPE = "Stats" as const;
