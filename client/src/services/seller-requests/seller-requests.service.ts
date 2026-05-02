@@ -3,6 +3,7 @@ import { SELLER_REQUESTS_TAGS } from "./constants";
 import { TSellerRequest } from "@/shared/types";
 import {
   TCreateSellerRequestPayload,
+  TLatestRequestStatusResponse,
   TUpdateSellerRequestPayload,
 } from "./types";
 
@@ -17,18 +18,20 @@ export const sellerRequestsAPI = baseAPI.injectEndpoints({
         method: "POST",
         body,
       }),
-      invalidatesTags: [SELLER_REQUESTS_TAGS.MY_REQUESTS],
+      invalidatesTags: [SELLER_REQUESTS_TAGS.LATEST_REQUEST],
       transformResponse: (response: TServerResponse<TSellerRequest>) =>
         response.data,
     }),
 
-    getMySellerRequests: build.query<TSellerRequest[], void>({
-      query: () => ({
-        url: "/seller-requests/my",
-      }),
-      providesTags: [SELLER_REQUESTS_TAGS.MY_REQUESTS],
-      transformResponse: (response: TServerResponse<TSellerRequest[]>) =>
-        response.data,
+    getLatestSellerRequestStatus: build.query<
+      TLatestRequestStatusResponse,
+      void
+    >({
+      query: () => "/seller-requests/my/latest",
+      providesTags: [SELLER_REQUESTS_TAGS.LATEST_REQUEST],
+      transformResponse: (
+        response: TServerResponse<TLatestRequestStatusResponse>,
+      ) => response.data,
     }),
 
     getAllSellerRequests: build.query<TSellerRequest[], void>({
@@ -49,10 +52,7 @@ export const sellerRequestsAPI = baseAPI.injectEndpoints({
         method: "PATCH",
         body: { status, rejectionReason },
       }),
-      invalidatesTags: [
-        SELLER_REQUESTS_TAGS.ALL_REQUESTS,
-        SELLER_REQUESTS_TAGS.MY_REQUESTS,
-      ],
+      invalidatesTags: [SELLER_REQUESTS_TAGS.ALL_REQUESTS],
       transformResponse: (response: TServerResponse<TSellerRequest>) =>
         response.data,
     }),
@@ -61,7 +61,7 @@ export const sellerRequestsAPI = baseAPI.injectEndpoints({
 
 export const {
   useCreateSellerRequestMutation,
-  useGetMySellerRequestsQuery,
-  useGetAllSellerRequestsQuery,
   useUpdateSellerRequestStatusMutation,
+  useGetAllSellerRequestsQuery,
+  useGetLatestSellerRequestStatusQuery,
 } = sellerRequestsAPI;

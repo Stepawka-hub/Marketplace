@@ -6,6 +6,6 @@ export { SellerPanel } from "./seller-panel";
 export { AccountMenu } from "./account-menu";
 export { EditProfileModal } from "./edit-profile-modal";
 export { BidsHistory } from "./bids-history";
-export { SellerRegistrationForm } from "./seller-registration-form";
+export { SellerRequestForm } from "./seller-request-form";
 export { MyProductList } from "./my-product-list";
 export { MyLotsList } from "./my-lots-list";

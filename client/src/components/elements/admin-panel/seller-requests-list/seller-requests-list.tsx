@@ -23,7 +23,7 @@ import {
   statusChipStyle,
 } from "./styles";
 
-import { REGISTRATION_STATUSES } from "@/shared/constants";
+import { SELLER_REQUEST_STATUSES } from "@/shared/constants";
 import { TSellerRequestStatus } from "@/shared/types";
 import { TSellerRequestsListUIProps } from "./type";
 import { Loader } from "@/components/ui";
@@ -32,11 +32,11 @@ const TRANSLATION_PREFIX = "seller-requests";
 
 const getStatusColor = (status: TSellerRequestStatus) => {
   switch (status) {
-    case REGISTRATION_STATUSES.PENDING:
+    case SELLER_REQUEST_STATUSES.PENDING:
       return "warning";
-    case REGISTRATION_STATUSES.APPROVED:
+    case SELLER_REQUEST_STATUSES.APPROVED:
       return "success";
-    case REGISTRATION_STATUSES.REJECTED:
+    case SELLER_REQUEST_STATUSES.REJECTED:
       return "error";
     default:
       return "default";
@@ -56,20 +56,20 @@ export const SellerRequestsListUI: FC<TSellerRequestsListUIProps> = ({
   }
 
   const handleApprove = (id: string) => {
-    onUpdateStatus(id, REGISTRATION_STATUSES.APPROVED);
+    onUpdateStatus(id, SELLER_REQUEST_STATUSES.APPROVED);
   };
 
   const handleReject = (id: string) => {
-    onUpdateStatus(id, REGISTRATION_STATUSES.REJECTED);
+    onUpdateStatus(id, SELLER_REQUEST_STATUSES.REJECTED);
   };
 
   const getStatusText = (status: TSellerRequestStatus) => {
     switch (status) {
-      case REGISTRATION_STATUSES.PENDING:
+      case SELLER_REQUEST_STATUSES.PENDING:
         return t(`${TRANSLATION_PREFIX}.status.pending`);
-      case REGISTRATION_STATUSES.APPROVED:
+      case SELLER_REQUEST_STATUSES.APPROVED:
         return t(`${TRANSLATION_PREFIX}.status.approved`);
-      case REGISTRATION_STATUSES.REJECTED:
+      case SELLER_REQUEST_STATUSES.REJECTED:
         return t(`${TRANSLATION_PREFIX}.status.rejected`);
       default:
         return status;
@@ -116,7 +116,7 @@ export const SellerRequestsListUI: FC<TSellerRequestsListUIProps> = ({
                   />
                 </TableCell>
                 <TableCell sx={actionsCellStyle}>
-                  {request.status === REGISTRATION_STATUSES.PENDING && (
+                  {request.status === SELLER_REQUEST_STATUSES.PENDING && (
                     <>
                       <Button
                         size="small"

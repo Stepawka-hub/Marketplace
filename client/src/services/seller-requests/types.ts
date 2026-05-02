@@ -14,3 +14,11 @@ export type TUpdateSellerRequestPayload = {
   status: TSellerRequestStatus;
   rejectionReason?: string;
 };
+
+export type TLatestRequestStatusResponse = {
+  hasRequest: boolean;
+  id?: string;
+  status?: TSellerRequestStatus;
+  rejectionReason?: string;
+  createdAt?: string;
+};

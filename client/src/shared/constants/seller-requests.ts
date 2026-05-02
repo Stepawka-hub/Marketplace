@@ -4,7 +4,7 @@ export const REGISTRATION_TYPES = {
   SELF: "SELF",
 } as const;
 
-export const REGISTRATION_STATUSES = {
+export const SELLER_REQUEST_STATUSES = {
   PENDING: "PENDING",
   APPROVED: "APPROVED",
   REJECTED: "REJECTED",

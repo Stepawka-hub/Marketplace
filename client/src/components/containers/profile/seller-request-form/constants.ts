@@ -1,4 +1,4 @@
-export const SELLER_REGISTRATION_PREFIX = "seller-registration.fields";
+export const SELLER_REGISTRATION_PREFIX = "seller-requests.form.fields";
 
 export const SELLER_REGISTRATION_FIELDS = {
   REGISTRATION_TYPE: "registrationType",

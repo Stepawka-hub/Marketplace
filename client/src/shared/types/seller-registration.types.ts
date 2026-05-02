@@ -1,11 +1,11 @@
-import { REGISTRATION_STATUSES, REGISTRATION_TYPES } from "../constants";
+import { SELLER_REQUEST_STATUSES, REGISTRATION_TYPES } from "../constants";
 import { TShortUserData } from "./user.types";
 
 export type TSellerRegistrationType =
   (typeof REGISTRATION_TYPES)[keyof typeof REGISTRATION_TYPES];
 
 export type TSellerRequestStatus =
-  (typeof REGISTRATION_STATUSES)[keyof typeof REGISTRATION_STATUSES];
+  (typeof SELLER_REQUEST_STATUSES)[keyof typeof SELLER_REQUEST_STATUSES];
 
 export type TSellerRequest = {
   id: string;

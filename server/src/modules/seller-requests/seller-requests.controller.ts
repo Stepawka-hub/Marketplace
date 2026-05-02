@@ -45,15 +45,15 @@ export class SellerRequestsController {
   }
 
   @ApiOperation({
-    summary: 'Получить мои заявки',
+    summary: 'Получить статус последней заявки пользователя',
   })
   @ApiOkResponse({
-    description: 'Список заявок пользователя',
+    description: 'Статус заявки',
   })
   @Auth()
-  @Get('my')
-  getMyRequests(@Authorizated('id') userId: string) {
-    return this.sellerRequestsService.getUserRequests(userId);
+  @Get('my/latest')
+  async getLatestRequestStatus(@Authorizated('id') userId: string) {
+    return this.sellerRequestsService.getLatestRequestStatus(userId);
   }
 
   @ApiOperation({

@@ -86,6 +86,28 @@ export class SellerRequestsService {
     return ApiResponse.success(requests, 'Заявки успешно получены');
   }
 
+  async getLatestRequestStatus(userId: string) {
+    const latestRequest = await this.sellerRequestRepository.findOne({
+      where: { userId },
+      order: { createdAt: 'DESC' },
+    });
+
+    if (!latestRequest) {
+      return ApiResponse.success({ hasRequest: false }, 'Заявки не найдены');
+    }
+
+    return ApiResponse.success(
+      {
+        hasRequest: true,
+        id: latestRequest.id,
+        status: latestRequest.status,
+        rejectionReason: latestRequest.rejectionReason,
+        createdAt: latestRequest.createdAt,
+      },
+      'Статус заявки получен',
+    );
+  }
+
   async getAllRequests() {
     const requests = await this.sellerRequestRepository.find({
       relations: ['user'],

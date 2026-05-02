@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useSellerRegistrationMutation } from "@/services";
+import { useCreateSellerRequestMutation } from "@/services";
 import {
   requiredValidation,
   emailValidation,
@@ -13,7 +13,7 @@ import {
 import { Input, Select, Checkbox } from "@/components/containers";
 import { Form } from "@/components/elements";
 import { SubmitButton } from "@/components/ui";
-import { TextField, Typography, Link } from "@mui/material";
+import { TextField, Typography, Link, Box } from "@mui/material";
 import BusinessIcon from "@mui/icons-material/Business";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
@@ -23,7 +23,8 @@ import {
   SELLER_REGISTRATION_FIELDS,
 } from "./constants";
 import { REGISTRATION_TYPES } from "@/shared/constants";
-import { TSellerRegistrationForm } from "./types";
+import { TSellerRequestForm } from "./types";
+import { fieldSetStyle, formStyle } from "./styles";
 
 const {
   REGISTRATION_TYPE,
@@ -35,9 +36,9 @@ const {
   AGREEMENT,
 } = SELLER_REGISTRATION_FIELDS;
 
-export const SellerRegistrationForm: FC = () => {
+export const SellerRequestForm: FC = () => {
   const { t } = useTranslation();
-  const methods = useForm<TSellerRegistrationForm>({
+  const methods = useForm<TSellerRequestForm>({
     mode: "onChange",
     defaultValues: {
       [REGISTRATION_TYPE]: REGISTRATION_TYPES.IP,
@@ -52,71 +53,78 @@ export const SellerRegistrationForm: FC = () => {
   } = methods;
   const registrationType = watch(REGISTRATION_TYPE);
 
-  //const [sellerRegistration, { isLoading }] = useSellerRegistrationMutation();
-  const isLoading = true;
+  const [createSellerRequest, { isLoading }] = useCreateSellerRequestMutation();
 
   const getFieldTranslation = (field: string, type: "label" | "placeholder") =>
     t(`${SELLER_REGISTRATION_PREFIX}.${field}.${type}`);
 
   const onSubmit = handleSubmit((formData) => {
-    //sellerRegistration(formData);
+    createSellerRequest(formData);
   });
 
   return (
     <FormProvider {...methods}>
-      <Form title={t("seller-registration.title")} onSubmit={onSubmit}>
+      <Form
+        title={t("seller-requests.form.title")}
+        sx={formStyle}
+        onSubmit={onSubmit}
+      >
         <Select
           label={getFieldTranslation(REGISTRATION_TYPE, "label")}
           options={Object.values(REGISTRATION_TYPES).map((type) => ({
             value: type,
-            label: t(`seller-registration.types.${type}`),
+            label: t(`seller-requests.form.types.${type}`),
           }))}
           {...register(REGISTRATION_TYPE, {
             ...requiredValidation(t),
           })}
         />
 
-        <Input
-          label={getFieldTranslation(COMPANY_NAME, "label")}
-          placeholder={getFieldTranslation(COMPANY_NAME, "placeholder")}
-          startIcon={<BusinessIcon />}
-          {...register(COMPANY_NAME, {
-            ...requiredValidation(t),
-            ...minLengthValidation(2, t),
-            ...maxLengthValidation(100, t),
-          })}
-        />
+        <Box component="fieldset" sx={fieldSetStyle}>
+          <Input
+            label={getFieldTranslation(COMPANY_NAME, "label")}
+            placeholder={getFieldTranslation(COMPANY_NAME, "placeholder")}
+            startIcon={<BusinessIcon />}
+            {...register(COMPANY_NAME, {
+              ...requiredValidation(t),
+              ...minLengthValidation(2, t),
+              ...maxLengthValidation(100, t),
+            })}
+          />
 
-        <Input
-          label={getFieldTranslation(INN, "label")}
-          placeholder={getFieldTranslation(INN, "placeholder")}
-          startIcon={<BusinessIcon />}
-          helperText={t(`seller-registration.inn-hint.${registrationType}`)}
-          {...register(INN, {
-            ...requiredValidation(t),
-            ...innValidation(registrationType, t),
-          })}
-        />
+          <Input
+            label={getFieldTranslation(INN, "label")}
+            placeholder={getFieldTranslation(INN, "placeholder")}
+            startIcon={<BusinessIcon />}
+            helperText={t(`seller-requests.form.inn-hint.${registrationType}`)}
+            {...register(INN, {
+              ...requiredValidation(t),
+              ...innValidation(registrationType, t),
+            })}
+          />
+        </Box>
 
-        <Input
-          label={getFieldTranslation(PHONE, "label")}
-          placeholder={getFieldTranslation(PHONE, "placeholder")}
-          startIcon={<PhoneIcon />}
-          {...register(PHONE, {
-            ...requiredValidation(t),
-            ...minLengthValidation(10, t),
-          })}
-        />
+        <Box component="fieldset" sx={fieldSetStyle}>
+          <Input
+            label={getFieldTranslation(PHONE, "label")}
+            placeholder={getFieldTranslation(PHONE, "placeholder")}
+            startIcon={<PhoneIcon />}
+            {...register(PHONE, {
+              ...requiredValidation(t),
+              ...minLengthValidation(10, t),
+            })}
+          />
 
-        <Input
-          label={getFieldTranslation(EMAIL, "label")}
-          placeholder={getFieldTranslation(EMAIL, "placeholder")}
-          startIcon={<EmailIcon />}
-          {...register(EMAIL, {
-            ...requiredValidation(t),
-            ...emailValidation(t),
-          })}
-        />
+          <Input
+            label={getFieldTranslation(EMAIL, "label")}
+            placeholder={getFieldTranslation(EMAIL, "placeholder")}
+            startIcon={<EmailIcon />}
+            {...register(EMAIL, {
+              ...requiredValidation(t),
+              ...emailValidation(t),
+            })}
+          />
+        </Box>
 
         <TextField
           label={getFieldTranslation(DESCRIPTION, "label")}
@@ -137,15 +145,15 @@ export const SellerRegistrationForm: FC = () => {
         <Checkbox
           label={
             <Typography variant="body2">
-              {t("seller-registration.agreement.part1")}{" "}
+              {t("seller-requests.form.agreement.part1")}{" "}
               <Link href="/terms" target="_blank">
-                {t("seller-registration.agreement.terms")}
+                {t("seller-requests.form.agreement.terms")}
               </Link>
               {", "}
               <Link href="/privacy" target="_blank">
-                {t("seller-registration.agreement.privacy")}
+                {t("seller-requests.form.agreement.privacy")}
               </Link>{" "}
-              {t("seller-registration.agreement.part2")}
+              {t("seller-requests.form.agreement.part2")}
             </Typography>
           }
           {...register(AGREEMENT, {
@@ -154,7 +162,7 @@ export const SellerRegistrationForm: FC = () => {
         />
 
         <SubmitButton disabled={!isValid || isLoading}>
-          {t("seller-registration.submit-button")}
+          {t("seller-requests.form.submit-button")}
         </SubmitButton>
       </Form>
     </FormProvider>

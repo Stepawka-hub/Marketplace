@@ -3,7 +3,9 @@ import { SxProps, Theme } from "@mui/material";
 export const formStyle: SxProps<Theme> = {
   py: 3.5,
   px: 2,
-  width: "33.5rem",
+  mx: "auto",
+  width: "auto",
+  maxWidth: "50rem",
   borderRadius: "1rem",
   backgroundColor: "custom.primary.main",
   borderWidth: "1px",
@@ -14,10 +16,16 @@ export const formStyle: SxProps<Theme> = {
       : theme.palette.divider,
 } as const;
 
-export const formTitleStyle: SxProps = {
-  mb: {
-    xs: 1,
-    md: 2,
-    lg: 3,
+export const fieldSetStyle: SxProps<Theme> = {
+  display: "flex",
+  flexDirection: {
+    xs: "column",
+    md: "row",
+  },
+  gap: 2,
+  p: 0,
+  border: "none",
+  "& .MuiTextField-root": {
+    flex: 1,
   },
 } as const;

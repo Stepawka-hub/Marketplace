@@ -8,6 +8,7 @@ import {
   Select as MuiSelect,
 } from "@mui/material";
 import { TSelectProps } from "./type";
+import { selectControlStyle } from "./styles";
 
 export const Select: FC<TSelectProps> = ({
   name,
@@ -18,7 +19,7 @@ export const Select: FC<TSelectProps> = ({
   const { control } = useFormContext();
 
   return (
-    <FormControl fullWidth margin="normal">
+    <FormControl sx={selectControlStyle}>
       <InputLabel>{label}</InputLabel>
       <Controller
         name={name}

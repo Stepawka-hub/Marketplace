@@ -1,6 +1,6 @@
 import { TSellerRegistrationType } from "@/shared/types";
 
-export type TSellerRegistrationForm = {
+export type TSellerRequestForm = {
   registrationType: TSellerRegistrationType;
   companyName: string;
   inn: string;

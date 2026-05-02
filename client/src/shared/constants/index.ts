@@ -5,4 +5,4 @@ export * from "./ls-keys";
 export * from "./user";
 export * from "./lot";
 export * from "./bid";
-export * from "./seller-registration";
+export * from "./seller-requests";
