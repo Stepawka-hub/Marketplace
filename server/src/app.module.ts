@@ -6,10 +6,11 @@ import { UserModule } from '@/modules/user';
 import { ProductModule } from '@/modules/product';
 import { StorageModule } from '@/modules/storage';
 import { AuthModule } from '@/modules/auth';
-import { BidModule } from './modules/bid/bid.module';
-import { FavoritesModule } from './modules/favorites/favorites.module';
-import { LotModule } from './modules/lot/lot.module';
-import { SellerRequestsModule } from './modules/seller-requests/seller-requests.module';
+import { BidModule } from '@/modules/bid';
+import { FavoritesModule } from '@/modules/favorites';
+import { LotModule } from '@/modules/lot';
+import { SellerRequestsModule } from '@/modules/seller-requests';
+import { StatsModule } from '@/modules/stats';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { SellerRequestsModule } from './modules/seller-requests/seller-requests.
     FavoritesModule,
     LotModule,
     SellerRequestsModule,
+    StatsModule,
   ],
 })
 export class AppModule {}
