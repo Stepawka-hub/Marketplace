@@ -425,14 +425,17 @@
       "pending-requests": "Заявки на рассмотрении"
     },
     "charts": {
-      "registrations": "Регистрации за 7 дней",
+      "registrations": "Регистрации за {{ count }} дней",
+      "registrations-count": "регистраций",
+      "date": "Дата",
       "lots-distribution": "Распределение лотов"
     },
     "lots": {
       "active": "Активные",
       "completed": "Завершённые",
       "expired": "Истёкшие"
-    }
+    },
+    "days": "дн."
   },
 
   "users": {

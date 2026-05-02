@@ -7,11 +7,11 @@ export const containerStyle: SxProps = {
 export const titleStyle: SxProps = {
   mb: 3,
   fontSize: {
-    xs: '1rem',
-    sm: '1.1rem',
-    md: '1.15rem',
-    lg: '1.25rem'
-  }
+    xs: "1.15rem",
+    sm: "1.25rem",
+    md: "1.5rem",
+    lg: "1.75rem",
+  },
 } as const;
 
 export const tableContainerStyle: SxProps = {

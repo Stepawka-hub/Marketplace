@@ -8,6 +8,7 @@ import { SellerRequestEntity } from '@/modules/seller-requests/entities';
 import { LOT_STATUSES } from '@/modules/lot/constants';
 import { SELLER_REQUEST_STATUSES } from '@/modules/seller-requests/constants';
 import { ApiResponse } from '@/common';
+import { TRegistrationItem } from './types';
 
 @Injectable()
 export class StatsService {
@@ -37,7 +38,7 @@ export class StatsService {
 
   async getRegistrations(days: number = 7) {
     const now = new Date();
-    const registrations: { date: string; count: number }[] = [];
+    const registrations: TRegistrationItem[] = [];
 
     for (let i = days - 1; i >= 0; i--) {
       const date = subDays(now, i);

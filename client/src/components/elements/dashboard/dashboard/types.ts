@@ -1,11 +1,16 @@
-import { TLotsDistributionResponse, TRegistrationsItem } from '@/services/stats/types';
+import {
+  TLotsDistributionData,
+  TRegistrationPeriod,
+  TRegistrationsItem,
+  TStatsSummary,
+} from "@/shared/types";
 
 export type TDashboardUIProps = {
-  stats: {
-    users: number;
-    activeLots: number;
-    pendingRequests: number;
+  stats: TStatsSummary;
+  registrationsChart: {
+    data: TRegistrationsItem[];
+    currentPeriod: TRegistrationPeriod;
+    onPeriodChange: (period: TRegistrationPeriod) => void;
   };
-  registrations: TRegistrationsItem[];
-  distribution: TLotsDistributionResponse;
+  distribution: TLotsDistributionData;
 };

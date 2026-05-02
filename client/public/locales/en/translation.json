@@ -419,14 +419,17 @@
       "pending-requests": "Pending Requests"
     },
     "charts": {
-      "registrations": "Registrations (last 7 days)",
+      "registrations": "Registrations (last {{ count }} days)",
+      "registrations-count": "registrations",
+      "date": "Date",
       "lots-distribution": "Lots Distribution"
     },
     "lots": {
       "active": "Active",
       "completed": "Completed",
       "expired": "Expired"
-    }
+    },
+    "days": "days"
   },
 
   "users": {

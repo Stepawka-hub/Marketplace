@@ -6,3 +6,4 @@ export * from "./user";
 export * from "./lot";
 export * from "./bid";
 export * from "./seller-requests";
+export * from "./stats";

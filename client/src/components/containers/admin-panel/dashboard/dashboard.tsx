@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import {
   useGetLotsDistributionQuery,
   useGetRegistrationsQuery,
@@ -6,11 +6,16 @@ import {
 } from "@/services/stats";
 import { DashboardUI } from "@/components/elements";
 import { Loader } from "@/components/ui";
+import { REGISTRATION_PERIOD } from "@/shared/constants";
+import { TRegistrationPeriod } from "@/shared/types";
 
 export const Dashboard: FC = () => {
+  const [period, setPeriod] = useState<TRegistrationPeriod>(
+    REGISTRATION_PERIOD.WEEK,
+  );
   const { data: summary, isLoading: summaryLoading } = useGetSummaryQuery();
   const { data: registrations, isLoading: registrationsLoading } =
-    useGetRegistrationsQuery(7);
+    useGetRegistrationsQuery(period);
   const { data: distribution, isLoading: distributionLoading } =
     useGetLotsDistributionQuery();
 
@@ -33,7 +38,11 @@ export const Dashboard: FC = () => {
   return (
     <DashboardUI
       stats={stats}
-      registrations={registrations || []}
+      registrationsChart={{
+        data: registrations || [],
+        currentPeriod: period,
+        onPeriodChange: setPeriod,
+      }}
       distribution={distribution || defaultDistribution}
     />
   );

@@ -11,3 +11,10 @@ export const chartTitleStyle: SxProps = {
   mb: 2,
   fontWeight: 600,
 } as const;
+
+export const chartHeaderStyle: SxProps = {
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  mb: 2,
+} as const;

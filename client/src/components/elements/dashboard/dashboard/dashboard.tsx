@@ -16,7 +16,7 @@ import { TDashboardUIProps } from "./types";
 
 export const DashboardUI: FC<TDashboardUIProps> = ({
   stats,
-  registrations,
+  registrationsChart,
   distribution,
 }) => {
   const { t } = useTranslation();
@@ -60,7 +60,7 @@ export const DashboardUI: FC<TDashboardUIProps> = ({
       {/* Графики */}
       <Grid container spacing={3}>
         <Grid size={{ md: 12, lg: 7 }}>
-          <RegistrationsChart data={registrations} />
+          <RegistrationsChart {...registrationsChart} />
         </Grid>
         <Grid size={{ md: 12, lg: 5 }}>
           <LotsDistributionChart data={distribution} />
