@@ -1,10 +1,7 @@
 import { baseAPI, TServerResponse } from "../base";
 import { STATS_TAGS } from "./constants";
-import {
-  TStatsSummary,
-  TRegistrationsResponse,
-  TLotsDistributionResponse,
-} from "./types";
+import { TLotsDistributionData, TStatsSummary } from "@/shared/types";
+import { TRegistrationsResponse } from "./types";
 
 export const statsAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
@@ -22,11 +19,10 @@ export const statsAPI = baseAPI.injectEndpoints({
       providesTags: [STATS_TAGS.ALL],
     }),
 
-    getLotsDistribution: build.query<TLotsDistributionResponse, void>({
+    getLotsDistribution: build.query<TLotsDistributionData, void>({
       query: () => "/admin/stats/lots-distribution",
-      transformResponse: (
-        response: TServerResponse<TLotsDistributionResponse>,
-      ) => response.data,
+      transformResponse: (response: TServerResponse<TLotsDistributionData>) =>
+        response.data,
       providesTags: [STATS_TAGS.ALL],
     }),
   }),

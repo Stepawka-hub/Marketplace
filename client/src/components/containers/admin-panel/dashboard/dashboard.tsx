@@ -1,12 +1,20 @@
 import { FC } from "react";
-import { useGetSummaryQuery } from "@/services/stats";
+import {
+  useGetLotsDistributionQuery,
+  useGetRegistrationsQuery,
+  useGetSummaryQuery,
+} from "@/services/stats";
 import { DashboardUI } from "@/components/elements";
 import { Loader } from "@/components/ui";
 
 export const Dashboard: FC = () => {
-  const { data: summary, isLoading } = useGetSummaryQuery();
+  const { data: summary, isLoading: summaryLoading } = useGetSummaryQuery();
+  const { data: registrations, isLoading: registrationsLoading } =
+    useGetRegistrationsQuery(7);
+  const { data: distribution, isLoading: distributionLoading } =
+    useGetLotsDistributionQuery();
 
-  if (isLoading) {
+  if (summaryLoading || registrationsLoading || distributionLoading) {
     return <Loader />;
   }
 
@@ -16,5 +24,17 @@ export const Dashboard: FC = () => {
     pendingRequests: summary?.pendingRequests || 0,
   };
 
-  return <DashboardUI stats={stats} />;
+  const defaultDistribution = {
+    active: 0,
+    completed: 0,
+    expired: 0,
+  };
+
+  return (
+    <DashboardUI
+      stats={stats}
+      registrations={registrations || []}
+      distribution={distribution || defaultDistribution}
+    />
+  );
 };

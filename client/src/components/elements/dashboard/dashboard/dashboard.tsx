@@ -1,7 +1,11 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 
-import { StatCard } from "@/components/elements";
+import {
+  LotsDistributionChart,
+  RegistrationsChart,
+  StatCard,
+} from "@/components/elements";
 import { Box, Grid, Typography } from "@mui/material";
 import PeopleIcon from "@mui/icons-material/People";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
@@ -10,7 +14,11 @@ import PendingActionsIcon from "@mui/icons-material/PendingActions";
 import { containerStyle, titleStyle, statsGridStyle } from "./styles";
 import { TDashboardUIProps } from "./types";
 
-export const DashboardUI: FC<TDashboardUIProps> = ({ stats }) => {
+export const DashboardUI: FC<TDashboardUIProps> = ({
+  stats,
+  registrations,
+  distribution,
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -19,6 +27,7 @@ export const DashboardUI: FC<TDashboardUIProps> = ({ stats }) => {
         {t("dashboard.title")}
       </Typography>
 
+      {/* Статистические карточки */}
       <Grid container spacing={3} sx={statsGridStyle}>
         <Grid size={{ xs: 12, sm: 6, md: 4 }}>
           <StatCard
@@ -45,6 +54,16 @@ export const DashboardUI: FC<TDashboardUIProps> = ({ stats }) => {
             icon={<PendingActionsIcon />}
             color="warning"
           />
+        </Grid>
+      </Grid>
+
+      {/* Графики */}
+      <Grid container spacing={3}>
+        <Grid size={{ md: 12, lg: 7 }}>
+          <RegistrationsChart data={registrations} />
+        </Grid>
+        <Grid size={{ md: 12, lg: 5 }}>
+          <LotsDistributionChart data={distribution} />
         </Grid>
       </Grid>
     </Box>

@@ -417,6 +417,15 @@
       "users": "Users",
       "active-lots": "Active Lots",
       "pending-requests": "Pending Requests"
+    },
+    "charts": {
+      "registrations": "Registrations (last 7 days)",
+      "lots-distribution": "Lots Distribution"
+    },
+    "lots": {
+      "active": "Active",
+      "completed": "Completed",
+      "expired": "Expired"
     }
   },
 
