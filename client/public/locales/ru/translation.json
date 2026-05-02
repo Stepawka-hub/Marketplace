@@ -320,6 +320,12 @@
     }
   },
 
+  "admin": {
+    "badge": {
+      "tooltip": "Админ-панель"
+    }
+  },
+
   "seller-registration": {
     "title": "Регистрация продавца",
     "submit-button": "Отправить заявку",
@@ -368,7 +374,6 @@
 
   "seller-requests": {
     "title": "Заявки на статус продавца",
-    "loading": "Загрузка...",
     "status": {
       "pending": "В ожидании",
       "approved": "Одобрена",
@@ -391,6 +396,29 @@
     "actions": {
       "approve": "Одобрить",
       "reject": "Отклонить"
+    }
+  },
+
+  "dashboard": {
+    "title": "Дашборд",
+    "stats": {
+      "users": "Пользователи",
+      "lots": "Лоты",
+      "seller_requests": "Заявки на статус продавца",
+      "active_bids": "Активные ставки"
+    }
+  },
+
+  "users": {
+    "title": "Пользователи",
+    "loading": "Загрузка...",
+    "table": {
+      "email": "Email",
+      "name": "Имя",
+      "last_name": "Фамилия",
+      "phone": "Телефон",
+      "roles": "Роли",
+      "created_at": "Дата регистрации"
     }
   },
 

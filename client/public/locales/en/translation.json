@@ -314,6 +314,12 @@
     }
   },
 
+  "admin": {
+    "badge": {
+      "tooltip": "Admin Panel"
+    }
+  },
+
   "seller-registration": {
     "title": "Seller Registration",
     "submit-button": "Submit Application",
@@ -362,7 +368,6 @@
 
   "seller-requests": {
     "title": "Seller Requests",
-    "loading": "Loading...",
     "status": {
       "pending": "Pending",
       "approved": "Approved",
@@ -385,6 +390,29 @@
     "actions": {
       "approve": "Approve",
       "reject": "Reject"
+    }
+  },
+
+  "dashboard": {
+    "title": "Dashboard",
+    "stats": {
+      "users": "Users",
+      "lots": "Lots",
+      "seller_requests": "Seller Requests",
+      "active_bids": "Active Bids"
+    }
+  },
+
+  "users": {
+    "title": "Users",
+    "loading": "Loading...",
+    "table": {
+      "email": "Email",
+      "name": "First Name",
+      "last_name": "Last Name",
+      "phone": "Phone",
+      "roles": "Roles",
+      "created_at": "Registration Date"
     }
   },
 

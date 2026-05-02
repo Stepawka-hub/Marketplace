@@ -26,6 +26,7 @@ import {
 import { REGISTRATION_STATUSES } from "@/shared/constants";
 import { TSellerRequestStatus } from "@/shared/types";
 import { TSellerRequestsListUIProps } from "./type";
+import { Loader } from "@/components/ui";
 
 const TRANSLATION_PREFIX = "seller-requests";
 
@@ -50,6 +51,10 @@ export const SellerRequestsListUI: FC<TSellerRequestsListUIProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
   const handleApprove = (id: string) => {
     onUpdateStatus(id, REGISTRATION_STATUSES.APPROVED);
   };
@@ -57,14 +62,6 @@ export const SellerRequestsListUI: FC<TSellerRequestsListUIProps> = ({
   const handleReject = (id: string) => {
     onUpdateStatus(id, REGISTRATION_STATUSES.REJECTED);
   };
-
-  if (isLoading) {
-    return (
-      <Box sx={containerStyle}>
-        <Typography>{t(`${TRANSLATION_PREFIX}.loading`)}</Typography>
-      </Box>
-    );
-  }
 
   const getStatusText = (status: TSellerRequestStatus) => {
     switch (status) {
