@@ -1,4 +1,9 @@
-import { TSellerRegistrationType, TSellerRequestStatus } from "@/shared/types";
+import {
+  TSellerRegistrationType,
+  TSellerRequest,
+  TSellerRequestStatus,
+} from "@/shared/types";
+import { TPaginatedResponse } from "../base";
 
 export type TCreateSellerRequestPayload = {
   registrationType: TSellerRegistrationType;
@@ -22,3 +27,6 @@ export type TLatestRequestStatusResponse = {
   rejectionReason?: string;
   createdAt?: string;
 };
+
+export type TSellerRequestsResponse =
+  TPaginatedResponse<TSellerRequest>["data"];

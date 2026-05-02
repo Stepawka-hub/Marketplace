@@ -9,7 +9,6 @@ export type TSellerRequestStatus =
 
 export type TSellerRequest = {
   id: string;
-  userId: string;
   registrationType: TSellerRegistrationType;
   companyName: string;
   inn: string;
@@ -18,7 +17,7 @@ export type TSellerRequest = {
   description?: string;
   status: TSellerRequestStatus;
   rejectionReason?: string;
-  user?: TShortUserData;
+  user: TShortUserData;
   createdAt: string;
   updatedAt: string;
 };

@@ -7,7 +7,7 @@ import {
   ConflictException,
   ForbiddenException,
 } from '@nestjs/common';
-import { ApiResponse } from '@/common';
+import { ApiPaginatedResponse, ApiResponse, PaginationDto } from '@/common';
 import { SellerRequestEntity } from './entities';
 import {
   RoleEntity,
@@ -73,19 +73,6 @@ export class SellerRequestsService {
     return ApiResponse.success(saved, 'Заявка успешно отправлена');
   }
 
-  async getUserRequests(userId: string) {
-    const requests = await this.sellerRequestRepository.find({
-      where: {
-        userId,
-      },
-      order: {
-        createdAt: 'DESC',
-      },
-    });
-
-    return ApiResponse.success(requests, 'Заявки успешно получены');
-  }
-
   async getLatestRequestStatus(userId: string) {
     const latestRequest = await this.sellerRequestRepository.findOne({
       where: { userId },
@@ -108,15 +95,34 @@ export class SellerRequestsService {
     );
   }
 
-  async getAllRequests() {
-    const requests = await this.sellerRequestRepository.find({
+  async getAllRequests(paginationDto: PaginationDto) {
+    const { page = 1, limit = 10 } = paginationDto;
+    const skip = (page - 1) * limit;
+
+    const [requests, total] = await this.sellerRequestRepository.findAndCount({
       relations: ['user'],
+      select: {
+        user: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          avatar: true,
+        },
+      },
       order: {
         createdAt: 'DESC',
       },
+      skip,
+      take: limit,
     });
 
-    return ApiResponse.success(requests, 'Заявки успешно получены');
+    return ApiPaginatedResponse.success(
+      requests,
+      total,
+      page,
+      limit,
+      'Заявки успешно получены',
+    );
   }
 
   async updateStatus(id: string, dto: UpdateSellerRequestDto) {

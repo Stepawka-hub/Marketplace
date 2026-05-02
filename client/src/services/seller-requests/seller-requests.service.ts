@@ -1,9 +1,15 @@
-import { baseAPI, TServerResponse } from "../base";
+import {
+  baseAPI,
+  TPaginatedResponse,
+  TPaginationParams,
+  TServerResponse,
+} from "../base";
 import { SELLER_REQUESTS_TAGS } from "./constants";
 import { TSellerRequest } from "@/shared/types";
 import {
   TCreateSellerRequestPayload,
   TLatestRequestStatusResponse,
+  TSellerRequestsResponse,
   TUpdateSellerRequestPayload,
 } from "./types";
 
@@ -34,12 +40,19 @@ export const sellerRequestsAPI = baseAPI.injectEndpoints({
       ) => response.data,
     }),
 
-    getAllSellerRequests: build.query<TSellerRequest[], void>({
-      query: () => ({
+    getAllSellerRequests: build.query<
+      TSellerRequestsResponse,
+      TPaginationParams
+    >({
+      query: (params: TPaginationParams = { page: 1, limit: 10 }) => ({
         url: "/seller-requests",
+        params: {
+          page: params.page,
+          limit: params.limit,
+        },
       }),
       providesTags: [SELLER_REQUESTS_TAGS.ALL_REQUESTS],
-      transformResponse: (response: TServerResponse<TSellerRequest[]>) =>
+      transformResponse: (response: TPaginatedResponse<TSellerRequest>) =>
         response.data,
     }),
 

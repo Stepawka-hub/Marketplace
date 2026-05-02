@@ -341,17 +341,28 @@
       "message": "Ваша заявка на статус продавца была отклонена.",
       "reason": "Причина отказа"
     },
+    "rejection-reason": "Причина отказа",
+    "rejection-reason-default": "Причина не указана",
+    "reject-popover": {
+      "title": "Укажите причину отказа",
+      "placeholder": "Причина отказа...",
+      "cancel": "Отмена",
+      "confirm": "Отклонить"
+    },
     "types": {
       "ip": "ИП",
       "legal": "Юридическое лицо",
       "self": "Самозанятый"
     },
     "table": {
+      "user": "Пользователь",
       "company": "Компания",
       "inn": "ИНН",
       "email": "Email",
       "phone": "Телефон",
       "type": "Тип",
+      "description": "Описание",
+      "no-description": "Нет описания",
       "status": "Статус",
       "actions": "Действия"
     },

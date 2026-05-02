@@ -335,17 +335,28 @@
       "message": "Your seller request has been rejected.",
       "reason": "Rejection reason"
     },
+    "rejection-reason": "Rejection reason",
+    "rejection-reason-default": "Reason not specified",
+    "reject-popover": {
+      "title": "Provide a reason for rejection",
+      "placeholder": "Rejection reason...",
+      "cancel": "Cancel",
+      "confirm": "Reject"
+    },
     "types": {
       "ip": "Individual Entrepreneur",
       "legal": "Legal Entity",
       "self": "Self-Employed"
     },
     "table": {
+      "user": "User",
       "company": "Company",
       "inn": "TIN",
       "email": "Email",
       "phone": "Phone",
       "type": "Type",
+      "description": "Description",
+      "no-description": "No description",
       "status": "Status",
       "actions": "Actions"
     },

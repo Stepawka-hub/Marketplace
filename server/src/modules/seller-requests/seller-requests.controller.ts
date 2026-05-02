@@ -7,6 +7,7 @@ import {
   Param,
   HttpCode,
   HttpStatus,
+  Query,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -16,11 +17,13 @@ import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiForbiddenResponse,
+  ApiQuery,
 } from '@nestjs/swagger';
 import { SellerRequestsService } from './seller-requests.service';
 import { Authorizated, Auth } from '@/modules/auth/decorators';
 import { CreateSellerRequestDto, UpdateSellerRequestDto } from './dto/request';
 import { USER_ROLES } from '../user/constants';
+import { PaginationDto } from '@/common';
 
 @ApiTags('Seller Requests')
 @ApiBearerAuth()
@@ -62,10 +65,22 @@ export class SellerRequestsController {
   @ApiOkResponse({
     description: 'Список всех заявок',
   })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    type: Number,
+    example: 1,
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    example: 10,
+  })
   @Auth(USER_ROLES.MODERATOR, USER_ROLES.ADMIN)
   @Get()
-  getAllRequests() {
-    return this.sellerRequestsService.getAllRequests();
+  getAllRequests(@Query() paginationDto: PaginationDto) {
+    return this.sellerRequestsService.getAllRequests(paginationDto);
   }
 
   @ApiOperation({

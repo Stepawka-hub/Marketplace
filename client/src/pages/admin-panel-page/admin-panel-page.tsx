@@ -19,7 +19,7 @@ export const AdminPanelPage: FC = () => {
   return (
     <PageContainer>
       <BackButton />
-      <Tabs value={getActiveTabValue()} sx={tabsStyle}>
+      <Tabs variant="scrollable" value={getActiveTabValue()} sx={tabsStyle}>
         <Tab
           label={t("dashboard.title")}
           value={ROUTES.ADMIN_PANEL.ROOT}
