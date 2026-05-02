@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { StorageModule } from '../storage';
 import { SellerRequestsService } from './seller-requests.service';
 import { SellerRequestsController } from './seller-requests.controller';
 import { SellerRequestEntity } from './entities';
@@ -13,6 +14,7 @@ import { RoleEntity, UserEntity, UserRoleEntity } from '../user/entities';
       RoleEntity,
       UserRoleEntity,
     ]),
+    StorageModule,
   ],
   controllers: [SellerRequestsController],
   providers: [SellerRequestsService],

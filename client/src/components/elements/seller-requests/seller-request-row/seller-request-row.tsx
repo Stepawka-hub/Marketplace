@@ -1,5 +1,6 @@
-import { FC, useState } from "react";
+import { FC, MouseEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { UserAvatar } from "@/components/elements";
 import {
   TableRow,
   TableCell,
@@ -29,6 +30,7 @@ import {
   descriptionBoxStyle,
   popoverContentStyle,
   popoverActionsStyle,
+  userInfoStyle,
 } from "./styles";
 import { TSellerRequestStatus } from "@/shared/types";
 import { TSellerRequestRowProps } from "./types";
@@ -74,6 +76,7 @@ export const SellerRequestRow: FC<TSellerRequestRowProps> = ({
     status,
     rejectionReason: savedRejectionReason,
   } = request;
+  const { firstName = "", lastName = "", avatar } = user;
 
   const getStatusText = (status: TSellerRequestStatus) => {
     switch (status) {
@@ -92,7 +95,7 @@ export const SellerRequestRow: FC<TSellerRequestRowProps> = ({
     onUpdateStatus(id, SELLER_REQUEST_STATUSES.APPROVED);
   };
 
-  const handleOpenRejectPopover = (event: React.MouseEvent<HTMLElement>) => {
+  const handleOpenRejectPopover = (event: MouseEvent<HTMLElement>) => {
     setRejectAnchorEl(event.currentTarget);
     setRejectionReason("");
   };
@@ -121,8 +124,13 @@ export const SellerRequestRow: FC<TSellerRequestRowProps> = ({
   return (
     <>
       <TableRow>
-        <TableCell>
-          {`${user?.firstName} ${user?.lastName || ""}`.trim() || "—"}
+        <TableCell sx={userInfoStyle}>
+          <UserAvatar
+            firstName={firstName}
+            lastName={lastName}
+            avatar={avatar}
+          />
+          {`${firstName} ${lastName}`.trim() || "—"}
         </TableCell>
         <TableCell>{companyName}</TableCell>
         <TableCell>{inn}</TableCell>
@@ -162,9 +170,9 @@ export const SellerRequestRow: FC<TSellerRequestRowProps> = ({
           )}
         </TableCell>
 
-        <TableCell sx={actionsCellStyle}>
+        <TableCell>
           {status === SELLER_REQUEST_STATUSES.PENDING ? (
-            <>
+            <Box sx={actionsCellStyle}>
               <Button
                 size="small"
                 variant="contained"
@@ -185,7 +193,7 @@ export const SellerRequestRow: FC<TSellerRequestRowProps> = ({
               >
                 {t(`${TRANSLATION_PREFIX}.actions.reject`)}
               </Button>
-            </>
+            </Box>
           ) : (
             <Typography
               variant="body2"

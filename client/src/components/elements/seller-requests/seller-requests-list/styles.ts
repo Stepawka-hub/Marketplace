@@ -34,5 +34,5 @@ export const tableHeadStyle: SxProps = {
 } as const;
 
 export const actionsTitleStyle: SxProps = {
-  textAlign: "right",
+  textAlign: "center",
 } as const;

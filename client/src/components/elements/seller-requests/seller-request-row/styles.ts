@@ -3,8 +3,21 @@ import { SxProps } from "@mui/material";
 export const actionsCellStyle: SxProps = {
   display: "flex",
   alignItems: "center",
-  justifyContent: "flex-end",
+  justifyContent: "center",
   gap: 1,
+} as const;
+
+export const emptyCellStyle: SxProps = {
+  fontSize: "0.85rem",
+  fontStyle: "italic",
+  whiteSpace: "nowrap",
+  textAlign: "center",
+} as const;
+
+export const userInfoStyle: SxProps = {
+  display: "flex",
+  alignItems: "center",
+  gap: 1.5,
 } as const;
 
 export const statusChipStyle: SxProps = {
@@ -14,12 +27,6 @@ export const statusChipStyle: SxProps = {
 export const expandCellStyle: SxProps = {
   textAlign: "center",
   width: 60,
-} as const;
-
-export const emptyCellStyle: SxProps = {
-  fontSize: "0.85rem",
-  fontStyle: "italic",
-  whiteSpace: "nowrap",
 } as const;
 
 export const descriptionRowStyle: SxProps = {

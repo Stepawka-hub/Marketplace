@@ -7,6 +7,8 @@ import {
   ConflictException,
   ForbiddenException,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { StorageService } from '../storage';
 import { ApiPaginatedResponse, ApiResponse, PaginationDto } from '@/common';
 import { SellerRequestEntity } from './entities';
 import {
@@ -17,9 +19,12 @@ import {
 import { CreateSellerRequestDto, UpdateSellerRequestDto } from './dto';
 import { USER_ROLES } from '../user/constants';
 import { SELLER_REQUEST_STATUSES } from './constants';
+import { formatMediaUrl } from '@/common/utils';
 
 @Injectable()
 export class SellerRequestsService {
+  private readonly baseUrl: string;
+
   constructor(
     @InjectRepository(SellerRequestEntity)
     private readonly sellerRequestRepository: Repository<SellerRequestEntity>,
@@ -29,7 +34,12 @@ export class SellerRequestsService {
     private readonly roleRepository: Repository<RoleEntity>,
     @InjectRepository(UserRoleEntity)
     private readonly userRoleRepository: Repository<UserRoleEntity>,
-  ) {}
+    private readonly storageService: StorageService,
+    private readonly configService: ConfigService,
+  ) {
+    const domain = this.configService.getOrThrow<string>('S3_PUBLIC_DOMAIN');
+    this.baseUrl = domain.endsWith('/') ? domain : domain + '/';
+  }
 
   async create(userId: string, dto: CreateSellerRequestDto) {
     const existing = await this.sellerRequestRepository.findOne({
@@ -117,7 +127,13 @@ export class SellerRequestsService {
     });
 
     return ApiPaginatedResponse.success(
-      requests,
+      requests.map((r) => ({
+        ...r,
+        user: {
+          ...r.user,
+          avatar: formatMediaUrl(r.user.avatar, this.baseUrl),
+        },
+      })),
       total,
       page,
       limit,
