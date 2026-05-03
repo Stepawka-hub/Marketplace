@@ -12,6 +12,7 @@ import {
   TSellerRequestsResponse,
   TUpdateSellerRequestPayload,
 } from "./types";
+import { USER_TAGS } from "../user/constants";
 
 export const sellerRequestsAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
@@ -65,7 +66,7 @@ export const sellerRequestsAPI = baseAPI.injectEndpoints({
         method: "PATCH",
         body: { status, rejectionReason },
       }),
-      invalidatesTags: [SELLER_REQUESTS_TAGS.ALL_REQUESTS],
+      invalidatesTags: [SELLER_REQUESTS_TAGS.ALL_REQUESTS, USER_TAGS.ALL],
       transformResponse: (response: TServerResponse<TSellerRequest>) =>
         response.data,
     }),

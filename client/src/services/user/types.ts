@@ -1,5 +1,5 @@
-import { TUserData } from "@/shared/types";
-import { TServerResponse } from "../base";
+import { TPaginatedResponse, TServerResponse } from "../base";
+import { TUserData, TUserRole } from "@/shared/types";
 
 export type TGetProfileResponse = TServerResponse<TUserData>;
 
@@ -15,3 +15,15 @@ export type TUpdateProfileResponse = {
   message: string;
   statusCode: number;
 };
+
+export type TGetAllUsersResponse = TPaginatedResponse<TUserData>["data"];
+
+export type TUpdateUserRolesPayload = {
+  userId: string;
+  roles: TUserRole[];
+};
+
+export type TUpdateUserRolesResponse = TServerResponse<{
+  userId: string;
+  roles: TUserRole[];
+}>;

@@ -58,7 +58,9 @@ export const UsersListUI: FC<TUsersListUIProps> = ({
               <TableCell>
                 {t(`${TRANSLATION_PREFIX}.table.registered`)}
               </TableCell>
-              <TableCell>{t(`${TRANSLATION_PREFIX}.table.actions`)}</TableCell>
+              <TableCell sx={{ textAlign: "center" }}>
+                {t(`${TRANSLATION_PREFIX}.table.actions`)}
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

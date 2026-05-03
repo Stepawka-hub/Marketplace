@@ -3,18 +3,28 @@ import {
   useGetAllUsersQuery,
   useUpdateUserRolesMutation,
 } from "@/services/user";
+import { usePagination } from "@/hooks/usePagination";
+
 import { UserRolesModal } from "@/components/containers";
-import { UsersListUI } from "@/components/elements";
+import { Pagination, UsersListUI } from "@/components/elements";
 import { Loader } from "@/components/ui";
 import { USER_ROLES } from "@/shared/constants";
 import { TUserData, TUserRole } from "@/shared/types";
 import { TSelectedUser } from "./types";
 
 export const UsersList: FC = () => {
-  const { data: users, isLoading, refetch } = useGetAllUsersQuery();
+  const { page, limit, defaultPagination, handlePageChange } = usePagination();
+  const { data, isLoading, refetch } = useGetAllUsersQuery({
+    page,
+    limit,
+  });
   const [updateRoles] = useUpdateUserRolesMutation();
   const [selectedUser, setSelectedUser] = useState<TSelectedUser | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   const handleEditRoles = (user: TUserData) => {
     setSelectedUser({
@@ -35,17 +45,27 @@ export const UsersList: FC = () => {
     refetch();
   };
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  const pagination = data?.meta || defaultPagination;
 
   return (
     <>
-      <UsersListUI
-        users={users || []}
-        isLoading={isLoading}
-        onEditRoles={handleEditRoles}
-      />
+      <>
+        <UsersListUI
+          users={data?.items ?? []}
+          isLoading={isLoading}
+          onEditRoles={handleEditRoles}
+        />
+        {data && !!data.items.length && (
+          <Pagination
+            count={data.meta.totalPages}
+            page={pagination.page}
+            showFirstButton
+            showLastButton
+            size="large"
+            onChange={handlePageChange}
+          />
+        )}
+      </>
       {selectedUser && (
         <UserRolesModal
           open={isModalOpen}

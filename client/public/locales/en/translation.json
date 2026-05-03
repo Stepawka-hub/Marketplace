@@ -468,7 +468,8 @@
       "save": "Save",
       "saving": "Saving...",
       "create": "Create",
-      "ok": "OK"
+      "ok": "OK",
+      "cancel": "Cancel"
     }
   }
 }

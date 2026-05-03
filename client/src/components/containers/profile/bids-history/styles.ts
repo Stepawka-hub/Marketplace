@@ -6,9 +6,10 @@ export const titleStyle: SxProps = {
     sm: 2,
   },
   fontSize: {
-    xs: "1.5rem",
-    sm: "1.75rem",
-    md: "2rem",
+    xs: "1.15rem",
+    sm: "1.25rem",
+    md: "1.5rem",
+    lg: "1.75rem",
   },
-  fontWeight: 600,
+  fontWeight: 500,
 } as const;

@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
+import { UserAvatar } from "@/components/elements";
 import {
   TableRow,
   TableCell,
@@ -10,10 +11,11 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import {
-  actionsCellStyle,
+  actionsBoxStyle,
   balanceValueStyle,
   frozenBalanceValueStyle,
   rolesBoxStyle,
+  userInfoStyle,
 } from "./styles";
 import { TUserRowProps } from "./types";
 import { formatBalance, formattedWithSpace } from "@/shared/helpers";
@@ -23,6 +25,7 @@ export const UserRow: FC<TUserRowProps> = ({ user, onEditRoles }) => {
   const {
     firstName,
     lastName,
+    avatar,
     email,
     phone,
     roles,
@@ -44,13 +47,16 @@ export const UserRow: FC<TUserRowProps> = ({ user, onEditRoles }) => {
 
   return (
     <TableRow>
-      <TableCell>{`${firstName} ${lastName}`.trim() || "—"}</TableCell>
+      <TableCell sx={userInfoStyle}>
+        <UserAvatar firstName={firstName} lastName={lastName} avatar={avatar} />
+        {`${firstName} ${lastName}`.trim() || "—"}
+      </TableCell>
       <TableCell>{email}</TableCell>
       <TableCell>{phone || "—"}</TableCell>
       <TableCell>
         <Box sx={rolesBoxStyle}>
           {roles.map((role) => (
-            <Chip key={role} label={role} size="small" />
+            <Chip key={role} label={t(`common.role.${role}`)} size="small" />
           ))}
         </Box>
       </TableCell>
@@ -63,15 +69,18 @@ export const UserRow: FC<TUserRowProps> = ({ user, onEditRoles }) => {
         </Typography>
       </TableCell>
       <TableCell>{formattedCreatedAt}</TableCell>
-      <TableCell sx={actionsCellStyle}>
-        <Button
-          size="small"
-          variant="outlined"
-          startIcon={<EditIcon />}
-          onClick={() => onEditRoles(user)}
-        >
-          {t("users.actions.edit-roles")}
-        </Button>
+      <TableCell>
+        <Box sx={actionsBoxStyle}>
+          <Button
+            size="small"
+            variant="contained"
+            startIcon={<EditIcon />}
+            sx={{ flexShrink: 0 }}
+            onClick={() => onEditRoles(user)}
+          >
+            {t("users.actions.edit-roles")}
+          </Button>
+        </Box>
       </TableCell>
     </TableRow>
   );

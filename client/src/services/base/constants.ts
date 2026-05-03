@@ -5,6 +5,7 @@ export const HTTP_STATUS = {
   NOT_FOUND: 404,
 } as const;
 
+export const USER_TAG_TYPE = "User" as const;
 export const AUTH_TAG_TYPE = "Auth" as const;
 export const PRODUCT_TAG_TYPE = "Product" as const;
 export const FAVORITES_TAG_TYPE = "Favorites" as const;

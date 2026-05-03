@@ -8,11 +8,13 @@ import {
   PRODUCT_TAG_TYPE,
   SELLER_REQUEST_TAG_TYPE,
   STATS_TAG_TYPE,
+  USER_TAG_TYPE,
 } from "./constants";
 
 export const baseAPI = createApi({
   reducerPath: "baseAPI",
   tagTypes: [
+    USER_TAG_TYPE,
     AUTH_TAG_TYPE,
     PRODUCT_TAG_TYPE,
     FAVORITES_TAG_TYPE,

@@ -10,14 +10,15 @@ import { StorageService } from '../storage';
 import { Repository } from 'typeorm';
 import { hash } from 'argon2';
 
-import { ApiResponse } from '@/common';
+import { ApiPaginatedResponse, ApiResponse, PaginationDto } from '@/common';
 import { formatMediaUrl, generateFileName } from '@/common/utils';
-import { UserEntity } from './entities';
+import { RoleEntity, UserEntity, UserRoleEntity } from './entities';
 import { UpdateUserDto } from './dto';
 import {
   TFreezeAction,
   TUploadAvatarResponse,
   TUserDataResponse,
+  TUserRole,
 } from './types';
 
 @Injectable()
@@ -27,6 +28,10 @@ export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+    @InjectRepository(UserRoleEntity)
+    private readonly userRolesRepository: Repository<UserRoleEntity>,
+    @InjectRepository(RoleEntity)
+    private readonly roleRepository: Repository<RoleEntity>,
     private readonly storageService: StorageService,
     private readonly configService: ConfigService,
   ) {
@@ -145,6 +150,88 @@ export class UserService {
     }
 
     await this.userRepository.save(user);
+  }
+
+  async getAllUsers(paginationDto: PaginationDto) {
+    const { page = 1, limit = 10 } = paginationDto;
+    const skip = (page - 1) * limit;
+
+    const [users, total] = await this.userRepository.findAndCount({
+      relations: ['userRoles', 'userRoles.role'],
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        phone: true,
+        avatar: true,
+        balance: true,
+        frozenBalance: true,
+        createdAt: true,
+      },
+      order: {
+        createdAt: 'DESC',
+      },
+      skip,
+      take: limit,
+    });
+
+    const result = users.map((user) => ({
+      id: user.id,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      phone: user.phone,
+      avatar: formatMediaUrl(user.avatar, this.avatarBaseUrl),
+      balance: user.balance,
+      frozenBalance: user.frozenBalance,
+      createdAt: user.createdAt,
+      roles: user.userRoles?.map((ur) => ur.role.name) || [],
+    }));
+
+    return ApiPaginatedResponse.success(
+      result,
+      total,
+      page,
+      limit,
+      'Пользователи получены',
+    );
+  }
+
+  async updateUserRoles(userId: string, roleNames: string[]) {
+    const user = await this.userRepository.findOne({
+      where: { id: userId },
+      relations: ['userRoles'],
+    });
+
+    if (!user) {
+      throw new NotFoundException('Пользователь не найден');
+    }
+
+    await this.userRolesRepository.delete({ userId });
+
+    for (const roleName of roleNames) {
+      const role = await this.roleRepository.findOne({
+        where: {
+          name: roleName as TUserRole,
+        },
+      });
+
+      if (role) {
+        await this.userRolesRepository.save({
+          userId,
+          roleId: role.id,
+        });
+      }
+    }
+
+    return ApiResponse.success(
+      {
+        userId,
+        roles: roleNames,
+      },
+      'Роли обновлены',
+    );
   }
 
   private formatUserResponse(user: UserEntity) {

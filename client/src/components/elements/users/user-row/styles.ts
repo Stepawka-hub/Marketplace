@@ -1,7 +1,7 @@
 import { SxProps } from "@mui/material";
 import { blue, green } from "@mui/material/colors";
 
-export const actionsCellStyle: SxProps = {
+export const actionsBoxStyle: SxProps = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -17,9 +17,17 @@ export const rolesBoxStyle: SxProps = {
 export const balanceValueStyle: SxProps = {
   color: green[500],
   fontWeight: 600,
+  whiteSpace: "nowrap",
 } as const;
 
 export const frozenBalanceValueStyle: SxProps = {
   color: blue[500],
   fontWeight: 600,
+  whiteSpace: "nowrap",
+} as const;
+
+export const userInfoStyle: SxProps = {
+  display: "flex",
+  alignItems: "center",
+  gap: 1.5,
 } as const;
