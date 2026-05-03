@@ -14,6 +14,7 @@ export type TUserData = {
   roles: TUserRole[];
   balance: number;
   frozenBalance: number;
+  createdAt: string;
 };
 
 export type TShortUserData = {

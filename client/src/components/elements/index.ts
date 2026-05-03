@@ -8,4 +8,5 @@ export * from "./profile";
 export * from "./admin-panel";
 export * from "./dashboard";
 export * from "./seller-requests";
+export * from "./users";
 export * from "./shared";

@@ -2,6 +2,7 @@ import { SxProps } from "@mui/material";
 import { green, yellow } from "@mui/material/colors";
 
 export const cardStyle: SxProps = {
+  p: 1.5,
   cursor: "default",
   flexDirection: "row",
   height: "auto",

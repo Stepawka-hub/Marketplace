@@ -436,12 +436,22 @@
     "title": "Users",
     "loading": "Loading...",
     "table": {
+      "name": "Name",
       "email": "Email",
-      "name": "First Name",
-      "last_name": "Last Name",
       "phone": "Phone",
       "roles": "Roles",
-      "created_at": "Registration Date"
+      "balance": "Balance",
+      "frozen-balance": "Frozen",
+      "registered": "Registration Date",
+      "actions": "Actions"
+    },
+    "actions": {
+      "edit-roles": "Edit roles"
+    },
+    "roles-modal": {
+      "title": "Edit roles",
+      "available": "Available roles",
+      "user-roles": "User roles"
     }
   },
 

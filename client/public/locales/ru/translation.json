@@ -442,12 +442,22 @@
     "title": "Пользователи",
     "loading": "Загрузка...",
     "table": {
-      "email": "Email",
       "name": "Имя",
-      "last_name": "Фамилия",
+      "email": "Email",
       "phone": "Телефон",
       "roles": "Роли",
-      "created_at": "Дата регистрации"
+      "balance": "Баланс",
+      "frozen-balance": "Заморожено",
+      "registered": "Дата регистрации",
+      "actions": "Действия"
+    },
+    "actions": {
+      "edit-roles": "Изменить роли"
+    },
+    "roles-modal": {
+      "title": "Редактирование ролей",
+      "available": "Доступные роли",
+      "user-roles": "Роли пользователя"
     }
   },
 
