@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Param, Delete, Query } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiQuery } from '@nestjs/swagger';
 import { FavoritesService } from './favorites.service';
-import { Authorizated, Authorization } from '../auth/decorators';
+import { Authorizated, Auth } from '../auth/decorators';
 import {
   FavoritesListResponseDto,
   RemoveFavoriteResponseDto,
@@ -26,7 +26,7 @@ export class FavoritesController {
   })
   @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
   @ApiQuery({ name: 'limit', required: false, type: Number, example: 10 })
-  @Authorization()
+  @Auth()
   @Get()
   findAll(
     @Authorizated('id') userId: string,
@@ -44,7 +44,7 @@ export class FavoritesController {
     description: 'Лот успешно добавлен в избранное',
     type: CreateFavoriteResponseDto,
   })
-  @Authorization()
+  @Auth()
   @Post(':lotId')
   create(@Authorizated('id') userId: string, @Param('lotId') lotId: string) {
     return this.favoritesService.create(userId, lotId);
@@ -59,7 +59,7 @@ export class FavoritesController {
     description: 'Лот успешно удалён из избранного',
     type: RemoveFavoriteResponseDto,
   })
-  @Authorization()
+  @Auth()
   @Delete(':lotId')
   remove(@Authorizated('id') userId: string, @Param('lotId') lotId: string) {
     return this.favoritesService.remove(userId, lotId);
@@ -74,7 +74,7 @@ export class FavoritesController {
     description: 'Количество избранных лотов',
     type: FavoritesCountResponseDto,
   })
-  @Authorization()
+  @Auth()
   @Get('count')
   getCount(@Authorizated('id') userId: string) {
     return this.favoritesService.getCount(userId);
@@ -89,7 +89,7 @@ export class FavoritesController {
     description: 'Список ID избранных лотов',
     type: FavoriteIdsResponseDto,
   })
-  @Authorization()
+  @Auth()
   @Get('ids')
   async getFavoriteIds(@Authorizated('id') userId: string) {
     return this.favoritesService.getFavoriteIds(userId);

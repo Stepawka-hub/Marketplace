@@ -7,6 +7,11 @@ export const headerStyle: SxProps = {
 } as const;
 
 export const titleStyle: SxProps = {
-  fontSize: "1.75rem",
+  fontSize: {
+    xs: "1.15rem",
+    sm: "1.25rem",
+    md: "1.5rem",
+    lg: "1.75rem",
+  },
   fontWeight: 500,
 } as const;

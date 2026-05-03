@@ -40,7 +40,8 @@
       "max": "Value must be at most {{value}}",
       "price-format": "Price must be in format 0.00",
       "date-min": "Date must be at least {{days}} day from now",
-      "date-max": "Date must be at most {{days}} days from now"
+      "date-max": "Date must be at most {{days}} days from now",
+      "inn": "TIN must contain {{count}} digits"
     },
     "fields": {
       "firstName": {
@@ -257,6 +258,12 @@
     }
   },
 
+  "media-preview": {
+    "title": "Media files ({{count}})",
+    "title-caption": "(click to set as main)",
+    "main-badge": "Main"
+  },
+
   "profile": {
     "badge": {
       "tool-tip": "Login to account"
@@ -279,7 +286,6 @@
     "info-row": {
       "email": "Email",
       "phone": "Phone",
-      "role": "Role",
       "balance": "Balance",
       "frozen-balance": "Frozen balance"
     },
@@ -308,23 +314,162 @@
     }
   },
 
-  "media-preview": {
-    "title": "Media files ({{count}})",
-    "title-caption": "(click to set as main)",
-    "main-badge": "Main"
+  "admin": {
+    "badge": {
+      "tooltip": "Admin Panel"
+    }
+  },
+
+  "seller-requests": {
+    "title": "Seller Requests",
+    "status": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "pending": {
+      "message": "Your seller request is being reviewed. This usually takes up to 24 hours. We will notify you when a decision is made."
+    },
+    "rejected": {
+      "title": "Request Rejected",
+      "message": "Your seller request has been rejected.",
+      "reason": "Rejection reason"
+    },
+    "rejection-reason": "Rejection reason",
+    "rejection-reason-default": "Reason not specified",
+    "reject-popover": {
+      "title": "Provide a reason for rejection",
+      "placeholder": "Rejection reason...",
+      "cancel": "Cancel",
+      "confirm": "Reject"
+    },
+    "types": {
+      "ip": "Individual Entrepreneur",
+      "legal": "Legal Entity",
+      "self": "Self-Employed"
+    },
+    "table": {
+      "user": "User",
+      "company": "Company",
+      "inn": "TIN",
+      "email": "Email",
+      "phone": "Phone",
+      "type": "Type",
+      "description": "Description",
+      "no-description": "No description",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "form": {
+      "title": "Seller Registration",
+      "submit-button": "Submit Application",
+      "types": {
+        "IP": "Individual Entrepreneur (IE)",
+        "LEGAL": "Legal Entity (LLC, JSC, etc.)",
+        "SELF": "Self-Employed"
+      },
+      "inn-hint": {
+        "IP": "TIN for IE — 12 digits",
+        "SELF": "TIN for self-employed — 12 digits",
+        "LEGAL": "TIN for legal entity — 10 digits"
+      },
+      "fields": {
+        "registrationType": {
+          "label": "Registration Type"
+        },
+        "companyName": {
+          "label": "Company Name / Business Name",
+          "placeholder": "Ivanov Trading or 'Romashka' LLC"
+        },
+        "inn": {
+          "label": "TIN (Taxpayer Identification Number)",
+          "placeholder": "1234567890"
+        },
+        "phone": {
+          "label": "Phone Number",
+          "placeholder": "+7 (999) 123-45-67"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "shop@example.com"
+        },
+        "description": {
+          "label": "About Your Business",
+          "placeholder": "Tell us about your company..."
+        }
+      },
+      "agreement": {
+        "part1": "I agree to the",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy",
+        "part2": "and confirm that the information provided is accurate"
+      }
+    },
+    "actions": {
+      "approve": "Approve",
+      "reject": "Reject"
+    }
+  },
+
+  "dashboard": {
+    "title": "Dashboard",
+    "stats": {
+      "users": "Users",
+      "active-lots": "Active Lots",
+      "pending-requests": "Pending Requests"
+    },
+    "charts": {
+      "registrations": "Registrations (last {{ count }} days)",
+      "registrations-count": "registrations",
+      "date": "Date",
+      "lots-distribution": "Lots Distribution"
+    },
+    "lots": {
+      "active": "Active",
+      "completed": "Completed",
+      "expired": "Expired"
+    },
+    "days": "days"
+  },
+
+  "users": {
+    "title": "Users",
+    "loading": "Loading...",
+    "table": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "roles": "Roles",
+      "balance": "Balance",
+      "frozen-balance": "Frozen",
+      "registered": "Registration Date",
+      "actions": "Actions"
+    },
+    "actions": {
+      "edit-roles": "Edit roles"
+    },
+    "roles-modal": {
+      "title": "Edit roles",
+      "available": "Available roles",
+      "user-roles": "User roles"
+    }
   },
 
   "common": {
     "role": {
+      "user": "User",
       "vendor": "Vendor",
-      "user": "User"
+      "moderator": "Moderator",
+      "admin": "Admin"
     },
     "actions": {
       "back": "Return to catalog",
       "edit": "Edit",
       "save": "Save",
       "saving": "Saving...",
-      "create": "Create"
+      "create": "Create",
+      "ok": "OK",
+      "cancel": "Cancel"
     }
   }
 }

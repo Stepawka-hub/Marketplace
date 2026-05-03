@@ -9,10 +9,11 @@ import {
 import { ProductEntity } from '@/modules/product/entities';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { COMMON_API_PROPERTIES } from '@/common';
-import { USER_API_PROPERTIES, USER_ROLES, USER_VALIDATION } from '../constants';
-import { TUserRole } from '../types';
+import { USER_API_PROPERTIES, USER_VALIDATION } from '../constants';
 import { LotEntity } from '@/modules/lot/entities';
 import { BidEntity } from '@/modules/bid/entities';
+import { SellerRequestEntity } from '@/modules/seller-requests/entities';
+import { UserRoleEntity } from './user-roles.entity';
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -44,14 +45,6 @@ export class UserEntity {
   @Column({ type: 'text', nullable: true })
   avatar: string;
 
-  @ApiProperty(USER_API_PROPERTIES.ROLE)
-  @Column({
-    type: 'enum',
-    enum: USER_ROLES,
-    default: USER_ROLES.USER,
-  })
-  role: TUserRole;
-
   @ApiProperty(USER_API_PROPERTIES.BALANCE)
   @Column({
     type: 'decimal',
@@ -71,6 +64,9 @@ export class UserEntity {
   })
   frozenBalance: number;
 
+  @OneToMany(() => UserRoleEntity, (userRole) => userRole.user)
+  userRoles: UserRoleEntity[];
+
   @ApiProperty(USER_API_PROPERTIES.PRODUCTS)
   @OneToMany(() => ProductEntity, (product) => product.seller)
   products: ProductEntity[];
@@ -86,6 +82,9 @@ export class UserEntity {
   @ApiProperty(USER_API_PROPERTIES.WON_LOTS)
   @OneToMany(() => LotEntity, (lot) => lot.winner)
   wonLots: LotEntity[];
+
+  @OneToMany(() => SellerRequestEntity, (request) => request.user)
+  sellerRequests: SellerRequestEntity[];
 
   @ApiProperty(COMMON_API_PROPERTIES.CREATE_DATE)
   @CreateDateColumn({ name: 'created_at' })

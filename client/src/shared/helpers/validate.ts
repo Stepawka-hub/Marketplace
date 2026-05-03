@@ -1,17 +1,39 @@
 import { TFunction } from "i18next";
-import { LANGUAGES, LOT_STATUSES } from "../constants";
-import { TLanguage, TLotStatus } from "../types";
+import { LANGUAGES, LOT_STATUSES, REGISTRATION_TYPES } from "../constants";
+import { TLanguage, TLotStatus, TSellerRegistrationType } from "../types";
 
 const FORM_VALIDATION_KEY = "form.validation";
 
 export const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 export const PRICE_REGEX = /^\d+(\.\d{1,2})?$/;
+export const LEGAL_INN_REGEX = /^\d{10}$/;
+export const IP_INN_REGEX = /^\d{12}$/;
 
 export const isValidLanguage = (value: string): value is TLanguage =>
   LANGUAGES.includes(value as TLanguage);
 
 export const isLotStatus = (status: string): status is TLotStatus =>
   Object.values(LOT_STATUSES).includes(status as TLotStatus);
+
+export const innValidation = (
+  registrationType: TSellerRegistrationType,
+  t: TFunction,
+) => {
+  const pattern =
+    registrationType === REGISTRATION_TYPES.LEGAL
+      ? LEGAL_INN_REGEX
+      : IP_INN_REGEX;
+  const count = registrationType === REGISTRATION_TYPES.LEGAL ? 10 : 12;
+
+  const validation = {
+    pattern: {
+      value: pattern,
+      message: t(`${FORM_VALIDATION_KEY}.inn`, { count }),
+    },
+  };
+
+  return validation;
+};
 
 export const minLengthValidation = (minLength: number, t: TFunction) => ({
   minLength: {

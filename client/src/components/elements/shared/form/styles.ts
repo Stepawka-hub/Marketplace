@@ -9,9 +9,15 @@ export const formStyle: SxProps<Theme> = {
   borderWidth: "1px",
   borderStyle: "solid",
   borderColor: (theme: Theme) =>
-    theme.palette.mode === "dark" ? "custom.primary.main" : theme.palette.divider,
+    theme.palette.mode === "dark"
+      ? "custom.primary.main"
+      : theme.palette.divider,
 } as const;
 
 export const formTitleStyle: SxProps = {
-  mb: 3,
+  mb: {
+    xs: 1,
+    md: 2,
+    lg: 3,
+  },
 } as const;

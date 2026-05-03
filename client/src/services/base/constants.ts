@@ -5,8 +5,11 @@ export const HTTP_STATUS = {
   NOT_FOUND: 404,
 } as const;
 
+export const USER_TAG_TYPE = "User" as const;
 export const AUTH_TAG_TYPE = "Auth" as const;
 export const PRODUCT_TAG_TYPE = "Product" as const;
 export const FAVORITES_TAG_TYPE = "Favorites" as const;
 export const LOT_TAG_TYPE = "Lot" as const;
 export const BID_TAG_TYPE = "Bid" as const;
+export const SELLER_REQUEST_TAG_TYPE = "SellerRequest" as const;
+export const STATS_TAG_TYPE = "Stats" as const;

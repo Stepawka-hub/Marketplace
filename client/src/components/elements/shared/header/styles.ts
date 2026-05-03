@@ -9,5 +9,5 @@ export const toolbarStyle: SxProps = {
 export const headerPartStyle: SxProps = {
   display: "flex",
   alignItems: "center",
-  gap: 2,
+  gap: 1.75,
 } as const;

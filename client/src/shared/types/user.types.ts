@@ -11,9 +11,10 @@ export type TUserData = {
   firstName: string;
   lastName: string;
   avatar: string;
-  role: TUserRole;
+  roles: TUserRole[];
   balance: number;
   frozenBalance: number;
+  createdAt: string;
 };
 
 export type TShortUserData = {

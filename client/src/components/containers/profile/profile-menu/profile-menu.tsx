@@ -36,25 +36,25 @@ export const ProfileMenu: FC = () => {
     {
       text: t("profile.menu-items.profile"),
       icon: <PersonIcon />,
-      to: ROUTES.PROFILE,
+      to: ROUTES.PROFILE.ROOT,
     },
     {
       text: t("profile.menu-items.bids-history"),
       icon: <HistoryIcon />,
-      to: ROUTES.PROFILE_BIDS_HISTORY,
+      to: ROUTES.PROFILE.BIDS_HISTORY,
     },
     {
       text: t("profile.menu-items.seller-panel"),
       icon: <MonetizationOnIcon />,
-      to: ROUTES.PROFILE_SELLER_PANEL,
+      to: ROUTES.PROFILE.SELLER_PANEL,
     },
   ];
 
-  if (isVendor(data?.role || USER_ROLES.USER)) {
+  if (isVendor(data?.roles || [USER_ROLES.USER])) {
     menuItems.push({
       text: t("profile.menu-items.my-lots"),
       icon: <GavelIcon />,
-      to: ROUTES.PROFILE_MY_LOTS,
+      to: ROUTES.PROFILE.MY_LOTS,
     });
   }
 

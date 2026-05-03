@@ -6,8 +6,10 @@ import {
   HttpCode,
   HttpStatus,
   MaxFileSizeValidator,
+  Param,
   ParseFilePipe,
   Patch,
+  Query,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -18,12 +20,15 @@ import {
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
+  ApiQuery,
 } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { PaginationDto } from '@/common';
 import { UserService } from './user.service';
 import { UserEntity } from './entities';
-import { Authorization, Authorizated } from '@/modules/auth/decorators';
+import { Auth, Authorizated } from '@/modules/auth/decorators';
 import { UpdateUserDto } from './dto';
+import { USER_ROLES } from './constants';
 import { TUserDataResponse } from './types';
 
 @Controller('users')
@@ -37,7 +42,7 @@ export class UserController {
   })
   @ApiOkResponse({ type: UserEntity })
   @ApiNotFoundResponse({ description: 'Пользователь не найден' })
-  @Authorization()
+  @Auth()
   @Get('profile')
   @HttpCode(HttpStatus.OK)
   me(@Authorizated() user: UserEntity) {
@@ -55,7 +60,7 @@ export class UserController {
   })
   @ApiNotFoundResponse({ description: 'Пользователь не найден' })
   @ApiConflictResponse({ description: 'Email или телефон уже занят' })
-  @Authorization()
+  @Auth()
   @Patch('profile')
   @HttpCode(HttpStatus.OK)
   updateProfile(
@@ -80,7 +85,7 @@ export class UserController {
       },
     },
   })
-  @Authorization()
+  @Auth()
   @Patch('profile-avatar')
   @UseInterceptors(FileInterceptor('avatar'))
   updateAvatar(
@@ -96,5 +101,44 @@ export class UserController {
     file: Express.Multer.File,
   ) {
     return this.userService.uploadAvatar(user.id, file);
+  }
+
+  @ApiOperation({
+    summary: 'Получить всех пользователей (только админ)',
+  })
+  @ApiOkResponse({
+    description: 'Список всех пользователей',
+  })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    type: Number,
+    example: 1,
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    example: 10,
+  })
+  @Auth(USER_ROLES.ADMIN)
+  @Get('all')
+  getAllUsers(@Query() paginationDto: PaginationDto) {
+    return this.userService.getAllUsers(paginationDto);
+  }
+
+  @ApiOperation({
+    summary: 'Обновить роли пользователя (только админ)',
+  })
+  @ApiOkResponse({
+    description: 'Роли пользователя обновлены',
+  })
+  @ApiNotFoundResponse({
+    description: 'Пользователь не найден',
+  })
+  @Auth(USER_ROLES.ADMIN)
+  @Patch(':id/roles')
+  updateUserRoles(@Param('id') userId: string, @Body('roles') roles: string[]) {
+    return this.userService.updateUserRoles(userId, roles);
   }
 }

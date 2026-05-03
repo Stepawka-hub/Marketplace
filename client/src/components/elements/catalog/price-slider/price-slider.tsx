@@ -47,7 +47,6 @@ export const PriceSlider: FC<TPriceSliderProps> = ({
   const handleMinBlur = () => {
     let newMin = Number(tempMin);
 
-    // Если введено некорректное значение
     if (isNaN(newMin)) {
       setPriceValue([currentMin, currentMax]);
       setTempMin(String(currentMin));

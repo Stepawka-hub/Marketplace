@@ -1,8 +1,13 @@
 import { FC } from "react";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "@/store";
-import { getIsAuth, getIsAuthChecked } from "@/store/slices/profile";
+import {
+  getIsAuth,
+  getIsAuthChecked,
+  getUserRoles,
+} from "@/store/slices/profile";
 import { useGetMeQuery } from "@/services";
+import { isModerator } from "@/shared/helpers";
 
 import {
   FavoritesBadge,
@@ -12,20 +17,24 @@ import {
   ProfileBadge,
   AccountMenu,
 } from "@/components/containers";
-import { Header } from "@/components/elements";
-import { Paper } from "@mui/material";
+import { AdminBadge, Header } from "@/components/elements";
 import { Loader } from "@/components/ui";
+import { Paper } from "@mui/material";
 import { loaderRootStyle, paperRootStyle } from "./styles";
 
 export const AppLayout: FC = () => {
   const isAuth = useSelector(getIsAuth);
   const isAuthChecked = useSelector(getIsAuthChecked);
+  const userRoles = useSelector(getUserRoles);
   useGetMeQuery();
+
+  const isAdminOrModerator = isModerator(userRoles);
 
   const leftPartElements = (
     <>
       <LanguageSwitcher />
       <ThemeSwitcher />
+      {isAdminOrModerator && <AdminBadge />}
     </>
   );
 
