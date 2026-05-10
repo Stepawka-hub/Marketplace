@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { getTypeOrmConfig } from '@/config/typeorm';
+import { getYokassaConfig } from '@/config/yookassa';
 import { UserModule } from '@/modules/user';
 import { ProductModule } from '@/modules/product';
 import { StorageModule } from '@/modules/storage';
@@ -11,6 +12,8 @@ import { FavoritesModule } from '@/modules/favorites';
 import { LotModule } from '@/modules/lot';
 import { SellerRequestsModule } from '@/modules/seller-requests';
 import { StatsModule } from '@/modules/stats';
+import { YookassaModule } from 'nestjs-yookassa';
+import { PaymentModule } from './modules/payment/payment.module';
 
 @Module({
   imports: [
@@ -22,6 +25,11 @@ import { StatsModule } from '@/modules/stats';
       useFactory: getTypeOrmConfig,
       inject: [ConfigService],
     }),
+    YookassaModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: getYokassaConfig,
+      inject: [ConfigService],
+    }),
     UserModule,
     AuthModule,
     ProductModule,
@@ -31,6 +39,7 @@ import { StatsModule } from '@/modules/stats';
     LotModule,
     SellerRequestsModule,
     StatsModule,
+    PaymentModule,
   ],
 })
 export class AppModule {}
