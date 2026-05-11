@@ -13,3 +13,4 @@ export const LOT_TAG_TYPE = "Lot" as const;
 export const BID_TAG_TYPE = "Bid" as const;
 export const SELLER_REQUEST_TAG_TYPE = "SellerRequest" as const;
 export const STATS_TAG_TYPE = "Stats" as const;
+export const PAYMENT_TAG_TYPE = "Payment" as const;

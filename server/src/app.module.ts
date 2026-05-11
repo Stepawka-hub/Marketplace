@@ -12,8 +12,8 @@ import { FavoritesModule } from '@/modules/favorites';
 import { LotModule } from '@/modules/lot';
 import { SellerRequestsModule } from '@/modules/seller-requests';
 import { StatsModule } from '@/modules/stats';
+import { PaymentModule } from '@/modules/payment';
 import { YookassaModule } from 'nestjs-yookassa';
-import { PaymentModule } from './modules/payment/payment.module';
 
 @Module({
   imports: [

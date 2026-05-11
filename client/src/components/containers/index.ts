@@ -6,4 +6,5 @@ export * from "./catalog";
 export * from "./auth";
 export * from "./profile";
 export * from "./admin-panel";
+export * from "./payment";
 export * from "./shared";

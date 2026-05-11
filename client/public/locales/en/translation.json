@@ -455,6 +455,15 @@
     }
   },
 
+  "payment": {
+    "balance": {
+      "topup-title": "Top up balance",
+      "amount": "Amount",
+      "pay": "Pay",
+      "min-amount-hint": "Minimum top-up amount is {{min}} ₽"
+    }
+  },
+
   "common": {
     "role": {
       "user": "User",
@@ -468,6 +477,7 @@
       "save": "Save",
       "saving": "Saving...",
       "create": "Create",
+      "processing": "Processing...",
       "ok": "OK",
       "cancel": "Cancel"
     }

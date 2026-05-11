@@ -61,9 +61,10 @@ export class PaymentService {
 
       await this.paymentRepository.save(payment);
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const confirmationUrl = yookassaPayment.confirmation
-        ?.confirmation_url as string;
+      const confirmation = yookassaPayment.confirmation as {
+        confirmation_url: string;
+      };
+      const confirmationUrl = confirmation.confirmation_url;
 
       if (!confirmationUrl) {
         throw new BadRequestException('Не удалось получить ссылку на оплату');
