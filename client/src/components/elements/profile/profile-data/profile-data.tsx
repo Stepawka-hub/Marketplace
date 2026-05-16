@@ -3,13 +3,25 @@ import { useTranslation } from "react-i18next";
 import { formatBalance, formattedWithSpace } from "@/shared/helpers";
 import { ProfileAvatar } from "@/components/containers";
 import { InfoRow } from "@/components/elements";
-import { Box, Paper, Typography, Button, Stack, Chip } from "@mui/material";
 import {
+  Box,
+  Paper,
+  Typography,
+  Stack,
+  Chip,
+  Tooltip,
+  IconButton,
+} from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import {
+  actionsContainerStyle,
   balanceValueStyle,
   editButtonStyle,
   frozenBalanceValueStyle,
   profileBoxStyle,
   rolesContainerStyle,
+  topUpButtonStyle,
   userInfoWrapperStyle,
   wrapperStyle,
 } from "./styles";
@@ -25,6 +37,7 @@ export const ProfileDataUI: FC<TProfileDataUIProps> = ({
   balance,
   frozenBalance,
   onEditButtonClick,
+  onTopUpClick,
 }) => {
   const { t, i18n } = useTranslation();
 
@@ -64,13 +77,22 @@ export const ProfileDataUI: FC<TProfileDataUIProps> = ({
           </Stack>
         </Box>
 
-        <Button
-          variant="contained"
-          sx={editButtonStyle}
-          onClick={onEditButtonClick}
-        >
-          {t("common.actions.edit")}
-        </Button>
+        <Box sx={actionsContainerStyle}>
+          <Tooltip title={t("payment.balance.topup-title")}>
+            <IconButton
+              color="success"
+              sx={topUpButtonStyle}
+              onClick={onTopUpClick}
+            >
+              <AccountBalanceWalletIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title={t("common.actions.edit")}>
+            <IconButton sx={editButtonStyle} onClick={onEditButtonClick}>
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
+        </Box>
       </Box>
     </Paper>
   );

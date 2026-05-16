@@ -42,14 +42,6 @@ export const rolesContainerStyle: SxProps = {
   gap: "0.25rem",
 } as const;
 
-export const editButtonStyle: SxProps = {
-  alignSelf: {
-    xs: "center",
-    sm: "flex-start",
-  },
-  fontWeight: 600,
-} as const;
-
 export const balanceValueStyle: SxProps = {
   color: green[500],
   fontWeight: 600,
@@ -58,4 +50,24 @@ export const balanceValueStyle: SxProps = {
 export const frozenBalanceValueStyle: SxProps = {
   color: blue[500],
   fontWeight: 600,
+} as const;
+
+export const actionsContainerStyle: SxProps = {
+  display: "flex",
+  gap: 2,
+  alignItems: "center",
+  justifyContent: "flex-end",
+  flexWrap: "wrap",
+  mt: {
+    xs: 2,
+    sm: 0,
+  },
+} as const;
+
+export const topUpButtonStyle: SxProps = {
+  color: green[500],
+} as const;
+
+export const editButtonStyle: SxProps = {
+  color: "primary.main",
 } as const;

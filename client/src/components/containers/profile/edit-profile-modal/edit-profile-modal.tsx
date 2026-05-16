@@ -108,6 +108,7 @@ export const EditProfileModal: FC<TEditProfileModalProps> = ({
               label={getFieldTranslation(PHONE, "label")}
               placeholder={getFieldTranslation(PHONE, "placeholder")}
               error={!!errors.phone}
+              autoComplete="tel"
               startIcon={<PhoneIcon />}
               {...register(PHONE)}
             />

@@ -15,7 +15,12 @@ export const Modal: FC<TModalProps> = ({
   onClose,
 }) => {
   return (
-    <BaseModal open={isOpen} onClose={onClose} disableAutoFocus>
+    <BaseModal
+      open={isOpen}
+      onClose={onClose}
+      disableAutoFocus
+      disableEnforceFocus
+    >
       <Box sx={modalInnerWrapperStyle}>
         <Box sx={modalHeaderContainerStyle}>
           <Typography variant="h6" sx={modalTitleStyle}>

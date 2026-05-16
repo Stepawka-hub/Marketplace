@@ -10,4 +10,5 @@ export type TProfileDataUIProps = {
   balance: number;
   frozenBalance: number;
   onEditButtonClick: () => void;
+  onTopUpClick: () => void;
 };
