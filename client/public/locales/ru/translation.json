@@ -150,6 +150,12 @@
     "winner-badge": {
       "tool-tip": "Вы лидируете"
     },
+    "modal": {
+      "title": "Сделать ставку",
+      "amount": "Сумма ставки",
+      "min-amount-hint": "Минимальная ставка — {{min}} ₽",
+      "submit": "Подтвердить"
+    },
     "actions": {
       "place-bid": "Сделать ставку",
       "placing-bid": "Размещение ставки..."

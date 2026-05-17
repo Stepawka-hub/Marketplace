@@ -1,8 +1,8 @@
-export type TBalanceTopupUIProps = {
+export type TPlaceBidModalUIProps = {
   isOpen: boolean;
   isLoading: boolean;
   amount: string;
-  minValue: number;
+  minAllowedBid: number;
   setAmount: (amount: string) => void;
   onSubmit: () => void;
   onClose: () => void;

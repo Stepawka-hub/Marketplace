@@ -144,6 +144,12 @@
     "winner-badge": {
       "tool-tip": "You are in the lead"
     },
+    "modal": {
+      "title": "Place a bid",
+      "amount": "Bid amount",
+      "min-amount-hint": "Minimum bid is {{min}} ₽",
+      "submit": "Confirm"
+    },
     "actions": {
       "place-bid": "Place bid",
       "placing-bid": "Placing bid..."

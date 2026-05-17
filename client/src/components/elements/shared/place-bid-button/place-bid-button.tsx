@@ -18,12 +18,14 @@ export const PlaceBidButtonUI: FC<TPlaceBidButtonUIProps> = ({
   return (
     <Button
       variant="contained"
-      fullWidth
       startIcon={<GavelIcon />}
+      sx={{
+        justifyContent: "flex-start",
+      }}
       disabled={isPlacing}
       onClick={onClick}
     >
-      {t(isPlacing ? "bid.actions.placing-bid" : "bid.actions.place-bid")}
+      {t(isPlacing ? "bids.actions.placing-bid" : "bids.actions.place-bid")}
     </Button>
   );
 };

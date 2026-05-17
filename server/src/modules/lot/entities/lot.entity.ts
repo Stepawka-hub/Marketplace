@@ -13,6 +13,7 @@ import { UserEntity } from '@/modules/user/entities';
 import { ProductEntity } from '@/modules/product/entities';
 import { BidEntity } from '@/modules/bid/entities';
 import { COMMON_API_PROPERTIES } from '@/common';
+import { decimalToNumber } from '@/common/utils';
 import { LOT_API_PROPERTIES, LOT_STATUSES, LOT_VALIDATION } from '../constants';
 import { TLotStatus } from '../types';
 
@@ -29,6 +30,7 @@ export class LotEntity {
     precision: LOT_VALIDATION.PRICE.PRECISION,
     scale: LOT_VALIDATION.PRICE.SCALE,
     unsigned: true,
+    transformer: decimalToNumber,
   })
   startPrice: number;
 
@@ -39,6 +41,7 @@ export class LotEntity {
     precision: LOT_VALIDATION.PRICE.PRECISION,
     scale: LOT_VALIDATION.PRICE.SCALE,
     unsigned: true,
+    transformer: decimalToNumber,
   })
   currentPrice: number;
 
@@ -50,6 +53,7 @@ export class LotEntity {
     scale: LOT_VALIDATION.PRICE.SCALE,
     unsigned: true,
     default: LOT_VALIDATION.MIN_BID_INCREMENT.DEFAULT,
+    transformer: decimalToNumber,
   })
   minBidIncrement: number;
 

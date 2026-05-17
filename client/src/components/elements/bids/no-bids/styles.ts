@@ -7,7 +7,11 @@ export const containerStyle: SxProps = {
 } as const;
 
 export const titleStyle: SxProps = {
-  fontSize: "1.5rem",
+  fontSize: {
+    xs: "1.15rem",
+    sm: "1.25rem",
+    md: "1.5rem",
+  },
   fontWeight: 600,
 } as const;
 

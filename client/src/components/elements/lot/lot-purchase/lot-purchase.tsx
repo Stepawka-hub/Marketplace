@@ -9,7 +9,9 @@ import { TLotPurchaseProps } from "./type";
 export const LotPurchase: FC<TLotPurchaseProps> = ({
   lotId,
   sellerId,
+  currentWinnerId,
   price,
+  minBidIncrement,
 }) => {
   const { i18n } = useTranslation();
   const formattedPrice = formattedWithSpace(price, i18n.language);
@@ -20,7 +22,13 @@ export const LotPurchase: FC<TLotPurchaseProps> = ({
         <Typography sx={priceStyle}>{formattedPrice} ₽</Typography>
         <LikeButton lotId={lotId} />
       </Box>
-      <PlaceBidButton lotId={lotId} sellerId={sellerId} />
+      <PlaceBidButton
+        lotId={lotId}
+        sellerId={sellerId}
+        currentWinnerId={currentWinnerId}
+        currentPrice={price}
+        minBidIncrement={minBidIncrement}
+      />
     </Paper>
   );
 };

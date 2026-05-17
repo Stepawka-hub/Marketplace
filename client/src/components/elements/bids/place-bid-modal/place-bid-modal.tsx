@@ -9,7 +9,7 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import GavelIcon from "@mui/icons-material/Gavel";
 import {
   buttonsContainerStyle,
   dialogStyle,
@@ -17,13 +17,13 @@ import {
   titleContainerStyle,
   titleIconStyle,
 } from "./styles";
-import { TBalanceTopupUIProps } from "./types";
+import { TPlaceBidModalUIProps } from "./types";
 
-export const BalanceTopupUI: FC<TBalanceTopupUIProps> = ({
+export const PlaceBidModalUI: FC<TPlaceBidModalUIProps> = ({
   isOpen,
   isLoading,
   amount,
-  minValue,
+  minAllowedBid,
   setAmount,
   onSubmit,
   onClose,
@@ -38,12 +38,12 @@ export const BalanceTopupUI: FC<TBalanceTopupUIProps> = ({
   const handleBlur = () => {
     const amountNum = parseInt(amount, 10);
 
-    if (amount === "" || isNaN(amountNum) || amountNum < minValue) {
-      setAmount(minValue.toString());
+    if (amount === "" || isNaN(amountNum) || amountNum < minAllowedBid) {
+      setAmount(minAllowedBid.toString());
     }
   };
 
-  const isDisabled = isLoading || parseInt(amount, 10) < minValue;
+  const isDisabled = isLoading || parseInt(amount, 10) < minAllowedBid;
 
   return (
     <Dialog
@@ -54,18 +54,18 @@ export const BalanceTopupUI: FC<TBalanceTopupUIProps> = ({
       onClose={onClose}
     >
       <DialogTitle sx={titleContainerStyle}>
-        <AccountBalanceWalletIcon sx={titleIconStyle} />
-        {t("payment.balance.topup-title")}
+        <GavelIcon sx={titleIconStyle} />
+        {t("bids.modal.title")}
       </DialogTitle>
       <DialogContent>
         <Box sx={buttonsContainerStyle}>
           <TextField
-            label={t("payment.balance.amount")}
+            label={t("bids.modal.amount")}
             type="text"
             value={amount}
             slotProps={{
               htmlInput: {
-                min: minValue,
+                min: minAllowedBid,
                 pattern: "[0-9]*",
               },
             }}
@@ -76,7 +76,7 @@ export const BalanceTopupUI: FC<TBalanceTopupUIProps> = ({
             onChange={handleChange}
           />
           <Typography variant="caption" sx={minAmountHintStyle}>
-            {t("payment.balance.min-amount-hint", { min: minValue })}
+            {t("bids.modal.min-amount-hint", { min: minAllowedBid })}
           </Typography>
           <Button
             fullWidth
@@ -87,7 +87,7 @@ export const BalanceTopupUI: FC<TBalanceTopupUIProps> = ({
           >
             {isLoading
               ? t("common.actions.processing")
-              : t("payment.balance.pay")}
+              : t("bids.modal.submit")}
           </Button>
         </Box>
       </DialogContent>

@@ -5,6 +5,7 @@ import {
   BID_TAG_TYPE,
   TServerResponse,
 } from "../base";
+import { LOT_TAGS } from "../lot";
 import { TBidListResponse, TPlaceBidPayload } from "./types";
 import { TBid } from "@/shared/types";
 
@@ -33,6 +34,7 @@ export const bidAPI = baseAPI.injectEndpoints({
       }),
       invalidatesTags: (_, __, { lotId }) => [
         { type: BID_TAG_TYPE, id: lotId },
+        { type: LOT_TAGS.DETAIL.type, id: lotId },
       ],
       transformResponse: (response: TServerResponse<TBid>) => response.data,
     }),

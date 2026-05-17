@@ -10,7 +10,7 @@ export const dialogStyle: SxProps = {
   "& .MuiDialog-paper > *": {
     backgroundColor: "custom.primary.main",
   },
-};
+} as const;
 
 export const buttonsContainerStyle: SxProps = {
   display: "flex",

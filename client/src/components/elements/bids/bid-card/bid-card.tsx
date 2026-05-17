@@ -31,10 +31,12 @@ export const BidCard: FC<TBidCardProps> = ({ bid }) => {
     <Card variant="outlined" sx={cardStyle}>
       <CardContent sx={cardContentStyle}>
         <Box sx={userInfoStyle}>
-          <UserAvatar avatar={user.avatar} />
-          <Typography>
-            {`${user.firstName} ${user.lastName}`}
-          </Typography>
+          <UserAvatar
+            firstName={user.firstName}
+            lastName={user.lastName}
+            avatar={user.avatar}
+          />
+          <Typography>{`${user.firstName} ${user.lastName}`}</Typography>
           {isLeading && <EmojiEventsIcon sx={leaderIconStyle} />}
         </Box>
         <Typography sx={priceStyle(isLeading)}>{formattedPrice} ₽</Typography>

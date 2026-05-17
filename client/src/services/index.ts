@@ -3,6 +3,7 @@ export * from "./auth";
 export * from "./user";
 export * from "./product";
 export * from "./lot";
+export * from "./bid";
 export * from "./favorites";
 export * from "./seller-requests";
 export * from "./payment";
