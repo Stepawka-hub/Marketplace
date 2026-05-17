@@ -1,6 +1,7 @@
 import { AppModule } from './app.module';
 
 import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { SWAGGER_PATH } from './config/swagger';
@@ -10,7 +11,7 @@ import * as cookieParser from 'cookie-parser';
 import { ServerLogger, setupSwagger } from './utils';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const port = process.env.PORT ?? 3000;
   const globalLogger = new Logger('Global logger');
 
@@ -25,11 +26,13 @@ async function bootstrap() {
   app.use(loggerMiddleware(globalLogger));
   app.use(cookieParser());
 
+  app.set('trust proxy', true);
+
   const config = app.get(ConfigService);
 
   // Todo: Убрать
   app.enableCors({
-    origin: [config.getOrThrow<string>('ALLOWED_ORIGINS').split(',')],
+    origin: config.getOrThrow<string>('ALLOWED_ORIGINS').split(','),
     credentials: true,
   });
 

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userAPI } from "@/services";
+import { authAPI, userAPI } from "@/services";
 import { USER_ROLES } from "@/shared/constants";
 import { TProfileState } from "./types";
 
@@ -28,6 +28,10 @@ const profileSlice = createSlice({
       .addMatcher(userAPI.endpoints.getMe.matchRejected, (state) => {
         state.isAuth = false;
         state.isAuthChecked = true;
+      })
+      .addMatcher(authAPI.endpoints.logout.matchFulfilled, (state) => {
+        state.isAuth = false;
+        state.userRoles = [USER_ROLES.USER];
       });
   },
 });

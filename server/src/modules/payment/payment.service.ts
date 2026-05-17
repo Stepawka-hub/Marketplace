@@ -12,6 +12,8 @@ import { UserEntity } from '@/modules/user/entities';
 import { PaymentEntity } from './entities/payment.entity';
 import { CreatePaymentDto } from './dto';
 import { ApiResponse } from '@/common';
+import { PAYMENT_EVENTS, PAYMENT_STATUSES } from './constants';
+import { TYookassaWebhook } from './types';
 
 @Injectable()
 export class PaymentService {
@@ -80,5 +82,46 @@ export class PaymentService {
     } catch {
       throw new BadRequestException('Ошибка при создании платежа');
     }
+  }
+
+  async handleWebhook(body: TYookassaWebhook) {
+    const { event, object } = body;
+
+    if (event === PAYMENT_EVENTS.SUCCEEDED) {
+      const paymentId = object.id;
+      const amount = parseFloat(object.amount.value);
+      const userId = object.metadata.userId;
+
+      const payment = await this.paymentRepository.findOne({
+        where: {
+          yookassaPaymentId: paymentId,
+        },
+        relations: ['user'],
+      });
+
+      if (!payment || payment.status === PAYMENT_STATUSES.SUCCEEDED) {
+        return {
+          received: true,
+        };
+      }
+
+      payment.status = PAYMENT_STATUSES.SUCCEEDED;
+      await this.paymentRepository.save(payment);
+
+      const user = payment.user;
+
+      const currentBalance = Number(user.balance) || 0;
+      const newBalance = currentBalance + amount;
+
+      await this.userRepository.update(user.id, {
+        balance: newBalance,
+      });
+
+      console.log(`✅ Balance topped up: user ${userId}, +${amount} RUB`);
+    }
+
+    return {
+      received: true,
+    };
   }
 }

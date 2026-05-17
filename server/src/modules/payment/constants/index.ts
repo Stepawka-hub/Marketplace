@@ -1,1 +1,1 @@
-export { PAYMENT_STATUSES } from './payment.constants';
+export { PAYMENT_STATUSES, PAYMENT_EVENTS } from './payment.constants';
