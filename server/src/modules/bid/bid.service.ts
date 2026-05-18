@@ -19,6 +19,7 @@ import { LOT_STATUSES } from '../lot/constants';
 import { BID_STATUSES } from './constants';
 import { TBidActionResponse, TBidPaginatedResponse } from './types';
 import { BidMapper } from './mappers';
+import { BALANCE_ACTIONS } from '../user/constants';
 
 @Injectable()
 export class BidService {
@@ -85,7 +86,9 @@ export class BidService {
     dto: CreateBidDto,
   ): Promise<TBidActionResponse> {
     const lot = await this.lotRepository.findOne({
-      where: { id: lotId },
+      where: {
+        id: lotId,
+      },
       relations: ['bids'],
     });
 
@@ -113,8 +116,31 @@ export class BidService {
       throw new BadRequestException('Insufficient funds to place a bet');
     }
 
-    // Замораживаем деньги
-    await this.userService.updateFrozenBalance(userId, dto.amount, 'freeze');
+    // Размораживаем баланс старого лидера
+    const currentWinnerId = lot.currentWinnerId;
+
+    if (currentWinnerId) {
+      const winnerBid = lot.bids?.find(
+        (b) => b.userId === currentWinnerId && b.status === BID_STATUSES.ACTIVE,
+      );
+
+      if (winnerBid) {
+        await this.userService.updateFrozenBalance(
+          currentWinnerId,
+          winnerBid.amount,
+          BALANCE_ACTIONS.UNFREEZE,
+        );
+        winnerBid.status = BID_STATUSES.OUTBID;
+        await this.bidRepository.save(winnerBid);
+      }
+    }
+
+    // Замораживаем баланс нового лидера
+    await this.userService.updateFrozenBalance(
+      userId,
+      dto.amount,
+      BALANCE_ACTIONS.FREEZE,
+    );
 
     // Создаём ставку
     const bid = this.bidRepository.create({
@@ -124,30 +150,6 @@ export class BidService {
       status: BID_STATUSES.ACTIVE,
     });
     await this.bidRepository.save(bid);
-
-    // Обновляем предыдущие ставки пользователя
-    const previousBids = await this.bidRepository.find({
-      where: {
-        lotId,
-        userId,
-        status: BID_STATUSES.ACTIVE,
-      },
-      order: {
-        createdAt: 'DESC',
-      },
-    });
-
-    for (const prevBid of previousBids) {
-      if (prevBid.id !== bid.id) {
-        prevBid.status = BID_STATUSES.OUTBID;
-        await this.bidRepository.save(prevBid);
-        await this.userService.updateFrozenBalance(
-          userId,
-          -prevBid.amount,
-          'unfreeze',
-        );
-      }
-    }
 
     // Обновляем лот
     await this.lotRepository.update(lotId, {

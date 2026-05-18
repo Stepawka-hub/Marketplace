@@ -9,6 +9,7 @@ import {
 import { UserEntity } from '@/modules/user/entities';
 import { PAYMENT_STATUSES } from '../constants';
 import { TPaymentStatus } from '../types';
+import { decimalToNumber } from '@/common/utils';
 
 @Entity('payments')
 export class PaymentEntity {
@@ -30,6 +31,7 @@ export class PaymentEntity {
     type: 'decimal',
     precision: 10,
     scale: 2,
+    transformer: decimalToNumber,
   })
   amount: number;
 

@@ -20,6 +20,7 @@ import {
   TUserDataResponse,
   TUserRole,
 } from './types';
+import { BALANCE_ACTIONS } from './constants';
 
 @Injectable()
 export class UserService {
@@ -135,18 +136,21 @@ export class UserService {
   ): Promise<void> {
     const user = await this.findById(userId);
 
-    if (action === 'freeze') {
-      const availableBalance = user.balance - user.frozenBalance;
-      if (availableBalance < amount) {
-        throw new BadRequestException('Not enough freezing funds');
-      }
-      user.frozenBalance += amount;
-    } else {
-      user.frozenBalance -= amount;
+    const currentBalance = Number(user.balance);
+    const currentFrozen = Number(user.frozenBalance);
 
-      if (user.frozenBalance < 0) {
-        user.frozenBalance = 0;
+    if (action === BALANCE_ACTIONS.FREEZE) {
+      if (currentBalance < amount) {
+        throw new BadRequestException(
+          `Not enough funds: ${currentBalance} < ${amount}`,
+        );
       }
+
+      user.balance = currentBalance - amount;
+      user.frozenBalance = currentFrozen + amount;
+    } else if (action === BALANCE_ACTIONS.UNFREEZE) {
+      user.balance = currentBalance + amount;
+      user.frozenBalance = Math.max(0, currentFrozen - amount);
     }
 
     await this.userRepository.save(user);
