@@ -10,14 +10,19 @@ export const LotsList: FC = () => {
   const filters = useSelector(getFilters);
 
   const { page, limit, defaultPagination, handlePageChange } = usePagination();
-  const { data, isLoading } = useGetAllLotsQuery({
-    page,
-    limit,
-    search: searchQuery,
-    status: filters.status,
-    minPrice: filters.price.min,
-    maxPrice: filters.price.max,
-  });
+  const { data, isLoading } = useGetAllLotsQuery(
+    {
+      page,
+      limit,
+      search: searchQuery,
+      status: filters.status,
+      minPrice: filters.price.min,
+      maxPrice: filters.price.max,
+    },
+    {
+      pollingInterval: 120000,
+    },
+  );
 
   const pagination = data?.meta || defaultPagination;
 

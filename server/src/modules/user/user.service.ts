@@ -129,6 +129,15 @@ export class UserService {
     );
   }
 
+  async updateBalance(userId: string, amount: number) {
+    const user = await this.findById(userId);
+
+    user.balance = Number(user.balance) + amount;
+    await this.userRepository.save(user);
+
+    return user;
+  }
+
   async updateFrozenBalance(
     userId: string,
     amount: number,
@@ -142,7 +151,7 @@ export class UserService {
     if (action === BALANCE_ACTIONS.FREEZE) {
       if (currentBalance < amount) {
         throw new BadRequestException(
-          `Not enough funds: ${currentBalance} < ${amount}`,
+          `Недостаточно средств: ${currentBalance} < ${amount}`,
         );
       }
 

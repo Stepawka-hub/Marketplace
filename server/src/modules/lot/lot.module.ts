@@ -6,15 +6,18 @@ import { LotEntity } from './entities';
 import { ProductModule } from '@/modules/product';
 import { BidEntity } from '../bid/entities';
 import { StorageModule } from '../storage';
+import { UserModule } from '../user';
+import { LotCronService } from './lot-cron.service';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([LotEntity, BidEntity]),
     ProductModule,
     StorageModule,
+    UserModule,
   ],
   controllers: [LotController],
-  providers: [LotService],
+  providers: [LotService, LotCronService],
   exports: [LotService],
 })
 export class LotModule {}
