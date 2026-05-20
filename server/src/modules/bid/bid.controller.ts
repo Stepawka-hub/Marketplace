@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Param, Body, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Param,
+  Body,
+  Query,
+  Delete,
+} from '@nestjs/common';
 import {
   ApiTags,
   ApiBearerAuth,
@@ -15,6 +23,7 @@ import { PaginationDto } from '@/common';
 import {
   BidActionResponseDto,
   BidPaginatedResponseDto,
+  CreateAutoBidDto,
   CreateBidDto,
 } from './dto';
 
@@ -65,7 +74,10 @@ export class BidController {
     description: 'Ставка успешно сделана',
     type: BidActionResponseDto,
   })
-  @ApiParam({ name: 'lotId', description: 'ID лота' })
+  @ApiParam({
+    name: 'lotId',
+    description: 'ID лота',
+  })
   @Auth()
   @Post()
   placeBid(
@@ -74,5 +86,63 @@ export class BidController {
     @Body() dto: CreateBidDto,
   ) {
     return this.bidService.placeBid(userId, lotId, dto);
+  }
+
+  @ApiOperation({
+    summary: 'Включить автоставку (только для текущего лидера)',
+  })
+  @ApiCreatedResponse({
+    description: 'Автоставка успешно включена',
+  })
+  @ApiParam({
+    name: 'lotId',
+    description: 'ID лота',
+  })
+  @Auth()
+  @Post('auto')
+  async enableAutoBid(
+    @Authorizated('id') userId: string,
+    @Param('lotId') lotId: string,
+    @Body() dto: CreateAutoBidDto,
+  ) {
+    return this.bidService.enableAutoBid(userId, lotId, dto.maxAmount);
+  }
+
+  @ApiOperation({
+    summary: 'Отключить автоставку',
+  })
+  @ApiOkResponse({
+    description: 'Автоставка успешно отключена',
+  })
+  @ApiParam({
+    name: 'lotId',
+    description: 'ID лота',
+  })
+  @Auth()
+  @Delete('auto')
+  async deleteAutoBid(
+    @Authorizated('id') userId: string,
+    @Param('lotId') lotId: string,
+  ) {
+    return this.bidService.deleteAutoBid(userId, lotId);
+  }
+
+  @ApiOperation({
+    summary: 'Получить автоставку пользователя',
+  })
+  @ApiOkResponse({
+    description: 'Автоставка успешно получена',
+  })
+  @ApiParam({
+    name: 'lotId',
+    description: 'ID лота',
+  })
+  @Auth()
+  @Get('auto')
+  async getUserAutoBid(
+    @Authorizated('id') userId: string,
+    @Param('lotId') lotId: string,
+  ) {
+    return this.bidService.getUserAutoBid(userId, lotId);
   }
 }
