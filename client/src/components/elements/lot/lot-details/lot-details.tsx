@@ -13,7 +13,7 @@ import {
 } from "./styles";
 import { TLotDetailsUIProps } from "./types";
 
-export const LotDetailsUI: FC<TLotDetailsUIProps> = ({ lot }) => {
+export const LotDetailsUI: FC<TLotDetailsUIProps> = ({ lot, hasAutoBid = false }) => {
   const { name, media, description, seller } = lot.product;
   const { currentPrice, minBidIncrement, currentWinner, endTime } = lot;
 
@@ -35,6 +35,7 @@ export const LotDetailsUI: FC<TLotDetailsUIProps> = ({ lot }) => {
             currentWinnerId={currentWinner?.id}
             price={currentPrice}
             minBidIncrement={minBidIncrement}
+            hasAutoBid={hasAutoBid}
           />
           <ProductMeta seller={seller} description={description} />
           <Paper variant="outlined" sx={countdownTimerWrapperStyle}>

@@ -3,3 +3,7 @@ export * from "./bids-badge";
 export * from "./bid-card";
 export * from "./bids-list";
 export * from "./place-bid-modal";
+export * from "./place-bid-button";
+export * from "./enable-autobid-button";
+export * from "./disable-autobid-button";
+export * from './enable-autobid-modal';

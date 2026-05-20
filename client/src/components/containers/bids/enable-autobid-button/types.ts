@@ -1,8 +1,7 @@
-export type TLotPurchaseProps = {
+export type TEnableAutobidButtonProps = {
   lotId: string;
   sellerId: string;
   currentWinnerId?: string;
-  price: number;
+  currentPrice: number;
   minBidIncrement: number;
-  hasAutoBid?: boolean;
 };

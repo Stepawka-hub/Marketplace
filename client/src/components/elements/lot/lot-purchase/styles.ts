@@ -21,4 +21,10 @@ export const priceStyle: SxProps = {
   },
   color: green[500],
   fontWeight: 600,
-};
+} as const;
+
+export const actionsContainerStyle: SxProps = {
+  display: "flex",
+  justifyContent: "flex-start",
+  gap: 1,
+} as const;

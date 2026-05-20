@@ -150,9 +150,17 @@
       "min-amount-hint": "Minimum bid is {{min}} ₽",
       "submit": "Confirm"
     },
+    "modal-autobid": {
+      "title": "Auto bid",
+      "max-amount": "Maximum amount",
+      "min-amount-hint": "Minimum bid is {{min}} ₽",
+      "submit": "Enable"
+    },
     "actions": {
       "place-bid": "Place bid",
-      "placing-bid": "Placing bid..."
+      "placing-bid": "Placing bid...",
+      "enable-autobid": "Enable auto bid",
+      "disable-autobid": "Disable auto bid"
     }
   },
 

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useGetLotByIdQuery } from "@/services";
+import { useGetLotByIdQuery, useGetUserAutoBidQuery } from "@/services";
 import { NotFound, LotDetailsUI } from "@/components/elements";
 import { Loader } from "@/components/ui";
 import { TLotDetailsProps } from "./type";
@@ -9,7 +9,14 @@ export const LotDetails: FC<TLotDetailsProps> = ({ lotId }) => {
     pollingInterval: 30000,
   });
 
-  if (isLoading) {
+  const { data: autoBid, isLoading: isFetchAutoBidInfo } =
+    useGetUserAutoBidQuery({
+      lotId,
+    });
+
+  const hasAutoBid = !!autoBid && autoBid.active;
+
+  if (isLoading || isFetchAutoBidInfo) {
     return <Loader />;
   }
 
@@ -17,5 +24,5 @@ export const LotDetails: FC<TLotDetailsProps> = ({ lotId }) => {
     return <NotFound />;
   }
 
-  return <LotDetailsUI lot={lot} />;
+  return <LotDetailsUI lot={lot} hasAutoBid={hasAutoBid} />;
 };

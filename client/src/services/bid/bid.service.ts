@@ -7,7 +7,13 @@ import {
   AUTH_TAG_TYPE,
 } from "../base";
 import { LOT_TAGS } from "../lot";
-import { TBidListResponse, TPlaceBidPayload } from "./types";
+import {
+  TAutoBid,
+  TAutoBidActionPayload,
+  TBidListResponse,
+  TPlaceAutoBidPayload,
+  TPlaceBidPayload,
+} from "./types";
 import { TBid } from "@/shared/types";
 
 export const bidAPI = baseAPI.injectEndpoints({
@@ -40,7 +46,48 @@ export const bidAPI = baseAPI.injectEndpoints({
       ],
       transformResponse: (response: TServerResponse<TBid>) => response.data,
     }),
+
+    enableAutoBid: build.mutation<TAutoBid, TPlaceAutoBidPayload>({
+      query: ({ lotId, maxAmount }) => ({
+        url: `/lots/${lotId}/bids/auto`,
+        method: "POST",
+        body: { maxAmount },
+      }),
+      invalidatesTags: (_, __, { lotId }) => [
+        { type: BID_TAG_TYPE, id: lotId },
+        { type: LOT_TAGS.DETAIL.type, id: lotId },
+        AUTH_TAG_TYPE,
+      ],
+      transformResponse: (response: TServerResponse<TAutoBid>) => response.data,
+    }),
+
+    disableAutoBid: build.mutation<void, TAutoBidActionPayload>({
+      query: ({ lotId }) => ({
+        url: `/lots/${lotId}/bids/auto`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (_, __, { lotId }) => [
+        { type: BID_TAG_TYPE, id: lotId },
+        { type: LOT_TAGS.DETAIL.type, id: lotId },
+        AUTH_TAG_TYPE,
+      ],
+    }),
+
+    getUserAutoBid: build.query<TAutoBid | null, TAutoBidActionPayload>({
+      query: ({ lotId }) => ({
+        url: `/lots/${lotId}/bids/auto`,
+      }),
+      providesTags: (_, __, { lotId }) => [{ type: BID_TAG_TYPE, id: lotId }],
+      transformResponse: (response: TServerResponse<TAutoBid | null>) =>
+        response.data,
+    }),
   }),
 });
 
-export const { useGetLotBidsQuery, usePlaceBidMutation } = bidAPI;
+export const {
+  useGetLotBidsQuery,
+  usePlaceBidMutation,
+  useEnableAutoBidMutation,
+  useDisableAutoBidMutation,
+  useGetUserAutoBidQuery,
+} = bidAPI;
