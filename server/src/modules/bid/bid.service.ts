@@ -235,7 +235,9 @@ export class BidService {
 
   async enableAutoBid(userId: string, lotId: string, maxAmount: number) {
     const lot = await this.lotRepository.findOne({
-      where: { id: lotId },
+      where: {
+        id: lotId,
+      },
     });
 
     if (!lot) {
@@ -246,23 +248,26 @@ export class BidService {
       throw new BadRequestException('Только лидер может включать автоставку');
     }
 
-    const nextAmount = lot.currentPrice + lot.minBidIncrement;
-
-    if (nextAmount > maxAmount) {
+    if (maxAmount <= lot.currentPrice) {
       throw new BadRequestException(
-        'Максимальная ставка слишком мала для следующей ставки',
+        'Максимальная сумма должна быть больше текущей цены',
       );
     }
 
-    // Ставим ставку
-    await this.placeBid(
-      userId,
-      lotId,
-      {
-        amount: nextAmount,
+    const existingAutoBid = await this.autoBidRepository.findOne({
+      where: {
+        userId,
+        lotId,
+        active: true,
       },
-      true,
-    );
+    });
+
+    if (existingAutoBid) {
+      existingAutoBid.maxAmount = maxAmount;
+      await this.autoBidRepository.save(existingAutoBid);
+
+      return ApiResponse.success(existingAutoBid, 'Автоставка обновлена');
+    }
 
     // Сохраняем автоставку
     const autoBid = this.autoBidRepository.create({
@@ -272,7 +277,7 @@ export class BidService {
     });
     await this.autoBidRepository.save(autoBid);
 
-    return ApiResponse.success(autoBid, 'Auto bid enabled');
+    return ApiResponse.success(autoBid, 'Автоставка включена');
   }
 
   // Удаление автоставки
