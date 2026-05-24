@@ -13,6 +13,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { COMMON_API_PROPERTIES } from '@/common';
 import { BID_STATUSES, BID_VALIDATION, BID_API_PROPERTIES } from '../constants';
 import { TBidStatus } from '../types';
+import { decimalToNumber } from '@/common/utils';
 
 @Entity('bids')
 export class BidEntity {
@@ -47,6 +48,7 @@ export class BidEntity {
     precision: BID_VALIDATION.AMOUNT.PRECISION,
     scale: BID_VALIDATION.AMOUNT.SCALE,
     unsigned: true,
+    transformer: decimalToNumber,
   })
   amount: number;
 

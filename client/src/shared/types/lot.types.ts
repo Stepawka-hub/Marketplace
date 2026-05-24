@@ -1,5 +1,6 @@
 import { LOT_STATUSES } from "../constants";
 import { TProductDetails, TProductListItem } from "./product.types";
+import { TShortUserData } from "./user.types";
 
 export type TLotStatus = (typeof LOT_STATUSES)[keyof typeof LOT_STATUSES];
 
@@ -10,7 +11,7 @@ export type TLotBase = {
   startTime: string;
   endTime: string;
   status: TLotStatus;
-  currentPrice?: number;
+  currentPrice: number;
   createdAt: string;
   updatedAt: string;
 };
@@ -18,6 +19,7 @@ export type TLotBase = {
 export type TLotDetails = TLotBase & {
   productId: string;
   product: TProductDetails;
+  currentWinner: TShortUserData | null;
 };
 
 export type TLotListItem = TLotBase & {

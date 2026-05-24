@@ -1,7 +1,8 @@
 import { FC, MouseEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { Button } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import GavelIcon from "@mui/icons-material/Gavel";
+import { buttonStyle } from "./styles";
 import { TPlaceBidButtonUIProps } from "./type";
 
 export const PlaceBidButtonUI: FC<TPlaceBidButtonUIProps> = ({
@@ -16,14 +17,15 @@ export const PlaceBidButtonUI: FC<TPlaceBidButtonUIProps> = ({
   };
 
   return (
-    <Button
-      variant="contained"
-      fullWidth
-      startIcon={<GavelIcon />}
-      disabled={isPlacing}
-      onClick={onClick}
-    >
-      {t(isPlacing ? "bid.actions.placing-bid" : "bid.actions.place-bid")}
-    </Button>
+    <Tooltip title={t("bids.actions.place-bid")}>
+      <IconButton
+        color="success"
+        sx={buttonStyle}
+        disabled={isPlacing}
+        onClick={onClick}
+      >
+        <GavelIcon />
+      </IconButton>
+    </Tooltip>
   );
 };

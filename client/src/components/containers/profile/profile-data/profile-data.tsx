@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useGetMeQuery } from "@/services/user";
-import { EditProfileModal } from "@/components/containers";
+import { BalanceTopup, EditProfileModal } from "@/components/containers";
 import { ProfileDataUI } from "@/components/elements";
 import { Loader } from "@/components/ui";
 import { Typography } from "@mui/material";
@@ -11,6 +11,7 @@ export const ProfileData: FC = () => {
 
   const { data, isLoading, refetch } = useGetMeQuery();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isTopupOpen, setIsTopupOpen] = useState(false);
 
   if (isLoading) {
     return <Loader />;
@@ -28,15 +29,28 @@ export const ProfileData: FC = () => {
     setIsModalOpen(false);
   };
 
+  const openBalanceTopup = () => {
+    setIsTopupOpen(true);
+  };
+
+  const closeBalanceTopup = () => {
+    setIsTopupOpen(false);
+  };
+
   return (
     <>
-      <ProfileDataUI {...data} onEditButtonClick={openEditProfileModal} />
+      <ProfileDataUI
+        {...data}
+        onEditButtonClick={openEditProfileModal}
+        onTopUpClick={openBalanceTopup}
+      />
       <EditProfileModal
         isOpen={isModalOpen}
         userData={data}
         onClose={closeEditProfileModal}
         onSuccess={refetch}
       />
+      <BalanceTopup isOpen={isTopupOpen} onClose={closeBalanceTopup} />
     </>
   );
 };

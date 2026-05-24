@@ -1,4 +1,3 @@
-// components/containers/UserRolesModal/UserRolesModal.tsx
 import { FC, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -24,6 +23,7 @@ import {
 import { TUserRole } from "@/shared/types";
 import { TUserRolesModalProps } from "./types";
 
+// Todo: component/element
 export const UserRolesModal: FC<TUserRolesModalProps> = ({
   open,
   userId,

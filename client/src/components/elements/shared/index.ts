@@ -13,7 +13,6 @@ export * from "./password-input";
 export * from "./pagination";
 export * from "./like-button";
 export * from "./back-button";
-export * from "./place-bid-button";
 export * from "./like-button";
 export * from "./language-switcher";
 export * from "./theme-switcher";

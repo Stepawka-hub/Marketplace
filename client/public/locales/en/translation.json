@@ -144,9 +144,23 @@
     "winner-badge": {
       "tool-tip": "You are in the lead"
     },
+    "modal": {
+      "title": "Place a bid",
+      "amount": "Bid amount",
+      "min-amount-hint": "Minimum bid is {{min}} ₽",
+      "submit": "Confirm"
+    },
+    "modal-autobid": {
+      "title": "Auto bid",
+      "max-amount": "Maximum amount",
+      "min-amount-hint": "Minimum bid is {{min}} ₽",
+      "submit": "Enable"
+    },
     "actions": {
       "place-bid": "Place bid",
-      "placing-bid": "Placing bid..."
+      "placing-bid": "Placing bid...",
+      "enable-autobid": "Enable auto bid",
+      "disable-autobid": "Disable auto bid"
     }
   },
 
@@ -455,6 +469,15 @@
     }
   },
 
+  "payment": {
+    "balance": {
+      "topup-title": "Top up balance",
+      "amount": "Amount",
+      "pay": "Pay",
+      "min-amount-hint": "Minimum top-up amount is {{min}} ₽"
+    }
+  },
+
   "common": {
     "role": {
       "user": "User",
@@ -468,6 +491,7 @@
       "save": "Save",
       "saving": "Saving...",
       "create": "Create",
+      "processing": "Processing...",
       "ok": "OK",
       "cancel": "Cancel"
     }

@@ -14,6 +14,7 @@ import { LotEntity } from '@/modules/lot/entities';
 import { BidEntity } from '@/modules/bid/entities';
 import { SellerRequestEntity } from '@/modules/seller-requests/entities';
 import { UserRoleEntity } from './user-roles.entity';
+import { decimalToNumber } from '@/common/utils';
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -51,6 +52,7 @@ export class UserEntity {
     precision: USER_VALIDATION.BALANCE.PRECISION,
     scale: USER_VALIDATION.BALANCE.SCALE,
     default: USER_VALIDATION.BALANCE.DEFAULT,
+    transformer: decimalToNumber,
   })
   balance: number;
 
@@ -61,6 +63,7 @@ export class UserEntity {
     precision: USER_VALIDATION.FROZEN_BALANCE.PRECISION,
     scale: USER_VALIDATION.FROZEN_BALANCE.SCALE,
     default: USER_VALIDATION.FROZEN_BALANCE.DEFAULT,
+    transformer: decimalToNumber,
   })
   frozenBalance: number;
 

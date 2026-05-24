@@ -11,10 +11,15 @@ import { TBidsListProps } from "./type";
 export const BidsList: FC<TBidsListProps> = ({ lotId }) => {
   const { t } = useTranslation();
   const { page, limit, defaultPagination, handlePageChange } = usePagination();
-  const { data, isLoading } = useGetLotBidsQuery({
-    lotId,
-    params: { page, limit },
-  });
+  const { data, isLoading } = useGetLotBidsQuery(
+    {
+      lotId,
+      params: { page, limit },
+    },
+    {
+      pollingInterval: 30000,
+    },
+  );
 
   const pagination = data?.meta || defaultPagination;
 

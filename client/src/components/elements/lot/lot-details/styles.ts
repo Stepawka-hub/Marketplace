@@ -1,4 +1,6 @@
-import { SxProps } from "@mui/material";
+import { THEMES_MAP } from "@/shared/constants";
+import { SxProps, Theme } from "@mui/material";
+import { yellow } from "@mui/material/colors";
 
 export const gridMainContainerStyle: SxProps = {
   display: "flex",
@@ -37,4 +39,20 @@ export const productNameStyle: SxProps = {
 
 export const dividerStyle: SxProps = {
   my: 3,
+} as const;
+
+export const countdownTimerWrapperStyle: SxProps<Theme> = {
+  display: "flex",
+  alignItems: "center",
+  gap: 1,
+  p: 2,
+  backgroundColor: "custom.primary.main",
+  fontSize: {
+    xs: "1.05rem",
+    sm: "1.25rem",
+    md: "1.35rem",
+  },
+  fontWeight: 600,
+  color: (theme) =>
+    theme.palette.mode === THEMES_MAP.DARK ? yellow[700] : yellow[800],
 } as const;

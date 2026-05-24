@@ -7,10 +7,10 @@ export class RoleEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ unique: true })
+  @Column({ length: 64, unique: true })
   name: TUserRole;
 
-  @Column({ nullable: true })
+  @Column({ length: 128, nullable: true })
   description: string;
 
   @OneToMany(() => UserRoleEntity, (userRole) => userRole.role)

@@ -139,7 +139,7 @@ export class LotService {
         },
       },
       order: {
-        endTime: 'ASC',
+        createdAt: 'DESC',
       },
       skip,
       take: limit,

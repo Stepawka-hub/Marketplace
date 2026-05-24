@@ -1,15 +1,23 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { formattedWithSpace } from "@/shared/helpers";
-import { PlaceBidButton, LikeButton } from "@/components/containers";
+import {
+  PlaceBidButton,
+  LikeButton,
+  EnableAutoBidButton,
+} from "@/components/containers";
 import { Box, Paper, Typography } from "@mui/material";
-import { contentBoxStyle, priceStyle, wrapperStyle } from "./styles";
+import { actionsContainerStyle, contentBoxStyle, priceStyle, wrapperStyle } from "./styles";
 import { TLotPurchaseProps } from "./type";
+import { DisableAutoBidButton } from "@/components/containers";
 
 export const LotPurchase: FC<TLotPurchaseProps> = ({
   lotId,
   sellerId,
+  currentWinnerId,
   price,
+  minBidIncrement,
+  hasAutoBid = false,
 }) => {
   const { i18n } = useTranslation();
   const formattedPrice = formattedWithSpace(price, i18n.language);
@@ -20,7 +28,26 @@ export const LotPurchase: FC<TLotPurchaseProps> = ({
         <Typography sx={priceStyle}>{formattedPrice} ₽</Typography>
         <LikeButton lotId={lotId} />
       </Box>
-      <PlaceBidButton lotId={lotId} sellerId={sellerId} />
+      <Box sx={actionsContainerStyle}>
+        <PlaceBidButton
+          lotId={lotId}
+          sellerId={sellerId}
+          currentWinnerId={currentWinnerId}
+          currentPrice={price}
+          minBidIncrement={minBidIncrement}
+        />
+        {hasAutoBid ? (
+          <DisableAutoBidButton lotId={lotId} />
+        ) : (
+          <EnableAutoBidButton
+            lotId={lotId}
+            sellerId={sellerId}
+            currentWinnerId={currentWinnerId}
+            currentPrice={price}
+            minBidIncrement={minBidIncrement}
+          />
+        )}
+      </Box>
     </Paper>
   );
 };

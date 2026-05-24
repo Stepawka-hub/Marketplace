@@ -1,22 +1,13 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { RoleEntity } from './roles.entity';
 
 @Entity('user_roles')
 export class UserRoleEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
-  @Column({ name: 'user_id' })
+  @PrimaryColumn({ type: 'uuid', name: 'user_id' })
   userId: string;
 
-  @Column({ name: 'role_id' })
+  @PrimaryColumn({ type: 'uuid', name: 'role_id' })
   roleId: string;
 
   @ManyToOne(() => UserEntity, (user) => user.userRoles)

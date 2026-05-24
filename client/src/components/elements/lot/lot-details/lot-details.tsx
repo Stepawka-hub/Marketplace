@@ -1,8 +1,10 @@
 import { FC } from "react";
-import { ProductImages } from "@/components/containers";
+import { CountdownTimer, ProductImages } from "@/components/containers";
 import { ProductMeta, LotPurchase } from "@/components/elements";
-import { Box, Divider, Grid, Typography } from "@mui/material";
+import { Box, Divider, Grid, Paper, Typography } from "@mui/material";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import {
+  countdownTimerWrapperStyle,
   dividerStyle,
   gridMainContainerStyle,
   productContentStyle,
@@ -11,9 +13,9 @@ import {
 } from "./styles";
 import { TLotDetailsUIProps } from "./types";
 
-export const LotDetailsUI: FC<TLotDetailsUIProps> = ({ lot }) => {
+export const LotDetailsUI: FC<TLotDetailsUIProps> = ({ lot, hasAutoBid = false }) => {
   const { name, media, description, seller } = lot.product;
-  const { currentPrice = 0 } = lot;
+  const { currentPrice, minBidIncrement, currentWinner, endTime } = lot;
 
   return (
     <Box>
@@ -30,9 +32,16 @@ export const LotDetailsUI: FC<TLotDetailsUIProps> = ({ lot }) => {
           <LotPurchase
             lotId={lot.id}
             sellerId={seller.id}
+            currentWinnerId={currentWinner?.id}
             price={currentPrice}
+            minBidIncrement={minBidIncrement}
+            hasAutoBid={hasAutoBid}
           />
           <ProductMeta seller={seller} description={description} />
+          <Paper variant="outlined" sx={countdownTimerWrapperStyle}>
+            <AccessTimeIcon />
+            <CountdownTimer targetDate={endTime} />
+          </Paper>
         </Grid>
       </Grid>
 

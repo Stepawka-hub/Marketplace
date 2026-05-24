@@ -9,7 +9,7 @@ import { ConfigService } from '@nestjs/config';
 
 import { UserService } from '@/modules/user/user.service';
 import { LotEntity } from '@/modules/lot/entities';
-import { BidEntity } from './entities';
+import { AutoBidEntity, BidEntity } from './entities';
 import { StorageService } from '../storage';
 
 import { ApiPaginatedResponse, ApiResponse } from '@/common/helpers';
@@ -19,6 +19,7 @@ import { LOT_STATUSES } from '../lot/constants';
 import { BID_STATUSES } from './constants';
 import { TBidActionResponse, TBidPaginatedResponse } from './types';
 import { BidMapper } from './mappers';
+import { BALANCE_ACTIONS } from '../user/constants';
 
 @Injectable()
 export class BidService {
@@ -28,6 +29,8 @@ export class BidService {
   constructor(
     @InjectRepository(BidEntity)
     private readonly bidRepository: Repository<BidEntity>,
+    @InjectRepository(AutoBidEntity)
+    private readonly autoBidRepository: Repository<AutoBidEntity>,
     @InjectRepository(LotEntity)
     private readonly lotRepository: Repository<LotEntity>,
     private readonly userService: UserService,
@@ -83,38 +86,66 @@ export class BidService {
     userId: string,
     lotId: string,
     dto: CreateBidDto,
+    isAutoBid: boolean = false,
   ): Promise<TBidActionResponse> {
     const lot = await this.lotRepository.findOne({
-      where: { id: lotId },
+      where: {
+        id: lotId,
+      },
       relations: ['bids'],
     });
 
     if (!lot) {
-      throw new NotFoundException('Lot not found');
+      throw new NotFoundException('Лот не найден');
     }
 
     if (lot.status !== LOT_STATUSES.ACTIVE) {
-      throw new BadRequestException('Auction is not active');
+      throw new BadRequestException('Аукцион не активен');
     }
 
     if (new Date() > lot.endTime) {
-      throw new BadRequestException('The auction has already ended');
+      throw new BadRequestException('Аукцион уже завершён');
     }
 
     const minBid = lot.currentPrice + lot.minBidIncrement;
+
     if (dto.amount < minBid) {
-      throw new BadRequestException(`Minimum bid: ${minBid} ₽`);
+      throw new BadRequestException(`Минимальная ставка: ${minBid} ₽`);
     }
 
     const user = await this.userService.findById(userId);
     const availableBalance = user.balance - user.frozenBalance;
 
     if (availableBalance < dto.amount) {
-      throw new BadRequestException('Insufficient funds to place a bet');
+      throw new BadRequestException(
+        'Недостаточно средств, чтобы сделать ставку',
+      );
     }
 
-    // Замораживаем деньги
-    await this.userService.updateFrozenBalance(userId, dto.amount, 'freeze');
+    // Размораживаем баланс старого лидера
+    const oldWinnerId = lot.currentWinnerId;
+    if (oldWinnerId && oldWinnerId !== userId) {
+      const oldWinnerBid = lot.bids?.find(
+        (b) => b.userId === oldWinnerId && b.status === BID_STATUSES.ACTIVE,
+      );
+
+      if (oldWinnerBid) {
+        await this.userService.updateFrozenBalance(
+          oldWinnerId,
+          oldWinnerBid.amount,
+          BALANCE_ACTIONS.UNFREEZE,
+        );
+        oldWinnerBid.status = BID_STATUSES.OUTBID;
+        await this.bidRepository.save(oldWinnerBid);
+      }
+    }
+
+    // Замораживаем баланс нового лидера
+    await this.userService.updateFrozenBalance(
+      userId,
+      dto.amount,
+      BALANCE_ACTIONS.FREEZE,
+    );
 
     // Создаём ставку
     const bid = this.bidRepository.create({
@@ -125,35 +156,15 @@ export class BidService {
     });
     await this.bidRepository.save(bid);
 
-    // Обновляем предыдущие ставки пользователя
-    const previousBids = await this.bidRepository.find({
-      where: {
-        lotId,
-        userId,
-        status: BID_STATUSES.ACTIVE,
-      },
-      order: {
-        createdAt: 'DESC',
-      },
-    });
-
-    for (const prevBid of previousBids) {
-      if (prevBid.id !== bid.id) {
-        prevBid.status = BID_STATUSES.OUTBID;
-        await this.bidRepository.save(prevBid);
-        await this.userService.updateFrozenBalance(
-          userId,
-          -prevBid.amount,
-          'unfreeze',
-        );
-      }
-    }
-
     // Обновляем лот
     await this.lotRepository.update(lotId, {
       currentPrice: dto.amount,
       currentWinnerId: userId,
     });
+
+    if (!isAutoBid && oldWinnerId && oldWinnerId !== userId) {
+      await this.tryTriggerAutoBid(lotId, oldWinnerId, dto.amount);
+    }
 
     return ApiResponse.success(
       {
@@ -164,5 +175,138 @@ export class BidService {
       },
       'Ставка успешно сделана',
     );
+  }
+
+  private async tryTriggerAutoBid(
+    lotId: string,
+    oldWinnerId: string,
+    newBidAmount: number,
+  ) {
+    const autoBid = await this.autoBidRepository.findOne({
+      where: {
+        userId: oldWinnerId,
+        lotId,
+        active: true,
+      },
+    });
+
+    if (!autoBid) {
+      return;
+    }
+
+    const lot = await this.lotRepository.findOne({
+      where: {
+        id: lotId,
+      },
+    });
+
+    if (!lot) {
+      return;
+    }
+
+    const minStep = lot.minBidIncrement;
+    const nextAmount = newBidAmount + minStep;
+
+    // Достигнут лимит - отключаем автоставку
+    if (nextAmount > autoBid.maxAmount) {
+      autoBid.active = false;
+      await this.autoBidRepository.save(autoBid);
+      return;
+    }
+
+    // Проверяем баланс, если не хватает денег - отключаем автоставку
+    const user = await this.userService.findById(oldWinnerId);
+    if (user.balance - user.frozenBalance < nextAmount) {
+      autoBid.active = false;
+      await this.autoBidRepository.save(autoBid);
+      return;
+    }
+
+    // Ставим автоставку
+    await this.placeBid(
+      oldWinnerId,
+      lotId,
+      {
+        amount: nextAmount,
+      },
+      true,
+    );
+  }
+
+  async enableAutoBid(userId: string, lotId: string, maxAmount: number) {
+    const lot = await this.lotRepository.findOne({
+      where: {
+        id: lotId,
+      },
+    });
+
+    if (!lot) {
+      throw new NotFoundException('Лот не найден');
+    }
+
+    if (lot.currentWinnerId !== userId) {
+      throw new BadRequestException('Только лидер может включать автоставку');
+    }
+
+    if (maxAmount <= lot.currentPrice) {
+      throw new BadRequestException(
+        'Максимальная сумма должна быть больше текущей цены',
+      );
+    }
+
+    const existingAutoBid = await this.autoBidRepository.findOne({
+      where: {
+        userId,
+        lotId,
+        active: true,
+      },
+    });
+
+    if (existingAutoBid) {
+      existingAutoBid.maxAmount = maxAmount;
+      await this.autoBidRepository.save(existingAutoBid);
+
+      return ApiResponse.success(existingAutoBid, 'Автоставка обновлена');
+    }
+
+    // Сохраняем автоставку
+    const autoBid = this.autoBidRepository.create({
+      userId,
+      lotId,
+      maxAmount,
+    });
+    await this.autoBidRepository.save(autoBid);
+
+    return ApiResponse.success(autoBid, 'Автоставка включена');
+  }
+
+  // Удаление автоставки
+  async deleteAutoBid(userId: string, lotId: string) {
+    const autoBid = await this.autoBidRepository.findOne({
+      where: {
+        userId,
+        lotId,
+        active: true,
+      },
+    });
+
+    if (autoBid) {
+      autoBid.active = false;
+      await this.autoBidRepository.save(autoBid);
+    }
+
+    return ApiResponse.success(null, 'Автоставка отключена');
+  }
+
+  async getUserAutoBid(userId: string, lotId: string) {
+    const autoBid = await this.autoBidRepository.findOne({
+      where: {
+        userId,
+        lotId,
+        active: true,
+      },
+    });
+
+    return ApiResponse.success(autoBid || null, 'Автоставка получена');
   }
 }
