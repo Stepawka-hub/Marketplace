@@ -10,9 +10,14 @@ export const LotDetails: FC<TLotDetailsProps> = ({ lotId }) => {
   });
 
   const { data: autoBid, isLoading: isFetchAutoBidInfo } =
-    useGetUserAutoBidQuery({
-      lotId,
-    });
+    useGetUserAutoBidQuery(
+      {
+        lotId,
+      },
+      {
+        pollingInterval: 30000,
+      },
+    );
 
   const hasAutoBid = !!autoBid && autoBid.active;
 

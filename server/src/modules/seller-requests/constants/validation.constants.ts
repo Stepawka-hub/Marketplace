@@ -19,9 +19,6 @@ export const SELLER_REQUEST_VALIDATION = {
   DESCRIPTION: {
     MAX: 512,
   },
-  STATUS: {
-    MAX: 20,
-  },
   REJECTION_REASON: {
     MAX: 255,
   },

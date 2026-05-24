@@ -8,6 +8,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { BID_VALIDATION } from '../constants';
 
 @Entity('auto_bids')
 export class AutoBidEntity {
@@ -20,7 +21,12 @@ export class AutoBidEntity {
   @Column({ name: 'lot_id' })
   lotId: string;
 
-  @Column({ name: 'max_amount' })
+  @Column({
+    name: 'max_amount',
+    type: 'decimal',
+    precision: BID_VALIDATION.AMOUNT.PRECISION,
+    scale: BID_VALIDATION.AMOUNT.SCALE,
+  })
   maxAmount: number;
 
   @Column({ default: true })

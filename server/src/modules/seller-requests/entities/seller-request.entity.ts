@@ -35,6 +35,7 @@ export class SellerRequestEntity {
 
   @ApiProperty(SELLER_REQUEST_API_PROPERTIES.REGISTRATION_TYPE)
   @Column({
+    name: 'registration_type',
     type: 'enum',
     enum: REGISTRATION_TYPES,
     default: REGISTRATION_TYPES.IP,
@@ -75,8 +76,9 @@ export class SellerRequestEntity {
 
   @ApiProperty(SELLER_REQUEST_API_PROPERTIES.STATUS)
   @Column({
+    type: 'enum',
+    enum: SELLER_REQUEST_STATUSES,
     default: SELLER_REQUEST_STATUSES.PENDING,
-    length: SELLER_REQUEST_VALIDATION.STATUS.MAX,
   })
   status: string;
 
